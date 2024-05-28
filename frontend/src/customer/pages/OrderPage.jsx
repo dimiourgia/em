@@ -1,6 +1,18 @@
 import React from 'react'
-
+// import { useDispatch, useSelector } from "react-redux";
+// import { findProductsById } from '../../State/Product/Action';
 const OrderPage = () => {
+
+    // const { orderId } = useSelector((state) => state)
+    // const dispatch = useDispatch();
+
+    // useEffect(() => {
+    //     const data = { productId: params.productId };
+    //     dispatch(findProductsById(data));
+    // }, [params.productId]);
+
+
+
     return (
         <>
             <div className='mx-auto  max-w-[1000px] mt-[20px]'>

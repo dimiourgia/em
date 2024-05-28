@@ -229,7 +229,7 @@ const Product = () => {
 
                         </div>
                     </div>
-                    <div className="min-h-[100px] bg-teal-500 sm:col-span-9">
+                    <div className="min-h-[100px]  sm:col-span-9">
                         <div className='flex flex-wrap justify-center bg-white py-5'>
                             {products && products.map((product) => (
                                 <ProductCard product={product} key={product._id} />

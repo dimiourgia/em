@@ -38,13 +38,13 @@ const ProductsTable = () => {
                                 <TableCell align="left">Title</TableCell>
                                 <TableCell align="left">Category</TableCell>
                                 <TableCell align="left">Price</TableCell>
-                                <TableCell align="left">Quantity</TableCell>
+                                {/* <TableCell align="left">Quantity</TableCell> */}
 
                                 <TableCell align="left">Delete</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody >
-                            {products.map((item,index) => (
+                            {products.map((item, index) => (
                                 <TableRow
                                     key={index}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -56,9 +56,9 @@ const ProductsTable = () => {
                                         {item.title}
                                     </TableCell>
 
-                                    <TableCell align="left">{item.category.name}</TableCell>
+                                    <TableCell align="left">{item.category}</TableCell>
                                     <TableCell align="left">{item.price}</TableCell>
-                                    <TableCell align="left">{item.quantity}</TableCell>
+                                    {/* <TableCell align="left">{item.quantity}</TableCell> */}
                                     <TableCell align="left">
                                         <Button onClick={() => handleProductDelete(item._id)}>Delete</Button>
                                     </TableCell>

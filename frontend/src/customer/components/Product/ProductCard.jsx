@@ -3,6 +3,7 @@ import "./ProductCard.css";
 import { useNavigate } from "react-router-dom";
 //niche jo product hai vo props hai
 const ProductCard = ({ product }) => {
+  console.log("this is the card page", product )
   const navigate = useNavigate();
   return (
     <>
