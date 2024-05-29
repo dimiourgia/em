@@ -16,7 +16,7 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 function NavList() {
   return (
-    <List className="flex items-center lg:flex-row flex-col lg:items-center lg:w-auto w-full">
+    <List className="flex lg:ml-[300px] items-center lg:flex-row flex-col lg:items-center lg:w-auto w-full">
       <Typography
         as={Link}
         to="/products"
@@ -222,7 +222,7 @@ export default function Head() {
         <div className="hidden lg:block">
           <NavList />
         </div>
-        <div className="flex items-center justify-center">
+        <div className="flex ml-[140px] items-center justify-center">
           <form className="mx-auto w-max lg:block hidden">
             <div className="relative">
               <img
@@ -286,7 +286,7 @@ export default function Head() {
 
         <div
           color="blue-gray"
-          className="lg:hidden"
+          className="lg:hidden mr-[30px]"
           onClick={() => setOpenNav(!openNav)}
           style={{ position: "relative" }}
         >

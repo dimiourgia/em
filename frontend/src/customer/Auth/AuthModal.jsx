@@ -14,12 +14,13 @@ const style = {
   outline: "none",
   boxShadow: 24,
   p: 4,
+  
 };
 
 const AuthModal = ({ handleClose, open }) => {
   const location = useLocation();
   return (
-    <div>
+    <div >
       <Modal
         open={open}
         onClose={handleClose}

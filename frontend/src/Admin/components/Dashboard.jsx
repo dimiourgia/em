@@ -7,7 +7,7 @@ import ProductsTable from './ProductsTable';
 const AdminDashboard = () => {
     return (
         <div className='p-10'>
-            <Grid container spacing={2}>
+            {/* <Grid container spacing={2}>
                 <Grid item xs={12} md={4}>
 
                     <Achivement />
@@ -19,7 +19,7 @@ const AdminDashboard = () => {
                 <Grid item xs={12} md={8}>
 
                 </Grid>
-            </Grid>
+            </Grid> */}
         </div>
     )
 }

@@ -101,8 +101,8 @@ const Admin = () => {
               element={<CreateProductForm />}
             ></Route>
             <Route path="/products" element={<ProductsTable />}></Route>
-            <Route path="/orders" element={<OrdersTable />}></Route>
-            <Route path="/customers" element={<CustomersTable />}></Route>
+            {/* <Route path="/orders" element={<OrdersTable />}></Route>
+            <Route path="/customers" element={<CustomersTable />}></Route> */}
           </Routes>
         </div>
       </div>
