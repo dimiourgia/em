@@ -6,7 +6,7 @@ import Head from "../components/Navbar/Head";
 import Footer from "../components/Footer/Footer";
 import Product from "../components/Product/Product";
 import ProductDetails from "../components/ProductDetails/ProductDetails";
-// import PaymentSuccess from "../customer/Components/paymentSuccess/PaymentSuccess";
+import PaymentSuccess from "../components/Payment/PaymentSuccess";
 import Checkout from "../components/Checkout/Checkout";
 
 import JournalPage from "../pages/JournalPage";
@@ -52,7 +52,7 @@ const CustomerRouters = () => {
         <Route path="/order" element={<OrderPage />}></Route>
         {/* <Route path="/producttest" element={<Producttest />}></Route> */}
 
-        {/* <Route path="/payment/:orderId" element={<PaymentSuccess />}></Route> */}
+        <Route path="/payment/:orderId" element={<PaymentSuccess />}></Route>
 
         {/* https://tailwindui.com/components/ecommerce/components/product-overviews */}
         {/* <ProductDetails /> */}

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert, AlertTitle, Box, Grid } from "@mui/material";
-import { deepPurple } from "@mui/material/colors";
-import StarIcon from "@mui/icons-material/Star";
 import { getOrderById } from "../../../State/Order/Action";
 import { updatePayment } from "../../../State/Payment/Action";
 // import OrderTraker from "../orders/OrderTraker";
@@ -10,22 +8,17 @@ import AddressCard from "../AdressCard/AdressCard";
 import { useParams } from "react-router-dom";
 
 const PaymentSuccess = () => {
-  // razorpay_payment_link_reference_id
-
-  // razorpay_payment_id
   const [paymentId, setPaymentId] = useState("");
   const [referenceId, setReferenceId] = useState("");
   const [paymentStatus, setPaymentStatus] = useState("");
-  const {orderId}=useParams();
-
-  
+  const { orderId } = useParams();
 
   const jwt = localStorage.getItem("jwt");
   const dispatch = useDispatch();
-  const { order } = useSelector((store) => store);
+  const { order } = useSelector((state) => state);
 
   useEffect(() => {
-    console.log("orderId",orderId)
+    console.log("orderId", orderId);
     const urlParams = new URLSearchParams(window.location.search);
     setPaymentId(urlParams.get("razorpay_payment_id"));
     setReferenceId(urlParams.get("razorpay_payment_link_reference_id"));
@@ -49,34 +42,35 @@ const PaymentSuccess = () => {
           sx={{ mb: 6, width: "fit-content" }}
         >
           <AlertTitle>Payment Success</AlertTitle>
-          Congratulation Your Order Get Placed
+          Congratulations, your order has been placed.
         </Alert>
       </div>
 
       {/* <OrderTraker activeStep={1}/> */}
 
       <Grid container className="space-y-5 py-5 pt-20">
-        {order.order?.orderItems.map((item) => (
+        {order.order?.orderItems.map((item, index) => (
           <Grid
+            key={index}
             container
             item
             className="shadow-xl rounded-md p-5 border"
             sx={{ alignItems: "center", justifyContent: "space-between" }}
           >
             <Grid item xs={6}>
-              {" "}
-              <div className="flex  items-center ">
+              <div className="flex items-center">
                 <img
-                  className="w-[5rem] h-[5rem] object-cover object-top"
+                  className="w-20 h-20 object-cover object-top"
                   src={item?.product.imageUrl}
-                  alt=""
+                  alt={item?.product.title}
                 />
                 <div className="ml-5 space-y-2">
-                  <p className="">{item.product.title}</p>
-                  <p className="opacity-50 text-xs font-semibold space-x-5">
-                    <span>Color: pink</span> <span>Size: {item.size}</span>
+                  <p>{item.product.title}</p>
+                  <p className="opacity-50 text-sm font-semibold">
+                    <span>Color: Change model DB????  {item.color}</span>
+                    <span className="ml-5">Size: {item.size}</span>
                   </p>
-                  <p>Seller: {item.product.brand}</p>
+                  <p className="opacity-50 text-xs">Seller: {item.product.brand}</p>
                   <p>₹{item.price}</p>
                 </div>
               </div>
