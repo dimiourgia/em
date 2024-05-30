@@ -3,6 +3,7 @@ import React from 'react'
 const JournalDetailPage = () => {
     return (
         <>
+        <div className='w-full md:w-1/3 px-3 mb-[100px]'>
             <h1 className='font-ijk text-center text-xs  text-gray-800  mt-[100px] '>
                 Apr 01, 2024
             </h1>
@@ -61,7 +62,7 @@ const JournalDetailPage = () => {
                     alt="asd"
                 />
             </div>
-
+</div>
         </>
     )
 }

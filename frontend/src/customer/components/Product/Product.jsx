@@ -46,7 +46,7 @@ const Product = () => {
                     Online Boutique
                 </h1>
             </div>
-            <div className='container mx-auto'>
+            <div className='container mx-auto mt-[100px]'>
                 <div className="grid gap-4 sm:grid-cols-12">
                     <div className="min-h-[100px] bg-white sm:col-span-3">
                         <div>
