@@ -1,19 +1,21 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const BottomJournal = () => {
+
+    const navigate = useNavigate();
     return (
         <>
             <h1 className='font-ijk text-center text-3xl  text-black  mt-[100px] '>
                 From the Journal
             </h1>
-            <Link to='/journal'>
-                <h1 className='text-center mt-[10px]'>
-                    <button class="bg-white tracking-widest font-ijk hover:bg-gray-100 text-gray-800  py-2 px-4 border border-gray-400 ">
-                        VIEW ALL
-                    </button>
-                </h1>
-            </Link>
+
+            <h1 className='text-center mt-[10px]'>
+                <button onClick={() => navigate("/journal")} class="bg-white tracking-widest font-ijk hover:bg-gray-100 text-gray-800  py-2 px-4 border border-gray-400 ">
+                    VIEW ALL
+                </button>
+            </h1>
+
 
             {/* 1st row journal */}
             <div className='grid gap-5 mt-[100px] ml-[50px] mr-[50px] sm:grid-cols-3'>

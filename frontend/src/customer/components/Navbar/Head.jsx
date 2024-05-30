@@ -22,7 +22,7 @@ function NavList() {
         to="/products"
         variant="small"
         color="blue-gray"
-        className="font-medium text-base"
+        className="font-medium text-base uppercase  font-abc"
       >
         <ListItem className="">Our Products</ListItem>
       </Typography>
@@ -32,7 +32,7 @@ function NavList() {
         to="/about"
         variant="small"
         color="blue-gray"
-        className="font-medium text-base"
+        className="font-medium text-base uppercase  font-abc"
       >
         <ListItem className="">About Us</ListItem>
       </Typography>
@@ -41,7 +41,7 @@ function NavList() {
         to="/journal"
         variant="small"
         color="blue-gray"
-        className="font-medium text-base"
+        className="font-medium text-base uppercase  font-abc"
       >
         <ListItem className="">
           Journal

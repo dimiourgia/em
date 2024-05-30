@@ -19,6 +19,7 @@ const items = [
             <GradeIcon />
             <GradeIcon />
         </div>
+        <div  className='w-full md:w-1/3 px-3 md:mb-0'>
         <p className='font-ijk text-center text-lg  text-black mt-[30px] underline  '>
             Gorgeous dress!
         </p>
@@ -28,6 +29,7 @@ const items = [
         <p className='font-ijk text-center text-lg  text-black mt-[30px] '>
             Darlsy P
         </p>
+        </div>
 
     </div>,
     //2
@@ -39,6 +41,7 @@ const items = [
             <GradeIcon />
             <GradeIcon />
         </div>
+        <div  className='w-full md:w-1/3 px-3 md:mb-0'>
         <p className='font-ijk text-center text-lg  text-black mt-[30px] underline '>
             I love my dress
         </p>
@@ -48,6 +51,7 @@ const items = [
         <p className='font-ijk text-center text-lg  text-black mt-[30px] '>
             Paula Davidson, Australia
         </p>
+        </div>
 
     </div>,
     //3
@@ -59,6 +63,7 @@ const items = [
             <GradeIcon />
             <GradeIcon />
         </div>
+        <div className='w-full md:w-1/3 px-3 md:mb-0'>
         <p className='font-ijk text-center text-lg  text-black mt-[30px] underline '>
             The most beautiful piece of clothing I own
         </p>
@@ -68,6 +73,7 @@ const items = [
         <p className='font-ijk text-center text-lg  text-black mt-[30px] '>
             Savanna
         </p>
+        </div>
 
     </div>,
     // <div className="item bg-red-500  mt-[100px]" data-value="2">2</div>,
