@@ -8,9 +8,9 @@ import {
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-
 import AuthModal from "../../Auth/AuthModal";
 import { useDispatch, useSelector } from "react-redux";
+import { filterProducts } from "../../../State/Product/Action";
 import { getUser, logout } from "../../../State/Auth/Action";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
@@ -45,7 +45,7 @@ function NavList() {
       >
         <ListItem className="">
           Journal
-        </ListItem>
+          </ListItem>
       </Typography>
     </List>
   );
@@ -61,14 +61,13 @@ export default function Head() {
   const dispatch = useDispatch();
   const location = useLocation();
   const jwt = localStorage.getItem("jwt");
-  const { auth } = useSelector((store) => store);
-
+  const auth = useSelector((state) => state.auth);
+  const filteredProducts = useSelector(state => state.products.filterProducts);
+  
   const handleUserClick = (event) => {
-    // console.log("User icon clicked");
     setAnchorEl(event.currentTarget);
   };
   const handleCloseUserMenu = () => {
-    // console.log("Menu closed");
     setAnchorEl(null);
   };
 
@@ -99,6 +98,10 @@ export default function Head() {
       navigate(-1);
     }
   }, [auth.user]);
+
+  function handleSearchStringChange(event){
+    dispatch(filterProducts(event.target.value))
+  }
 
   return (
     <div className="nav-container mx-auto bg-white">
@@ -132,24 +135,36 @@ export default function Head() {
           <div className="py-1 animate-marquee whitespace-nowrap">
             <span className="ml-8"></span>
             <FiberManualRecordIcon style={{ fontSize: '10px' }} />
-            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span><span className="italic">Be YOU</span>
-            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
             <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
-            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span><span className="italic">Be YOU</span>
-            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+            <span className="italic"> Be BOLD</span>
             <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
-            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span><span className="italic">Be YOU</span>
-            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+            <span className="italic">Be YOU</span>
             <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
-            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span><span className="italic">Be YOU</span>
-            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+            <span className="italic">Be UNSTOPPABLE</span>
+            <span className="ml-8"></span>
+            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
+            <span className="ml-8"></span>
+            <span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be YOU</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be UNSTOPPABLE</span>
+            <span className="ml-8"></span>
+            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
+            <span className="ml-8"></span>
+            <span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be YOU</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be UNSTOPPABLE</span>
+            <span className="ml-8"></span>
+            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
+            <span className="ml-8"></span>
+            <span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be YOU</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be UNSTOPPABLE</span>
 
             {/* <span className="mx-4 text-4xl">1</span> */}
             {/* <span className="mx-4 text-4xl">2</span>
@@ -159,27 +174,38 @@ export default function Head() {
           </div>
 
           <div className="absolute top-0 py-1 animate-marquee2 whitespace-nowrap">
-
             <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
-            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span><span className="italic">Be YOU</span>
-            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
             <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
-            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span><span className="italic">Be YOU</span>
-            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+            <span className="italic"> Be BOLD</span>
             <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
-            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span><span className="italic">Be YOU</span>
-            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+            <span className="italic">Be YOU</span>
             <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
-            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span><span className="italic">Be YOU</span>
-            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+            <span className="italic">Be UNSTOPPABLE</span>
+            <span className="ml-8"></span>
+            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
+            <span className="ml-8"></span>
+            <span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be YOU</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be UNSTOPPABLE</span>
+            <span className="ml-8"></span>
+            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
+            <span className="ml-8"></span>
+            <span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be YOU</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be UNSTOPPABLE</span>
+            <span className="ml-8"></span>
+            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
+            <span className="ml-8"></span>
+            <span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be YOU</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be UNSTOPPABLE</span>
             {/* <span className="mx-4 text-4xl">6</span> */}
             {/* <span className="mx-4 text-4xl">7</span>
             <span className="mx-4 text-4xl">8</span>
@@ -188,16 +214,11 @@ export default function Head() {
           </div>
         </div>
 
-
-
-
-
         {/* <p className="italic font-medium">
           Be BOLD<span className="ml-8"></span>Be YOU
           <span className="ml-8"></span>Be UNSTOPPABLE
         </p> */}
       </div>
-
 
       <div className="flex items-center justify-between text-blue-gray-900">
         <Typography
@@ -210,11 +231,7 @@ export default function Head() {
             alt="Empressa"
             className="h-20 w-20"
           />
-          <Typography
-            variant="small"
-            color="blue-gray"
-            className="mt-0.25 "
-          >
+          <Typography variant="small" color="blue-gray" className="mt-0.25 ">
             EMPRESSA
           </Typography>
         </Typography>
@@ -230,7 +247,7 @@ export default function Head() {
                 alt="Search Icon"
                 className="absolute h-5 w-5 top-2 left-3"
               />
-              <input
+              <input onChange={handleSearchStringChange}
                 type="search"
                 placeholder="Search"
                 className="h-9 w-45 rounded-full pl-10"
