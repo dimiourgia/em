@@ -1,46 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
+import { Avatar, Menu, MenuItem } from "@mui/material";
 import { Collapse, Typography, List, ListItem } from "@material-tailwind/react";
-import {
-  UserCircleIcon,
-  ShoppingBagIcon,
-  Bars3Icon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { UserCircleIcon, ShoppingBagIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import AuthModal from "../../Auth/AuthModal";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, logout } from "../../../State/Auth/Action";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
+import SearchBar from "./SearchBar";  // Import the SearchBar component
+
 function NavList() {
   return (
     <List className="flex lg:ml-[200px] items-center lg:flex-row flex-col lg:items-center lg:w-auto w-full">
       <Typography>
-        <ListItem><form className="mx-auto w-max lg:hidden">
-          <div className="relative">
-            <img
-              src="https://res.cloudinary.com/du5p1rnil/image/upload/v1713751837/empressa/searchLogo.png"
-              alt="Search Icon"
-              className="absolute h-5 w-5 top-2 left-3"
-            />
-            <input
-              type="search"
-              placeholder="Search"
-              className="h-9 w-45 rounded-full pl-10"
-            />
+        <ListItem>
+          <div className="lg:hidden">
+            <SearchBar /> {/* Use SearchBar component for mobile view */}
           </div>
-        </form></ListItem>
+        </ListItem>
       </Typography>
       <Typography
         as={Link}
         to="/products"
         variant="small"
         color="blue-gray"
-        className="font-medium text-base uppercase  font-abc"
+        className="font-medium text-base uppercase font-abc"
       >
-        <ListItem className="">Our Products</ListItem>
+        <ListItem>Our Products</ListItem>
       </Typography>
 
       <Typography
@@ -48,20 +36,18 @@ function NavList() {
         to="/about"
         variant="small"
         color="blue-gray"
-        className="font-medium text-base uppercase  font-abc"
+        className="font-medium text-base uppercase font-abc"
       >
-        <ListItem className="">About Us</ListItem>
+        <ListItem>About Us</ListItem>
       </Typography>
       <Typography
         as={Link}
         to="/journal"
         variant="small"
         color="blue-gray"
-        className="font-medium text-base uppercase  font-abc"
+        className="font-medium text-base uppercase font-abc"
       >
-        <ListItem className="">
-          Journal
-        </ListItem>
+        <ListItem>Journal</ListItem>
       </Typography>
     </List>
   );
@@ -80,11 +66,9 @@ export default function Head() {
   const { auth } = useSelector((store) => store);
 
   const handleUserClick = (event) => {
-    // console.log("User icon clicked");
     setAnchorEl(event.currentTarget);
   };
   const handleCloseUserMenu = () => {
-    // console.log("Menu closed");
     setAnchorEl(null);
   };
 
@@ -115,7 +99,6 @@ export default function Head() {
 
 
   useEffect(() => {
-    // if (authUser) {
     if (auth.user) {
       handleClose();
     }
@@ -129,31 +112,6 @@ export default function Head() {
   return (
     <div className="nav-container mx-auto bg-white">
       <div className="bg-[#e8e2b0] text-black py-1 text-center overflow-hidden">
-        {/* <marquee scrollamount="5">
-          <p className="italic font-medium">
-            Be BOLD<span className="ml-8"></span>Be YOU
-            <span className="ml-8"></span>Be UNSTOPPABLE<span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
-            <span className="ml-8"></span>
-
-            Be BOLD<span className="ml-8"></span>Be YOU
-            <span className="ml-8"></span>Be UNSTOPPAB<span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
-            <span className="ml-8"></span>
-
-            Be BOLD<span className="ml-8"></span>Be YOU
-            <span className="ml-8"></span>Be UNSTOPPABLE
-
-            <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
-            <span className="ml-8"></span>
-            Be BOLD<span className="ml-8"></span>Be YOU
-            <span className="ml-8"></span>Be UNSTOPPABLE
-
-          </p>
-
-        </marquee> */}
-
         <div className="relative flex overflow-x-hidden">
           <div className="py-1 animate-marquee whitespace-nowrap">
             <span className="ml-8"></span>
@@ -176,16 +134,9 @@ export default function Head() {
             <span className="ml-8"></span><span className="italic"> Be BOLD</span>
             <span className="ml-8"></span><span className="italic">Be YOU</span>
             <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
-
-            {/* <span className="mx-4 text-4xl">1</span> */}
-            {/* <span className="mx-4 text-4xl">2</span>
-            <span className="mx-4 text-4xl">3</span>
-            <span className="mx-4 text-4xl">4</span>
-            <span className="mx-4 text-4xl">5</span> */}
           </div>
 
           <div className="absolute top-0 py-1 animate-marquee2 whitespace-nowrap">
-
             <span className="ml-8"></span>
             <FiberManualRecordIcon style={{ fontSize: '10px' }} />
             <span className="ml-8"></span><span className="italic"> Be BOLD</span>
@@ -206,24 +157,9 @@ export default function Head() {
             <span className="ml-8"></span><span className="italic"> Be BOLD</span>
             <span className="ml-8"></span><span className="italic">Be YOU</span>
             <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
-            {/* <span className="mx-4 text-4xl">6</span> */}
-            {/* <span className="mx-4 text-4xl">7</span>
-            <span className="mx-4 text-4xl">8</span>
-            <span className="mx-4 text-4xl">9</span>
-            <span className="mx-4 text-4xl">10</span> */}
           </div>
         </div>
-
-
-
-
-
-        {/* <p className="italic font-medium">
-          Be BOLD<span className="ml-8"></span>Be YOU
-          <span className="ml-8"></span>Be UNSTOPPABLE
-        </p> */}
       </div>
-
 
       <div className="flex items-center justify-between text-blue-gray-900">
         <Typography
@@ -249,27 +185,15 @@ export default function Head() {
           <NavList />
         </div>
         <div className="flex md:ml-[564px] lg:ml-0  ml-[130px] m items-center justify-center">
-          <form className="mx-auto w-max lg:block hidden">
-            <div className="relative">
-              <img
-                src="https://res.cloudinary.com/du5p1rnil/image/upload/v1713751837/empressa/searchLogo.png"
-                alt="Search Icon"
-                className="absolute h-5 w-5 top-2 left-3"
-              />
-              <input
-                type="search"
-                placeholder="Search"
-                className="h-9 w-45 rounded-full pl-10"
-              />
-            </div>
-          </form>
+          <div className="mx-auto w-max lg:block hidden">
+            <SearchBar /> {/* Use SearchBar component for desktop view */}
+          </div>
 
           <div className="mb-1">
-            {/* {authUser ? ( */}
             {auth.user ? (
               <div>
                 <Avatar
-                  className="h-7 w-7 mt-1 ml-2 text-white `cursor-pointer"
+                  className="h-7 w-7 mt-1 ml-2 text-white cursor-pointer"
                   onClick={handleUserClick}
                   aria-controls={openNav ? "basic-menu" : undefined}
                   aria-haspopup="true"

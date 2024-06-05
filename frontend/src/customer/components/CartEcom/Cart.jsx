@@ -9,7 +9,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const jwt = localStorage.getItem("jwt");
-  const { cart } = useSelector((state) => state);
+  const cart  = useSelector((state) => state.cart);
   console.log("cart ", cart);
 
   useEffect(() => {
@@ -69,7 +69,8 @@ const Cart = () => {
                   <span className="text-green-700">-₹{cart.cart?.discounte}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Delivery Charges</span>
+                  <span>Delivery Charg
+                    es</span>
                   <span className="text-green-700">Free</span>
                 </div>
                 <hr />

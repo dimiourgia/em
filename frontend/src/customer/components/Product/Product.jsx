@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import { useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,245 +6,76 @@ import { findProducts } from './../../../State/Product/Action';
 import { Pagination } from '@mui/material';
 
 const Product = () => {
-    const param = useParams();
+    const { level } = useParams();
     const dispatch = useDispatch();
-    const { products } = useSelector(state => state.products);
+    const products = useSelector(state => state.products.products);
+    const { search } = useLocation();
 
-    const location = useLocation();
-    const decodedQueryString = decodeURIComponent(location.search);
-    const searchParams = new URLSearchParams(decodedQueryString);
+    const searchParams = new URLSearchParams(decodeURIComponent(search));
+    const getParam = (param, defaultValue) => searchParams.get(param) || defaultValue;
 
-    const colorValue = searchParams.get("color");
-    const sizeValue = searchParams.get("size");
-    const priceValue = searchParams.get("price");
-    const discount = searchParams.get("discount") || 0;
-    const sortValue = searchParams.get("sort") || "price_low";
-    const pageNumber = searchParams.get("page") || 5;
-    const stock = searchParams.get("stock");
- 
-    const handelPaginationChange=(value)=>{
-        const searchParams=new URLSearchParams(location.search)
-        searchParams.set("page",value);
-        const query=searchParams.toString();
-        Navigate({search:`${query}`})
-    }
+    const [selectedSizes, setSelectedSizes] = useState([]);
+
+    const handleSizeChange = (size) => {
+        setSelectedSizes(prevSizes =>
+            prevSizes.includes(size) ? prevSizes.filter(s => s !== size) : [...prevSizes, size]
+        );
+    };
 
     useEffect(() => {
-        const [minPrice, maxPrice] = priceValue ? priceValue.split("-").map(Number) : [0, 100000];
-
         const data = {
-            category: param.level,
-            colors: colorValue ? colorValue.split(",") : [],
-            sizes: sizeValue ? sizeValue.split(",") : [],
-            minPrice,
-            maxPrice,
-            minDiscount: discount,
-            sort: sortValue,
-            pageNumber,
-            pageSize: 1,
-            stock,
+            category: level,
+            colors: getParam("color", "").split(","),
+            sizes: selectedSizes,
+            minPrice: Number(getParam("price", "0-100000").split("-")[0]),
+            maxPrice: Number(getParam("price", "0-100000").split("-")[1]),
+            minDiscount: Number(getParam("discount", 0)),
+            sort: getParam("sort", "price_low"),
+            pageNumber: Number(getParam("page", 1)),
+            pageSize: 30,
+            stock: getParam("stock"),
+            searchQuery: getParam("search", ""),
         };
         dispatch(findProducts(data));
-    }, [param.level, colorValue, sizeValue, priceValue, discount, sortValue, pageNumber, stock, dispatch]);
+    }, [level, search, selectedSizes, dispatch]);
+
+    // useEffect(() => {
+    //     if (selectedSizes.length > 0) {
+    //         const data = {
+    //             category: level,
+    //             sizes: selectedSizes,
+    //         };
+    //         dispatch(findProducts(data));
+    //     }
+    // }, [selectedSizes, dispatch, level]);
+
+    const filteredProducts = products.filter(product =>
+        selectedSizes.length === 0 || product.sizes.some(size => selectedSizes.includes(size.name))
+    );
 
     return (
-        <>
-            <div className='mt-[100px]'>
-                <h1 className='text-black font-medium text-4xl text-center font-abc'>
-                    Online Boutique
-                </h1>
-            </div>
-            <div className='container mx-auto mt-[100px]'>
+        <div className='mt-[100px]'>
+            <h1 className='text-black font-medium text-4xl text-center font-abc'>Online Boutique</h1>
+            <div className='container mx-auto'>
                 <div className="grid gap-4 sm:grid-cols-12">
                     <div className="min-h-[100px] bg-white sm:col-span-3">
-                        <div>
-
-
-                            <div className="max-w-screen-xl mx-auto px-5 bg-white min-h-sceen">
-
-                                <div className="grid divide-y divide-neutral-200 max-w-xl mx-auto mt-8">
-                                    <div className="py-5">
-                                        <details className="group">
-                                            <summary className="flex justify-between items-center font-medium cursor-pointer list-none">
-                                                <span className='tracking-widest font-light text-base text-center'> AVAILABILITY</span>
-                                                <span className="transition group-open:rotate-180">
-                                                    <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path>
-                                                    </svg>
-                                                </span>
-                                            </summary>
-                                            <p classclassName="text-neutral-600 mt-3 group-open:animate-fadeIn ">
-                                                <label className=" pt-[20px]" style={{ display: 'flex', alignItems: 'center' }}>
-                                                    <input type="checkbox" name="checkbox" value="value" style={{ marginRight: '10px' }} />
-                                                    In stock
-                                                </label>
-                                                <label className="" style={{ display: 'flex', alignItems: 'center' }}>
-                                                    <input type="checkbox" name="checkbox" value="value" style={{ marginRight: '8px' }} />
-                                                    Out of stock
-                                                </label>
-                                            </p>
-                                        </details>
-                                    </div>
-                                    <div className="py-5">
-                                        <details className="group">
-                                            <summary className="flex justify-between items-center font-medium cursor-pointer list-none">
-                                                <span className='tracking-widest font-light text-base text-center'> SIZE</span>
-                                                <span className="transition group-open:rotate-180">
-                                                    <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path>
-                                                    </svg>
-                                                </span>
-                                            </summary>
-                                            <p className="text-neutral-600 mt-3 group-open:animate-fadeIn">
-                                                <label className="pt-[20px]" style={{ display: 'flex', alignItems: 'center' }}>
-                                                    <input type="checkbox" name="checkbox" value="value" style={{ marginRight: '10px' }} />
-                                                    S
-                                                </label>
-                                                <label className="" style={{ display: 'flex', alignItems: 'center' }}>
-                                                    <input type="checkbox" name="checkbox" value="value" style={{ marginRight: '8px' }} />
-                                                    M
-                                                </label>
-                                                <label className="" style={{ display: 'flex', alignItems: 'center' }}>
-                                                    <input type="checkbox" name="checkbox" value="value" style={{ marginRight: '10px' }} />
-                                                    L
-                                                </label>
-                                                <label className="" style={{ display: 'flex', alignItems: 'center' }}>
-                                                    <input type="checkbox" name="checkbox" value="value" style={{ marginRight: '8px' }} />
-                                                    XL
-                                                </label>
-                                                <label className="" style={{ display: 'flex', alignItems: 'center' }}>
-                                                    <input type="checkbox" name="checkbox" value="value" style={{ marginRight: '8px' }} />
-                                                    2XL
-                                                </label>
-                                            </p>
-                                        </details>
-                                    </div>
-
-
-
-                                    {/* <div class="py-5">
-        <details class="group">
-            <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-                <span> Can I get a refund for my subscription?</span>
-                <span class="transition group-open:rotate-180">
-                    <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path>
-                    </svg>
-                </span>
-            </summary>
-            <p class="text-neutral-600 mt-3 group-open:animate-fadeIn">
-                We offers a 30-day money-back guarantee for most of its subscription plans. If you are not
-                satisfied with your subscription within the first 30 days, you can request a full refund. Refunds
-                for subscriptions that have been active for longer than 30 days may be considered on a case-by-case
-                basis.
-            </p>
-        </details>
-    </div>
-    <div class="py-5">
-        <details class="group">
-            <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-                <span> How do I cancel my subscription?</span>
-                <span class="transition group-open:rotate-180">
-                    <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path>
-                    </svg>
-                </span>
-            </summary>
-            <p class="text-neutral-600 mt-3 group-open:animate-fadeIn">
-                To cancel your We subscription, you can log in to your account and navigate to the
-                subscription management page. From there, you should be able to cancel your subscription and stop
-                future billing.
-            </p>
-        </details>
-    </div>
-    <div class="py-5">
-        <details class="group">
-            <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-                <span> Can I try this platform for free?</span>
-                <span class="transition group-open:rotate-180">
-                    <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path>
-                    </svg>
-                </span>
-            </summary>
-            <p class="text-neutral-600 mt-3 group-open:animate-fadeIn">
-                We offers a free trial of its  platform for a limited time. During the trial period,
-                you will have access to a limited set of features and functionality, but you will not be charged.
-            </p>
-        </details>
-    </div>
-    <div class="py-5">
-        <details class="group">
-            <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-                <span> How do I access   documentation?</span>
-                <span class="transition group-open:rotate-180">
-                    <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path>
-                    </svg>
-                </span>
-            </summary>
-            <p class="text-neutral-600 mt-3 group-open:animate-fadeIn">
-                Documentation is available on the company's website and can be accessed by
-                logging in to your account. The documentation provides detailed information on how to use the ,
-                as well as code examples and other resources.
-            </p>
-        </details>
-    </div>
-    <div class="py-5">
-        <details class="group">
-            <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-                <span> How do I contact support?</span>
-                <span class="transition group-open:rotate-180">
-                    <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path>
-                    </svg>
-                </span>
-            </summary>
-            <p class="text-neutral-600 mt-3 group-open:animate-fadeIn">
-                If you need help with the platform or have any other questions, you can contact the
-                company's support team by submitting a support request through the website or by emailing
-                support@We.com.
-            </p>
-        </details>
-    </div>
-    <div class="py-5">
-        <details class="group">
-            <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-                <span> Do you offer any discounts or promotions?</span>
-                <span class="transition group-open:rotate-180">
-                    <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path>
-                    </svg>
-                </span>
-            </summary>
-            <p class="text-neutral-600 mt-3 group-open:animate-fadeIn">
-                We may offer discounts or promotions from time to time. To stay up-to-date on the latest
-                deals and special offers, you can sign up for the company's newsletter or follow it on social media.
-            </p>
-        </details>
-    </div>
-    <div class="py-5">
-        <details class="group">
-            <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-                <span> How do we compare to other similar services?</span>
-                <span class="transition group-open:rotate-180">
-                    <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path>
-                    </svg>
-                </span>
-            </summary>
-            <p class="text-neutral-600 mt-3 group-open:animate-fadeIn">
-                This platform is a highly reliable and feature-rich service that offers a wide range
-                of tools and functionality. It is competitively priced and offers a variety of billing options to
-                suit different needs and budgets.
-            </p>
-        </details>
-    </div> */}
-                                </div>
+                        <div className="max-w-screen-xl mx-auto px-5 bg-white min-h-screen">
+                            <div className="grid divide-y divide-neutral-200 max-w-xl mx-auto mt-8">
+                                <FilterGroup title="SIZE">
+                                    {['S', 'M', 'L', 'XL', '2XL'].map(size => (
+                                        <Checkbox label={size} key={size} onChange={handleSizeChange} />
+                                    ))}
+                                </FilterGroup>
                             </div>
-
-
                         </div>
                     </div>
-                    <div className="min-h-[100px]  sm:col-span-9">
+                    <div className="min-h-[100px] sm:col-span-9">
                         <div className='flex flex-wrap justify-center bg-white py-5'>
-                            {products && products.map((product) => (
+                            {filteredProducts.map((product) => (
                                 <ProductCard product={product} key={product._id} />
                             ))}
                         </div>
                     </div>
-
                 </div>
 
                 <section className='w-full px-[3.6rem]'>
@@ -253,26 +84,39 @@ const Product = () => {
                     </div>
                 </section>
             </div>
-
-            {/* 
-            <div className='mt-[100px]'>
-                <h1 className='text-black font-medium text-4xl text-center font-abc'>   
-                    Online Boutique
-                </h1>
-            </div> */}
-
-
-            {/* 
-            <div className='flex flex-wrap justify-center bg-white py-5'>
-                {products && products.map((product) => (
-                    <ProductCard product={product} key={product._id} />
-                ))}
-            </div> */}
-
-
-        </>
-
+        </div>
     );
 };
+
+const FilterGroup = ({ title, children }) => (
+    <div className="py-5">
+        <details className="group">
+            <summary className="flex justify-between items font-medium cursor-pointer list-none">
+                <span className='tracking-widest font-light text-base text-center'>{title}</span>
+                <span className="transition group-open:rotate-180">
+                    <svg fill="none" height="15" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="15">
+                        <path d="M6 9l6 6 6-6"></path>
+                    </svg>
+                </span>
+            </summary>
+            <div className="text-neutral-600 mt-3 group-open:animate-fadeIn">
+                {children}
+            </div>
+        </details>
+    </div>
+);
+
+const Checkbox = ({ label, onChange }) => (
+    <label className="pt-[0px]" style={{ display: 'flex', alignItems: 'left' }}>
+        <input
+            type="checkbox"
+            name="checkbox"
+            value={label}
+            style={{ marginRight: '10px' }}
+            onChange={(e) => onChange(e.target.value)}
+        />
+        {label}
+    </label>
+);
 
 export default Product;
