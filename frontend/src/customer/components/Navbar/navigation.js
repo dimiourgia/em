@@ -1,60 +1,53 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, MenuItem } from "@mui/material";
-import {
-  Collapse,
-  Typography,
-  // Button,
-  IconButton,
-  List,
-  ListItem,
-} from "@material-tailwind/react";
-import {
-  UserCircleIcon,
-  ShoppingBagIcon,
-  XMarkIcon,
-  Bars3Icon,
-} from "@heroicons/react/24/outline";
+import { Avatar, Menu, MenuItem } from "@mui/material";
+import { Collapse, Typography, List, ListItem } from "@material-tailwind/react";
+import { UserCircleIcon, ShoppingBagIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import AuthModal from "../../Auth/AuthModal";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, logout } from "../../../State/Auth/Action";
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+
+import SearchBar from "./SearchBar";  // Import the SearchBar component
 
 function NavList() {
   return (
-    <List className="mt-2 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
+    <List className="flex lg:ml-[200px] items-center lg:flex-row flex-col lg:items-center lg:w-auto w-full">
+      <Typography>
+        <ListItem>
+          <div className="lg:hidden">
+            <SearchBar /> {/* Use SearchBar component for mobile view */}
+          </div>
+        </ListItem>
+      </Typography>
       <Typography
         as={Link}
         to="/products"
         variant="small"
         color="blue-gray"
-        className="font-medium text-base"
+        className="font-medium text-base uppercase font-abc"
       >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">
-          Our Products
-        </ListItem>
+        <ListItem>Our Products</ListItem>
       </Typography>
-      <Typography
-        as={Link}
-        to="/"
-        variant="small"
-        color="blue-gray"
-        className="font-medium text-base"
-      >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">
-          Contact
-        </ListItem>
-      </Typography>
+
       <Typography
         as={Link}
         to="/about"
         variant="small"
         color="blue-gray"
-        className="font-medium text-base"
+        className="font-medium text-base uppercase font-abc"
       >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">
-          About Us
-        </ListItem>
+        <ListItem>About Us</ListItem>
+      </Typography>
+      <Typography
+        as={Link}
+        to="/journal"
+        variant="small"
+        color="blue-gray"
+        className="font-medium text-base uppercase font-abc"
+      >
+        <ListItem>Journal</ListItem>
       </Typography>
     </List>
   );
@@ -71,15 +64,11 @@ export default function Head() {
   const location = useLocation();
   const jwt = localStorage.getItem("jwt");
   const { auth } = useSelector((store) => store);
-    // const { auth} = useSelector((store) => store.auth )
-  // const { jwt: authJwt, user: authUser } = useSelector((state) => state.auth);
 
   const handleUserClick = (event) => {
-    // console.log("User icon clicked");
     setAnchorEl(event.currentTarget);
   };
   const handleCloseUserMenu = () => {
-    // console.log("Menu closed");
     setAnchorEl(null);
   };
 
@@ -95,25 +84,15 @@ export default function Head() {
     handleCloseUserMenu();
   };
 
-  //handle product to be done
-
-  // useEffect(() => {
-  //   if (jwt) {
-  //     dispatch(getUser(jwt)).catch((error) => {
-  //       // Handle error here
-  //       console.error("Error getting user:", error);
-  //     });
-  //   }
-  // }, [jwt, dispatch]);
-
   useEffect(() => {
     if (jwt) {
       dispatch(getUser(jwt));
+    } else {
+      setOpenAuthModal(true);
     }
   }, [jwt, auth.jwt]);
 
   useEffect(() => {
-    // if (authUser) {
     if (auth.user) {
       handleClose();
     }
@@ -121,58 +100,99 @@ export default function Head() {
       navigate(-1);
     }
   }, [auth.user]);
-  // }, [authUser, location.pathname, navigate]);
 
   return (
     <div className="nav-container mx-auto bg-white">
-      <div className="bg-[#44496C] text-white py-4 text-center">
-        <p className="text-m font-medium mr-12">
-          Be BOLD Be YOU Be UNSTOPPABLE
-        </p>
+      <div className="bg-[#e8e2b0] text-black py-1 text-center overflow-hidden">
+        <div className="relative flex overflow-x-hidden">
+          <div className="py-1 animate-marquee whitespace-nowrap">
+            <span className="ml-8"></span>
+            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
+            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span><span className="italic">Be YOU</span>
+            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+            <span className="ml-8"></span>
+            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
+            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span><span className="italic">Be YOU</span>
+            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+            <span className="ml-8"></span>
+            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
+            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span><span className="italic">Be YOU</span>
+            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+            <span className="ml-8"></span>
+            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
+            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span><span className="italic">Be YOU</span>
+            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+          </div>
+
+          <div className="absolute top-0 py-1 animate-marquee2 whitespace-nowrap">
+            <span className="ml-8"></span>
+            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
+            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span><span className="italic">Be YOU</span>
+            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+            <span className="ml-8"></span>
+            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
+            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span><span className="italic">Be YOU</span>
+            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+            <span className="ml-8"></span>
+            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
+            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span><span className="italic">Be YOU</span>
+            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+            <span className="ml-8"></span>
+            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
+            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span><span className="italic">Be YOU</span>
+            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+          </div>
+        </div>
       </div>
+
       <div className="flex items-center justify-between text-blue-gray-900">
         <Typography
           as={Link}
           to="/"
-          className="mr-4 cursor-pointer py-1.5 lg:ml-2 align-items-center"
-          style={{ minWidth: "100px" }}
+          className="cursor-pointer py-0.5 align-items-center ml-10 flex flex-col items-center"
         >
           <img
-            src="https://res.cloudinary.com/du5p1rnil/image/upload/v1713256699/empressa/ul5agvxpmsozwrahu5z0.png"
+            src="https://res.cloudinary.com/du5p1rnil/image/upload/v1712815729/empressa/trlajilv4tdjxco53foy.png"
             alt="Empressa"
-            className="h-20 w-20 lg-h-auto lg-w-auto m-auto"
+            className="h-20 w-20"
           />
+          <Typography
+            variant="small"
+            color="blue-gray"
+            className="mt-0.25 "
+          >
+            EMPRESSA
+          </Typography>
         </Typography>
-        <div className="hidden lg:block lg:ml-40">
+
+        <div className="hidden lg:block">
           <NavList />
         </div>
-        <div className="flex items-center justify-center">
-          <form className="mx-auto w-max">
-            <div className="relative">
-              <img
-                src="https://res.cloudinary.com/du5p1rnil/image/upload/v1713751837/empressa/searchLogo.png"
-                alt="Search Icon"
-                className="absolute h-5 w-5 top-2 left-3"
-              />
-              <input
-                type="search"
-                placeholder="Search"
-                className="h-9 w-60 rounded-full pl-10"
-              />
-            </div>
-          </form>
+        <div className="flex md:ml-[564px] lg:ml-0  ml-[130px] m items-center justify-center">
+          <div className="mx-auto w-max lg:block hidden">
+            <SearchBar /> {/* Use SearchBar component for desktop view */}
+          </div>
 
-          <div className="ml-auto mb-1">
-            {/* {authUser ? ( */}
+          <div className="mb-1">
             {auth.user ? (
               <div>
-                <UserCircleIcon
-                  className="h-7 w-7 mt-1 cursor-pointer"
+                <Avatar
+                  className="h-7 w-7 mt-1 ml-2 text-white cursor-pointer"
                   onClick={handleUserClick}
                   aria-controls={openNav ? "basic-menu" : undefined}
                   aria-haspopup="true"
                   aria-expanded={openNav ? "true" : undefined}
-                />
+                >
+                  {auth.user?.firstName[0].toUpperCase()}
+                </Avatar>
                 <Menu
                   id="basic-menu"
                   anchorEl={anchorEl}
@@ -180,8 +200,8 @@ export default function Head() {
                   onClose={handleCloseUserMenu}
                   MenuListProps={{ "aria-labelledby": "user-circle" }}
                 >
-                  <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
-                  <MenuItem>My Orders</MenuItem>
+                  <MenuItem onClick={() => navigate("/profile")}>Profile</MenuItem>
+                  <MenuItem onClick={() => navigate("/order")}>My Orders</MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
               </div>
@@ -192,7 +212,7 @@ export default function Head() {
               />
             )}
           </div>
-          <div className="m-auto mb-2">
+          <div className="mb-2">
             <Link to="/cart" className="group flex items-center p-2">
               <ShoppingBagIcon
                 className="h-7 w-7 mt-1 cursor-pointer active:scale-50"
@@ -206,10 +226,9 @@ export default function Head() {
           </div>
         </div>
 
-        <IconButton
-          variant="text"
+        <div
           color="blue-gray"
-          className="lg:hidden"
+          className="lg:hidden mr-[30px]"
           onClick={() => setOpenNav(!openNav)}
           style={{ position: "relative" }}
         >
@@ -218,18 +237,10 @@ export default function Head() {
           ) : (
             <Bars3Icon className="absolute inset-0 m-auto h-6 w-6" />
           )}
-        </IconButton>
+        </div>
       </div>
       <Collapse open={openNav}>
         <NavList />
-        {/* <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-          <Button variant="outlined" size="sm" color="blue-gray" fullWidth>
-            Log In
-          </Button>
-          <Button variant="gradient" size="sm" fullWidth>
-            Sign In
-          </Button>
-        </div> */}
       </Collapse>
 
       <AuthModal open={openAuthModal} handleClose={handleClose} />

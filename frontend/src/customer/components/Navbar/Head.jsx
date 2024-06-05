@@ -1,30 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
+import { Avatar, Menu, MenuItem } from "@mui/material";
 import { Collapse, Typography, List, ListItem } from "@material-tailwind/react";
-import {
-  UserCircleIcon,
-  ShoppingBagIcon,
-  Bars3Icon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { UserCircleIcon, ShoppingBagIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+
 import AuthModal from "../../Auth/AuthModal";
 import { useDispatch, useSelector } from "react-redux";
-import { filterProducts } from "../../../State/Product/Action";
 import { getUser, logout } from "../../../State/Auth/Action";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
+import SearchBar from "./SearchBar";  // Import the SearchBar component
+
 function NavList() {
   return (
-    <List className="flex lg:ml-[300px] items-center lg:flex-row flex-col lg:items-center lg:w-auto w-full">
+    <List className="flex lg:ml-[200px] items-center lg:flex-row flex-col lg:items-center lg:w-auto w-full">
+      <Typography>
+        <ListItem>
+          <div className="lg:hidden">
+            <SearchBar /> {/* Use SearchBar component for mobile view */}
+          </div>
+        </ListItem>
+      </Typography>
       <Typography
         as={Link}
         to="/products"
         variant="small"
         color="blue-gray"
-        className="font-medium text-base uppercase  font-abc"
+        className="font-medium text-base uppercase font-abc"
       >
-        <ListItem className="">Our Products</ListItem>
+        <ListItem>Our Products</ListItem>
       </Typography>
 
       <Typography
@@ -32,20 +36,18 @@ function NavList() {
         to="/about"
         variant="small"
         color="blue-gray"
-        className="font-medium text-base uppercase  font-abc"
+        className="font-medium text-base uppercase font-abc"
       >
-        <ListItem className="">About Us</ListItem>
+        <ListItem>About Us</ListItem>
       </Typography>
       <Typography
         as={Link}
         to="/journal"
         variant="small"
         color="blue-gray"
-        className="font-medium text-base uppercase  font-abc"
+        className="font-medium text-base uppercase font-abc"
       >
-        <ListItem className="">
-          Journal
-          </ListItem>
+        <ListItem>Journal</ListItem>
       </Typography>
     </List>
   );
@@ -61,9 +63,8 @@ export default function Head() {
   const dispatch = useDispatch();
   const location = useLocation();
   const jwt = localStorage.getItem("jwt");
-  const auth = useSelector((state) => state.auth);
-  const filteredProducts = useSelector(state => state.products.filterProducts);
-  
+  const { auth } = useSelector((store) => store);
+
   const handleUserClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -86,11 +87,12 @@ export default function Head() {
   useEffect(() => {
     if (jwt) {
       dispatch(getUser(jwt));
+    } else {
+      setOpenAuthModal(true);
     }
   }, [jwt, auth.jwt]);
 
   useEffect(() => {
-    // if (authUser) {
     if (auth.user) {
       handleClose();
     }
@@ -99,125 +101,56 @@ export default function Head() {
     }
   }, [auth.user]);
 
-  function handleSearchStringChange(event){
-    dispatch(filterProducts(event.target.value))
-  }
-
   return (
     <div className="nav-container mx-auto bg-white">
       <div className="bg-[#e8e2b0] text-black py-1 text-center overflow-hidden">
-        {/* <marquee scrollamount="5">
-          <p className="italic font-medium">
-            Be BOLD<span className="ml-8"></span>Be YOU
-            <span className="ml-8"></span>Be UNSTOPPABLE<span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
-            <span className="ml-8"></span>
-
-            Be BOLD<span className="ml-8"></span>Be YOU
-            <span className="ml-8"></span>Be UNSTOPPAB<span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
-            <span className="ml-8"></span>
-
-            Be BOLD<span className="ml-8"></span>Be YOU
-            <span className="ml-8"></span>Be UNSTOPPABLE
-
-            <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
-            <span className="ml-8"></span>
-            Be BOLD<span className="ml-8"></span>Be YOU
-            <span className="ml-8"></span>Be UNSTOPPABLE
-
-          </p>
-
-        </marquee> */}
-
         <div className="relative flex overflow-x-hidden">
           <div className="py-1 animate-marquee whitespace-nowrap">
             <span className="ml-8"></span>
             <FiberManualRecordIcon style={{ fontSize: '10px' }} />
+            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span><span className="italic">Be YOU</span>
+            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
             <span className="ml-8"></span>
-            <span className="italic"> Be BOLD</span>
+            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
+            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span><span className="italic">Be YOU</span>
+            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
             <span className="ml-8"></span>
-            <span className="italic">Be YOU</span>
+            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
+            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span><span className="italic">Be YOU</span>
+            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
             <span className="ml-8"></span>
-            <span className="italic">Be UNSTOPPABLE</span>
-            <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
-            <span className="ml-8"></span>
-            <span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be YOU</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be UNSTOPPABLE</span>
-            <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
-            <span className="ml-8"></span>
-            <span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be YOU</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be UNSTOPPABLE</span>
-            <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
-            <span className="ml-8"></span>
-            <span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be YOU</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be UNSTOPPABLE</span>
-
-            {/* <span className="mx-4 text-4xl">1</span> */}
-            {/* <span className="mx-4 text-4xl">2</span>
-            <span className="mx-4 text-4xl">3</span>
-            <span className="mx-4 text-4xl">4</span>
-            <span className="mx-4 text-4xl">5</span> */}
+            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
+            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span><span className="italic">Be YOU</span>
+            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
           </div>
 
           <div className="absolute top-0 py-1 animate-marquee2 whitespace-nowrap">
             <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
+            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
+            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span><span className="italic">Be YOU</span>
+            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
             <span className="ml-8"></span>
-            <span className="italic"> Be BOLD</span>
+            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
+            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span><span className="italic">Be YOU</span>
+            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
             <span className="ml-8"></span>
-            <span className="italic">Be YOU</span>
+            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
+            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span><span className="italic">Be YOU</span>
+            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
             <span className="ml-8"></span>
-            <span className="italic">Be UNSTOPPABLE</span>
-            <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
-            <span className="ml-8"></span>
-            <span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be YOU</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be UNSTOPPABLE</span>
-            <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
-            <span className="ml-8"></span>
-            <span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be YOU</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be UNSTOPPABLE</span>
-            <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
-            <span className="ml-8"></span>
-            <span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be YOU</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be UNSTOPPABLE</span>
-            {/* <span className="mx-4 text-4xl">6</span> */}
-            {/* <span className="mx-4 text-4xl">7</span>
-            <span className="mx-4 text-4xl">8</span>
-            <span className="mx-4 text-4xl">9</span>
-            <span className="mx-4 text-4xl">10</span> */}
+            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
+            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span><span className="italic">Be YOU</span>
+            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
           </div>
         </div>
-
-        {/* <p className="italic font-medium">
-          Be BOLD<span className="ml-8"></span>Be YOU
-          <span className="ml-8"></span>Be UNSTOPPABLE
-        </p> */}
       </div>
 
       <div className="flex items-center justify-between text-blue-gray-900">
@@ -231,7 +164,11 @@ export default function Head() {
             alt="Empressa"
             className="h-20 w-20"
           />
-          <Typography variant="small" color="blue-gray" className="mt-0.25 ">
+          <Typography
+            variant="small"
+            color="blue-gray"
+            className="mt-0.25 "
+          >
             EMPRESSA
           </Typography>
         </Typography>
@@ -239,28 +176,16 @@ export default function Head() {
         <div className="hidden lg:block">
           <NavList />
         </div>
-        <div className="flex ml-[140px] items-center justify-center">
-          <form className="mx-auto w-max lg:block hidden">
-            <div className="relative">
-              <img
-                src="https://res.cloudinary.com/du5p1rnil/image/upload/v1713751837/empressa/searchLogo.png"
-                alt="Search Icon"
-                className="absolute h-5 w-5 top-2 left-3"
-              />
-              <input onChange={handleSearchStringChange}
-                type="search"
-                placeholder="Search"
-                className="h-9 w-45 rounded-full pl-10"
-              />
-            </div>
-          </form>
+        <div className="flex md:ml-[564px] lg:ml-0  ml-[130px] m items-center justify-center">
+          <div className="mx-auto w-max lg:block hidden">
+            <SearchBar /> {/* Use SearchBar component for desktop view */}
+          </div>
 
           <div className="mb-1">
-            {/* {authUser ? ( */}
             {auth.user ? (
               <div>
                 <Avatar
-                  className="h-7 w-7 mt-1 ml-2 text-white `cursor-pointer"
+                  className="h-7 w-7 mt-1 ml-2 text-white cursor-pointer"
                   onClick={handleUserClick}
                   aria-controls={openNav ? "basic-menu" : undefined}
                   aria-haspopup="true"

@@ -25,7 +25,7 @@ const Product = () => {
         const data = {
             category: level,
             colors: getParam("color", "").split(","),
-            sizes: getParam("size", "").split(","),
+            sizes: selectedSizes,
             minPrice: Number(getParam("price", "0-100000").split("-")[0]),
             maxPrice: Number(getParam("price", "0-100000").split("-")[1]),
             minDiscount: Number(getParam("discount", 0)),
@@ -36,15 +36,17 @@ const Product = () => {
             searchQuery: getParam("search", ""),
         };
         dispatch(findProducts(data));
-    }, [level, search, dispatch]);
+    }, [level, search, selectedSizes, dispatch]);
 
-    useEffect(() => {
-        const data = {
-            category: level,
-            sizes: selectedSizes,
-        };
-        dispatch(findProducts(data));
-    }, [selectedSizes]);
+    // useEffect(() => {
+    //     if (selectedSizes.length > 0) {
+    //         const data = {
+    //             category: level,
+    //             sizes: selectedSizes,
+    //         };
+    //         dispatch(findProducts(data));
+    //     }
+    // }, [selectedSizes, dispatch, level]);
 
     const filteredProducts = products.filter(product =>
         selectedSizes.length === 0 || product.sizes.some(size => selectedSizes.includes(size.name))
@@ -58,7 +60,7 @@ const Product = () => {
                     <div className="min-h-[100px] bg-white sm:col-span-3">
                         <div className="max-w-screen-xl mx-auto px-5 bg-white min-h-screen">
                             <div className="grid divide-y divide-neutral-200 max-w-xl mx-auto mt-8">
-                            <FilterGroup title="SIZE">
+                                <FilterGroup title="SIZE">
                                     {['S', 'M', 'L', 'XL', '2XL'].map(size => (
                                         <Checkbox label={size} key={size} onChange={handleSizeChange} />
                                     ))}
@@ -68,7 +70,7 @@ const Product = () => {
                     </div>
                     <div className="min-h-[100px] sm:col-span-9">
                         <div className='flex flex-wrap justify-center bg-white py-5'>
-                            {filteredProducts && filteredProducts.map((product) => (
+                            {filteredProducts.map((product) => (
                                 <ProductCard product={product} key={product._id} />
                             ))}
                         </div>
