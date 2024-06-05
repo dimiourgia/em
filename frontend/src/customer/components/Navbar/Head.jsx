@@ -16,7 +16,23 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 function NavList() {
   return (
-    <List className="flex lg:ml-[300px] items-center lg:flex-row flex-col lg:items-center lg:w-auto w-full">
+    <List className="flex lg:ml-[200px] items-center lg:flex-row flex-col lg:items-center lg:w-auto w-full">
+      <Typography>
+        <ListItem><form className="mx-auto w-max lg:hidden">
+          <div className="relative">
+            <img
+              src="https://res.cloudinary.com/du5p1rnil/image/upload/v1713751837/empressa/searchLogo.png"
+              alt="Search Icon"
+              className="absolute h-5 w-5 top-2 left-3"
+            />
+            <input
+              type="search"
+              placeholder="Search"
+              className="h-9 w-45 rounded-full pl-10"
+            />
+          </div>
+        </form></ListItem>
+      </Typography>
       <Typography
         as={Link}
         to="/products"
@@ -87,18 +103,28 @@ export default function Head() {
   useEffect(() => {
     if (jwt) {
       dispatch(getUser(jwt));
+    } else {
+      if (location.pathname === "/login" && !jwt) {
+         setOpenAuthModal(true)
+      }
+
     }
   }, [jwt, auth.jwt]);
+
+  console.log("this is test",jwt)
+
 
   useEffect(() => {
     // if (authUser) {
     if (auth.user) {
       handleClose();
     }
-    if (location.pathname === "/login" || location.pathname === "/register") {
-      navigate(-1);
-    }
+    // if (location.pathname === "/login" || location.pathname === "/register") {
+    //   navigate(-1);
+    // }
   }, [auth.user]);
+
+
 
   return (
     <div className="nav-container mx-auto bg-white">
@@ -222,7 +248,7 @@ export default function Head() {
         <div className="hidden lg:block">
           <NavList />
         </div>
-        <div className="flex ml-[140px] items-center justify-center">
+        <div className="flex md:ml-[564px] lg:ml-0  ml-[130px] m items-center justify-center">
           <form className="mx-auto w-max lg:block hidden">
             <div className="relative">
               <img

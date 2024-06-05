@@ -134,7 +134,7 @@ export default function ProductDetails() {
           </div>
           <div className="min-h-[100px] sm:col-span-4 border border-gray-200 p-[20px] rounded">
             <div>
-              <h1 className="text-2xl font-bold font-abc tracking-tight text-gray-900 sm:text-3xl">
+              <h1 className="tracking-wider font-abc font-light text-2xl">
                 {products.product?.brand}
               </h1>
               <h1 className="text-lg lg:text-xl font-abc  text-gray-900 opacity-60 pt-1">
@@ -156,7 +156,7 @@ export default function ProductDetails() {
                   {(
                     (1 -
                       products.product?.discountedPrice /
-                        products?.product?.price) *
+                      products?.product?.price) *
                     100
                   ).toFixed(0) + "% off"}
                 </p>
@@ -206,6 +206,8 @@ export default function ProductDetails() {
                       Size
                     </h3>
                   </div>
+
+                  <h2 className="text-red-600">{selectedSize === "" ? "Please select size" : ""}</h2>
 
                   <RadioGroup
                     value={selectedSize}
@@ -275,11 +277,12 @@ export default function ProductDetails() {
                     </div>
                   </RadioGroup>
                 </div>
-
+                  
                 <button
+                  disabled={selectedSize === "" ? true : false}
                   onClick={handelAddToCart}
                   type="submit"
-                  className="w-full mt-[50px] text-white hover:bg-gray-800 bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium  text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                  className={`${selectedSize !== "" ? "cursor-pointer" : "cursor-not-allowed"} w-full mt-[50px] text-white hover:bg-gray-800 bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium  text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700`}
                 >
                   Add to cart
                 </button>

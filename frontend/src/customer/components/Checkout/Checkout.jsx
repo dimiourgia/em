@@ -28,6 +28,7 @@ console.log("step",step)
 
 
   const handleNext = () => {
+    
     let newSkipped = skipped;
    
 
@@ -50,7 +51,8 @@ console.log("step",step)
   }
 
   return (
-    <Box className="px-5 lg:px-32 " sx={{ width: "100%" }}>
+    <div className="sm:px-32 ">
+      <Box className=" lg:px-32" sx={{ width: "100%" }}>
       <Stepper activeStep={step}>
         {steps.map((label, index) => {
           const stepProps = {};
@@ -92,5 +94,7 @@ console.log("step",step)
         </>
       )}
     </Box>
+    </div>
+    
   );
 }

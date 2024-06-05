@@ -15,6 +15,9 @@ const Cart = () => {
   useEffect(() => {
     if (jwt) {
       dispatch(getCart(jwt));
+    } else {
+      window.location.href = 'http://localhost:5173/login' 
+      // navigate('/login')
     }
   }, [dispatch, jwt]);
 

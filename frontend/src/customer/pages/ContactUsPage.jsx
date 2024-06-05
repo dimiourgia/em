@@ -6,7 +6,8 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 const ContactUsPage = () => {
     return (
         <>
-            <div className='mt-[30px] mb-[100px] bg-[#faf8f1]  mx-auto max-w-[1000px] rounded-[40px]'>
+        <div className='w-full md:w-1/3 px-3'>
+            <div className=' mt-[30px] mb-[100px] bg-[#faf8f1]  mx-auto max-w-[1000px] rounded-[40px]'>
                 <div className='pt-[300px] pb-[300px]'>
                     <h1 className='tracking-widest font-light text-2xl text-center'>
                         IN CONNECTION WITH US
@@ -69,7 +70,7 @@ const ContactUsPage = () => {
 
                 </div>
             </div>
-
+</div>
         </>
     )
 }

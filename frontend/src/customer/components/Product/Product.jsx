@@ -3,6 +3,7 @@ import ProductCard from './ProductCard';
 import { useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { findProducts } from './../../../State/Product/Action';
+import { Pagination } from '@mui/material';
 
 const Product = () => {
     const param = useParams();
@@ -18,8 +19,15 @@ const Product = () => {
     const priceValue = searchParams.get("price");
     const discount = searchParams.get("discount") || 0;
     const sortValue = searchParams.get("sort") || "price_low";
-    const pageNumber = searchParams.get("page") || 1;
+    const pageNumber = searchParams.get("page") || 5;
     const stock = searchParams.get("stock");
+ 
+    const handelPaginationChange=(value)=>{
+        const searchParams=new URLSearchParams(location.search)
+        searchParams.set("page",value);
+        const query=searchParams.toString();
+        Navigate({search:`${query}`})
+    }
 
     useEffect(() => {
         const [minPrice, maxPrice] = priceValue ? priceValue.split("-").map(Number) : [0, 100000];
@@ -33,7 +41,7 @@ const Product = () => {
             minDiscount: discount,
             sort: sortValue,
             pageNumber,
-            pageSize: 30,
+            pageSize: 1,
             stock,
         };
         dispatch(findProducts(data));
@@ -238,11 +246,17 @@ const Product = () => {
                     </div>
 
                 </div>
+
+                <section className='w-full px-[3.6rem]'>
+                    <div className='px-4 py-5 flex justify-center'>
+                    <Pagination count={products.product?.totalPages} color="secondary" onChange={handelPaginationChange}/>
+                    </div>
+                </section>
             </div>
 
             {/* 
             <div className='mt-[100px]'>
-                <h1 className='text-black font-medium text-4xl text-center font-abc'>
+                <h1 className='text-black font-medium text-4xl text-center font-abc'>   
                     Online Boutique
                 </h1>
             </div> */}

@@ -20,8 +20,9 @@ const ProductCard = ({ product }) => {
         </div>
         <div className="textPart mt-[100px] bg-white p-3">
           <div>
-            <p className="tracking-widest font-abc font-light text-lg ">{product.brand}</p>
-            <p className="font-abc"> {product.title} </p>
+            <p className=" tracking-widest font-abc font-light text-lg"> {product.title} </p>
+            <p className=" font-abc text-sm">{product.brand}</p>
+            
           </div>
           <div className="flex items-center space-x-2">
             <p className=" text-sm font-abc">

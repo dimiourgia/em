@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 
 function Footer() {
 
+  const navigate =useNavigate()
+
   return (
     <>
       <link
@@ -43,7 +45,7 @@ function Footer() {
 
 
                 </button>
-                <button
+                <button onClick={() => navigate("/contact")}
                   className="bg-white text-lightBlue-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                   type="button"
                 >
