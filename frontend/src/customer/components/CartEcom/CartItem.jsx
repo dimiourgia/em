@@ -3,6 +3,7 @@ import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { removeCartItem, updateCartItem } from "../../../State/Cart/Action";
 import { IconButton } from "@mui/material";
+import { getCart } from "../../../State/Cart/Action";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
@@ -10,20 +11,34 @@ const CartItem = ({ item, showButton }) => {
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
 
-  const handleRemoveItemFromCart = () => {
+  const handleRemoveItemFromCart = async () => {
     const data = { cartItemId: item?._id, jwt };
-    dispatch(removeCartItem(data));
+    await dispatch(removeCartItem(data));
+    dispatch(getCart(jwt));
   };
 
-  const handleUpdateCartItem = (num) => {
-    const data = {
-      data: { quantity: item.quantity + num },
-      cartItemId: item?._id,
+  // const handleUpdateCartItem = (num) => {
+  //   const reqData = {
+  //     quantity: item.quantity + num,
+  //   };
+  //   const cartItemId = item?._id;
+  //   const jwt = localStorage.getItem("jwt");
+
+  //   console.log("update data ", { cartItemId, reqData });
+  //   dispatch(updateCartItem(cartItemId, { ...reqData, jwt }));
+  // };
+
+  const handleUpdateCartItem = async (num) => {
+    const reqData = {
+      quantity: item.quantity + num,
       jwt,
     };
-    console.log("update data ", data);
-    dispatch(updateCartItem(data));
+    const cartItemId = item?._id;
+
+    await dispatch(updateCartItem(cartItemId, reqData));
+    dispatch(getCart(jwt)); // Refetch the cart data
   };
+
   return (
     <div className="p-5 shadow-lg border rounded-md">
       <div className="flex items-center">
@@ -43,7 +58,12 @@ const CartItem = ({ item, showButton }) => {
               ₹{item?.product?.discountedPrice}
             </p>
             <p className="opacity-50 line-through">₹{item?.product?.price}</p>
-            <p className="text-red-500 font-semibold">{((1- item?.product?.discountedPrice / item?.product?.price)* 100).toFixed(0)+ "% off"}</p>
+            <p className="text-red-500 font-semibold">
+              {(
+                (1 - item?.product?.discountedPrice / item?.product?.price) *
+                100
+              ).toFixed(0) + "% off"}
+            </p>
           </div>
         </div>
       </div>

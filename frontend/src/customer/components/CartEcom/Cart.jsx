@@ -9,7 +9,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const jwt = localStorage.getItem("jwt");
-  const { cart } = useSelector((state) => state);
+  const cart  = useSelector((state) => state.cart);
   console.log("cart ", cart);
 
   useEffect(() => {
