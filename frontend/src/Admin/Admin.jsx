@@ -24,6 +24,7 @@ import ProductsTable from "./components/ProductsTable";
 import OrdersTable from "./components/OrdersTable";
 import CustomersTable from "./components/CustomersTable";
 import AdminDashboard from "./components/Dashboard";
+import TestPage from "../customer/pages/TestPage";
 
 const menu = [
   // { name: "Dashboard", path: "/admin", icon: <DashboardIcon /> },
@@ -101,6 +102,8 @@ const Admin = () => {
               element={<CreateProductForm />}
             ></Route>
             <Route path="/products" element={<ProductsTable />}></Route>
+
+            <Route path="/aaa" element={<TestPage />}></Route>
             {/* <Route path="/orders" element={<OrdersTable />}></Route>
             <Route path="/customers" element={<CustomersTable />}></Route> */}
           </Routes>

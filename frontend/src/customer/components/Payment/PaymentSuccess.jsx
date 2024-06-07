@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"; 
 import { useDispatch, useSelector } from "react-redux";
 import { Alert, AlertTitle, Box, Grid } from "@mui/material";
 import { getOrderById } from "../../../State/Order/Action";
@@ -67,11 +67,11 @@ const PaymentSuccess = () => {
                 <div className="ml-5 space-y-2">
                   <p>{item.product.title}</p>
                   <p className="opacity-50 text-sm font-semibold">
-                    <span>Color: Change model DB????  {item.color}</span>
-                    <span className="ml-5">Size: {item.size}</span>
+                    {/* <span>Color: Change model DB????  {item.color}</span> */}
+                    <span className="ml-0">Size: {item.size}</span>
                   </p>
                   <p className="opacity-50 text-xs">Seller: {item.product.brand}</p>
-                  <p>₹{item.price}</p>
+                  <p>₹{item.discountedPrice}</p>
                 </div>
               </div>
             </Grid>

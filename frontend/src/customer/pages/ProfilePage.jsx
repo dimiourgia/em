@@ -1,4 +1,11 @@
 import React from 'react'
+// import { getUser } from ""
+
+// import { useSelector } from 'react-redux'
+
+// const auth  = useSelector((state)=>state.auth)
+
+
 
 const ProfilePage = () => {
     return (

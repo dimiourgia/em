@@ -16,9 +16,10 @@ import RefundPage from "./../pages/RefundPage";
 import PrivacyPage from "../pages/PrivacyPage";
 import TermPage from "../pages/TermPage";
 import ContactUsPage from "../pages/ContactUsPage";
-import TestPage from "./../pages/TestPage";
+// import TestPage from "./../pages/TestPage";
 import ProfilePage from "../pages/ProfilePage";
 import OrderPage from "../pages/OrderPage";
+import TestPage from "../pages/TestPage";
 // import Producttest from "./../components/Product/Producttest";
 
 const CustomerRouters = () => {
@@ -28,6 +29,7 @@ const CustomerRouters = () => {
         <Head />
       </div>
       <Routes>
+      <Route path="/test" element={<TestPage />}></Route>
         <Route path="/login" element={<HomePage />}></Route>
         <Route path="/register" element={<HomePage />}></Route>
         <Route path="/" element={<HomePage />}></Route>
@@ -47,7 +49,7 @@ const CustomerRouters = () => {
         <Route path="/privacy" element={<PrivacyPage />}></Route>
         <Route path="/term" element={<TermPage />}></Route>
         <Route path="/contact" element={<ContactUsPage />}></Route>
-        <Route path="/test" element={<TestPage />}></Route>
+        {/* <Route path="/test" element={<TestPage />}></Route> */}
         <Route path="/profile" element={<ProfilePage />}></Route>
         <Route path="/order" element={<OrderPage />}></Route>
         {/* <Route path="/producttest" element={<Producttest />}></Route> */}

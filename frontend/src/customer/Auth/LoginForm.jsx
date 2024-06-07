@@ -1,43 +1,46 @@
-import { Button, Grid, TextField } from '@mui/material'
-import React, { useEffect } from 'react'
+import { Button, Grid, TextField, Typography } from '@mui/material'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { getUser, login } from '../../State/Auth/Action'
+import { login } from '../../State/Auth/Action'
 
 const LoginForm = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-
-    // useEffect(() => {
-    //     if (jwt) {
-    //         dispatch(getUser(jwt))
-    //     }
-
-    // }, [jwt, auth.jwt])
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [error, setError] = useState('')
 
     const handleSubmit = (event) => {
         event.preventDefault()
 
-        const data = new FormData(event.currentTarget);
+        const data = new FormData(event.currentTarget)
 
         const userData = {
-            // firstName: data.get("firstName"),
-            // lastName: data.get("lastName"),
             email: data.get("email"),
             password: data.get("password"),
-
         }
+
         dispatch(login(userData))
-        console.log("user data", userData);
-        // dispatch(register(userData))
+            .then(response => {
+                // Check the response to determine if login was successful
+                if (response.error) {
+                    setError('Username or Password is incorrect')
+                } else {
+                    setError('')
+                    // Navigate to another page on successful login, if necessary
+                }
+            })
+            .catch(error => {
+                console.error("Login error", error)
+                setError('Username or Password is incorrect')
+            })
+
+        console.log("user data", userData)
     }
+
     return (
         <div>
             <form onSubmit={handleSubmit}>
                 <Grid container spacing={3}>
-
-
                     <Grid item xs={12}>
                         <TextField
                             required
@@ -45,7 +48,7 @@ const LoginForm = () => {
                             name="email"
                             label="Email"
                             fullWidth
-                            autoComplete="given-name"
+                            autoComplete="email"
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -55,10 +58,16 @@ const LoginForm = () => {
                             name="password"
                             label="Password"
                             fullWidth
-                            autoComplete="given-name"
+                            autoComplete="current-password"
                             type="password"
                         />
                     </Grid>
+
+                    {error && (
+                        <Grid item xs={12}>
+                            <Typography sx={{ color: "red", fontSize: "15px" }}>{error}</Typography>
+                        </Grid>
+                    )}
 
                     <Grid item xs={12}>
                         <Button
@@ -75,8 +84,8 @@ const LoginForm = () => {
             </form>
 
             <div className="flex justify-center flex-col items-center">
-                <div className="py-3 flex items-center ">
-                    <p className="m-0 p-0">if you don't have account ?</p>
+                <div className="py-3 flex items-center">
+                    <p className="m-0 p-0">If you don't have an account?</p>
                     <Button onClick={() => navigate("/register")} className="ml-5" size="small">
                         Register
                     </Button>
