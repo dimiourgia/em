@@ -1,9 +1,8 @@
 const razorpay = require("../config/razorpayClient");
 const orderService = require("../services/order.service.js");
+const cartService = require("../services/cart.service.js");
 
 const createPaymentLink = async (orderId) => {
-  // const { amount, currency, receipt, notes } = reqData;
-
   try {
     const order = await orderService.findOrderById(orderId);
 
@@ -46,26 +45,27 @@ const updatePaymentInformation = async (reqData) => {
   const orderId = reqData.order_id;
 
   try {
-    // Fetch order details (You will need to implement the 'orderService.findOrderById' function)
     const order = await orderService.findOrderById(orderId);
 
-    // Fetch the payment details using the payment ID
     const payment = await razorpay.payments.fetch(paymentId);
 
     if (payment.status === "captured") {
+      // Clear the user's cart after successful payment
+      await cartService.clearCart(order.user._id);
 
+      // Update order status and payment details
       for (const item of order.orderItems) {
         const product = await Product.findById(item.product._id);
         const productSize = product.sizes.find(size => size.name === item.size);
 
         if (productSize) {
-            productSize.quantity -= item.quantity;
-            if (productSize.quantity < 0) {
-                productSize.quantity = 0;
-            }
+          productSize.quantity -= item.quantity;
+          if (productSize.quantity < 0) {
+            productSize.quantity = 0;
+          }
         }
         await product.save();
-    }
+      }
 
       order.paymentDetails.paymentId = paymentId;
       order.paymentDetails.status = "COMPLETED";
@@ -73,7 +73,7 @@ const updatePaymentInformation = async (reqData) => {
 
       await order.save();
     }
-    console.log("payment status", order);
+
     const resData = { message: "Your order is placed", success: true };
     return resData;
   } catch (error) {

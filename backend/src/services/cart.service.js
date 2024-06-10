@@ -79,108 +79,38 @@ async function addCartItem(userId, itemData) {
   return 'Item added to cart';
 }
 
+async function clearCart(userId) {
+  try {
+    // Find the user's cart and remove all cart items
+    const cart = await Cart.findOne({ user: userId });
+    if (!cart) {
+      throw new Error('Cart not found for the user');
+    }
 
-// Add an item to the user's cart,  without the outof stock 
-// async function addCartItem(userId, itemData) {
-//   console.log("hello itemDATa",itemData)
-//   const cart = await Cart.findOne({ user: userId });
-//   if (!cart) {
-//     throw new Error('Cart not found for the user');
-//   }
+    // Remove all cart items associated with this cart
+    await CartItem.deleteMany({ cart: cart._id });
 
-//   const product = await Product.findById(itemData.productId);
-//   if (!product) {
-//     throw new Error('Product not found');
-//   }else{
-//     const {_id, discountedPrice, price,} = product
-//     const isPresent = await CartItem.findOne({ cart: cart._id, product: product._id, userId });
-//     if (isPresent && isPresent.size===itemData.size) {
-//       isPresent.quantity += itemData.quantity;
-//       isPresent.price = isPresent.quantity * product.price;
-//       isPresent.discountedPrice = isPresent.quantity * product.discountedPrice;
-//       await isPresent.save();
-//     } else {
-//       const newCartItem = new CartItem({
-//         product: _id,
-//         cart: cart._id,
-//         quantity:  1,
-//         price: price ,
-//         discountedPrice: discountedPrice,
-//         userId: userId,
-//         size: itemData.size
-//       });
+    // Optionally, you can reset cart totals here if needed
+    cart.totalPrice = 0;
+    cart.totalItem = 0;
+    cart.totalDiscountedPrice = 0;
+    cart.discounte = 0;
 
-//       // const newCartItem = new CartItem({
-//       //   product: product._id,
-//       //   cart: cart._id,
-//       //   quantity: itemData.quantity || 1,
-//       //   price: product.price * itemData.quantity,
-//       //   discountedPrice: product.discountedPrice * itemData.quantity,
-//       //   userId: userId,
-//       //   size: itemData.size
-//       // });
-//       await newCartItem.save();
-//       cart.cartItems.push(newCartItem);
-//       await cart.save();
-//     }
+    // Save the updated cart
+    await cart.save();
+  } catch (error) {
+    console.error("Error clearing cart:", error);
+    throw new Error(error.message);
+  }
+}
 
-//   }
-
-
-//   return 'Item added to cart';
-// }
-
-// Update an existing cart item
-// async function updateCartItem(userId, cartItemId, cartItemData) {
-//   const cartItem = await CartItem.findById(cartItemId).populate('product');
-//   if (!cartItem) {
-//     throw new Error('Cart item not found');
-//   }
-
-//   if (cartItem.userId.toString() !== userId.toString()) {
-//     throw new Error('Unauthorized action');
-//   }
-
-//   cartItem.quantity = cartItemData.quantity;
-//   cartItem.price = cartItem.quantity * cartItem.product.price;
-//   cartItem.discountedPrice = cartItem.quantity * cartItem.product.discountedPrice;
-//   const updatedCartItem = await cartItem.save();
-
-//   return updatedCartItem;
-// }
-
-// Remove a cart item
-// async function removeCartItem(userId, cartItemId) {
-//   const cartItem = await CartItem.findById(cartItemId);
-//   if (!cartItem) {
-//     throw new Error('Cart item not found');
-//   }
-
-//   if (cartItem.userId.toString() !== userId.toString()) {
-//     throw new Error('Unauthorized action');
-//   }
-
-//   const cart = await Cart.findById(cartItem.cart);
-//   cart.cartItems.pull(cartItemId); // Remove the item from the cart's cartItems array
-//   await cart.save();
-
-//   await CartItem.findByIdAndDelete(cartItemId);
-// }
-
-// Find a cart item by its ID
-// async function findCartItemById(cartItemId) {
-//   const cartItem = await CartItem.findById(cartItemId).populate('product');
-//   if (cartItem) {
-//     return cartItem;
-//   } else {
-//     throw new Error(`CartItem not found with id: ${cartItemId}`);
-//   }
-// }
 
 module.exports = {
   createCart,
   findUserCart,
   addCartItem,
+  clearCart,
+  // addCartItem,
   // updateCartItem,
   // removeCartItem,
   // findCartItemById,
