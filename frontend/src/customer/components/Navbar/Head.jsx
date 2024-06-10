@@ -237,9 +237,6 @@ export default function Head() {
                   onClose={handleCloseUserMenu}
                   MenuListProps={{ "aria-labelledby": "user-circle" }}
                 >
-                  <MenuItem onClick={() => handleMenuItemClick("/profile")}>
-                    Profile
-                  </MenuItem>
                   <MenuItem onClick={() => handleMenuItemClick("/order")}>
                     My Orders
                   </MenuItem>

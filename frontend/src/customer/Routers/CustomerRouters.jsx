@@ -17,7 +17,7 @@ import PrivacyPage from "../pages/PrivacyPage";
 import TermPage from "../pages/TermPage";
 import ContactUsPage from "../pages/ContactUsPage";
 // import TestPage from "./../pages/TestPage";
-import ProfilePage from "../pages/ProfilePage";
+// import ProfilePage from "../pages/ProfilePage";
 import OrderPage from "../pages/OrderPage";
 import TestPage from "../pages/TestPage";
 // import Producttest from "./../components/Product/Producttest";
@@ -50,7 +50,7 @@ const CustomerRouters = () => {
         <Route path="/term" element={<TermPage />}></Route>
         <Route path="/contact" element={<ContactUsPage />}></Route>
         {/* <Route path="/test" element={<TestPage />}></Route> */}
-        <Route path="/profile" element={<ProfilePage />}></Route>
+        {/* <Route path="/profile" element={<ProfilePage />}></Route> */}
         <Route path="/order" element={<OrderPage />}></Route>
         {/* <Route path="/producttest" element={<Producttest />}></Route> */}
 
