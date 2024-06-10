@@ -27,10 +27,12 @@ const productSchema = new mongoose.Schema({
   color: {
     type: String,
   },
-  sizes: [{
-    name:{type:String},
-    quantity:{type:Number}
-  }], 
+  sizes: [
+    {
+        name: { type: String, required: true },
+        quantity: { type: Number, required: true, default:0 }
+    }
+], 
   imageUrl: {
     type: String,
   },

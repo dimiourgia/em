@@ -37,19 +37,9 @@ function App() {
         <Route path='/admin/*' element={<AdminRouters />}></Route>
       </Routes>
 
-
-      <div>
-        {/* <Product /> */}
-        {/* https://tailwindui.com/components/ecommerce/components/product-overviews */}
-        {/* <ProductDetails /> */}
-        {/* <CartEcom /> */}
-        {/* <Checkout /> */}
-      </div>
-
     </div>
 
   );
 }
 
 export default App;
-

@@ -1,10 +1,11 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { filterProducts } from "../../../State/Product/Action";
+// import { useDispatch } from "react-redux";
+// import { filterProducts } from "../../../State/Product/Action";
 
 
 export default function SearchBar() {
   return (
+    <div>
     <form className="mx-auto w-max">
       <div className="relative">
         <img
@@ -19,5 +20,6 @@ export default function SearchBar() {
         />
       </div>
     </form>
+    </div>
   );
 }

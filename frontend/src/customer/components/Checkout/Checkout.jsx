@@ -10,7 +10,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import OrderSummery from "./OrderSummery";
 
 const steps = [
-  "Login",
   "Delivery Adress",
   "Order Summary",                                                                  
   "Payment",
@@ -78,14 +77,14 @@ console.log("step",step)
       ) : (
         <>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button
+            {/* <Button
               color="inherit"
               disabled={step == 2}
               onClick={handleBack}
               sx={{ mr: 1 }}
             >
               Back
-            </Button>
+            </Button> */}
             <Box sx={{ flex: "1 1 auto" }} />
           </Box>
           <div className="my-5">

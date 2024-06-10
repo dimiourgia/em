@@ -1,15 +1,22 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import Admin from '../../Admin/Admin'
+import React from 'react';
+import { Route, Routes, Navigate } from 'react-router-dom';
+import Admin from '../../Admin/Admin';
+import { useSelector } from 'react-redux';
 
-const AdminRouters = () => {
+const AdminRoutes = () => {
+    const { user } = useSelector(state => state.auth);
+    const isAdmin = user && user.role === 'ADMIN';
+    console.log("admin routes page hai", isAdmin)
+
     return (
-        <div>
-            <Routes>
-                <Route path='/*' element={<Admin />}></Route>
-            </Routes>
-        </div>
-    )
-}
+        <Routes>
+            {isAdmin ? (
+                <Route path="/*" element={<Admin/>} />
+            ) : (
+                <Route path="/*" element={<Navigate to="/" replace />} />
+            )}
+        </Routes>
+    );
+};
 
-export default AdminRouters
+export default AdminRoutes;

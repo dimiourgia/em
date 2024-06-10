@@ -1,8 +1,7 @@
-// import { ListBulletIcon } from '@heroicons/react/24/outline';
+import React from "react";
 import {
   Box,
   CssBaseline,
-  Drawer,
   List,
   ListItem,
   ListItemButton,
@@ -12,10 +11,8 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import EmailIcon from "@mui/icons-material/Email";
-import InboxIcon from "@mui/icons-material/Inbox";
+import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Dashboard from "./components/Dashboard";
@@ -27,23 +24,17 @@ import AdminDashboard from "./components/Dashboard";
 import TestPage from "../customer/pages/TestPage";
 
 const menu = [
-  // { name: "Dashboard", path: "/admin", icon: <DashboardIcon /> },
+  { name: "Dashboard", path: "/admin", icon: <DashboardIcon /> },
   { name: "Products", path: "/admin/products", icon: <DashboardIcon /> },
-  // { name: "Customers", path: "/admin/customers", icon: <DashboardIcon /> },
-  // { name: "Orders", path: "/admin/orders", icon: <DashboardIcon /> },
-  {
-    name: "AddProduct",
-    path: "/admin/product/create",
-    icon: <DashboardIcon />,
-  },
-  //{ name: "", path: "" },
+  { name: "AddProduct", path: "/admin/product/create", icon: <DashboardIcon /> },
 ];
 
 const Admin = () => {
+  const { user } = useSelector((state) => state.auth);
   const theme = useTheme();
-  const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
-  const [sideBarVisible, setSideBarVisible] = useState(false);
   const navigate = useNavigate();
+
+  const isAdmin = user && user.role === "ADMIN";
 
   const drawer = (
     <Box
@@ -52,28 +43,23 @@ const Admin = () => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        // border: "1px solid blue",
         height: "100%",
       }}
     >
-      <>
-        {/* {isLargeScreen && <Toolbar />} */}
-        <List>
-          {menu.map((item, index) => (
-            <ListItem
-              key={item.name}
-              disablePadding
-              onClick={() => navigate(item.path)}
-            >
-              <ListItemButton>
-                <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText>{item.name}</ListItemText>
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </>
-
+      <List>
+        {menu.map((item) => (
+          <ListItem
+            key={item.name}
+            disablePadding
+            onClick={() => navigate(item.path)}
+          >
+            <ListItemButton>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText>{item.name}</ListItemText>
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
       <List>
         <ListItem disablePadding>
           <ListItemButton>
@@ -88,26 +74,23 @@ const Admin = () => {
   );
 
   return (
-    <div>
-      <div className="flex  h-[100vh]   ">
-        <CssBaseline />
-        <div className="w-[15%] border border-r-gray-300 h-full fixed top-0">
-          {drawer}
-        </div>
-        <div className="w-[85%] h-full ml-[15%] ">
-          <Routes>
-            <Route path="/" element={<AdminDashboard />}></Route>
-            <Route
-              path="/product/create"
-              element={<CreateProductForm />}
-            ></Route>
-            <Route path="/products" element={<ProductsTable />}></Route>
-
-            <Route path="/aaa" element={<TestPage />}></Route>
-            {/* <Route path="/orders" element={<OrdersTable />}></Route>
-            <Route path="/customers" element={<CustomersTable />}></Route> */}
-          </Routes>
-        </div>
+    <div className="flex h-[100vh]">
+      <CssBaseline />
+      <div className="w-[15%] border-r border-gray-300 h-full fixed top-0">
+        {drawer}
+      </div>
+      <div className="w-[85%] h-full ml-[15%]">
+        <Routes>
+          {isAdmin ? (
+            <>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/product/create" element={<CreateProductForm />} />
+              <Route path="/products" element={<ProductsTable />} />
+            </>
+          ) : (
+            <Route path="/*" element={<Navigate to="/" replace />} />
+          )}
+        </Routes>
       </div>
     </div>
   );

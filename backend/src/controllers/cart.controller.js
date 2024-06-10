@@ -18,14 +18,12 @@ const findUserCart = async (req, res) => {
 const addItemToCart = async (req, res) => {
   try {
     const user = req.user;
-    console.log("cart_controller", user._id, req.body);
     await cartService.addCartItem(user._id.toString(), req.body);
     res.status(202).json({ message: "Item Added To Cart Successfully", status: true });
   } catch (error) {
-    // Handle error here and send appropriate response
     res
       .status(500)
-      .json({ message: "Failed to add item to cart.", error: error.message });
+      .json({ message: "Failed to add item to cart.", error: error.message, status: false });
   }
 };
 

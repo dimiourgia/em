@@ -38,59 +38,97 @@ async function findUserCart(userId) {
   return cart;
 }
 
-// Add an item to the user's cart
 async function addCartItem(userId, itemData) {
   const cart = await Cart.findOne({ user: userId });
   if (!cart) {
-    throw new Error('Cart not found for the user');
+      throw new Error('Cart not found for the user');
   }
 
   const product = await Product.findById(itemData.productId);
   if (!product) {
-    throw new Error('Product not found');
-  }else{
-    console.log("i have product details.", product)
-    const {_id, discountedPrice, price,} = product
-    // console.log("do i have cart id.", userId, product._id, cart._id)
-    const isPresent = await CartItem.findOne({ cart: cart._id, product: product._id, userId });
-   console.log("where is cart id", isPresent );
-    if (isPresent) {
+      throw new Error('Product not found');
+  }
+
+  // Check if the product size is in stock
+  const productSize = product.sizes.find(size => size.name === itemData.size);
+  if (!productSize || productSize.quantity < itemData.quantity) {
+      throw new Error('Product size is out of stock');
+  }
+
+  const isPresent = await CartItem.findOne({ cart: cart._id, product: product._id, size: itemData.size, userId });
+  if (isPresent) {
       isPresent.quantity += itemData.quantity;
       isPresent.price = isPresent.quantity * product.price;
       isPresent.discountedPrice = isPresent.quantity * product.discountedPrice;
       await isPresent.save();
-    } else {
-      console.log("do i have itemData for product 22222", _id, discountedPrice, price,);
-
+  } else {
       const newCartItem = new CartItem({
-        product: _id,
-        cart: cart._id,
-        quantity:  1,
-        price: price ,
-        discountedPrice: discountedPrice,
-        userId: userId,
-        size: itemData.size
+          product: product._id,
+          cart: cart._id,
+          quantity: itemData.quantity,
+          price: product.price,
+          discountedPrice: product.discountedPrice,
+          userId: userId,
+          size: itemData.size
       });
-
-      // const newCartItem = new CartItem({
-      //   product: product._id,
-      //   cart: cart._id,
-      //   quantity: itemData.quantity || 1,
-      //   price: product.price * itemData.quantity,
-      //   discountedPrice: product.discountedPrice * itemData.quantity,
-      //   userId: userId,
-      //   size: itemData.size
-      // });
       await newCartItem.save();
       cart.cartItems.push(newCartItem);
       await cart.save();
-    }
-
   }
-
 
   return 'Item added to cart';
 }
+
+
+// Add an item to the user's cart,  without the outof stock 
+// async function addCartItem(userId, itemData) {
+//   console.log("hello itemDATa",itemData)
+//   const cart = await Cart.findOne({ user: userId });
+//   if (!cart) {
+//     throw new Error('Cart not found for the user');
+//   }
+
+//   const product = await Product.findById(itemData.productId);
+//   if (!product) {
+//     throw new Error('Product not found');
+//   }else{
+//     const {_id, discountedPrice, price,} = product
+//     const isPresent = await CartItem.findOne({ cart: cart._id, product: product._id, userId });
+//     if (isPresent && isPresent.size===itemData.size) {
+//       isPresent.quantity += itemData.quantity;
+//       isPresent.price = isPresent.quantity * product.price;
+//       isPresent.discountedPrice = isPresent.quantity * product.discountedPrice;
+//       await isPresent.save();
+//     } else {
+//       const newCartItem = new CartItem({
+//         product: _id,
+//         cart: cart._id,
+//         quantity:  1,
+//         price: price ,
+//         discountedPrice: discountedPrice,
+//         userId: userId,
+//         size: itemData.size
+//       });
+
+//       // const newCartItem = new CartItem({
+//       //   product: product._id,
+//       //   cart: cart._id,
+//       //   quantity: itemData.quantity || 1,
+//       //   price: product.price * itemData.quantity,
+//       //   discountedPrice: product.discountedPrice * itemData.quantity,
+//       //   userId: userId,
+//       //   size: itemData.size
+//       // });
+//       await newCartItem.save();
+//       cart.cartItems.push(newCartItem);
+//       await cart.save();
+//     }
+
+//   }
+
+
+//   return 'Item added to cart';
+// }
 
 // Update an existing cart item
 // async function updateCartItem(userId, cartItemId, cartItemData) {

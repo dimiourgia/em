@@ -2,14 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Avatar, Menu, MenuItem } from "@mui/material";
 import { Collapse, Typography, List, ListItem } from "@material-tailwind/react";
-import { UserCircleIcon, ShoppingBagIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  UserCircleIcon,
+  ShoppingBagIcon,
+  Bars3Icon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 
 import AuthModal from "../../Auth/AuthModal";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, logout } from "../../../State/Auth/Action";
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
-import SearchBar from "./SearchBar";  // Import the SearchBar component
+import SearchBar from "./SearchBar"; // Import the SearchBar component
+import { MenuItems } from "@headlessui/react";
 
 function NavList() {
   return (
@@ -63,16 +69,23 @@ export default function Head() {
   const dispatch = useDispatch();
   const location = useLocation();
   const jwt = localStorage.getItem("jwt");
-  const { auth } = useSelector((store) => store);
+  const auth = useSelector((state) => state.auth);
 
   const handleUserClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const handleMenuItemClick = (path) => {
+    navigate(path);
+    handleCloseUserMenu();
+  };
+
   const handleCloseUserMenu = () => {
     setAnchorEl(null);
   };
 
   const handleOpen = () => {
+    console.log("handle check karna hai")
     setOpenAuthModal(true);
   };
   const handleClose = () => {
@@ -89,25 +102,21 @@ export default function Head() {
       dispatch(getUser(jwt));
     } else {
       if (location.pathname === "/login" && !jwt) {
-         setOpenAuthModal(true)
+        setOpenAuthModal(true);
       }
-
     }
   }, [jwt, auth.jwt]);
-
-  console.log("this is test",jwt)
-
 
   useEffect(() => {
     if (auth.user) {
       handleClose();
     }
-    // if (location.pathname === "/login" || location.pathname === "/register") {
-    //   navigate(-1);
-    // }
+    if (location.pathname === "/login" || location.pathname === "/register") {
+      navigate(-1);
+    }
   }, [auth.user]);
 
-
+  const isAdmin = auth?.user?.role == "ADMIN";
 
   return (
     <div className="nav-container mx-auto bg-white">
@@ -115,48 +124,72 @@ export default function Head() {
         <div className="relative flex overflow-x-hidden">
           <div className="py-1 animate-marquee whitespace-nowrap">
             <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
-            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span><span className="italic">Be YOU</span>
-            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
             <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
-            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span><span className="italic">Be YOU</span>
-            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+            <span className="italic"> Be BOLD</span>
             <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
-            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span><span className="italic">Be YOU</span>
-            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+            <span className="italic">Be YOU</span>
             <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
-            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span><span className="italic">Be YOU</span>
-            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+            <span className="italic">Be UNSTOPPABLE</span>
+            <span className="ml-8"></span>
+            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
+            <span className="ml-8"></span>
+            <span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be YOU</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be UNSTOPPABLE</span>
+            <span className="ml-8"></span>
+            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
+            <span className="ml-8"></span>
+            <span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be YOU</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be UNSTOPPABLE</span>
+            <span className="ml-8"></span>
+            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
+            <span className="ml-8"></span>
+            <span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be YOU</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be UNSTOPPABLE</span>
           </div>
 
           <div className="absolute top-0 py-1 animate-marquee2 whitespace-nowrap">
             <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
-            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span><span className="italic">Be YOU</span>
-            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
             <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
-            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span><span className="italic">Be YOU</span>
-            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+            <span className="italic"> Be BOLD</span>
             <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
-            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span><span className="italic">Be YOU</span>
-            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+            <span className="italic">Be YOU</span>
             <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: '10px' }} />
-            <span className="ml-8"></span><span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span><span className="italic">Be YOU</span>
-            <span className="ml-8"></span><span className="italic">Be UNSTOPPABLE</span>
+            <span className="italic">Be UNSTOPPABLE</span>
+            <span className="ml-8"></span>
+            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
+            <span className="ml-8"></span>
+            <span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be YOU</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be UNSTOPPABLE</span>
+            <span className="ml-8"></span>
+            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
+            <span className="ml-8"></span>
+            <span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be YOU</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be UNSTOPPABLE</span>
+            <span className="ml-8"></span>
+            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
+            <span className="ml-8"></span>
+            <span className="italic"> Be BOLD</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be YOU</span>
+            <span className="ml-8"></span>
+            <span className="italic">Be UNSTOPPABLE</span>
           </div>
         </div>
       </div>
@@ -172,11 +205,7 @@ export default function Head() {
             alt="Empressa"
             className="h-20 w-20"
           />
-          <Typography
-            variant="small"
-            color="blue-gray"
-            className="mt-0.25 "
-          >
+          <Typography variant="small" color="blue-gray" className="mt-0.25 ">
             EMPRESSA
           </Typography>
         </Typography>
@@ -208,16 +237,34 @@ export default function Head() {
                   onClose={handleCloseUserMenu}
                   MenuListProps={{ "aria-labelledby": "user-circle" }}
                 >
-                  <MenuItem onClick={() => navigate("/profile")}>Profile</MenuItem>
-                  <MenuItem onClick={() => navigate("/order")}>My Orders</MenuItem>
-                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  <MenuItem onClick={() => handleMenuItemClick("/profile")}>
+                    Profile
+                  </MenuItem>
+                  <MenuItem onClick={() => handleMenuItemClick("/order")}>
+                    My Orders
+                  </MenuItem>
+                  {
+                  isAdmin && 
+                    <Link to={"/admin"}>
+                      <MenuItem>DashBoard</MenuItem>
+                    </Link>
+                  }
+                  <MenuItem
+                    onClick={() => {
+                      handleLogout();
+                      handleCloseUserMenu();
+                    }}
+                  >
+                    Logout
+                  </MenuItem>
                 </Menu>
               </div>
             ) : (
+              <div onClick={handleOpen}>
               <UserCircleIcon
                 className="h-7 w-7 mt-1 cursor-pointer active:scale-50 ml-2"
-                onClick={handleOpen}
               />
+              </div>
             )}
           </div>
           <div className="mb-2">

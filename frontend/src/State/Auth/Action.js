@@ -71,18 +71,3 @@ export const logout = () => (dispatch) => {
     dispatch({ type: LOGOUT, payload: null })
     localStorage.clear();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -16,8 +16,9 @@ const Cart = () => {
     if (jwt) {
       dispatch(getCart(jwt));
     } else {
-      window.location.href = 'http://localhost:5173/login' 
-      // navigate('/login')
+      navigate('/login')
+      window.location.href = 'http://localhost:5173/login'
+      
     }
   }, [dispatch, jwt]);
 

@@ -67,8 +67,7 @@ const PaymentSuccess = () => {
                 <div className="ml-5 space-y-2">
                   <p>{item.product.title}</p>
                   <p className="opacity-50 text-sm font-semibold">
-                    {/* <span>Color: Change model DB????  {item.color}</span> */}
-                    <span className="ml-0">Size: {item.size}</span>
+                    <span className="">Size: {item.size}</span>
                   </p>
                   <p className="opacity-50 text-xs">Seller: {item.product.brand}</p>
                   <p>₹{item.discountedPrice}</p>

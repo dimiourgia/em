@@ -53,6 +53,20 @@ const updatePaymentInformation = async (reqData) => {
     const payment = await razorpay.payments.fetch(paymentId);
 
     if (payment.status === "captured") {
+
+      for (const item of order.orderItems) {
+        const product = await Product.findById(item.product._id);
+        const productSize = product.sizes.find(size => size.name === item.size);
+
+        if (productSize) {
+            productSize.quantity -= item.quantity;
+            if (productSize.quantity < 0) {
+                productSize.quantity = 0;
+            }
+        }
+        await product.save();
+    }
+
       order.paymentDetails.paymentId = paymentId;
       order.paymentDetails.status = "COMPLETED";
       order.orderStatus = "PLACED";

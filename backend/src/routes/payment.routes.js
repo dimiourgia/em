@@ -1,5 +1,5 @@
 const express=require("express");
-const authenticate = require("../middleware/authenticat.js");
+const  { authenticate, isAdmin } = require("../middleware/authenticat.js");
 const router=express.Router();
 const paymentController=require("../controllers/payment.controller.js");
 
