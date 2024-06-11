@@ -19,16 +19,22 @@ const items = [
             <GradeIcon />
             <GradeIcon />
         </div>
-        <div  className='w-full md:w-1/3 px-3 md:mb-0'>
-        <p className='font-ijk text-center text-lg  text-black mt-[30px] underline  '>
-            Gorgeous dress!
-        </p>
-        <p className='font-ijk text-center text-base  text-gray-800'>
-            The Kyra Midi is just beautiful and looks great layered & with boots as we change seasons. I love the volume of the fabric, especially the gathering at the back, and the length of the dress.
-        </p>
-        <p className='font-ijk text-center text-lg  text-black mt-[30px] '>
-            Darlsy P
-        </p>
+        <div className='w-full md:w-1/3 px-3 md:mb-0'>
+            <div className="flex justify-center items-center p-4 ">
+                <p className="p-2 px-4 group"  >
+                    Gorgeous dress!
+                    <div className="bg-amber-500 h-[2px] w-0 group-hover:w-full transition-all duration-500"></div>
+                </p>
+            </div>
+            {/* <p className='font-ijk text-center text-lg  text-black mt-[30px] underline  '>
+                Gorgeous dress!
+            </p> */}
+            <p className='font-ijk text-center text-base  text-gray-800'>
+                The Kyra Midi is just beautiful and looks great layered & with boots as we change seasons. I love the volume of the fabric, especially the gathering at the back, and the length of the dress.
+            </p>
+            <p className='font-ijk text-center text-lg  text-black mt-[30px] '>
+                Darlsy P
+            </p>
         </div>
 
     </div>,
@@ -41,16 +47,22 @@ const items = [
             <GradeIcon />
             <GradeIcon />
         </div>
-        <div  className='w-full md:w-1/3 px-3 md:mb-0'>
-        <p className='font-ijk text-center text-lg  text-black mt-[30px] underline '>
-            I love my dress
-        </p>
-        <p className='font-ijk text-center text-base  text-gray-800'>
-            It is beautifully made, it looks fabulous and I feel good knowing that my Daughters of India dress in an investment in slow fashion, empowering women and a community in there artisan crafts .
-        </p>
-        <p className='font-ijk text-center text-lg  text-black mt-[30px] '>
-            Paula Davidson, Australia
-        </p>
+        <div className='w-full md:w-1/3 px-3 md:mb-0'>
+            <div className="flex justify-center items-center p-4 ">
+                <p className="p-2 px-4 group"  >
+                    I love my dress
+                    <div className="bg-amber-500 h-[2px] w-0 group-hover:w-full transition-all duration-500"></div>
+                </p>
+            </div>
+            {/* <p className='font-ijk text-center text-lg  text-black mt-[30px] underline '>
+                I love my dress
+            </p> */}
+            <p className='font-ijk text-center text-base  text-gray-800'>
+                It is beautifully made, it looks fabulous and I feel good knowing that my Daughters of India dress in an investment in slow fashion, empowering women and a community in there artisan crafts .
+            </p>
+            <p className='font-ijk text-center text-lg  text-black mt-[30px] '>
+                Paula Davidson, Australia
+            </p>
         </div>
 
     </div>,
@@ -64,15 +76,21 @@ const items = [
             <GradeIcon />
         </div>
         <div className='w-full md:w-1/3 px-3 md:mb-0'>
-        <p className='font-ijk text-center text-lg  text-black mt-[30px] underline '>
-            The most beautiful piece of clothing I own
-        </p>
-        <p className='font-ijk text-center text-base  text-gray-800'>
-            MY GOODNESS. This dress is worth every single penny. I have never felt more beautiful and feminine in my life. It is so lightweight, flowy, and just down right stunning. It also...
-        </p>
-        <p className='font-ijk text-center text-lg  text-black mt-[30px] '>
-            Savanna
-        </p>
+            <div className="flex justify-center items-center p-4 ">
+                <p className="p-2 px-4 group"  >
+                    The most beautiful piece of clothing I own
+                    <div className="bg-amber-500 h-[2px] w-0 group-hover:w-full transition-all duration-500"></div>
+                </p>
+            </div>
+            {/* <p className='font-ijk text-center text-lg  text-black mt-[30px] underline '>
+                The most beautiful piece of clothing I own
+            </p> */}
+            <p className='font-ijk text-center text-base  text-gray-800'>
+                MY GOODNESS. This dress is worth every single penny. I have never felt more beautiful and feminine in my life. It is so lightweight, flowy, and just down right stunning. It also...
+            </p>
+            <p className='font-ijk text-center text-lg  text-black mt-[30px] '>
+                Savanna
+            </p>
         </div>
 
     </div>,

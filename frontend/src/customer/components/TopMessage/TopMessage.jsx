@@ -7,7 +7,13 @@ const TopMessage = () => {
 
 
                 <h1 className='font-ijk text-center text-3xl  text-black  mt-[100px] '>
-                    Slowly, ethically hand-crafted
+                    <div className="flex justify-center items-center p-4 ">
+                        <p className="p-2 px-4 group"  >
+                        Slowly, ethically hand-crafted
+                            <div className="bg-amber-500 h-[2px] w-0 group-hover:w-full transition-all duration-500"></div>
+                        </p>
+                    </div>
+                   
                 </h1>
                 <p className='font-ijk text-center text-xl  text-gray-800  mt-[30px] '>
                     We practise slow, handmade fashion. This is the essence of everything at Daughters of India. We release one

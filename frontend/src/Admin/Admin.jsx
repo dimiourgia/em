@@ -7,33 +7,22 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Toolbar,
-  useMediaQuery,
-  useTheme,
 } from "@mui/material";
 import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Dashboard from "./components/Dashboard";
 import CreateProductForm from "./components/CreateProductForm";
 import ProductsTable from "./components/ProductsTable";
-import OrdersTable from "./components/OrdersTable";
-import CustomersTable from "./components/CustomersTable";
-import AdminDashboard from "./components/Dashboard";
-import TestPage from "../customer/pages/TestPage";
 
 const menu = [
-  { name: "Dashboard", path: "/admin", icon: <DashboardIcon /> },
   { name: "Products", path: "/admin/products", icon: <DashboardIcon /> },
   { name: "AddProduct", path: "/admin/product/create", icon: <DashboardIcon /> },
 ];
 
 const Admin = () => {
   const { user } = useSelector((state) => state.auth);
-  const theme = useTheme();
   const navigate = useNavigate();
-
   const isAdmin = user && user.role === "ADMIN";
 
   const drawer = (
@@ -48,14 +37,10 @@ const Admin = () => {
     >
       <List>
         {menu.map((item) => (
-          <ListItem
-            key={item.name}
-            disablePadding
-            onClick={() => navigate(item.path)}
-          >
+          <ListItem key={item.name} disablePadding onClick={() => navigate(item.path)}>
             <ListItemButton>
               <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText>{item.name}</ListItemText>
+              <ListItemText primary={item.name} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -63,10 +48,11 @@ const Admin = () => {
       <List>
         <ListItem disablePadding>
           <ListItemButton>
-            <ListItemIcon>
-              <AccountCircleIcon />
-            </ListItemIcon>
-            <ListItemText>Account</ListItemText>
+            <ListItemText className="mx-auto flex justify-center items-center" >
+              <button onClick={() => navigate("/")} className="text-white  bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                HOME
+              </button>
+            </ListItemText>
           </ListItemButton>
         </ListItem>
       </List>

@@ -7,7 +7,13 @@ const BottomJournal = () => {
     return (
         <>
             <h1 className='font-ijk text-center text-3xl  text-black  mt-[100px] '>
-                From the Journal
+            <div className="flex justify-center items-center p-4 ">
+                        <p className="p-2 px-4 group"  >
+                        From the Journal
+                            <div className="bg-amber-500 h-[2px] w-0 group-hover:w-full transition-all duration-500"></div>
+                        </p>
+                    </div>
+                
             </h1>
 
             <h1 className='text-center mt-[10px]'>

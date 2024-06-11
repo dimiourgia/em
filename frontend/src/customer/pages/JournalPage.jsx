@@ -7,7 +7,13 @@ const JournalPage = () => {
         <>
             <Link to="/journaldetail">
                 <h1 className='font-ijk text-center text-4xl  text-black  mt-[100px] '>
-                    On the Journal
+                <div className="flex justify-center items-center p-4 ">
+                        <p className="p-2 px-4 group"  >
+                        On the Journal
+                            <div className="bg-amber-500 h-[2px] w-0 group-hover:w-full transition-all duration-500"></div>
+                        </p>
+                    </div>
+                    
                 </h1>
             </Link>
 

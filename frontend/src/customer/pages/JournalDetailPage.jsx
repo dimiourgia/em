@@ -8,7 +8,13 @@ const JournalDetailPage = () => {
                 Apr 01, 2024
             </h1>
             <h1 className='font-ijk text-center text-4xl  text-black  mt-[10px] '>
-                Chai & Chats with @solmama__
+                
+                <div className="flex justify-center items-center p-4 ">
+                        <p className="p-2 px-4 group"  >
+                        Chai & Chats with @solmama__
+                            <div className="bg-amber-500 h-[2px] w-0 group-hover:w-full transition-all duration-500"></div>
+                        </p>
+                    </div>
             </h1>
             <div className='  mx-auto flex justify-center items-center mt-[100px] max-w-[1000px]'>
                 <img className=' '
