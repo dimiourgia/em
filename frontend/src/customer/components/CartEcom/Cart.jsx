@@ -17,10 +17,8 @@ const Cart = () => {
       dispatch(getCart(jwt));
     } else {
       navigate('/login')
-      window.location.href = 'http://localhost:5173/login'
-      
     }
-  }, [dispatch, jwt]);
+  }, [dispatch, jwt, navigate]);
 
   // Check if the cart is empty
   const isCartEmpty = !cart.cartItems || cart.cartItems.length === 0;

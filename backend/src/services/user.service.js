@@ -65,7 +65,6 @@ const getUserProfileByToken=async(token)=>{
         const userId=jwtProvider.getUserIdFromToken(token)
         console.log("userr id ",userId)
         const user= (await findUserById(userId))
-        // .populate("addresses");
         user.password=null;
         if(!user){
             throw new Error("user not exist with id : ",userId)

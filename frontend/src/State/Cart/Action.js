@@ -60,7 +60,7 @@ export const getCart = (jwt) => async (dispatch) => {
         },
       });
       dispatch({ type: UPDATE_CART_ITEM_SUCCESS, payload: data });
-      dispatch(getCart(reqData.jwt)); // Refetch the cart data
+      dispatch(getCart(reqData.jwt));
     } catch (error) {
       dispatch({ type: UPDATE_CART_ITEM_FAILURE, payload: error.message });
     }

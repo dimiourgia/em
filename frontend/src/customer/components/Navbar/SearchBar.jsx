@@ -1,6 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function SearchBar() {
+export default function SearchBar({search, setSearch}) {
+  const navigate = useNavigate();
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+  };
   return (
     <div>
       <form className="mx-auto w-max">
@@ -11,8 +16,11 @@ export default function SearchBar() {
             className="absolute h-5 w-5 top-2 left-3"
           />
           <input
+            value={search}
+            onFocus={()=>navigate("/products")}
             type="search"
             placeholder="Search"
+            onChange={handleChange}
             aria-label="Search"
             className="h-9 w-36 md:w-40 lg:w-60 rounded-full pl-10"
           />

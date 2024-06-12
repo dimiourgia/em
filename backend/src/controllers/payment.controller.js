@@ -9,9 +9,10 @@ const createPaymentLink = async (req, res) => {
   }
 };
 
+
 const updatePaymentInformation = async (req, res) => {
   try {
-    await paymentService.updatePaymentInformation(req.query);
+    await paymentService.updatePaymentInformation(req.body);
     return res
       .status(200)
       .send({ message: "payment information updated", status: true });
@@ -21,3 +22,4 @@ const updatePaymentInformation = async (req, res) => {
 };
 
 module.exports = { createPaymentLink, updatePaymentInformation };
+

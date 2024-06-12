@@ -14,16 +14,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser, logout } from "../../../State/Auth/Action";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
-import SearchBar from "./SearchBar"; // Import the SearchBar component
-import { MenuItems } from "@headlessui/react";
+import SearchBar from "./SearchBar";
 
-function NavList() {
+
+function NavList({search, setSearch}) {
   return (
     <List className="flex lg:ml-[200px] items-center lg:flex-row flex-col lg:items-center lg:w-auto w-full">
       <Typography>
         <ListItem>
           <div className="lg:hidden">
-            <SearchBar /> {/* Use SearchBar component for mobile view */}
+            <SearchBar  search={search} setSearch={setSearch} /> {/* Use SearchBar component for mobile view */}
           </div>
         </ListItem>
       </Typography>
@@ -59,7 +59,7 @@ function NavList() {
   );
 }
 
-export default function Head() {
+export default function Head({search ,setSearch}) {
   const [openNav, setOpenNav] = useState(false);
   const navigate = useNavigate();
   const [openAuthModal, setOpenAuthModal] = useState(false);
@@ -70,6 +70,10 @@ export default function Head() {
   const location = useLocation();
   const jwt = localStorage.getItem("jwt");
   const auth = useSelector((state) => state.auth);
+
+  const handleOpenAuthModal = () => {
+    setOpenAuthModal(true);
+  };
 
   const handleUserClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -84,10 +88,6 @@ export default function Head() {
     setAnchorEl(null);
   };
 
-  const handleOpen = () => {
-    console.log("handle check karna hai")
-    setOpenAuthModal(true);
-  };
   const handleClose = () => {
     setOpenAuthModal(false);
   };
@@ -101,15 +101,14 @@ export default function Head() {
     if (jwt) {
       dispatch(getUser(jwt));
     } else {
-      if (location.pathname === "/login" && !jwt) {
-        setOpenAuthModal(true);
-      }
+      if(location.pathname == '/login' && !jwt)
+        handleOpenAuthModal();
     }
-  }, [jwt, auth.jwt]);
+  }, [jwt, auth.jwt, location.pathname]);
 
   useEffect(() => {
     if (auth.user) {
-      handleClose();
+      handleCloseUserMenu();
     }
     if (location.pathname === "/login" || location.pathname === "/register") {
       navigate(-1);
@@ -215,7 +214,7 @@ export default function Head() {
         </div>
         <div className="flex md:ml-[564px] lg:ml-0  ml-[130px] m items-center justify-center">
           <div className="mx-auto w-max lg:block hidden">
-            <SearchBar /> {/* Use SearchBar component for desktop view */}
+            <SearchBar  search={search} setSearch={setSearch} />
           </div>
 
           <div className="mb-1">
@@ -257,7 +256,7 @@ export default function Head() {
                 </Menu>
               </div>
             ) : (
-              <div onClick={handleOpen}>
+              <div onClick={handleOpenAuthModal}>
               <UserCircleIcon
                 className="h-7 w-7 mt-1 cursor-pointer active:scale-50 ml-2"
               />

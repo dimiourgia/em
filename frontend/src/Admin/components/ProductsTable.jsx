@@ -22,10 +22,10 @@ const ProductsTable = () => {
             sort: "price_low",
             pageNumber: 1,
             pageSize: 30,
-            stock: "",
         }
         dispatch(findProducts(data))
-    }, [products.deletedProduct])
+    }, [products.deletedProduct, dispatch])
+
     return (
         <div className='p-5'>
             <Card className='mt-2'>
@@ -36,29 +36,31 @@ const ProductsTable = () => {
                             <TableRow>
                                 <TableCell>Image</TableCell>
                                 <TableCell align="left">Title</TableCell>
-                                <TableCell align="left">Category</TableCell>
                                 <TableCell align="left">Price</TableCell>
-                                {/* <TableCell align="left">Quantity</TableCell> */}
-
+                                <TableCell align="left">Quantity</TableCell>
                                 <TableCell align="left">Delete</TableCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody >
+                        <TableBody>
                             {products.map((item, index) => (
                                 <TableRow
                                     key={index}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
                                     <TableCell align="left">
-                                        <Avatar src={item.imageUrl}></Avatar>
+                                        <Avatar src={item.imageUrl} />
                                     </TableCell>
                                     <TableCell align="left" scope="row">
                                         {item.title}
                                     </TableCell>
-
-                                    <TableCell align="left">{item.category}</TableCell>
-                                    <TableCell align="left">{item.price}</TableCell>
-                                    {/* <TableCell align="left">{item.quantity}</TableCell> */}
+                                    <TableCell align="left">{item.discountedPrice}</TableCell>
+                                    <TableCell align="left">
+                                        {item.sizes.map((size) => (
+                                            <div key={size._id}>
+                                                {size.name}: {size.quantity}
+                                            </div>
+                                        ))}
+                                    </TableCell>
                                     <TableCell align="left">
                                         <Button onClick={() => handleProductDelete(item._id)}>Delete</Button>
                                     </TableCell>
@@ -68,8 +70,6 @@ const ProductsTable = () => {
                     </Table>
                 </TableContainer>
             </Card>
-
-
         </div>
     )
 }

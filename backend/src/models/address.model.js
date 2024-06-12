@@ -32,6 +32,8 @@ const addressSchema = new mongoose.Schema({
   mobile: {
     type: String,
   },
+},{
+  timestamps: true,
 });
 
 const Address = mongoose.model('addresses', addressSchema);

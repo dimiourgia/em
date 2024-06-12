@@ -20,7 +20,6 @@ async function createProduct(reqData) {
       brand: reqData.brand,
       price: reqData.price,
       sizes: reqData.size,
-      quantity: reqData.quantity,
       category: level._id,
     });
     const savedProduct = await product.save();
@@ -60,20 +59,6 @@ async function findProductById(id) {
   return product;
 }
 
-async function searchProduct(query) {
-  try {
-    const products = await Product.find({
-      $or: [
-        { title: { $regex: query, $options: "i" } },
-        { description: { $regex: query, $options: "i" } },
-      ],
-    }).exec();
-    return products;
-  } catch (error) {
-    throw new Error("Error searching products: " + error.message);
-  }
-}
-
 async function getAllProducts() {
   try {
     const query = await Product.find({}).exec();
@@ -87,7 +72,6 @@ async function getAllProducts() {
 module.exports = {
   createProduct,
   deleteProduct,
-  searchProduct,
   updateProduct,
   getAllProducts,
   findProductById,

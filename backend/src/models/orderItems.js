@@ -31,6 +31,8 @@ const orderItemSchema = new Schema({
   deliveryDate: {
     type: Date,
   },
+},{
+  timestamps: true,
 });
 
 const OrderItem = mongoose.model('orderItems', orderItemSchema);

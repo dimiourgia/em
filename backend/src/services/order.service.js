@@ -1,28 +1,23 @@
 const Address = require("../models/address.model.js");
 const Order = require("../models/order.model.js");
 const OrderItem = require("../models/orderItems.js");
-const Product = require("../models/product.model.js"); // Ensure Product model is imported
+const Product = require("../models/product.model.js");
 const cartService = require("../services/cart.service.js");
 
-async function createOrder(user, shippAddress) {
+async function createOrder(user, shippingAddress) {
   try {
-    // Handle shipping address
     let address;
-    if (shippAddress._id) {
-      address = await Address.findById(shippAddress._id);
+    if (shippingAddress._id) {
+      address = await Address.findById(shippingAddress._id);
     } else {
-      address = new Address(shippAddress);
-      address.user = user;
+      address = new Address(shippingAddress);
+      address.user = user._id;
       await address.save();
-      user.addresses.push(address);
-      await user.save();
     }
 
-    // Get user's cart
     const cart = await cartService.findUserCart(user._id);
     const orderItems = [];
 
-    // Iterate over cart items to create order items and update stock
     for (const item of cart.cartItems) {
       const product = await Product.findById(item.product._id);
       if (!product) {
@@ -34,7 +29,6 @@ async function createOrder(user, shippAddress) {
         throw new Error(`Product ${product.name} in size ${item.size} is out of stock`);
       }
 
-      // Decrement stock and size quantity
       productSize.quantity -= item.quantity;
       await product.save();
 
@@ -43,7 +37,7 @@ async function createOrder(user, shippAddress) {
         product: item.product,
         quantity: item.quantity,
         size: item.size,
-        userId: item.userId,
+        userId: user._id,
         discountedPrice: item.discountedPrice,
       });
 
@@ -51,7 +45,6 @@ async function createOrder(user, shippAddress) {
       orderItems.push(createdOrderItem);
     }
 
-    // Create the order
     const createdOrder = new Order({
       user: user._id,
       orderItems: orderItems,
@@ -67,7 +60,6 @@ async function createOrder(user, shippAddress) {
     });
 
     const savedOrder = await createdOrder.save();
-
     return savedOrder;
   } catch (error) {
     throw new Error(error.message);
@@ -145,13 +137,9 @@ async function findOrderById(orderId) {
 
 async function usersOrderHistory(userId) {
   try {
-    const orders = await Order.find({ user: userId, orderStatus: "PLACED" })
-      .populate({
-        path: "orderItems",
-        populate: {
-          path: "product",
-        },
-      })
+    const orders = await Order.find({ user: userId })
+      .populate({ path: "orderItems", populate: { path: "product" } })
+      .populate("shippingAddress")
       .lean();
     return orders;
   } catch (error) {
@@ -163,9 +151,7 @@ async function getAllOrders() {
   try {
     const orders = await Order.find().populate({
       path: "orderItems",
-      populate: {
-        path: "product",
-      },
+      populate: { path: "product" },
     });
     return orders;
   } catch (error) {

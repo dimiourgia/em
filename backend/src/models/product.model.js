@@ -55,11 +55,9 @@ const productSchema = new mongoose.Schema({
   category: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'categories',
-  }, 
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+  }
+},{
+  timestamps: true,
 });
 
 const Product = mongoose.model('products', productSchema);

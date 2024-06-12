@@ -4,7 +4,6 @@ const productController=require("../controllers/product.controller.js");
 
 router.get('/', productController.getAllProducts);
 router.get('/:id', productController.findProductById);
-router.get('/search', productController.searchProduct);
 
 
 module.exports = router;

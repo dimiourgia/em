@@ -55,17 +55,6 @@ async function findProductByCategory(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
-
-// Search products by query
-async function searchProduct(req, res) {
-  try {
-    const query = req.params.query;
-    const products = await productService.searchProduct(query);
-    res.json(products);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-}
 async function getAllProducts(req, res) {
   try {
     console.log("getAllProducts",req.query)
@@ -76,16 +65,6 @@ async function getAllProducts(req, res) {
     return res.status(500).json({ error: err.message });
   }
 }
-// const createMultipleProduct= async (req, res) => {
-//   try {
-//     await productService.createMultipleProduct(req.body)
-//     res
-//       .status(202)
-//       .json({ message: "Products Created Successfully", success: true });
-//   } catch (error) {
-//     res.status(500).json({ error: "Something went wrong" });
-//   }
-// };
 
 module.exports = {
   createProduct,
@@ -94,6 +73,4 @@ module.exports = {
   getAllProducts,
   findProductById,
   findProductByCategory,
-  searchProduct,
-  // createMultipleProduct
 };

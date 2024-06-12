@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Route, Routes } from "react-router-dom";
 import { HomePage } from "../pages/HomePage/HomePage";
 import CartEcom from "../components/CartEcom/Cart";
@@ -20,21 +20,27 @@ import ContactUsPage from "../pages/ContactUsPage";
 // import ProfilePage from "../pages/ProfilePage";
 import OrderPage from "../pages/OrderPage";
 import TestPage from "../pages/TestPage";
+import AuthModal from "../Auth/AuthModal";
 // import Producttest from "./../components/Product/Producttest";
 
+
+
+
+
 const CustomerRouters = () => {
+  const [search, setSearch] = useState("");
   return (
     <div>
       <div>
-        <Head />
+        <Head search={search} setSearch={setSearch}/>
       </div>
       <Routes>
-      <Route path="/test" element={<TestPage />}></Route>
+        <Route path="/test" element={<TestPage />}></Route>
         <Route path="/login" element={<HomePage />}></Route>
         <Route path="/register" element={<HomePage />}></Route>
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/cart" element={<CartEcom />}></Route>
-        <Route path="/products" element={<Product />}></Route>
+        <Route path="/products" element={<Product search={search} />}></Route>
         {/* <Route path='/:lavelOne/:lavelTwo/:lavelThree' element={<Product />}></Route> */}
         <Route path="/product/:productId" element={<ProductDetails />}></Route>
         <Route path="/checkout" element={<Checkout />}></Route>

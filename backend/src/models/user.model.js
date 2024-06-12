@@ -49,13 +49,10 @@ const userSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "reviews",
     },
-  ],
-  createdAt: {
-    type: Date,
-    default: Date.now(),
-  },
+  ]
+},{
+  timestamps: true,
 });
 
 const User = mongoose.model("users", userSchema);
-
 module.exports = User;

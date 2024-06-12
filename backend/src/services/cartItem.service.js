@@ -1,19 +1,7 @@
 const CartItem = require("../models/cartItem.model.js");
 const userService = require("./user.service.js");
+const Product = require("../models/product.model.js");
 
-// // Create a new cart item
-// async function createCartItem(cartItemData) {
-//   const cartItem = new CartItem(cartItemData);
-//   cartItem.quantity = 1;
-//   cartItem.price = cartItem.product.price * cartItem.quantity;
-//   cartItem.discountedPrice = cartItem.product.discountedPrice * cartItem.quantity;
-//   cartItem.userId = cartItemData.userId; // Assign user ID to the cart item
-
-//   const createdCartItem = await cartItem.save();
-//   return createdCartItem;
-// }
-
-// // Update an existing cart item
 async function updateCartItem(userId, cartItemId, cartItemData) {
   const cartItem = await findCartItemById(cartItemId);
 
@@ -25,6 +13,22 @@ async function updateCartItem(userId, cartItemId, cartItemData) {
     throw new Error("Unauthorized action");
   }
 
+  const product = await Product.findById(cartItem.product._id);
+  if (!product) {
+    throw new Error("Product not found");
+  }
+
+  // Check if the product size is in stock
+  const productSize = product.sizes.find(size => size.name === cartItem.size);
+  if (!productSize) {
+    throw new Error('Product size not found');
+  }
+
+  // Ensure the updated quantity does not exceed the available stock
+  if (productSize.quantity < cartItemData.quantity) {
+    throw new Error('Product size is out of stock');
+  }
+
   cartItem.quantity = cartItemData.quantity;
   cartItem.price = cartItem.quantity * cartItem.product.price;
   cartItem.discountedPrice = cartItem.quantity * cartItem.product.discountedPrice;
@@ -32,12 +36,6 @@ async function updateCartItem(userId, cartItemId, cartItemData) {
   const updatedCartItem = await cartItem.save();
   return updatedCartItem;
 }
-
-// // Check if a cart item already exists in the user's cart
-// async function isCartItemExist(cart, product, size, userId) {
-//   const cartItem = await CartItem.findOne({ cart, product, size, userId });
-//   return cartItem;
-// }
 
 // // Remove a cart item
 async function removeCartItem(userId, cartItemId) {

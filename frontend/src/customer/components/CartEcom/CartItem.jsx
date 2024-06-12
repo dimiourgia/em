@@ -17,17 +17,6 @@ const CartItem = ({ item, showButton }) => {
     dispatch(getCart(jwt));
   };
 
-  // const handleUpdateCartItem = (num) => {
-  //   const reqData = {
-  //     quantity: item.quantity + num,
-  //   };
-  //   const cartItemId = item?._id;
-  //   const jwt = localStorage.getItem("jwt");
-
-  //   console.log("update data ", { cartItemId, reqData });
-  //   dispatch(updateCartItem(cartItemId, { ...reqData, jwt }));
-  // };
-
   const handleUpdateCartItem = async (num) => {
     const reqData = {
       quantity: item.quantity + num,
@@ -36,7 +25,7 @@ const CartItem = ({ item, showButton }) => {
     const cartItemId = item?._id;
 
     await dispatch(updateCartItem(cartItemId, reqData));
-    dispatch(getCart(jwt)); // Refetch the cart data
+    dispatch(getCart(jwt));
   };
 
   return (
@@ -78,13 +67,14 @@ const CartItem = ({ item, showButton }) => {
             >
               <RemoveCircleOutlineIcon />
             </IconButton>
-
+            <div>{console.log(item?.product)}</div>
             <span className="py-1 px-7 border rounded-sm">
               {item?.quantity}
             </span>
             <IconButton
               onClick={() => handleUpdateCartItem(1)}
               color="primary"
+              // disabled={item?.product?.sizes}
               aria-label="add an alarm"
             >
               <AddCircleOutlineIcon />

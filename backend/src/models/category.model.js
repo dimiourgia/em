@@ -7,6 +7,8 @@ const categorySchema = new mongoose.Schema({
     maxlength: 500,
   },
 
+},{
+  timestamps: true,
 });
 
 const Category = mongoose.model('categories', categorySchema);
