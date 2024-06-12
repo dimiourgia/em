@@ -18,6 +18,8 @@ import ProductsTable from "./components/ProductsTable";
 const menu = [
   { name: "Products", path: "/admin/products", icon: <DashboardIcon /> },
   { name: "AddProduct", path: "/admin/product/create", icon: <DashboardIcon /> },
+  { name: "AddProduct", path: "/admin/product/create", icon: <OrderTabl /> },
+
 ];
 
 const Admin = () => {

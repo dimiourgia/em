@@ -28,9 +28,6 @@ const orderItemSchema = new Schema({
     ref: 'users',
     required: true,
   },
-  deliveryDate: {
-    type: Date,
-  },
 },{
   timestamps: true,
 });

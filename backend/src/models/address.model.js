@@ -32,6 +32,11 @@ const addressSchema = new mongoose.Schema({
   mobile: {
     type: String,
   },
+  DateInfo: {
+    type: Date,
+    default: Date.now(),
+    required: true,
+  },
 },{
   timestamps: true,
 });

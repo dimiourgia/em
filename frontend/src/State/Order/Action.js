@@ -6,7 +6,9 @@ import {
     GET_ORDER_BY_ID_FAILURE,
     GET_ORDER_BY_ID_REQUEST,
     GET_ORDER_BY_ID_SUCCESS,
-
+    GET_ORDER_HISTORY_REQUEST,
+    GET_ORDER_HISTORY_SUCCESS,
+    GET_ORDER_HISTORY_FAILURE,
 } from "./ActionType";
 import { api } from "../../config/apiConfig";
 
@@ -57,4 +59,32 @@ export const getOrderById = (orderId) => async (dispatch) => {
         });
     }
 };
+
+export const getOrderHistory = (reqData) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: GET_ORDER_HISTORY_REQUEST });
+  
+      const config = {
+        headers: {
+          Authorization: `Bearer ${reqData.jwt}`,
+        },
+      };
+  
+      const { data } = await api.get(`/api/orders/user`);
+      console.log("order history -------- ", data);
+      dispatch({
+        type: GET_ORDER_HISTORY_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_ORDER_HISTORY_FAILURE,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+  
 

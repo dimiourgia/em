@@ -12,7 +12,7 @@ const createPaymentLink = async (req, res) => {
 
 const updatePaymentInformation = async (req, res) => {
   try {
-    await paymentService.updatePaymentInformation(req.body);
+    await paymentService.updatePaymentInformation(req.query);
     return res
       .status(200)
       .send({ message: "payment information updated", status: true });

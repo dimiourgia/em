@@ -18,7 +18,7 @@ const CategoryDress = () => {
                         Mini Dresses
                     </h1>
                     <h1 className='text-center mt-[10px]'>
-                        <button onClick={() => navigate("/products")} class="bg-white tracking-widest font-ijk hover:bg-gray-100 text-gray-800  py-2 px-4 border border-gray-400 ">
+                        <button onClick={() => navigate("/products")} className="bg-white tracking-widest font-ijk hover:bg-gray-100 text-gray-800  py-2 px-4 border border-gray-400 ">
                             SHOP MINIS
                         </button>
                     </h1>
@@ -36,7 +36,7 @@ const CategoryDress = () => {
                         Midi  Dresses
                     </h1>
                     <h1 className='text-center mt-[10px]'>
-                        <button onClick={() => navigate("/products")} class="bg-white tracking-widest font-ijk hover:bg-gray-100 text-gray-800  py-2 px-4 border border-gray-400 ">
+                        <button onClick={() => navigate("/products")} className="bg-white tracking-widest font-ijk hover:bg-gray-100 text-gray-800  py-2 px-4 border border-gray-400 ">
                             SHOP MIDIS
                         </button>
                     </h1>
@@ -53,7 +53,7 @@ const CategoryDress = () => {
                         Maxi  Dresses
                     </h1>
                     <h1 className='text-center mt-[10px]'>
-                        <button onClick={() => navigate("/products")} class="bg-white tracking-widest font-ijk hover:bg-gray-100 text-gray-800  py-2 px-4 border border-gray-400 ">
+                        <button onClick={() => navigate("/products")} className="bg-white tracking-widest font-ijk hover:bg-gray-100 text-gray-800  py-2 px-4 border border-gray-400 ">
                             SHOP MAXIS
                         </button>
                     </h1>

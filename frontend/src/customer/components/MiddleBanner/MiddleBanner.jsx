@@ -17,7 +17,7 @@ const MiddleBanner = () => {
                 <img className='object-cover object-top w-auto h-auto mt-[200px]' src="images/20.jpg" alt='asd' />
 
             </div>
-            <div class="container mx-auto mt-[200px] text-center font-abc">
+            <div className="container mx-auto mt-[200px] text-center font-abc">
                 <p >
                     Empowering women and each other is something I find very important. We all deserve our own success and happiness. Instead of comparing ourselves with each other, we must find peace individually and celebrate each other’s successes, big or small. We all come in different shapes, sizes, skin color, hair type, etc. Women are amazing and it is important to honor and showcase that!
 

@@ -12,8 +12,9 @@ const orderSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'orderItems',
   }],
-  orderDate: {
+  OrderDate: {
     type: Date,
+    default: Date.now(),
     required: true,
   },
   deliveryDate: {
@@ -60,7 +61,10 @@ const orderSchema = new Schema({
     required: true,
   }
 },{
-  timestamps: true,
+  timestamps: {
+    type : Date,
+    default: Date.now()
+  }
 });
 
 const Order = mongoose.model('orders', orderSchema);

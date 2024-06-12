@@ -17,7 +17,7 @@ const BottomJournal = () => {
             </h1>
 
             <h1 className='text-center mt-[10px]'>
-                <button onClick={() => navigate("/journal")} class="bg-white tracking-widest font-ijk hover:bg-gray-100 text-gray-800  py-2 px-4 border border-gray-400 ">
+                <button onClick={() => navigate("/journal")} className="bg-white tracking-widest font-ijk hover:bg-gray-100 text-gray-800  py-2 px-4 border border-gray-400 ">
                     VIEW ALL
                 </button>
             </h1>

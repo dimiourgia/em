@@ -41,9 +41,6 @@ import {
       });
     }
   };
-  
-
-
 
   export const updatePayment = (reqData) => {
     return async (dispatch) => {

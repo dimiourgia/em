@@ -6,6 +6,11 @@ const categorySchema = new mongoose.Schema({
     required: true,
     maxlength: 500,
   },
+  DateInfo: {
+    type: Date,
+    default: Date.now(),
+    required: true,
+  },
 
 },{
   timestamps: true,

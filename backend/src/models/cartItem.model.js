@@ -33,6 +33,11 @@ const cartItemSchema = new mongoose.Schema({
     ref: 'users',
     required: true,
   },
+  DateInfo: {
+    type: Date,
+    default: Date.now(),
+    required: true,
+  },
 },{
   timestamps: true,
 });

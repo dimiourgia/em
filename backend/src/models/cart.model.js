@@ -31,6 +31,11 @@ const cartSchema = new mongoose.Schema({
     required: true,
     default:0
   },
+  DateInfo: {
+    type: Date,
+    default: Date.now(),
+    required: true,
+  },
 },{
   timestamps: true,
 });

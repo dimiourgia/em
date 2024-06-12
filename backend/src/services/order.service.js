@@ -128,8 +128,9 @@ async function findOrderById(orderId) {
       .populate("user")
       .populate({ path: "orderItems", populate: { path: "product" } })
       .populate("shippingAddress");
-    if (!order) throw new Error(`Order not found with id: ${orderId}`);
-    return order;
+      return order;
+    // if (!order) throw new Error(`Order not found with id: ${orderId}`);
+    
   } catch (error) {
     throw new Error(error.message);
   }
@@ -137,9 +138,8 @@ async function findOrderById(orderId) {
 
 async function usersOrderHistory(userId) {
   try {
-    const orders = await Order.find({ user: userId })
+    const orders = await Order.find({ user: userId, orderStatus: "PLACED", })
       .populate({ path: "orderItems", populate: { path: "product" } })
-      .populate("shippingAddress")
       .lean();
     return orders;
   } catch (error) {

@@ -18,7 +18,7 @@ import TermPage from "../pages/TermPage";
 import ContactUsPage from "../pages/ContactUsPage";
 // import TestPage from "./../pages/TestPage";
 // import ProfilePage from "../pages/ProfilePage";
-import OrderPage from "../pages/OrderPage";
+import Order from "../components/Order/Order";
 import TestPage from "../pages/TestPage";
 import AuthModal from "../Auth/AuthModal";
 // import Producttest from "./../components/Product/Producttest";
@@ -57,7 +57,7 @@ const CustomerRouters = () => {
         <Route path="/contact" element={<ContactUsPage />}></Route>
         {/* <Route path="/test" element={<TestPage />}></Route> */}
         {/* <Route path="/profile" element={<ProfilePage />}></Route> */}
-        <Route path="/order" element={<OrderPage />}></Route>
+        <Route path="/order" element={<Order/>}></Route>
         {/* <Route path="/producttest" element={<Producttest />}></Route> */}
 
         <Route path="/payment/:orderId" element={<PaymentSuccess />}></Route>
