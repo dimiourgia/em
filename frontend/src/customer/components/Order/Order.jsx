@@ -17,10 +17,12 @@ const Order = () => {
 
   console.log("users orders ",order.orders)
   return (
-    <Box className="px-10">
+    <>
+    <div className="mx-auto max-w-[1000px] justify-center ">
+      <Box className="px-10">
       <Grid container spacing={0} sx={{ justifyContent: "space-between" }}>
         
-        <Grid item xs={8}>
+        <Grid item xs={12}>
           <Box className="space-y-5 ">
             {order.orders?.length>0 && order.orders?.map((order )=> {
               return order?.orderItems?.map((item,index)=> <OrderCard item={item} order={order} />)
@@ -29,6 +31,10 @@ const Order = () => {
         </Grid>
       </Grid>
     </Box>
+    </div>
+    
+    </>
+    
   );
 };
 

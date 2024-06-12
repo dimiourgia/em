@@ -38,7 +38,6 @@ const orderSchema = new Schema({
     paymentStatus:{
       type:String
     }
-    
   },
   totalPrice: {
     type: Number,

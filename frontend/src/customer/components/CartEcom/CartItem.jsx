@@ -42,6 +42,7 @@ const CartItem = ({ item, showButton }) => {
           <p className="font-semibold">{item?.product?.title}</p>
           <p className="opacity-70">Size: {item?.size}</p>
           <p className="opacity-70 mt-2">Seller: {item?.product?.brand}</p>
+          <p className="opacity-70 mt-2">Quantity: {item?.quantity}</p>
           <div className="flex space-x-2 items-center pt-3">
             <p className="font-semibold text-lg">
               ₹{item?.product?.discountedPrice}

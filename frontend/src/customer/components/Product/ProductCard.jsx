@@ -20,7 +20,7 @@ const ProductCard = ({ product }) => {
           <div>
             <p className=" tracking-widest font-abc font-light text-lg"> {product.title} </p>
             <p className=" font-abc text-sm">{product.brand}</p>
-            
+
           </div>
           <div className="flex items-center space-x-2">
             <p className=" text-sm font-abc">

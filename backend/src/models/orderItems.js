@@ -19,6 +19,12 @@ const orderItemSchema = new Schema({
     type: Number,
     required: true,
   },
+  OrderDate: {
+    type: Date,
+    default: Date.now(),
+    required: true,
+  },
+
   discountedPrice: {
     type: Number,
     required: true,
