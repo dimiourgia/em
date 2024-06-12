@@ -17,7 +17,7 @@ const ContactUsPage = () => {
                     </h1>
 
                     <p className='font-ijk text-center text-lg  text-black  mt-[30px] font-bold'>
-                        email: <spna className="text-lg  text-gray-800">navneetparihar@gmail.com</spna>
+                        email: <spna className="text-lg  text-gray-800">Emprissa@gmail.com</spna>
                     </p>
 
                     {/* icons */}

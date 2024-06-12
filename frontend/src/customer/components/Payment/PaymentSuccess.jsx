@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"; 
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert, AlertTitle, Box, Grid } from "@mui/material";
 import { getOrderById } from "../../../State/Order/Action";
@@ -15,7 +15,7 @@ const PaymentSuccess = () => {
 
   const jwt = localStorage.getItem("jwt");
   const dispatch = useDispatch();
-  const { order } = useSelector((state) => state);
+  const order = useSelector((state) => state.order);
 
   useEffect(() => {
     console.log("orderId", orderId);
@@ -47,7 +47,7 @@ const PaymentSuccess = () => {
       </div>
 
       {/* <OrderTraker activeStep={1}/> */}
-
+    <div className="mx-auto  max-w-[1000px]">
       <Grid container className="space-y-5 py-5 pt-20">
         {order.order?.orderItems.map((item, index) => (
           <Grid
@@ -69,8 +69,13 @@ const PaymentSuccess = () => {
                   <p className="opacity-50 text-sm font-semibold">
                     <span className="">Size: {item.size}</span>
                   </p>
-                  <p className="opacity-50 text-xs">Seller: {item.product.brand}</p>
+                  <p>
+                  <span className="opacity-50 text-sm font-semibold" >Quantity: {item.quantity}</span>
+                  </p>
+                  
                   <p>₹{item.discountedPrice}</p>
+                  
+
                 </div>
               </div>
             </Grid>
@@ -80,6 +85,8 @@ const PaymentSuccess = () => {
           </Grid>
         ))}
       </Grid>
+    </div>
+      
     </div>
   );
 };

@@ -54,13 +54,13 @@ function Footer() {
 
 
                 </button>
-                <button onClick={() => navigate("/contact")}
+                {/* <button onClick={() => navigate("/contact")}
                   className="bg-white text-green-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                   type="button"
                 >
-                  {/* <i class="fab fa-dribbble"></i> */}
+                 
                   <WhatsAppIcon />
-                </button>
+                </button> */}
 
                 
                 {/* <button

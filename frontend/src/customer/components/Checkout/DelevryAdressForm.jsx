@@ -75,6 +75,9 @@ export default function DelevryAdressForm({ handleNext }) {
                   label="First Name"
                   fullWidth
                   autoComplete="given-name"
+                  multiline
+                  
+
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -85,6 +88,7 @@ export default function DelevryAdressForm({ handleNext }) {
                   label="Last Name"
                   fullWidth
                   autoComplete="given-name"
+                  multiline
                 />
               </Grid>
               <Grid item xs={12}>
@@ -107,6 +111,7 @@ export default function DelevryAdressForm({ handleNext }) {
                   label="City"
                   fullWidth
                   autoComplete="shipping address-level2"
+                  multiline
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -116,6 +121,7 @@ export default function DelevryAdressForm({ handleNext }) {
                   name="state"
                   label="State/Province/Region"
                   fullWidth
+                  multiline
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -126,6 +132,7 @@ export default function DelevryAdressForm({ handleNext }) {
                   label="Zip / Postal code"
                   fullWidth
                   autoComplete="shipping postal-code"
+                  multiline
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -136,6 +143,7 @@ export default function DelevryAdressForm({ handleNext }) {
                   label="Phone Number"
                   fullWidth
                   autoComplete="tel"
+                  multiline
                 />
               </Grid>
               <Grid item xs={12}>

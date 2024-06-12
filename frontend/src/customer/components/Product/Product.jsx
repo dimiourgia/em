@@ -3,9 +3,10 @@ import ProductCard from "./ProductCard";
 import { useParams, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { findProducts } from "./../../../State/Product/Action";
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 const Product = ({ search }) => {
-  console.log("ye to mangkal hai ", search);
   const param = useParams();
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
@@ -15,7 +16,7 @@ const Product = ({ search }) => {
     m: false,
     l: false,
     xl: false,
-    "2xl" : false,
+    "2xl": false,
   });
 
   const location = useLocation();
@@ -28,170 +29,90 @@ const Product = ({ search }) => {
   const pageNumber = searchParams.get("page") || 1;
 
   const [copyProduct, setCopyProduct] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 9;
 
-//   const handleSizeFilter = (e) => {
-//     setFilterSize({
-//       ...filterSize,
-//       [e.target.name]: e.target.value,
-//     });
-//     console.log(filterSize);
-//   };
-const handleSizeFilter = (e) => {
+  const handleSizeFilter = (e) => {
     setFilterSize((prevFilterSize) => {
       const newFilterSize = {
         ...prevFilterSize,
         [e.target.name]: prevFilterSize[e.target.name] ? false : e.target.value,
       };
-      console.log(newFilterSize);
       return newFilterSize;
     });
   };
-  
-  
-  console.log(filterSize);
+
   useEffect(() => {
     if (products && products.length > 0) {
       let finalArray = [];
-  
-      // Check if all filterSize values are false
-      const allFalse = Object.values(filterSize).every(value => !value);
-  
+
+      const allFalse = Object.values(filterSize).every((value) => !value);
+
       if (allFalse) {
-        finalArray = products; // Set to original products if all filters are false
+        finalArray = products;
       } else {
         if (filterSize.s) {
-          finalArray = finalArray.concat(products.filter((el) => {
-            const findValue = el.sizes.find((el1) => {
-              let sizeName = el1.name.toLowerCase();
-              return sizeName === "s" && el1.quantity > 0;
-            });
-            return findValue ? true : false;
-          }));
+          finalArray = finalArray.concat(
+            products.filter((el) => {
+              const findValue = el.sizes.find((el1) => {
+                let sizeName = el1.name.toLowerCase();
+                return sizeName === "s" && el1.quantity > 0;
+              });
+              return findValue ? true : false;
+            })
+          );
         }
         if (filterSize.m) {
-          finalArray = finalArray.concat(products.filter((el) => {
-            const findValue = el.sizes.find((el1) => {
-              let sizeName = el1.name.toLowerCase();
-              return sizeName === "m" && el1.quantity > 0;
-            });
-            return findValue ? true : false;
-          }));
+          finalArray = finalArray.concat(
+            products.filter((el) => {
+              const findValue = el.sizes.find((el1) => {
+                let sizeName = el1.name.toLowerCase();
+                return sizeName === "m" && el1.quantity > 0;
+              });
+              return findValue ? true : false;
+            })
+          );
         }
         if (filterSize.l) {
-          finalArray = finalArray.concat(products.filter((el) => {
-            const findValue = el.sizes.find((el1) => {
-              let sizeName = el1.name.toLowerCase();
-              return sizeName === "l" && el1.quantity > 0;
-            });
-            return findValue ? true : false;
-          }));
+          finalArray = finalArray.concat(
+            products.filter((el) => {
+              const findValue = el.sizes.find((el1) => {
+                let sizeName = el1.name.toLowerCase();
+                return sizeName === "l" && el1.quantity > 0;
+              });
+              return findValue ? true : false;
+            })
+          );
         }
         if (filterSize.xl) {
-          finalArray = finalArray.concat(products.filter((el) => {
-            const findValue = el.sizes.find((el1) => {
-              let sizeName = el1.name.toLowerCase();
-              return sizeName === "xl" && el1.quantity > 0;
-            });
-            return findValue ? true : false;
-          }));
+          finalArray = finalArray.concat(
+            products.filter((el) => {
+              const findValue = el.sizes.find((el1) => {
+                let sizeName = el1.name.toLowerCase();
+                return sizeName === "xl" && el1.quantity > 0;
+              });
+              return findValue ? true : false;
+            })
+          );
         }
         if (filterSize["2xl"]) {
-          finalArray = finalArray.concat(products.filter((el) => {
-            const findValue = el.sizes.find((el1) => {
-              let sizeName = el1.name.toLowerCase();
-              return sizeName === "2xl" && el1.quantity > 0;
-            });
-            return findValue ? true : false;
-          }));
+          finalArray = finalArray.concat(
+            products.filter((el) => {
+              const findValue = el.sizes.find((el1) => {
+                let sizeName = el1.name.toLowerCase();
+                return sizeName === "2xl" && el1.quantity > 0;
+              });
+              return findValue ? true : false;
+            })
+          );
         }
       }
-      
-      // Remove duplicates from finalArray
+
       finalArray = [...new Set(finalArray)];
-  
       setCopyProduct([...finalArray]);
+      setCurrentPage(1); // Reset to first page on filter change
     }
   }, [filterSize, products]);
-  
-
-//   useEffect(() => {
-//     // if ((!filterSize.s) && (!filterSize.m) && (!filterSize.l) && (!filterSize.xl) && (!filterSize.dxl)){
-//     //     setCopyProduct(products)
-//     // }
-//     if (products && products.length > 0) {
-//         let finalArray = [];
-//         if (filterSize.s) {
-//             finalArray = products.filter((el)=>{
-//                 const findValue = el.sizes.find((el1) => {
-//                           let sizeName = el1.name.toLowerCase()
-//                           return sizeName == "s" && el1.quantity> 0;
-//                 });
-//                 return findValue? true : false;
-//             })
-//           } 
-//           console.log("ye to s siz ehai ", filterSize.s, finalArray)
-//           if (filterSize.m) {
-//             finalArray = products.filter((el)=>{
-//                 const findValue = el.sizes.find((el1) => {
-//                           let sizeName = el1.name.toLowerCase()
-//                           return sizeName == "m" && el1.quantity> 0;
-//                 });
-//                 return findValue? true : false;
-//             })
-//           } 
-//           if (filterSize.l) {
-//             finalArray = products.filter((el)=>{
-//                 const findValue = el.sizes.find((el1) => {
-//                           let sizeName = el1.name.toLowerCase()
-//                           return sizeName == "l" && el1.quantity> 0;
-//                 });
-//                 return findValue? true : false;
-//             })
-
-//           }
-//           if (filterSize.xl) {
-//             finalArray = products.filter((el)=>{
-//                 const findValue = el.sizes.find((el1) => {
-//                           let sizeName = el1.name.toLowerCase()
-//                           return sizeName == "xl" && el1.quantity> 0;
-//                 });
-//                 return findValue? true : false;
-//             })
-//           } 
-//           if (filterSize["2xl"]) {
-//             finalArray = products.filter((el)=>{
-//                 const findValue = el.sizes.find((el1) => {
-//                           let sizeName = el1.name.toLowerCase()
-//                           return sizeName == "2xl" && el1.quantity> 0;
-//                 });
-//                 return findValue? true : false;
-//             })
-//           }
-//     //   const searchArray = products.filter((el) => {
-//     //     const findValue = el.sizes.find((el1) => {
-//     //       let returnedValue = "";
-//     //       let sizeName = el1.name.toLowerCase();
-//     //       console.log("12345 ye to ", sizeName)
-//     //       if (filterSize.s) {
-//     //         returnedValue = sizeName == filterSize.s;
-//     //       } else if (filterSize.m) {
-//     //         returnedValue = sizeName == filterSize.m;
-//     //       } else if (filterSize.l) {
-//     //         returnedValue = sizeName == filterSize.l;
-//     //       } else if (filterSize.xl) {
-//     //         returnedValue = sizeName == filterSize.xl;
-//     //       } else if (filterSize.dxl) {
-//     //         returnedValue = sizeName == filterSize.dxl;
-//     //       }
-//     //       return returnedValue;
-//     //     });
-//     //     return (
-//     //         findValue? true : false 
-//     //     );
-//     //   });
-//       setCopyProduct([...finalArray]);
-//     }
-//   }, [filterSize, products]);
 
   useEffect(() => {
     if (products && products.length > 0) {
@@ -202,6 +123,7 @@ const handleSizeFilter = (e) => {
         );
       });
       setCopyProduct([...searchArray]);
+      setCurrentPage(1); // Reset to first page on search change
     }
   }, [search, products]);
 
@@ -233,23 +155,81 @@ const handleSizeFilter = (e) => {
     dispatch,
   ]);
 
+  const totalPages = Math.ceil(copyProduct.length / productsPerPage);
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = copyProduct.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const renderPagination = () => {
+    const pageNumbers = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(i);
+    }
+
+    return (
+      <div className="mb-[200px] mt-[100px] flex flex-wrap justify-center ">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="px-3 py-1 mx-1 border rounded hover:bg-gray-200 disabled:opacity-20"
+        >
+             <ChevronLeftIcon/>
+          {/* Previous */}
+         
+        </button>
+        {pageNumbers.map((number) => (
+          <button
+            key={number}
+            onClick={() => handlePageChange(number)}
+            className={`px-3 py-1 mx-1 border rounded hover:bg-gray-200 ${
+              currentPage === number ? "text-white  bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700" : ""
+            }`}
+          >
+            {number}
+          </button>
+        ))}
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="px-3 py-1 mx-1 border rounded hover:bg-gray-200 disabled:opacity-20"
+        >
+          {/* Next */}
+          
+          <ChevronRightIcon/>
+        </button>
+      </div>
+    );
+  };
+
   return (
     <>
-      <div className="mt-[100px]">
-        <h1 className="text-black font-medium text-4xl text-center font-abc">
-          Online Boutique
+      <div className="mt-[100px] container mx-auto ">
+        <h1 className="text-black font-medium font-ijk text-4xl text-center  mb-[50px]">
+        <div className="flex justify-center items-center p-4 ">
+                        <p className="p-2 px-4 group"  >
+                        OUR STORE
+                            <div className="bg-amber-500 h-[2px] w-0 group-hover:w-full transition-all duration-500"></div>
+                        </p>
+                    </div>
+          
         </h1>
       </div>
       <div className="container mx-auto">
         <div className="grid gap-4 sm:grid-cols-12">
-          <div className="min-h-[100px] bg-white sm:col-span-3">
-            <div className="max-w-screen-xl mx-auto px-5 bg-white min-h-sceen">
+          <div className=" bg-white sm:col-span-3">
+            <div className="max-w-screen-xl mx-auto px-5 bg-white ">
               <div className="grid divide-y divide-neutral-200 max-w-xl mx-auto mt-8">
                 <div className="py-5">
                   <details className="group">
                     <summary className="flex justify-between items-center font-medium cursor-pointer list-none">
                       <span className="tracking-widest font-light text-base text-center">
-                        {" "}
                         SIZE
                       </span>
                       <span className="transition group-open:rotate-180">
@@ -258,9 +238,9 @@ const handleSizeFilter = (e) => {
                           height="24"
                           shape-rendering="geometricPrecision"
                           stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.5"
                           viewBox="0 0 24 24"
                           width="24"
                         >
@@ -272,17 +252,16 @@ const handleSizeFilter = (e) => {
                       {["S", "M", "L", "XL", "2XL"].map((size) => (
                         <label
                           key={size}
-                          className="pt-[20px]"
-                          style={{ display: "flex", alignItems: "center" }}
+                          className="pt-[20px] flex items-center"
                         >
                           <input
                             type="checkbox"
                             name={
-                              size == "2xl" ? "dxl" : size.toLocaleLowerCase()
+                              size === "2xl" ? "2xl" : size.toLocaleLowerCase()
                             }
                             onChange={handleSizeFilter}
                             value={size}
-                            style={{ marginRight: "10px" }}
+                            className="mr-2"
                           />
                           {size}
                         </label>
@@ -295,11 +274,12 @@ const handleSizeFilter = (e) => {
           </div>
           <div className="min-h-[100px] sm:col-span-9">
             <div className="flex flex-wrap justify-center bg-white py-5">
-              {copyProduct &&
-                copyProduct.map((product) => (
+              {currentProducts &&
+                currentProducts.map((product) => (
                   <ProductCard product={product} key={product._id} />
                 ))}
             </div>
+            {renderPagination()}
           </div>
         </div>
       </div>

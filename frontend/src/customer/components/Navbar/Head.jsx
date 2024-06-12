@@ -21,8 +21,8 @@ function NavList({search, setSearch}) {
   return (
     <List className="flex lg:ml-[200px] items-center lg:flex-row flex-col lg:items-center lg:w-auto w-full">
       <Typography>
-        <ListItem>
-          <div className="lg:hidden">
+        <ListItem className="lg:hidden">
+          <div >
             <SearchBar  search={search} setSearch={setSearch} /> {/* Use SearchBar component for mobile view */}
           </div>
         </ListItem>
