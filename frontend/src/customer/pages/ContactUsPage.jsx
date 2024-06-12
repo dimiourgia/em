@@ -27,7 +27,7 @@ const ContactUsPage = () => {
                             type="button"
 
                         >
-                            {/* <i class="fab fa-twitter"></i> */}
+                            {/* <i className="fab fa-twitter"></i> */}
 
                             <InstagramIcon />
 
@@ -37,7 +37,7 @@ const ContactUsPage = () => {
                             className="bg-white text-lightBlue-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                             type="button"
                         >
-                            {/* <i class="fab fa-facebook-square"></i> */}
+                            {/* <i className="fab fa-facebook-square"></i> */}
                             <EmailIcon />
 
 
@@ -46,14 +46,14 @@ const ContactUsPage = () => {
                             className="bg-white text-green-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                             type="button"
                         >
-                            {/* <i class="fab fa-dribbble"></i> */}
+                            {/* <i className="fab fa-dribbble"></i> */}
                             <WhatsAppIcon />
                         </button>
                         {/* <button
-                  class="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+                  className="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                   type="button"
                 >
-                  <i class="fab fa-github"></i>
+                  <i className="fab fa-github"></i>
                 </button> */}
                     </div>
 

@@ -39,7 +39,7 @@ function Footer() {
                   type="button"
 
                 >
-                  {/* <i class="fab fa-twitter"></i> */}
+                  {/* <i className="fab fa-twitter"></i> */}
 
                   <InstagramIcon />
 
@@ -64,10 +64,10 @@ function Footer() {
 
                 
                 {/* <button
-                  class="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+                  className="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                   type="button"
                 >
-                  <i class="fab fa-github"></i>
+                  <i className="fab fa-github"></i>
                 </button> */}
               </div>
             </div>
@@ -103,7 +103,7 @@ function Footer() {
                     </li>
                     {/* <li>
                       <a
-                        class="text-white hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                        className="text-white hover:text-blueGray-800 font-semibold block pb-2 text-sm"
                         href="https://creative-tim.com/contact-us?ref=njs-profile"
                       >
                         Contact Us
@@ -111,7 +111,7 @@ function Footer() {
                     </li> */}
                     {/* <li>
                       <a
-                        class="text-white hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                        className="text-white hover:text-blueGray-800 font-semibold block pb-2 text-sm"
                         href="https://blog.creative-tim.com?ref=njs-profile"
                       >
                         Blog
@@ -119,7 +119,7 @@ function Footer() {
                     </li> */}
                     {/* <li>
                       <a
-                        class="text-white hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                        className="text-white hover:text-blueGray-800 font-semibold block pb-2 text-sm"
                         href="https://www.github.com/creativetimofficial?ref=njs-profile"
                       >
                         Github
@@ -127,7 +127,7 @@ function Footer() {
                     </li> */}
                     {/* <li>
                       <a
-                        class="text-white hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                        className="text-white hover:text-blueGray-800 font-semibold block pb-2 text-sm"
                         href="https://www.creative-tim.com/bootstrap-themes/free?ref=njs-profile"
                       >
                         Free Products
@@ -136,13 +136,13 @@ function Footer() {
                   </ul>
                 </div>
                 <div className="w-full lg:w-4/12 px-4">
-                  <span class="block uppercase text-white text-sm font-semibold mb-2">
+                  <span className="block uppercase text-white text-sm font-semibold mb-2">
                     Other Resources
                   </span>
-                  <ul class="list-unstyled">
+                  <ul className="list-unstyled">
                     {/* <li>
                       <a
-                        class="text-white hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                        className="text-white hover:text-blueGray-800 font-semibold block pb-2 text-sm"
                         href="https://github.com/creativetimofficial/notus-js/blob/main/LICENSE.md?ref=njs-profile"
                       >
                         MIT License
@@ -150,7 +150,7 @@ function Footer() {
                     </li> */}
                     {/* <li>
                       <a
-                        class="text-white hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                        className="text-white hover:text-blueGray-800 font-semibold block pb-2 text-sm"
                         href="https://creative-tim.com/terms?ref=njs-profile"
                       >
                         Terms &amp; Conditions
@@ -182,7 +182,7 @@ function Footer() {
 
                     {/* <li>
                       <a
-                        class="text-white hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                        className="text-white hover:text-blueGray-800 font-semibold block pb-2 text-sm"
                         href="https://creative-tim.com/privacy?ref=njs-profile"
                       >
                         Privacy Policy
@@ -190,7 +190,7 @@ function Footer() {
                     </li> */}
                     {/* <li>
                       <a
-                        class="text-white hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                        className="text-white hover:text-blueGray-800 font-semibold block pb-2 text-sm"
                         href="https://creative-tim.com/contact-us?ref=njs-profile"
                       >
                         Contact Us
@@ -208,13 +208,13 @@ function Footer() {
                 Copyright © <span id="get-current-year">2024</span>
                 {/* <a
                   href="https://www.creative-tim.com/product/notus-js"
-                  class="text-blueGray-500 hover:text-gray-800"
+                  className="text-blueGray-500 hover:text-gray-800"
                   target="_blank"
                 />{" "} */}{" "}
                 Empressa
                 {/* <a
                   href="https://www.creative-tim.com?ref=njs-profile"
-                  class="text-blueGray-500 hover:text-blueGray-800"
+                  className="text-blueGray-500 hover:text-blueGray-800"
                 >
                   Creative Tim
                 </a>
