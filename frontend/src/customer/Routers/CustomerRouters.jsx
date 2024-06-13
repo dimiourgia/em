@@ -8,7 +8,6 @@ import Product from "../components/Product/Product";
 import ProductDetails from "../components/ProductDetails/ProductDetails";
 import PaymentSuccess from "../components/Payment/PaymentSuccess";
 import Checkout from "../components/Checkout/Checkout";
-
 import JournalPage from "../pages/JournalPage";
 import JournalDetailPage from "../pages/JournalDetailPage";
 import CompanyPage from "./../pages/HomePage/CompanyPage";
@@ -16,19 +15,15 @@ import RefundPage from "./../pages/RefundPage";
 import PrivacyPage from "../pages/PrivacyPage";
 import TermPage from "../pages/TermPage";
 import ContactUsPage from "../pages/ContactUsPage";
-// import TestPage from "./../pages/TestPage";
-// import ProfilePage from "../pages/ProfilePage";
 import Order from "../components/Order/Order";
 import TestPage from "../pages/TestPage";
 import AuthModal from "../Auth/AuthModal";
-// import Producttest from "./../components/Product/Producttest";
-
-
 
 
 
 const CustomerRouters = () => {
   const [search, setSearch] = useState("");
+  
   return (
     <div>
       <div>
@@ -41,7 +36,6 @@ const CustomerRouters = () => {
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/cart" element={<CartEcom />}></Route>
         <Route path="/products" element={<Product search={search} />}></Route>
-        {/* <Route path='/:lavelOne/:lavelTwo/:lavelThree' element={<Product />}></Route> */}
         <Route path="/product/:productId" element={<ProductDetails />}></Route>
         <Route path="/checkout" element={<Checkout />}></Route>
         <Route
@@ -55,17 +49,8 @@ const CustomerRouters = () => {
         <Route path="/privacy" element={<PrivacyPage />}></Route>
         <Route path="/term" element={<TermPage />}></Route>
         <Route path="/contact" element={<ContactUsPage />}></Route>
-        {/* <Route path="/test" element={<TestPage />}></Route> */}
-        {/* <Route path="/profile" element={<ProfilePage />}></Route> */}
         <Route path="/order" element={<Order/>}></Route>
-        {/* <Route path="/producttest" element={<Producttest />}></Route> */}
-
         <Route path="/payment/:orderId" element={<PaymentSuccess />}></Route>
-
-        {/* https://tailwindui.com/components/ecommerce/components/product-overviews */}
-        {/* <ProductDetails /> */}
-
-        {/* <Checkout /> */}
       </Routes>
       <div>
         <Footer />

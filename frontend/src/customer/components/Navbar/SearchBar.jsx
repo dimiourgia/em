@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function SearchBar({search, setSearch}) {
   const navigate = useNavigate();
+
   const handleChange = (e) => {
     setSearch(e.target.value);
   };
@@ -21,7 +22,6 @@ export default function SearchBar({search, setSearch}) {
             type="search"
             placeholder="Search"
             onChange={handleChange}
-            aria-label="Search"
             className="h-9 w-36 md:w-40 lg:w-60 rounded-full pl-10"
           />
         </div>

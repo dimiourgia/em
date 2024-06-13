@@ -1,5 +1,4 @@
-
-import api from "../../../config/api";
+import  { api } from "../../config/apiConfig"
 import {
   canceledOrderFailure,
   canceledOrderRequest,
@@ -29,7 +28,6 @@ export const getOrders = (reqData) => {
   return async (dispatch) => {
     dispatch(getOrdersRequest());
     try {
-     
       const response = await api.get(`/api/admin/orders/`);
       console.log("get all orders ", response.data);
       dispatch(getOrdersSuccess(response.data));

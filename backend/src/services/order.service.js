@@ -111,17 +111,6 @@ async function deliveredOrder(orderId) {
   }
 }
 
-async function cancelledOrder(orderId) {
-  try {
-    const order = await findOrderById(orderId);
-    if (!order) throw new Error(`Order not found with id: ${orderId}`);
-    order.orderStatus = "CANCELLED";
-    return await order.save();
-  } catch (error) {
-    throw new Error(error.message);
-  }
-}
-
 async function findOrderById(orderId) {
   try {
     const order = await Order.findById(orderId)
@@ -139,7 +128,7 @@ async function findOrderById(orderId) {
 async function usersOrderHistory(userId) {
   try {
     const orders = await Order.find({ user: userId, orderStatus: "PLACED", })
-      .populate({ path: "orderItems", populate: { path: "product" } })
+      .populate({ path: "orderItems", populate: { path: "product" } }).populate("shippingAddress")
       .lean();
     return orders;
   } catch (error) {
@@ -149,25 +138,19 @@ async function usersOrderHistory(userId) {
 
 async function getAllOrders() {
   try {
-    const orders = await Order.find().populate({
+    const orders = await Order.find()
+     .populate("user")
+    .populate({
       path: "orderItems",
       populate: { path: "product" },
-    });
+    })
+    .populate("shippingAddress");
     return orders;
   } catch (error) {
     throw new Error(error.message);
   }
 }
 
-async function deleteOrder(orderId) {
-  try {
-    const order = await findOrderById(orderId);
-    if (!order) throw new Error("Order not found with id: " + orderId);
-    await Order.findByIdAndDelete(orderId);
-  } catch (error) {
-    throw new Error(error.message);
-  }
-}
 
 module.exports = {
   createOrder,
@@ -175,9 +158,9 @@ module.exports = {
   confirmedOrder,
   shipOrder,
   deliveredOrder,
-  cancelledOrder,
+  // cancelledOrder,
   findOrderById,
   usersOrderHistory,
   getAllOrders,
-  deleteOrder,
+  // deleteOrder,
 };

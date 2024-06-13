@@ -23,7 +23,7 @@ function NavList({search, setSearch}) {
       <Typography>
         <ListItem className="lg:hidden">
           <div >
-            <SearchBar  search={search} setSearch={setSearch} /> {/* Use SearchBar component for mobile view */}
+            <SearchBar  search={search} setSearch={setSearch} />
           </div>
         </ListItem>
       </Typography>
@@ -71,7 +71,7 @@ export default function Head({search ,setSearch}) {
   const jwt = localStorage.getItem("jwt");
   const auth = useSelector((state) => state.auth);
 
-  const handleOpenAuthModal = () => {
+  const handleOpen= () => {
     setOpenAuthModal(true);
   };
 
@@ -100,15 +100,14 @@ export default function Head({search ,setSearch}) {
   useEffect(() => {
     if (jwt) {
       dispatch(getUser(jwt));
-    } else {
-      if(location.pathname == '/login' && !jwt)
-        handleOpenAuthModal();
+    } else if (location.pathname === '/login') {
+      handleOpen();
     }
-  }, [jwt, auth.jwt, location.pathname]);
+  }, [jwt, location.pathname, dispatch]);
 
   useEffect(() => {
     if (auth.user) {
-      handleCloseUserMenu();
+      handleClose();
     }
     if (location.pathname === "/login" || location.pathname === "/register") {
       navigate(-1);
@@ -210,7 +209,7 @@ export default function Head({search ,setSearch}) {
         </Typography>
 
         <div className="hidden lg:block">
-          <NavList />
+          <NavList  search={search} setSearch={setSearch} />
         </div>
         <div className="flex md:ml-[564px] lg:ml-0  ml-[130px] m items-center justify-center">
           <div className="mx-auto w-max lg:block hidden">
@@ -256,7 +255,7 @@ export default function Head({search ,setSearch}) {
                 </Menu>
               </div>
             ) : (
-              <div onClick={handleOpenAuthModal}>
+              <div onClick={handleOpen}>
               <UserCircleIcon
                 className="h-7 w-7 mt-1 cursor-pointer active:scale-50 ml-2"
               />
@@ -291,7 +290,7 @@ export default function Head({search ,setSearch}) {
         </div>
       </div>
       <Collapse open={openNav}>
-        <NavList />
+        <NavList search={search} setSearch={setSearch} />
       </Collapse>
 
       <AuthModal open={openAuthModal} handleClose={handleClose} />

@@ -110,7 +110,7 @@ const Product = ({ search }) => {
 
       finalArray = [...new Set(finalArray)];
       setCopyProduct([...finalArray]);
-      setCurrentPage(1); // Reset to first page on filter change
+      setCurrentPage(1);
     }
   }, [filterSize, products]);
 
@@ -123,7 +123,7 @@ const Product = ({ search }) => {
         );
       });
       setCopyProduct([...searchArray]);
-      setCurrentPage(1); // Reset to first page on search change
+      setCurrentPage(1);
     }
   }, [search, products]);
 

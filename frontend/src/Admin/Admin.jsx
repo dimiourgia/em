@@ -14,11 +14,12 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import Dashboard from "./components/Dashboard";
 import CreateProductForm from "./components/CreateProductForm";
 import ProductsTable from "./components/ProductsTable";
+import OrdersTable from "./components/OrdersTable";
 
 const menu = [
   { name: "Products", path: "/admin/products", icon: <DashboardIcon /> },
   { name: "AddProduct", path: "/admin/product/create", icon: <DashboardIcon /> },
- 
+  { name: "OrdersTable", path: "/admin/orders", icon: <DashboardIcon/> },
 
 ];
 
@@ -74,6 +75,7 @@ const Admin = () => {
               <Route path="/" element={<Dashboard />} />
               <Route path="/product/create" element={<CreateProductForm />} />
               <Route path="/products" element={<ProductsTable />} />
+              <Route path="/orders" element={<OrdersTable/>}/>
             </>
           ) : (
             <Route path="/*" element={<Navigate to="/" replace />} />

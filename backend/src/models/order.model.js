@@ -6,7 +6,7 @@ const orderSchema = new Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'users',
-    // required: true,
+    required: true,
   },
   orderItems: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -34,9 +34,6 @@ const orderSchema = new Schema({
     },
     paymentId:{
       type:String,
-    },
-    paymentStatus:{
-      type:String
     }
   },
   totalPrice: {
@@ -44,10 +41,6 @@ const orderSchema = new Schema({
     required: true,
   },
   totalDiscountedPrice: {
-    type: Number,
-    required: true,
-  },
-  discounte: {
     type: Number,
     required: true,
   },
