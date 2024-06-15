@@ -5,8 +5,9 @@ const JournalPage = () => {
     const navigate = useNavigate();
     return (
         <>
-            <Link to="/journaldetail">
-                <h1 className='font-ijk text-center text-4xl  text-black  mt-[100px] '>
+        <div className='min-h-screen'>
+ <Link to="/journaldetail">
+                <h1 className='font-ijk text-center text-3xl  text-black  mt-[100px] '>
                 <div className="flex justify-center items-center p-4 ">
                         <p className="p-2 px-4 group"  >
                         On the Journal
@@ -16,7 +17,6 @@ const JournalPage = () => {
                     
                 </h1>
             </Link>
-
 
             {/* 1st row journal */}
             <div className='grid gap-5 mt-[100px] ml-[50px] mr-[50px] sm:grid-cols-3'>
@@ -286,6 +286,12 @@ const JournalPage = () => {
                 </div>
 
             </div>
+
+        </div>
+           
+
+
+            
 
 
 

@@ -44,9 +44,9 @@ const Cart = () => {
         </div>
       ) : (
         // Original page layout when the cart is not empty
-        <div className="lg:grid grid-cols-3 lg:px-16 relative">
+        <div className=" lg:grid grid-cols-3 lg:px-16 relative">
           <div className="lg:col-span-2 lg:px-5 bg-white">
-            <div className="space-y-3">
+            <div className="pt-[30px] space-y-3">
               {cart.cartItems.map((item, index) => (
                 // Added a key prop to the mapped elements
                 <CartItem key={index} item={item} showButton={true} />

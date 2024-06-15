@@ -3,11 +3,11 @@ import React from 'react'
 const JournalDetailPage = () => {
     return (
         <>
-        <div className='w-full md:w-1/3 px-3 mb-[100px]'>
+        <div className='min-h-screen w-full md:w-1/3 px-3 mb-[100px]'>
             <h1 className='font-ijk text-center text-xs  text-gray-800  mt-[100px] '>
                 Apr 01, 2024
             </h1>
-            <h1 className='font-ijk text-center text-4xl  text-black  mt-[10px] '>
+            <h1 className='font-ijk text-center text-3xl  text-black  mt-[10px] '>
                 
                 <div className="flex justify-center items-center p-4 ">
                         <p className="p-2 px-4 group"  >

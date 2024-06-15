@@ -1,18 +1,17 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { Grid, TextField, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createOrder } from "../../../State/Order/Action";
-// import userEvent from "@testing-library/user-event";
 // import AdressCard from "../AdressCard/AdressCard";
-import { useState } from "react";
 
-export default function DelevryAdressForm({ handleNext }) {
+export default function DeliveryAddressForm({ handleNext }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
   const { auth } = useSelector((store) => store);
-  const [selectedAddress, setSelectedAdress] = useState(null);
+  const [selectedAddress, setSelectedAddress] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,15 +24,22 @@ export default function DelevryAdressForm({ handleNext }) {
       city: data.get("city"),
       state: data.get("state"),
       zipCode: data.get("zip"),
-      mobile: data.get("phoneNumber"),
+      mobile: phoneNumber,
     };
 
     dispatch(createOrder({ address, jwt, navigate }));
     handleNext();
   };
 
+  const handlePhoneNumberChange = (event) => {
+    const value = event.target.value;
+    if (/^\d*$/.test(value)) {
+      setPhoneNumber(value);
+    }
+  };
+
   const handleCreateOrder = (item) => {
-    dispatch(createOrder({ address:item, jwt, navigate }));
+    dispatch(createOrder({ address: item, jwt, navigate }));
     handleNext();
   };
 
@@ -43,7 +49,7 @@ export default function DelevryAdressForm({ handleNext }) {
         {/* <Box className="border rounded-md shadow-md h-[30.5rem] overflow-y-scroll ">
           {auth.user?.addresses.map((item) => (
             <div
-              onClick={() => setSelectedAdress(item)}
+              onClick={() => setSelectedAddress(item)}
               className="p-5 py-7 border-b cursor-pointer"
             >
               {" "}
@@ -54,9 +60,9 @@ export default function DelevryAdressForm({ handleNext }) {
                   size="large"
                   variant="contained"
                   color="primary"
-                  onClick={()=>handleCreateOrder(item)}
+                  onClick={() => handleCreateOrder(item)}
                 >
-                  Deliverd Here
+                  Deliver Here
                 </Button>
               )}
             </div>
@@ -76,8 +82,6 @@ export default function DelevryAdressForm({ handleNext }) {
                   fullWidth
                   autoComplete="given-name"
                   multiline
-                  
-
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -144,6 +148,8 @@ export default function DelevryAdressForm({ handleNext }) {
                   fullWidth
                   autoComplete="tel"
                   multiline
+                  value={phoneNumber}
+                  onChange={handlePhoneNumberChange}
                 />
               </Grid>
               <Grid item xs={12}>

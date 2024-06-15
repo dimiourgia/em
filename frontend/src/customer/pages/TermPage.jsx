@@ -3,7 +3,7 @@ import React from 'react'
 const TermPage = () => {
     return (
         <>
-            <div className=' mx-auto max-w-[520px] mt-[100px] mb-[100px]'>
+            <div className='min-h-screen mx-auto max-w-[520px] mt-[100px] mb-[100px]'>
                 <h1 className='text-black font-medium text-4xl text-center font-abc'>
 
                     Terms of service

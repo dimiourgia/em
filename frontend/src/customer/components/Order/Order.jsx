@@ -18,8 +18,14 @@ const Order = () => {
   console.log("users orders ",order.orders)
   return (
     <>
-    <div className="mx-auto max-w-[1000px] justify-center ">
-      <Box className="px-10">
+    <div className="min-h-screen mt-[30px] mx-auto max-w-[1000px] justify-center ">
+    <div className="flex justify-center items-center p-4 ">
+                        <p className="p-2 px-4 group text-3xl"  >
+                        Order History
+                            <div className="bg-amber-500 h-[2px] w-0 group-hover:w-full transition-all duration-500"></div>
+                        </p>
+                    </div>
+      <Box className="px-10 mt-[20px]">
       <Grid container spacing={0} sx={{ justifyContent: "space-between" }}>
         
         <Grid item xs={12}>

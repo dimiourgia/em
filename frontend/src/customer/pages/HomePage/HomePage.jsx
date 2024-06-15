@@ -21,7 +21,7 @@ import MiddleCarousel from '../../components/MiddleCarousel/MiddleCarousel'
 
 export const HomePage = () => {
     return (
-        <div>
+        <div className='min-h-screen'>
             <TopBanner />
             <TopMessage />
             <CategoryDress />

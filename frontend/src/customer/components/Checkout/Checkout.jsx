@@ -51,7 +51,7 @@ console.log("step",step)
   }
 
   return (
-    <div className="sm:px-32 ">
+    <div className="min-h-screen sm:px-32 ">
       <Box className=" lg:px-32" sx={{ width: "100%" }}>
       <Stepper activeStep={step}>
         {steps.map((label, index) => {

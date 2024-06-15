@@ -6,7 +6,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 const OrdersList = () => {
   const dispatch = useDispatch();
   const adminOrder = useSelector(state => state.adminOrder);
-  console.log("adminorder hai", adminOrder);
+  console.log("admin12345", adminOrder);
 
   useEffect(() => {
     dispatch(getOrders());
@@ -21,7 +21,9 @@ const OrdersList = () => {
       <Table>
         <TableHead>
           <TableRow>
+            
             <TableCell>Name</TableCell>
+            <TableCell>Email</TableCell>
             <TableCell>Date</TableCell>
             <TableCell>Order ID</TableCell>
             <TableCell>Price</TableCell>
@@ -34,9 +36,13 @@ const OrdersList = () => {
         <TableBody>
           {adminOrder.orders.map((order) => (
             <TableRow key={order._id}>
+
+
+
               <TableCell>
                 {order.shippingAddress.firstName} {order.shippingAddress.lastName}
               </TableCell>
+              <TableCell>{order.user.email}</TableCell>
               <TableCell>{formatDate(order.shippingAddress.DateInfo)}</TableCell>
               <TableCell>{order._id}</TableCell>
               <TableCell>₹{order.totalDiscountedPrice}</TableCell>

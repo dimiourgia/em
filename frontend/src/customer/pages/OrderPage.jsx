@@ -4,7 +4,7 @@ const OrderPage = () => {
 
     return (
         <>
-            <div className='mx-auto  max-w-[1000px] mt-[20px]'>
+            <div className='min-h-screen mx-auto  max-w-[1000px] mt-[20px]'>
 
                 <div className='mx-auto w-full md:w-1/3 px-3 md:mb-0  max-w-[1000px] tracking-widest font-light text-black  text-2xl  font-abc'>
                     Order History

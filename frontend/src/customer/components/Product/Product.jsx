@@ -174,7 +174,7 @@ const Product = ({ search }) => {
     }
 
     return (
-      <div className="mb-[200px] mt-[100px] flex flex-wrap justify-center ">
+      <div className=" mb-[200px] mt-[100px] flex flex-wrap justify-center ">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
@@ -210,8 +210,9 @@ const Product = ({ search }) => {
 
   return (
     <>
-      <div className="mt-[100px] container mx-auto ">
-        <h1 className="text-black font-medium font-ijk text-4xl text-center  mb-[50px]">
+    <div className="min-h-screen">
+      <div className="mt-[50px] container mx-auto ">
+        <h1 className="text-black font-medium font-ijk text-3xl text-center  mb-[50px]">
         <div className="flex justify-center items-center p-4 ">
                         <p className="p-2 px-4 group"  >
                         OUR STORE
@@ -223,7 +224,7 @@ const Product = ({ search }) => {
       </div>
       <div className="container mx-auto">
         <div className="grid gap-4 sm:grid-cols-12">
-          <div className=" bg-white sm:col-span-3">
+          <div className=" bg-white sm:col-span-2">
             <div className="max-w-screen-xl mx-auto px-5 bg-white ">
               <div className="grid divide-y divide-neutral-200 max-w-xl mx-auto mt-8">
                 <div className="py-5">
@@ -232,7 +233,7 @@ const Product = ({ search }) => {
                       <span className="tracking-widest font-light text-base text-center">
                         SIZE
                       </span>
-                      <span className="transition group-open:rotate-180">
+                      <span className=" transition group-open:rotate-180">
                         <svg
                           fill="none"
                           height="24"
@@ -272,7 +273,7 @@ const Product = ({ search }) => {
               </div>
             </div>
           </div>
-          <div className="min-h-[100px] sm:col-span-9">
+          <div className="min-h-[100px] sm:col-span-10">
             <div className="flex flex-wrap justify-center bg-white py-5">
               {currentProducts &&
                 currentProducts.map((product) => (
@@ -282,6 +283,7 @@ const Product = ({ search }) => {
             {renderPagination()}
           </div>
         </div>
+      </div>
       </div>
     </>
   );

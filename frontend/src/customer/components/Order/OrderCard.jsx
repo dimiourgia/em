@@ -25,15 +25,16 @@ const OrderCard = ({ item, order }) => {
               <p className="opacity-50 text-xs font-semibold space-x-5">
                 <span>Quantity: {item?.quantity}</span>
               </p>
-              <p className="opacity-50 text-xs font-semibold space-x-5">
-                <span>Order Date: {formatDate(item?.OrderDate)}</span>
-              </p>
+              
             </div>
           </div>
         </Grid>
 
         <Grid item xs={2}>
           <p>₹{item?.discountedPrice}</p>
+          <p className="mt-[10px] opacity-50 text-xs font-semibold space-x-5">
+                <span>Order Date: {formatDate(item?.OrderDate)}</span>
+              </p>
         </Grid>
       </Grid>
     </Box>

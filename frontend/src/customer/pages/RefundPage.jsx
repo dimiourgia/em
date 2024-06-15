@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const RefundPage = () => {
     return (
         <>
-            <div className=' mx-auto max-w-[520px] mt-[100px]'>
+            <div className='min-h-screen mx-auto max-w-[520px] mt-[100px]'>
                 <h1 className='text-black font-medium text-4xl text-center font-abc'>
 
                     Refund policy

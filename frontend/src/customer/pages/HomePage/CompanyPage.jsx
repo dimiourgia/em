@@ -7,11 +7,14 @@ import CompanyBottomCard from '../../components/CompanyBottomCard/CompanyBottomC
 
 const CompanyPage = () => {
     return (
-        <>
-            <CompanyTopBanner />
+        <> 
+        <div className='min-h-screen'>
+           <CompanyTopBanner />
             <CompanyTopMessage />
             <CompanyMiddleImage />
-            <CompanyBottomCard />
+            <CompanyBottomCard /> 
+        </div>
+            
 
         </>
 
