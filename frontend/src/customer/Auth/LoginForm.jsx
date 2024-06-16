@@ -80,6 +80,12 @@ const LoginForm = () => {
                             Login
                         </Button>
                     </Grid>
+
+                    <Grid item xs={12} sx={{ textAlign: 'center', marginTop: '1rem' }}>
+                        <Button onClick={() => navigate("/forgot-password")} size="small">
+                            Forgot Password?
+                        </Button>
+                    </Grid>
                 </Grid>
             </form>
 

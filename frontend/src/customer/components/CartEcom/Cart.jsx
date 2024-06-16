@@ -9,7 +9,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const jwt = localStorage.getItem("jwt");
-  const cart  = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart);
   console.log("cart ", cart);
 
   useEffect(() => {
@@ -77,15 +77,16 @@ const Cart = () => {
                   <span className="text-green-700">₹{cart.cart?.totalDiscountedPrice}</span>
                 </div>
               </div>
-
-              <Button
+              <button
                 onClick={() => navigate("/checkout?step=2")}
-                variant="contained"
                 type="submit"
-                sx={{ padding: ".8rem 2rem", marginTop: "2rem", width: "100%" }}
+                className="bg-black text-white py-3 px-8 mt-8 w-full transition duration-300 ease-in-out hover:bg-gray-800 hover:text-gray-300"
               >
                 Check Out
-              </Button>
+              </button>
+
+
+
             </div>
           </div>
         </div>

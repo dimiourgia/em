@@ -153,15 +153,15 @@ export default function DeliveryAddressForm({ handleNext }) {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Button
+                <button
                   sx={{ padding: ".9rem 1.5rem" }}
                   size="large"
                   type="submit"
                   variant="contained"
-                  color="primary"
+                  className="bg-black text-white py-3 px-8 mt-8  transition duration-300 ease-in-out hover:bg-gray-800 hover:text-gray-300"
                 >
                   Deliver Here
-                </Button>
+                </button>
               </Grid>
             </Grid>
           </form>

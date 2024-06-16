@@ -1,24 +1,14 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { findProducts } from '../../State/Product/Action';
+import { Button } from '@mui/material';
+import React from 'react';
+
 
 const TestPage = () => {
-  const products = useSelector(state => state.products.products);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(findProducts());
-  }, [dispatch]);
 
   return (
     <>
-      <div>TestPage</div>
-      {products && products.map((product) => (
-        <div key={product._id}>
-          <h2>{product.discountedPrice}</h2>
-          <p>{product.price}</p>
-        </div>
-      ))}
+   <button type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Dark</button>
+      
+      
     </>
   );
 };

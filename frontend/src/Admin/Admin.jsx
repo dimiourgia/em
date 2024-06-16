@@ -39,7 +39,7 @@ const Admin = () => {
       }}
     >
       <List>
-        {menu.map((item) => (
+        {menu.map((item) => ( 
           <ListItem key={item.name} disablePadding onClick={() => navigate(item.path)}>
             <ListItemButton>
               <ListItemIcon>{item.icon}</ListItemIcon>
