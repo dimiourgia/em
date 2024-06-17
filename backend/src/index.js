@@ -1,10 +1,26 @@
 const express=require("express")
+const axios = require('axios');
 const cors=require('cors');
 
 const app=express();
 
 app.use(express.json())
 app.use(cors())
+
+app.get('/api/address/:pincode',async (req, res) => {
+    const { pincode} = req.params;
+    try {
+        const response = await axios.get(`https://api.postalpincode.in/pincode/${pincode}`);
+        if (response.data[0].Status === 'Success') {
+            res.json(response.data[0].PostOffice[0]);
+        } else {
+            res.status(404).json({ error: 'Invalid PIN code' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server error'});
+    }
+}
+);
 
 app.get("/",(req,res)=>{
     return res.status(200).send({message:"welcome to ecommerce api - node"})

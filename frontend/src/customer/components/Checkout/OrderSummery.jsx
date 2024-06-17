@@ -28,6 +28,10 @@ const handleCreatePayment=()=>{
   const data={orderId:order.order?._id,jwt}
   dispatch(createPayment(data))
 }
+
+const discount = order.order
+    ? order.order.totalPrice - order.order.totalDiscountedPrice
+    : 0;
   
 
   return (
@@ -66,10 +70,10 @@ const handleCreatePayment=()=>{
               </div>
               <div className="flex justify-between">
                 <span className="font-abc">Discount</span>
-                <span className="text-green-700 font-abc ">-₹{order.order?.discounte}</span>
+                <span className="text-green-700 font-abc ">-₹{discount}</span>
               </div>
               <div className="flex justify-between">
-                <span className="font-abc" >Delivery Charges</span>
+                <span className="font-abc" >Delivery Charges</span>cd 
                 <span className="text-green-700 font-abc">Free</span>
               </div>
               <hr className="h-10px my-8 border-3 border-black" />

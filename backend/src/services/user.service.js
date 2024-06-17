@@ -43,22 +43,9 @@ const findUserById=async(userId)=>{
     }
 }
 
-const getUserByEmail=async(email)=>{
-    try {
-
-        const user=await User.findOne({email});
-
-        if(!user){
-            throw new Error("user found with email : ",email)
-        }
-
-        return user;
-        
-    } catch (error) {
-        console.log("error - ",error.message)
-        throw new Error(error.message)
-    }
-}
+const getUserByEmail = async (email) => {
+    return await User.findOne({ email });
+};
 
 const getUserProfileByToken=async(token)=>{
     try {
@@ -86,10 +73,31 @@ const getAllUsers=async()=>{
     }
 }
 
+const saveOtp = async (userId, otp) => {
+    const expiryDate = new Date();
+    expiryDate.setMinutes(expiryDate.getMinutes() + 15); // OTP expires in 15 minutes
+
+    await User.findByIdAndUpdate(userId, {
+        resetPasswordOtp: otp,
+        resetPasswordOtpExpires: expiryDate,
+    });
+};
+
+const updatePassword = async (userId, newPassword) => {
+    const hashedPassword = await bcrypt.hash(newPassword, 8);
+    await User.findByIdAndUpdate(userId, {
+        password: hashedPassword,
+        resetPasswordOtp: null,
+        resetPasswordOtpExpires: null,
+    });
+};
+
 module.exports={
     createUser,
     findUserById,
     getUserProfileByToken,
     getUserByEmail,
+    saveOtp,
+    updatePassword,
     getAllUsers
 }
