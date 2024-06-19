@@ -2,6 +2,7 @@ import { Box, Modal } from "@mui/material";
 import React from "react";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
+import Forgot from "./Forgot";
 import { useLocation } from "react-router-dom";
 
 const style = {
@@ -29,9 +30,11 @@ const AuthModal = ({ handleClose, open }) => {
       <Box sx={style}>
         {location.pathname.includes("/register") ? (
           <RegisterForm />
-        ) : location.pathname.includes("/") ? (
+        ) : location.pathname.includes("/forgot-password") ? (
+          <Forgot />
+        ) : (
           <LoginForm />
-        ) : null}
+        )}
       </Box>
     </Modal>
   );

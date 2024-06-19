@@ -49,10 +49,21 @@ const userSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "reviews",
     },
-  ]
+  ],
+  resetPasswordOtp:{
+    type: String,
+    default: null,
+  },
+  resetPasswordOtpExpires:
+  {
+    type: Date,
+    default: null,
+  },
 },{
   timestamps: true,
 });
+
+userSchema.index({ resetPasswordOtpExpires: 1 }, { expireAfterSeconds: 0 });
 
 const User = mongoose.model("users", userSchema);
 module.exports = User;

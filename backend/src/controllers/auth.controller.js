@@ -2,6 +2,8 @@ const userService=require("../services/user.service.js")
 const jwtProvider=require("../config/jwtProvider.js")
 const bcrypt=require("bcrypt")
 const cartService=require("../services/cart.service.js")
+const otpService=require("../services/otp.service.js")
+const emailService=require("../services/email.service.js")
 
 
 const register=async(req,res)=>{
@@ -18,6 +20,27 @@ const register=async(req,res)=>{
         return res.status(500).send({error:error.message})
     }
 }
+
+const forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await userService.getUserByEmail(email);
+        if (!user) {
+            return res.status(404).send({ error: "User not found" });
+        }
+        
+        const otp = otpService.generateOtp();
+        await userService.saveOtp(user._id, otp);
+
+        const resetLink = `${process.env.FRONTEND_URL}/reset-password?email=${encodeURIComponent(email)}&otp=${otp}`;
+        await emailService.sendResetPasswordEmail(email, resetLink);
+
+        res.status(200).send({ message: "Reset password link has been sent to your email" });
+    } catch (error) {
+        res.status(500).send({ error: error.message });
+    }
+};
+
 const login=async(req,res)=>{
     const {password,email}=req.body
     try {
@@ -41,4 +64,26 @@ const login=async(req,res)=>{
         return res.status(500).send({error:error.message})
     }
 }
-module.exports={register,login}
+
+const resetPassword = async (req, res) => {
+    try {
+        const { email, otp, newPassword, confirmPassword } = req.body;
+
+        if (newPassword !== confirmPassword) {
+            return res.status(400).send({ error: "Passwords do not match" });
+        }
+
+        const user = await userService.getUserByEmail(email);
+        if (!user || user.resetPasswordOtp !== otp || new Date() > user.resetPasswordOtpExpires) {
+            return res.status(400).send({ error: "Invalid or expired OTP" });
+        }
+
+        await userService.updatePassword(user._id, newPassword);
+
+        res.status(200).send({ message: "Password has been reset successfully" });
+    } catch (error) {
+        res.status(500).send({ error: error.message });
+    }
+};
+
+module.exports={ register, login, forgotPassword, resetPassword };

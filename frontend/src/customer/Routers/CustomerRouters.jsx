@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { HomePage } from "../pages/HomePage/HomePage";
 import CartEcom from "../components/CartEcom/Cart";
@@ -18,22 +18,23 @@ import ContactUsPage from "../pages/ContactUsPage";
 import Order from "../components/Order/Order";
 import TestPage from "../pages/TestPage";
 import AuthModal from "../Auth/AuthModal";
-import ForgetPassPage from "../pages/ForgetPassPage";
+import Forgot from "../Auth/Forgot";
 import NewPassPage from "../pages/NewPassPage";
 
 
 
 const CustomerRouters = () => {
   const [search, setSearch] = useState("");
-  
+
   return (
     <div>
       <div>
-        <Head search={search} setSearch={setSearch}/>
+        <Head search={search} setSearch={setSearch} />
       </div>
       <Routes>
-      <Route path="/forgot-password" element={<ForgetPassPage />}></Route>
-      <Route path="/new-pass" element={<NewPassPage/>}></Route>
+        {/* <Route path="/forgot-password" element={<ForgetPassPage />}></Route> */}
+        <Route path="/forgot-password" element={<HomePage />}></Route>
+        <Route path="/new-pass" element={<NewPassPage />}></Route>
         <Route path="/test" element={<TestPage />}></Route>
         <Route path="/login" element={<HomePage />}></Route>
         <Route path="/register" element={<HomePage />}></Route>
@@ -53,7 +54,7 @@ const CustomerRouters = () => {
         <Route path="/privacy" element={<PrivacyPage />}></Route>
         <Route path="/term" element={<TermPage />}></Route>
         <Route path="/contact" element={<ContactUsPage />}></Route>
-        <Route path="/order" element={<Order/>}></Route>
+        <Route path="/order" element={<Order />}></Route>
         <Route path="/payment/:orderId" element={<PaymentSuccess />}></Route>
       </Routes>
       <div>

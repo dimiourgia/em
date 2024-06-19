@@ -42,9 +42,9 @@ const OrdersList = () => {
               <TableCell>
                 {order.shippingAddress.firstName} {order.shippingAddress.lastName}
               </TableCell>
-              <TableCell>{order.user.email}</TableCell>
-              <TableCell>{formatDate(order.shippingAddress.DateInfo)}</TableCell>
-              <TableCell>{order._id}</TableCell>
+              <TableCell>{order?.user?.email}</TableCell>
+              <TableCell>{formatDate(order?.shippingAddress?.DateInfo)}</TableCell>
+              <TableCell>{order?._id}</TableCell>
               <TableCell>₹{order.totalDiscountedPrice}</TableCell>
               <TableCell>{order.totalItem}</TableCell>
               <TableCell>{order.shippingAddress.city}</TableCell>

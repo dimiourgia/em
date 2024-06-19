@@ -1,28 +1,33 @@
-import axios from "axios"
-import { API_BASE_URL } from "../../config/apiConfig"
-import { GET_USER_FAILURE, GET_USER_REQUEST, GET_USER_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT, REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS } from "./ActionType";
+import axios from "axios";
+import { API_BASE_URL } from "../../config/apiConfig";
+import { 
+    GET_USER_FAILURE, GET_USER_REQUEST, GET_USER_SUCCESS, 
+    LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, 
+    LOGOUT, REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS,
+    FORGOT_PASSWORD_FAILURE, FORGOT_PASSWORD_SUCCESS, FORGOT_PASSWORD_REQUEST,
+} from "./ActionType";
 
 const token = localStorage.getItem("jwt");
+
 // Register action creators
 const registerRequest = () => ({ type: REGISTER_REQUEST });
 const registerSuccess = (user) => ({ type: REGISTER_SUCCESS, payload: user });
 const registerFailure = (error) => ({ type: REGISTER_FAILURE, payload: error });
 
 export const register = (userData) => async (dispatch) => {
-
     dispatch(registerRequest());
     try {
-        const response = await axios.post(`${API_BASE_URL}/auth/signup`, userData)
+        const response = await axios.post(`${API_BASE_URL}/auth/signup`, userData);
         const user = response.data;
         if (user.jwt) {
-            localStorage.setItem("jwt", user.jwt)
+            localStorage.setItem("jwt", user.jwt);
         }
-        console.log("user ", user)
         dispatch(registerSuccess(user.jwt));
     } catch (error) {
-        dispatch(registerFailure(error.message));
+        dispatch(registerFailure(error.response?.data?.error || error.message));
     }
 }
+
 // Login action creators
 const loginRequest = () => ({ type: LOGIN_REQUEST });
 const loginSuccess = (user) => ({ type: LOGIN_SUCCESS, payload: user });
@@ -31,24 +36,21 @@ const loginFailure = (error) => ({ type: LOGIN_FAILURE, payload: error });
 export const login = (userData) => async (dispatch) => {
     dispatch(loginRequest());
     try {
-        const response = await axios.post(`${API_BASE_URL}/auth/signin`, userData)
+        const response = await axios.post(`${API_BASE_URL}/auth/signin`, userData);
         const user = response.data;
         if (user.jwt) {
-            localStorage.setItem("jwt", user.jwt)
+            localStorage.setItem("jwt", user.jwt);
         }
-        // console.log("login ", user)
-        console.log("user ", user)
         dispatch(loginSuccess(user.jwt));
     } catch (error) {
-        dispatch(loginFailure(error.message));
+        dispatch(loginFailure(error.response?.data?.error || error.message));
     }
 }
 
-//  get user from token
+// Get user from token
 const getUserRequest = () => ({ type: GET_USER_REQUEST });
 const getUserSuccess = (user) => ({ type: GET_USER_SUCCESS, payload: user });
 const getUserFailure = (error) => ({ type: GET_USER_FAILURE, payload: error });
-
 
 export const getUser = (jwt) => async (dispatch) => {
     dispatch(getUserRequest());
@@ -57,17 +59,30 @@ export const getUser = (jwt) => async (dispatch) => {
             headers: {
                 "Authorization": `Bearer ${jwt}`
             }
-        })
+        });
         const user = response.data;
-
-        console.log("user ", user)
         dispatch(getUserSuccess(user));
     } catch (error) {
-        dispatch(getUserFailure(error.message));
+        dispatch(getUserFailure(error.response?.data?.error || error.message));
     }
 }
 
 export const logout = () => (dispatch) => {
-    dispatch({ type: LOGOUT, payload: null })
+    dispatch({ type: LOGOUT, payload: null });
     localStorage.clear();
 }
+
+// Forgot password action creators
+const forgotPasswordRequest = () => ({ type: FORGOT_PASSWORD_REQUEST });
+const forgotPasswordSuccess = (message) => ({ type: FORGOT_PASSWORD_SUCCESS, payload: message });
+const forgotPasswordFailure = (error) => ({ type: FORGOT_PASSWORD_FAILURE, payload: error });
+
+export const forgotPassword = (email) => async (dispatch) => {
+    dispatch(forgotPasswordRequest());
+    try {
+        const response = await axios.post(`${API_BASE_URL}/auth/forgot-password`, { email });
+        dispatch(forgotPasswordSuccess(response.data.message));
+    } catch (error) {
+        dispatch(forgotPasswordFailure(error.response?.data?.error || error.message));
+    }
+};

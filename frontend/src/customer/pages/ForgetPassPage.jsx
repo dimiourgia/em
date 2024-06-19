@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 
 const ForgetPassPage = () => {
     return (
@@ -19,7 +19,7 @@ const ForgetPassPage = () => {
                     <div className="mb-4">
                         <button
                             type="submit"
-                            className="w-full text-white  bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                            className="w-full bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600 transition duration-300"
                         >
                             Submit
                         </button>
@@ -33,4 +33,4 @@ const ForgetPassPage = () => {
     )
 }
 
-export default ForgetPassPage
+// export default ForgetPassPage
