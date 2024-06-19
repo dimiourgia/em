@@ -2,7 +2,7 @@ const razorpay = require("../config/razorpayClient");
 const orderService = require("../services/order.service.js");
 const cartService = require("../services/cart.service.js");
 const Product = require("../models/product.model.js");
-
+const { sendOrderConfirmationEmail } = require("../services/email.service.js");
 
 const createPaymentLink = async (orderId) => {
   try {
@@ -74,6 +74,8 @@ const updatePaymentInformation = async (reqData) => {
       order.orderStatus = "PLACED";
 
       await order.save();
+
+      await sendOrderConfirmationEmail(orderId);
     }
 
     const resData = { message: "Your order is placed", success: true };

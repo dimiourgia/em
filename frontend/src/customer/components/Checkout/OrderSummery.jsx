@@ -73,7 +73,7 @@ const discount = order.order
                 <span className="text-green-700 font-abc ">-₹{discount}</span>
               </div>
               <div className="flex justify-between">
-                <span className="font-abc" >Delivery Charges</span>cd 
+                <span className="font-abc" >Delivery Charges</span>
                 <span className="text-green-700 font-abc">Free</span>
               </div>
               <hr className="h-10px my-8 border-3 border-black" />

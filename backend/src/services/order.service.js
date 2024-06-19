@@ -118,7 +118,6 @@ async function findOrderById(orderId) {
       .populate({ path: "orderItems", populate: { path: "product" } })
       .populate("shippingAddress");
       return order;
-    // if (!order) throw new Error(`Order not found with id: ${orderId}`);
     
   } catch (error) {
     throw new Error(error.message);
