@@ -15,7 +15,7 @@ const OrderSummary = () => {
 const orderId = searchParams.get("order_id");
 const dispatch=useDispatch();
   const jwt=localStorage.getItem("jwt");
-  const {order}=useSelector(state=>state)
+  const order =useSelector(state=>state.order)
 
 console.log("orderId ", order)
 

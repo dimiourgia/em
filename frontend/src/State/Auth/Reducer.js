@@ -1,4 +1,4 @@
-import { GET_USER_FAILURE, GET_USER_REQUEST, GET_USER_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT, REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS, FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, FORGOT_PASSWORD_FAILURE } from "./ActionType";
+import { GET_USER_FAILURE, GET_USER_REQUEST, GET_USER_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT, REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS, FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, FORGOT_PASSWORD_FAILURE, RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILURE, } from "./ActionType";
 
 const initialState = {
     user: null,
@@ -6,6 +6,7 @@ const initialState = {
     error: null,
     jwt: null,
     forgotPasswordSuccess: null,
+    resetPasswordSuccess: null,
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -31,6 +32,15 @@ export const authReducer = (state = initialState, action) => {
             return { ...state, isLoading: false, error: null, forgotPasswordSuccess: action.payload };
 
         case FORGOT_PASSWORD_FAILURE:
+            return { ...state, isLoading: false, error: action.payload };
+
+        case RESET_PASSWORD_REQUEST:
+            return { ...state, isLoading: true, error: null, resetPasswordSuccess: null };
+
+        case RESET_PASSWORD_SUCCESS:
+            return { ...state, isLoading: false, error: null, resetPasswordSuccess: action.payload };
+
+        case RESET_PASSWORD_FAILURE:
             return { ...state, isLoading: false, error: action.payload };
 
         case LOGOUT:

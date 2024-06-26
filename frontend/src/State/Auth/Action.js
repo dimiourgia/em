@@ -5,6 +5,7 @@ import {
     LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, 
     LOGOUT, REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS,
     FORGOT_PASSWORD_FAILURE, FORGOT_PASSWORD_SUCCESS, FORGOT_PASSWORD_REQUEST,
+    RESET_PASSWORD_FAILURE, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_REQUEST,
 } from "./ActionType";
 
 const token = localStorage.getItem("jwt");
@@ -84,5 +85,20 @@ export const forgotPassword = (email) => async (dispatch) => {
         dispatch(forgotPasswordSuccess(response.data.message));
     } catch (error) {
         dispatch(forgotPasswordFailure(error.response?.data?.error || error.message));
+    }
+};
+
+// Reset password action creators
+const resetPasswordRequest = () => ({ type: RESET_PASSWORD_REQUEST });
+const resetPasswordSuccess = (message) => ({ type: RESET_PASSWORD_SUCCESS, payload: message });
+const resetPasswordFailure = (error) => ({ type: RESET_PASSWORD_FAILURE, payload: error });
+
+export const resetPassword = (data) => async (dispatch) => {
+    dispatch(resetPasswordRequest());
+    try {
+        const response = await axios.post(`${API_BASE_URL}/auth/reset-password`, data);
+        dispatch(resetPasswordSuccess(response.data.message));
+    } catch (error) {
+        dispatch(resetPasswordFailure(error.response?.data?.error || error.message));
     }
 };

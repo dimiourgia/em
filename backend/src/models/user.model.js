@@ -63,7 +63,7 @@ const userSchema = new mongoose.Schema({
   timestamps: true,
 });
 
-userSchema.index({ resetPasswordOtpExpires: 1 }, { expireAfterSeconds: 0 });
+userSchema.index({ resetPasswordOtpExpires: 1 });
 
 const User = mongoose.model("users", userSchema);
 module.exports = User;

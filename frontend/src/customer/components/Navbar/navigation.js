@@ -63,7 +63,7 @@ export default function Head() {
   const dispatch = useDispatch();
   const location = useLocation();
   const jwt = localStorage.getItem("jwt");
-  const { auth } = useSelector((store) => store);
+  const auth = useSelector((state) => state.auth);
 
   const handleUserClick = (event) => {
     setAnchorEl(event.currentTarget);

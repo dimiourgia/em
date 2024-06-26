@@ -35,7 +35,7 @@ const forgotPassword = async (req, res) => {
         const resetLink = `${process.env.FRONTEND_URL}/reset-password?email=${encodeURIComponent(email)}&otp=${otp}`;
         await emailService.sendResetPasswordEmail(email, resetLink);
 
-        res.status(200).send({ message: "Reset password link has been sent to your email" });
+        res.status(200).send({ message: "Please check your email; a link to reset your password has been sent." });
     } catch (error) {
         res.status(500).send({ error: error.message });
     }

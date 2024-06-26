@@ -1,23 +1,30 @@
-import React, { useState } from "react";
-import { Grid, TextField, Button, Box } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Grid, TextField, Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createOrder } from "../../../State/Order/Action";
-// import AdressCard from "../AdressCard/AdressCard";
+import axios from "axios";
 
 export default function DeliveryAddressForm({ handleNext }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
-  const { auth } = useSelector((store) => store);
-  const [selectedAddress, setSelectedAddress] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [address, setAddress] = useState({
+    firstName: "",
+    lastName: "",
+    streetAddress: "",
+    city: "",
+    state: "",
+    zipCode: ""
+  });
+  const [zipError, setZipError] = useState(""); // State for ZIP code error message
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    const address = {
+    const addressData = {
       firstName: data.get("firstName"),
       lastName: data.get("lastName"),
       streetAddress: data.get("address"),
@@ -27,7 +34,7 @@ export default function DeliveryAddressForm({ handleNext }) {
       mobile: phoneNumber,
     };
 
-    dispatch(createOrder({ address, jwt, navigate }));
+    dispatch(createOrder({ address: addressData, jwt, navigate }));
     handleNext();
   };
 
@@ -38,37 +45,37 @@ export default function DeliveryAddressForm({ handleNext }) {
     }
   };
 
-  const handleCreateOrder = (item) => {
-    dispatch(createOrder({ address: item, jwt, navigate }));
-    handleNext();
+  const handleZipCodeChange = async (event) => {
+    const zipCode = event.currentTarget.value.trim(); // Trim leading and trailing spaces
+    setAddress(prevAddress => ({ ...prevAddress, zipCode })); // Update ZIP code in address state
+
+    if (zipCode.length !== 6) {
+      setZipError("ZIP code must be 6 digits");
+      setAddress(prevAddress => ({ ...prevAddress, city: "", state: "" })); // Reset city and state
+      return;
+    } else {
+      setZipError("");
+    }
+
+    try {
+      const response = await axios.get(`https://api.postalpincode.in/pincode/${zipCode}`);
+      const data = response.data[0];
+
+      if (data.Status === "Success" && data.PostOffice.length > 0) {
+        const { District: city, State: state } = data.PostOffice[0];
+        setAddress(prevAddress => ({ ...prevAddress, city, state })); // Update city and state
+      } else {
+        setAddress(prevAddress => ({ ...prevAddress, city: "", state: "" })); // Reset city and state
+      }
+    } catch (error) {
+      console.error("Error fetching post office details:", error);
+      setAddress(prevAddress => ({ ...prevAddress, city: "", state: "" })); // Reset city and state on error
+    }
   };
 
   return (
     <Grid container spacing={4}>
-      <Grid item xs={12} lg={2}>
-        {/* <Box className="border rounded-md shadow-md h-[30.5rem] overflow-y-scroll ">
-          {auth.user?.addresses.map((item) => (
-            <div
-              onClick={() => setSelectedAddress(item)}
-              className="p-5 py-7 border-b cursor-pointer"
-            >
-              {" "}
-              <AdressCard address={item} />
-              {selectedAddress?.id === item.id && (
-                <Button
-                  sx={{ mt: 2 }}
-                  size="large"
-                  variant="contained"
-                  color="primary"
-                  onClick={() => handleCreateOrder(item)}
-                >
-                  Deliver Here
-                </Button>
-              )}
-            </div>
-          ))}
-        </Box> */}
-      </Grid>
+      <Grid item xs={12} lg={2}></Grid>
       <Grid item xs={12} lg={7}>
         <Box className="border rounded-md shadow-md p-5">
           <form onSubmit={handleSubmit}>
@@ -82,6 +89,8 @@ export default function DeliveryAddressForm({ handleNext }) {
                   fullWidth
                   autoComplete="given-name"
                   multiline
+                  value={address.firstName}
+                  onChange={(e) => setAddress({ ...address, firstName: e.target.value })}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -93,6 +102,8 @@ export default function DeliveryAddressForm({ handleNext }) {
                   fullWidth
                   autoComplete="given-name"
                   multiline
+                  value={address.lastName}
+                  onChange={(e) => setAddress({ ...address, lastName: e.target.value })}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -105,27 +116,8 @@ export default function DeliveryAddressForm({ handleNext }) {
                   autoComplete="shipping address"
                   multiline
                   rows={4}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  id="city"
-                  name="city"
-                  label="City"
-                  fullWidth
-                  autoComplete="shipping address-level2"
-                  multiline
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  id="state"
-                  name="state"
-                  label="State/Province/Region"
-                  fullWidth
-                  multiline
+                  value={address.streetAddress}
+                  onChange={(e) => setAddress({ ...address, streetAddress: e.target.value })}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -137,6 +129,35 @@ export default function DeliveryAddressForm({ handleNext }) {
                   fullWidth
                   autoComplete="shipping postal-code"
                   multiline
+                  value={address.zipCode}
+                  onChange={handleZipCodeChange}
+                  error={!!zipError} // Apply error style based on presence of error message
+                  helperText={zipError} // Display error message
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  id="city"
+                  name="city"
+                  label="City"
+                  fullWidth
+                  autoComplete="shipping address-level2"
+                  multiline
+                  value={address.city}
+                  onChange={(e) => setAddress({ ...address, city: e.target.value })}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  id="state"
+                  name="state"
+                  label="State/Province/Region"
+                  fullWidth
+                  multiline
+                  value={address.state}
+                  onChange={(e) => setAddress({ ...address, state: e.target.value })}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -158,7 +179,7 @@ export default function DeliveryAddressForm({ handleNext }) {
                   size="large"
                   type="submit"
                   variant="contained"
-                  className="bg-black text-white py-3 px-8 mt-8  transition duration-300 ease-in-out hover:bg-gray-800 hover:text-gray-300"
+                  className="bg-black text-white py-3 px-8 mt-8 transition duration-300 ease-in-out hover:bg-gray-800 hover:text-gray-300"
                 >
                   Deliver Here
                 </button>

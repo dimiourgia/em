@@ -30,102 +30,59 @@ const Product = ({ search }) => {
 
   const [copyProduct, setCopyProduct] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 9;
+  const productsPerPage = 12;
 
   const handleSizeFilter = (e) => {
-    setFilterSize((prevFilterSize) => {
-      const newFilterSize = {
-        ...prevFilterSize,
-        [e.target.name]: prevFilterSize[e.target.name] ? false : e.target.value,
-      };
-      return newFilterSize;
-    });
+    setFilterSize((prevFilterSize) => ({
+      ...prevFilterSize,
+      [e.target.name]: !prevFilterSize[e.target.name],
+    }));
   };
 
   useEffect(() => {
-    if (products && products.length > 0) {
+    const filterProducts = () => {
       let finalArray = [];
 
+      // Apply size filters
       const allFalse = Object.values(filterSize).every((value) => !value);
 
       if (allFalse) {
         finalArray = products;
       } else {
-        if (filterSize.s) {
-          finalArray = finalArray.concat(
-            products.filter((el) => {
-              const findValue = el.sizes.find((el1) => {
-                let sizeName = el1.name.toLowerCase();
-                return sizeName === "s" && el1.quantity > 0;
-              });
-              return findValue ? true : false;
-            })
-          );
-        }
-        if (filterSize.m) {
-          finalArray = finalArray.concat(
-            products.filter((el) => {
-              const findValue = el.sizes.find((el1) => {
-                let sizeName = el1.name.toLowerCase();
-                return sizeName === "m" && el1.quantity > 0;
-              });
-              return findValue ? true : false;
-            })
-          );
-        }
-        if (filterSize.l) {
-          finalArray = finalArray.concat(
-            products.filter((el) => {
-              const findValue = el.sizes.find((el1) => {
-                let sizeName = el1.name.toLowerCase();
-                return sizeName === "l" && el1.quantity > 0;
-              });
-              return findValue ? true : false;
-            })
-          );
-        }
-        if (filterSize.xl) {
-          finalArray = finalArray.concat(
-            products.filter((el) => {
-              const findValue = el.sizes.find((el1) => {
-                let sizeName = el1.name.toLowerCase();
-                return sizeName === "xl" && el1.quantity > 0;
-              });
-              return findValue ? true : false;
-            })
-          );
-        }
-        if (filterSize["2xl"]) {
-          finalArray = finalArray.concat(
-            products.filter((el) => {
-              const findValue = el.sizes.find((el1) => {
-                let sizeName = el1.name.toLowerCase();
-                return sizeName === "2xl" && el1.quantity > 0;
-              });
-              return findValue ? true : false;
-            })
-          );
-        }
+        Object.keys(filterSize).forEach((sizeKey) => {
+          if (filterSize[sizeKey]) {
+            finalArray = finalArray.concat(
+              products.filter((el) => {
+                const findValue = el.sizes.find(
+                  (el1) => el1.name.toLowerCase() === sizeKey && el1.quantity > 0
+                );
+                return findValue ? true : false;
+              })
+            );
+          }
+        });
       }
 
       finalArray = [...new Set(finalArray)];
+
+      // Apply search filters
+      if (search) {
+        finalArray = finalArray.filter((el) => {
+          return (
+            el.title.toLowerCase().includes(search.toLowerCase()) ||
+            el.brand.toLowerCase().includes(search.toLowerCase())
+          );
+        });
+      }
+
       setCopyProduct([...finalArray]);
       setCurrentPage(1);
-    }
-  }, [filterSize, products]);
+    };
 
-  useEffect(() => {
     if (products && products.length > 0) {
-      const searchArray = products.filter((el) => {
-        return (
-          el.title.toLowerCase().includes(search.toLowerCase()) ||
-          el.brand.toLowerCase().includes(search.toLowerCase())
-        );
-      });
-      setCopyProduct([...searchArray]);
-      setCurrentPage(1);
+      filterProducts();
     }
-  }, [search, products]);
+  }, [filterSize, search, products]);
 
   useEffect(() => {
     const [minPrice, maxPrice] = priceValue
@@ -180,9 +137,7 @@ const Product = ({ search }) => {
           disabled={currentPage === 1}
           className="px-3 py-1 mx-1 border rounded hover:bg-gray-200 disabled:opacity-20"
         >
-             <ChevronLeftIcon/>
-          {/* Previous */}
-         
+          <ChevronLeftIcon/>
         </button>
         {pageNumbers.map((number) => (
           <button
@@ -200,8 +155,6 @@ const Product = ({ search }) => {
           disabled={currentPage === totalPages}
           className="px-3 py-1 mx-1 border rounded hover:bg-gray-200 disabled:opacity-20"
         >
-          {/* Next */}
-          
           <ChevronRightIcon/>
         </button>
       </div>
@@ -209,17 +162,15 @@ const Product = ({ search }) => {
   };
 
   return (
-    <>
     <div className="min-h-screen">
       <div className="mt-[50px] container mx-auto ">
         <h1 className="text-black font-medium font-ijk text-3xl text-center  mb-[50px]">
-        <div className="flex justify-center items-center p-4 ">
-                        <p className="p-2 px-4 group"  >
-                        OUR STORE
-                            <div className="bg-amber-500 h-[2px] w-0 group-hover:w-full transition-all duration-500"></div>
-                        </p>
-                    </div>
-          
+          OUR STORE
+          <div className="flex justify-center items-center p-4 ">
+            <p className="p-2 px-4 group">
+              <div className="bg-amber-500 h-[2px] w-0 group-hover:w-full transition-all duration-500"></div>
+            </p>
+          </div>
         </h1>
       </div>
       <div className="container mx-auto">
@@ -258,7 +209,7 @@ const Product = ({ search }) => {
                           <input
                             type="checkbox"
                             name={
-                              size === "2xl" ? "2xl" : size.toLocaleLowerCase()
+                              size === "2xl" ? "2xl" : size.toLowerCase()
                             }
                             onChange={handleSizeFilter}
                             value={size}
@@ -275,17 +226,21 @@ const Product = ({ search }) => {
           </div>
           <div className="min-h-[100px] sm:col-span-10">
             <div className="flex flex-wrap justify-center bg-white py-5">
-              {currentProducts &&
+              {currentProducts.length === 0 ? (
+                <p className="text-xl text-center text-gray-600 mt-8 mr-32">
+                  No products found. Please try a different search.
+                </p>
+              ) : (
                 currentProducts.map((product) => (
                   <ProductCard product={product} key={product._id} />
-                ))}
+                ))
+              )}
             </div>
             {renderPagination()}
           </div>
         </div>
       </div>
-      </div>
-    </>
+    </div>
   );
 };
 

@@ -75,7 +75,7 @@ const getAllUsers=async()=>{
 
 const saveOtp = async (userId, otp) => {
     const expiryDate = new Date();
-    expiryDate.setMinutes(expiryDate.getMinutes() + 15); // OTP expires in 15 minutes
+    expiryDate.setMinutes(expiryDate.getMinutes() + 15);
 
     await User.findByIdAndUpdate(userId, {
         resetPasswordOtp: otp,

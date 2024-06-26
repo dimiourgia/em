@@ -16,10 +16,7 @@ import PrivacyPage from "../pages/PrivacyPage";
 import TermPage from "../pages/TermPage";
 import ContactUsPage from "../pages/ContactUsPage";
 import Order from "../components/Order/Order";
-import TestPage from "../pages/TestPage";
-import AuthModal from "../Auth/AuthModal";
-import Forgot from "../Auth/Forgot";
-import NewPassPage from "../pages/NewPassPage";
+import Reset from "../Auth/Reset";
 
 
 
@@ -32,10 +29,8 @@ const CustomerRouters = () => {
         <Head search={search} setSearch={setSearch} />
       </div>
       <Routes>
-        {/* <Route path="/forgot-password" element={<ForgetPassPage />}></Route> */}
         <Route path="/forgot-password" element={<HomePage />}></Route>
-        <Route path="/new-pass" element={<NewPassPage />}></Route>
-        <Route path="/test" element={<TestPage />}></Route>
+        <Route path="/reset-password" element={<Reset />}></Route>
         <Route path="/login" element={<HomePage />}></Route>
         <Route path="/register" element={<HomePage />}></Route>
         <Route path="/" element={<HomePage />}></Route>

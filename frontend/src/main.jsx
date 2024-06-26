@@ -5,8 +5,6 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './State/store';
-// import MiddleBanner from './customer/components/MiddleBanner/MiddleBanner';
-// import Navigation from './customer/components/Navbar/Nagivation';
 import { ThemeProvider } from "@material-tailwind/react";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -18,9 +16,6 @@ root.render(
       <Provider store={store}>
         <App />
       </Provider>
-      {/* <Navigation /> */}
-      {/* <MiddleBanner /> */}
-
     </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>

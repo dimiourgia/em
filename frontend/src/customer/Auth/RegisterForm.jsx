@@ -3,15 +3,13 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getUser, register } from '../../State/Auth/Action';
-// import { store } from './../../State/store';
-// import { auth } from './../../State/store';
 
 const RegisterForm = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const jwt = localStorage.getItem("jwt")
-    const { auth } = useSelector(store => store)
+    const auth = useSelector(state => state.auth)
 
     useEffect(() => {
         if (jwt) {

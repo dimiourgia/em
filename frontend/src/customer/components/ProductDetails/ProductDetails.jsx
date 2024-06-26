@@ -14,7 +14,7 @@ export default function ProductDetails() {
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
-  const { products } = useSelector((store) => store);
+  const products = useSelector((state) => state.products);
   const product = products.product;
 
   const handelAddToCart = () => {
