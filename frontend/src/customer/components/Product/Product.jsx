@@ -131,7 +131,7 @@ const Product = ({ search }) => {
     }
 
     return (
-      <div className=" mb-[200px] mt-[100px] flex flex-wrap justify-center ">
+      <div className="mb-16 flex flex-wrap justify-center ">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
@@ -163,23 +163,18 @@ const Product = ({ search }) => {
 
   return (
     <div className="min-h-screen">
-      <div className="mt-[50px] container mx-auto ">
-        <h1 className="text-black font-medium font-ijk text-3xl text-center  mb-[50px]">
-          OUR STORE
-          <div className="flex justify-center items-center p-4 ">
-            <p className="p-2 px-4 group">
-              <div className="bg-amber-500 h-[2px] w-0 group-hover:w-full transition-all duration-500"></div>
-            </p>
-          </div>
+      <div className="container mx-auto">
+        <h1 className="text-black font-medium text-3xl text-center mb-8">
+        Online Boutique
         </h1>
       </div>
       <div className="container mx-auto">
         <div className="grid gap-4 sm:grid-cols-12">
           <div className=" bg-white sm:col-span-2">
             <div className="max-w-screen-xl mx-auto px-5 bg-white ">
-              <div className="grid divide-y divide-neutral-200 max-w-xl mx-auto mt-8">
+              <div className="grid divide-y divide-neutral-200 max-w-xl mx-auto">
                 <div className="py-5">
-                  <details className="group">
+                  <details className="group" open>
                     <summary className="flex justify-between items-center font-medium cursor-pointer list-none">
                       <span className="tracking-widest font-light text-base text-center">
                         SIZE
@@ -200,7 +195,7 @@ const Product = ({ search }) => {
                         </svg>
                       </span>
                     </summary>
-                    <div className="text-neutral-600 mt-3 group-open:animate-fadeIn">
+                    <div className="text-neutral-600 group-open:animate-fadeIn">
                       {["S", "M", "L", "XL", "2XL"].map((size) => (
                         <label
                           key={size}

@@ -46,12 +46,12 @@ export default function DeliveryAddressForm({ handleNext }) {
   };
 
   const handleZipCodeChange = async (event) => {
-    const zipCode = event.currentTarget.value.trim(); // Trim leading and trailing spaces
-    setAddress(prevAddress => ({ ...prevAddress, zipCode })); // Update ZIP code in address state
+    const zipCode = event.currentTarget.value.trim(); 
+    setAddress(prevAddress => ({ ...prevAddress, zipCode })); 
 
     if (zipCode.length !== 6) {
       setZipError("ZIP code must be 6 digits");
-      setAddress(prevAddress => ({ ...prevAddress, city: "", state: "" })); // Reset city and state
+      setAddress(prevAddress => ({ ...prevAddress, city: "", state: "" })); 
       return;
     } else {
       setZipError("");
@@ -63,13 +63,13 @@ export default function DeliveryAddressForm({ handleNext }) {
 
       if (data.Status === "Success" && data.PostOffice.length > 0) {
         const { District: city, State: state } = data.PostOffice[0];
-        setAddress(prevAddress => ({ ...prevAddress, city, state })); // Update city and state
+        setAddress(prevAddress => ({ ...prevAddress, city, state })); 
       } else {
-        setAddress(prevAddress => ({ ...prevAddress, city: "", state: "" })); // Reset city and state
+        setAddress(prevAddress => ({ ...prevAddress, city: "", state: "" })); 
       }
     } catch (error) {
       console.error("Error fetching post office details:", error);
-      setAddress(prevAddress => ({ ...prevAddress, city: "", state: "" })); // Reset city and state on error
+      setAddress(prevAddress => ({ ...prevAddress, city: "", state: "" })); 
     }
   };
 
@@ -111,7 +111,7 @@ export default function DeliveryAddressForm({ handleNext }) {
                   required
                   id="address"
                   name="address"
-                  label="Address"
+                  label="Shipping Address(Building/Locality)"
                   fullWidth
                   autoComplete="shipping address"
                   multiline

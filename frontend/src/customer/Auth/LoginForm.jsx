@@ -9,6 +9,8 @@ const LoginForm = () => {
     const navigate = useNavigate()
     const [error, setError] = useState('')
 
+    const productToAdd = localStorage.getItem('productToAdd')
+
     const handleSubmit = (event) => {
         event.preventDefault()
 
@@ -26,7 +28,14 @@ const LoginForm = () => {
                     setError('Username or Password is incorrect')
                 } else {
                     setError('')
-                    // Navigate to another page on successful login, if necessary
+                    // Clear local storage
+                    localStorage.removeItem('productToAdd')
+                    // Redirect to cart if there's a product to add
+                    if (productToAdd) {
+                        navigate('/cart')
+                    } else {
+                        navigate('/')
+                    }
                 }
             })
             .catch(error => {

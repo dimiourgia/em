@@ -19,10 +19,15 @@ export default function ProductDetails() {
 
   const handelAddToCart = () => {
     const data = { productId: params.productId, size: selectedSize.name };
-    dispatch(addItemToCart(data));
-    navigate("/cart");
-  };
-
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+        dispatch(addItemToCart(data));
+        navigate('/cart');
+    } else {
+        localStorage.setItem('productToAdd', params.productId);
+        navigate('/login');
+    }
+};
   useEffect(() => {
     const data = { productId: params.productId };
     dispatch(findProductsById(data));

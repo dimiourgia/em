@@ -14,6 +14,7 @@ export default function SearchBar({search, setSearch}) {
           <img
             src="https://res.cloudinary.com/du5p1rnil/image/upload/v1713751837/empressa/searchLogo.png"
             alt="Search icon"
+            onClick={()=>navigate("/products")}
             className="absolute h-5 w-5 top-2 left-3"
           />
           <input
