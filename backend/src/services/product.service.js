@@ -15,6 +15,8 @@ async function createProduct(reqData) {
       title: reqData.title,
       color: reqData.color,
       description: reqData.description,
+      fabricDescription: reqData.fabricDescription,
+      modelAttireDescription: reqData.modelAttireDescription,
       discountedPrice: reqData.discountedPrice,
       imageUrl: reqData.imageUrl,
       brand: reqData.brand,
@@ -43,29 +45,36 @@ async function deleteProduct(productId) {
   }
 }
 
-// Update a product by ID
 async function updateProduct(productId, reqData) {
-  const updatedProduct = await Product.findByIdAndUpdate(productId, reqData);
-  return updatedProduct;
+  try {
+    const updatedProduct = await Product.findByIdAndUpdate(productId, reqData, { new: true });
+    if (!updatedProduct) {
+      throw new Error("Product not found with id: " + productId);
+    }
+    return updatedProduct;
+  } catch (error) {
+    throw new Error("Error updating product: " + error.message);
+  }
 }
 
-// Find a product by ID
 async function findProductById(id) {
-  const product = await Product.findById(id).populate("category").exec();
-
-  if (!product) {
-    throw new Error("Product not found with id " + id);
+  try {
+    const product = await Product.findById(id).populate("category").exec();
+    if (!product) {
+      throw new Error("Product not found with id " + id);
+    }
+    return product;
+  } catch (error) {
+    throw new Error("Error finding product: " + error.message);
   }
-  return product;
 }
 
 async function getAllProducts() {
   try {
     const query = await Product.find({}).exec();
-    console.log("The query result:", query);
     return query;
   } catch (error) {
-    console.error("Error occurred while executing the query:", error);
+    throw new Error("Error occurred while executing the query: " + error.message);
   }
 }
 

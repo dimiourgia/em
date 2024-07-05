@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,16 +15,22 @@ const Forgot = () => {
         dispatch(forgotPassword(email));
     };
 
+    useEffect(() => {
+        if (forgotPasswordSuccess) {
+            setEmail("");
+            navigate("/");
+        }
+    }, [forgotPasswordSuccess, navigate]);
+
     return (
         <div>
             <form onSubmit={handleSubmit}>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
+                        <Typography sx={{ ml:"8px" , color: "#616161"}}>Email</Typography>
                         <TextField
                             required
-                            id="email"
                             name="email"
-                            label="Email"
                             fullWidth
                             autoComplete="email"
                             value={email}
@@ -51,18 +57,17 @@ const Forgot = () => {
 
                     <Grid item xs={12}>
                         <Button
-                            className="bg-[#9155FD] w-full"
+                            className="w-full"
                             type="submit"
                             variant="contained"
-                            size="large"
-                            sx={{ padding: ".8rem 0" }}
+                            sx={{padding:"8px", bgcolor: "#9e9e9e" }}
                             disabled={isLoading}
                         >
                             Submit
                         </Button>
                     </Grid>
 
-                    <Grid item xs={12} sx={{ textAlign: "center", marginTop: "1rem" }}>
+                    <Grid item xs={12} sx={{ textAlign: "center" }}>
                         <div>Remember your password?<Button onClick={() => navigate("/login")} size="small">
                             Login
                         </Button></div>

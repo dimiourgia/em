@@ -29,19 +29,19 @@ const CartItem = ({ item, showButton }) => {
   };
 
   return (
-    <div className="p-5 shadow-lg border rounded-md">
-      <div className="flex items-center">
-        <div className="w-[5rem] h-[5rem] lg:w-[9rem] lg:h-[9rem] ">
+    <div className="p-6 border border-gray-500 bg-white rounded-lg h-[310px]">
+      <div className="flex items-center gap-4">
+        <div className="w-[9rem] h-[12rem]">
           <img
-            className="w-full h-full object-cover object-top"
-            src={item?.product?.imageUrl}
+            className="w-full h-full object-cover rounded shadow-md object-top"
+            src={item?.product?.imageUrl[0]}
             alt=""
           />
         </div>
         <div className="ml-5 space-y-1">
           <p className="font-semibold">{item?.product?.title}</p>
           <p className="opacity-70">Size: {item?.size}</p>
-          <p className="opacity-70 mt-2">Seller: {item?.product?.brand}</p>
+          {/* <p className="opacity-70 mt-2">Seller: {item?.product?.brand}</p> */}
           <p className="opacity-70 mt-2">Quantity: {item?.quantity}</p>
           <div className="flex space-x-2 items-center pt-3">
             <p className="font-semibold text-lg">
@@ -58,31 +58,30 @@ const CartItem = ({ item, showButton }) => {
         </div>
       </div>
       {showButton && (
-        <div className="lg:flex items-center lg:space-x-10 pt-4">
-          <div className="flex items-center space-x-2 ">
+        <div className="flex items-center space-x-8 pt-4">
+          <div className="flex items-center gap-1">
             <IconButton
               onClick={() => handleUpdateCartItem(-1)}
               disabled={item?.quantity <= 1}
-              color="primary"
-              aria-label="add an alarm"
+              sx={{ '&:focus': { outline: 'none' } }}
             >
-              <RemoveCircleOutlineIcon />
+              <RemoveCircleOutlineIcon sx={{fontSize:"20px"}} />
             </IconButton>
+
             <div>{console.log(item?.product)}</div>
-            <span className="py-1 px-7 border rounded-sm">
+            <span className="py-1 px-5 border rounded-sm">
               {item?.quantity}
             </span>
             <IconButton
               onClick={() => handleUpdateCartItem(1)}
               color="primary"
-              // disabled={item?.product?.sizes}
-              aria-label="add an alarm"
+              sx={{ '&:focus': { outline: 'none' } }}
             >
-              <AddCircleOutlineIcon />
+              <AddCircleOutlineIcon sx={{fontSize:"20px"}} />
             </IconButton>
           </div>
-          <div className="flex text-sm lg:text-base mt-5 lg:mt-0">
-            <Button onClick={handleRemoveItemFromCart} variant="text">
+          <div className="text-sm lg:text-text">
+            <Button onClick={handleRemoveItemFromCart} variant="outlined" color="error" sx={{ '&:focus': { outline: 'none' } , fontSize:"12px" }} >
               Remove{" "}
             </Button>
           </div>

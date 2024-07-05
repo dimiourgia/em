@@ -8,13 +8,13 @@ const OrderCard = ({ item, order }) => {
   };
 
   return (
-    <Box className="p-5 shadow-lg hover:shadow-2xl border">
+    <Box className="p-5 bg-white w-[800px] flex items-center justify-center hover:shadow-2xl border">
       <Grid spacing={2} container sx={{ justifyContent: "space-between" }}>
         <Grid item xs={6}>
           <div className="flex cursor-pointer">
             <img
               className="w-[5rem] h-[5rem] object-cover object-top"
-              src={item?.product?.imageUrl}
+              src={item?.product?.imageUrl[0]}
               alt={item?.product?.title}
             />
             <div className="ml-5">

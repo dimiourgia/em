@@ -17,49 +17,45 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import SearchBar from "./SearchBar";
 
 
-function NavList({search, setSearch}) {
+function NavList({ search, setSearch }) {
   return (
     <List className="flex lg:ml-[200px] items-center lg:flex-row flex-col lg:items-center lg:w-auto w-full">
-      <Typography>
-        <ListItem className="lg:hidden">
-          <div >
-            <SearchBar  search={search} setSearch={setSearch} />
-          </div>
-        </ListItem>
-      </Typography>
-      <Typography
-        as={Link}
-        to="/products"
-        variant="small"
-        color="blue-gray"
-        className="font-medium text-base uppercase font-abc"
-      >
-        <ListItem>Our Products</ListItem>
-      </Typography>
-
-      <Typography
-        as={Link}
-        to="/about"
-        variant="small"
-        color="blue-gray"
-        className="font-medium text-base uppercase font-abc"
-      >
-        <ListItem>About Us</ListItem>
-      </Typography>
-      <Typography
-        as={Link}
-        to="/journal"
-        variant="small"
-        color="blue-gray"
-        className="font-medium text-base uppercase font-abc"
-      >
-        <ListItem>Journal</ListItem>
-      </Typography>
-    </List>
-  );
+    <Typography>
+      <ListItem className="lg:hidden">
+        <div>
+          <SearchBar search={search} setSearch={setSearch} />
+        </div>
+      </ListItem>
+    </Typography>
+    <Typography
+      as={Link}
+      to="/products"
+      variant="h6"
+      className="font-heading"
+    >
+      <ListItem>Our Product</ListItem>
+    </Typography>
+    <Typography
+      as={Link}
+      to="/about"
+      variant="h6"
+      className="font-heading"
+    >
+      <ListItem>About Us</ListItem>
+    </Typography>
+    <Typography
+      as={Link}
+      to="/journal"
+      variant="h6"
+      className="font-heading"
+    >
+      <ListItem>Journal</ListItem>
+    </Typography>
+  </List>
+);
 }
 
-export default function Head({search ,setSearch}) {
+export default function Head({ search, setSearch }) {
   const [openNav, setOpenNav] = useState(false);
   const navigate = useNavigate();
   const [openAuthModal, setOpenAuthModal] = useState(false);
@@ -71,7 +67,7 @@ export default function Head({search ,setSearch}) {
   const jwt = localStorage.getItem("jwt");
   const auth = useSelector((state) => state.auth);
 
-  const handleOpen= () => {
+  const handleOpen = () => {
     setOpenAuthModal(true);
   };
 
@@ -117,8 +113,8 @@ export default function Head({search ,setSearch}) {
   const isAdmin = auth?.user?.role == "ADMIN";
 
   return (
-    <div className="nav-container mx-auto bg-white">
-      <div className="bg-[#e8e2b0] text-black py-1 text-center overflow-hidden">
+    <div className=" bg-white">
+      <div className="bg-[#eeeeee] py-1 text-center overflow-hidden">
         <div className="relative flex overflow-x-hidden">
           <div className="py-1 animate-marquee whitespace-nowrap">
             <span className="ml-8"></span>
@@ -201,33 +197,32 @@ export default function Head({search ,setSearch}) {
           <img
             src="https://res.cloudinary.com/du5p1rnil/image/upload/v1712815729/empressa/trlajilv4tdjxco53foy.png"
             alt="Empressa"
-            className="h-20 w-20"
+            className="h-12 w-12"
           />
-          <Typography variant="small" color="blue-gray" className="mt-0.25 ">
-            EMPRESSA
-          </Typography>
+          <div className="font-heading">
+            Empressa
+          </div>
         </Typography>
-
         <div className="hidden lg:block">
-          <NavList  search={search} setSearch={setSearch} />
+          <NavList search={search} setSearch={setSearch} />
         </div>
         <div className="flex md:ml-[564px] lg:ml-0  ml-[130px] m items-center justify-center">
           <div className="mx-auto w-max lg:block hidden">
-            <SearchBar  search={search} setSearch={setSearch} />
+            <SearchBar search={search} setSearch={setSearch} />
           </div>
-
-          <div className="mb-1">
+          <div className="flex items-end justify-end">
             {auth.user ? (
               <div>
-                <Avatar
-                  className="h-7 w-7 mt-1 ml-2 text-white cursor-pointer"
+                <div
+                  className="h-8 w-8 ml-2 text-white flex items-center cursor-pointer justify-center bg-gray-400 rounded-full"
                   onClick={handleUserClick}
                   aria-controls={openNav ? "basic-menu" : undefined}
                   aria-haspopup="true"
                   aria-expanded={openNav ? "true" : undefined}
                 >
                   {auth.user?.firstName[0].toUpperCase()}
-                </Avatar>
+                </div>
+
                 <Menu
                   id="basic-menu"
                   anchorEl={anchorEl}
@@ -239,7 +234,7 @@ export default function Head({search ,setSearch}) {
                     My Orders
                   </MenuItem>
                   {
-                  isAdmin && 
+                    isAdmin &&
                     <Link to={"/admin"}>
                       <MenuItem>DashBoard</MenuItem>
                     </Link>
@@ -256,20 +251,21 @@ export default function Head({search ,setSearch}) {
               </div>
             ) : (
               <div onClick={handleOpen}>
-              <UserCircleIcon
-                className="h-7 w-7 mt-1 cursor-pointer active:scale-50 ml-2"
-              />
+                <UserCircleIcon
+                  className="h-7 w-7 flex items-center justify-center cursor-pointer active:scale-50 ml-2"
+                  style={{ strokeWidth: '1' }}
+                />
               </div>
             )}
           </div>
-          <div className="mb-2">
-            <Link to="/cart" className="group flex items-center p-2">
+          <div className="mb-0.5">
+            <Link to="/cart" className="flex items-center p-2">
               <ShoppingBagIcon
-                className="h-7 w-7 mt-1 cursor-pointer active:scale-50"
+                className="h-6 w-6  flex items-center justify-center cursor-pointer active:scale-50"
+                style={{ strokeWidth: '1.1' }}
                 aria-hidden="true"
               />
               <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                {/* Display cart item count here */}
               </span>
               <span className="sr-only">items in cart, view bag</span>
             </Link>

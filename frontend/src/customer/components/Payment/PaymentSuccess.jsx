@@ -33,19 +33,17 @@ const PaymentSuccess = () => {
   }, [orderId, paymentId]);
 
   return (
-    <div className="px-2 lg:px-36">
+    <div className="p-4 lg:px-36">
       <div className="flex flex-col justify-center items-center">
         <Alert
           variant="filled"
           severity="success"
-          sx={{ mb: 6, width: "fit-content" }}
+          sx={{ mb: 2, width: "fit-content" }}
         >
           <AlertTitle>Payment Success</AlertTitle>
           Congratulations, your order has been placed.
         </Alert>
       </div>
-
-      {/* <OrderTraker activeStep={1}/> */}
     <div className="mx-auto  max-w-[1000px]">
       <Grid container className="space-y-5 py-5 pt-20">
         {order.order?.orderItems.map((item, index) => (
@@ -56,22 +54,21 @@ const PaymentSuccess = () => {
             className="shadow-xl rounded-md p-5 border"
             sx={{ alignItems: "center", justifyContent: "space-between" }}
           >
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <div className="flex items-center">
                 <img
-                  className="w-20 h-20 object-cover object-top"
-                  src={item?.product.imageUrl}
+                  className="w-[9rem] h-[9rem] object-cover object-top"
+                  src={item?.product.imageUrl[0]}
                   alt={item?.product.title}
                 />
-                <div className="ml-5 space-y-2">
+                <div className="ml-8">
                   <p>{item.product.title}</p>
-                  <p className="opacity-50 text-sm font-semibold">
+                  <p className="opacity-50 text-md font">
                     <span className="">Size: {item.size}</span>
                   </p>
                   <p>
-                  <span className="opacity-50 text-sm font-semibold" >Quantity: {item.quantity}</span>
+                  <span className="opacity-50 text-md" >Quantity: {item.quantity}</span>
                   </p>
-                  
                   <p>₹{item.discountedPrice}</p>
                   
 

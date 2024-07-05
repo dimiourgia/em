@@ -1,4 +1,3 @@
-// productModel.js
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
@@ -13,6 +12,12 @@ const productSchema = new mongoose.Schema({
   description: {
     type: String,
     // required: true,
+  },
+  fabricDescription: {
+    type: String,
+  },
+  modelAttireDescription: {
+    type: String,
   },
   price: {
     type: Number,
@@ -29,25 +34,31 @@ const productSchema = new mongoose.Schema({
   },
   sizes: [
     {
-        name: { type: String, required: true },
-        quantity: { type: Number, required: true, default:0 }
+      name: { type: String, required: true },
+      quantity: { type: Number, required: true, default:0 }
     }
-], 
-  imageUrl: {
-    type: String,
-  },
+  ],
+  // imageUrl: {
+  //   type: String,
+  // },
+
+  imageUrl: [
+    { 
+      type: String,
+      required: true },
+  ],
   ratings: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'ratings',
     },
-  ], 
+  ],
   reviews: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'reviews',
     },
-  ], 
+  ],
   numRatings: {
     type: Number,
     default: 0,

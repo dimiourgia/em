@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { findProducts } from "./../../../State/Product/Action";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import { Typography } from "@mui/material";
 
 const Product = ({ search }) => {
   const param = useParams();
@@ -30,7 +31,7 @@ const Product = ({ search }) => {
 
   const [copyProduct, setCopyProduct] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 12;
+  const productsPerPage = 15;
 
   const handleSizeFilter = (e) => {
     setFilterSize((prevFilterSize) => ({
@@ -131,7 +132,7 @@ const Product = ({ search }) => {
     }
 
     return (
-      <div className="mb-16 flex flex-wrap justify-center ">
+      <div className="flex justify-center ">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
@@ -162,79 +163,81 @@ const Product = ({ search }) => {
   };
 
   return (
-    <div className="min-h-screen">
-      <div className="container mx-auto">
-        <h1 className="text-black font-medium text-3xl text-center mb-8">
-        Online Boutique
-        </h1>
+    <div className="min-h-80 bg- md:min-h-screen pb-16">
+      <div className="flex items-center justify-center p-3">
+        <div className="bg-gray-100 m-2 px-4 py-2 rounded-md shadow-md">
+          <Typography sx={{fontFamily:'heading', fontSize:{lg:"40px", md:"32px", sm:"24px", xs:"20px"}}} variant="h4">
+            Online Boutique
+          </Typography>
+        </div>
       </div>
       <div className="container mx-auto">
-        <div className="grid gap-4 sm:grid-cols-12">
-          <div className=" bg-white sm:col-span-2">
-            <div className="max-w-screen-xl mx-auto px-5 bg-white ">
-              <div className="grid divide-y divide-neutral-200 max-w-xl mx-auto">
-                <div className="py-5">
-                  <details className="group" open>
-                    <summary className="flex justify-between items-center font-medium cursor-pointer list-none">
-                      <span className="tracking-widest font-light text-base text-center">
-                        SIZE
-                      </span>
-                      <span className=" transition group-open:rotate-180">
-                        <svg
-                          fill="none"
-                          height="24"
-                          shape-rendering="geometricPrecision"
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="1.5"
-                          viewBox="0 0 24 24"
-                          width="24"
-                        >
-                          <path d="M6 9l6 6 6-6"></path>
-                        </svg>
-                      </span>
-                    </summary>
-                    <div className="text-neutral-600 group-open:animate-fadeIn">
-                      {["S", "M", "L", "XL", "2XL"].map((size) => (
-                        <label
-                          key={size}
-                          className="pt-[20px] flex items-center"
-                        >
-                          <input
-                            type="checkbox"
-                            name={
-                              size === "2xl" ? "2xl" : size.toLowerCase()
-                            }
-                            onChange={handleSizeFilter}
-                            value={size}
-                            className="mr-2"
-                          />
-                          {size}
-                        </label>
-                      ))}
-                    </div>
-                  </details>
-                </div>
+        <div className="flex">
+          <div className="px-4 pt-5 bg-white">
+            <div className="grid divide-y divide-neutral-200 max-w-xl mx-auto">
+              <div className="py-5">
+                <details className="group" open>
+                  <summary className="font-heading flex justify-between items-center cursor-pointer list-none">
+                    <span>
+                      SIZE
+                    </span>
+                    <span className=" transition group-open:rotate-180">
+                      <svg
+                        fill="none"
+                        height="24"
+                        shape-rendering="geometricPrecision"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="1.5"
+                        viewBox="0 0 24 24"
+                        width="24"
+                      >
+                        <path d="M6 9l6 6 6-6"></path>
+                      </svg>
+                    </span>
+                  </summary>
+                  <div className="text-neutral-600 group-open:animate-fadeIn">
+                    {["S", "M", "L", "XL", "2XL"].map((size) => (
+                      <label
+                        key={size}
+                        className="pt-[20px] flex items-center"
+                      >
+                        <input
+                          type="checkbox"
+                          name={
+                            size === "2xl" ? "2xl" : size.toLowerCase()
+                          }
+                          onChange={handleSizeFilter}
+                          value={size}
+                          className="mr-2"
+                        />
+                        {size}
+                      </label>
+                    ))}
+                  </div>
+                </details>
               </div>
             </div>
           </div>
-          <div className="min-h-[100px] sm:col-span-10">
-            <div className="flex flex-wrap justify-center bg-white py-5">
+          <div className="sm:col-span-10 w-full">
+            <div className="flex flex-wrap rounded-lg items-center w-auto justify-center">
               {currentProducts.length === 0 ? (
-                <p className="text-xl text-center text-gray-600 mt-8 mr-32">
-                  No products found. Please try a different search.
+                  <p className="min-h-80 text-center font-heading text-xl flex p-2 flex-col items-center justify-center">
+                  <span className="block">We don't have that item.</span>
+                  <span className="block">Check out our other collections!</span>
                 </p>
+                
               ) : (
                 currentProducts.map((product) => (
                   <ProductCard product={product} key={product._id} />
                 ))
               )}
             </div>
-            {renderPagination()}
           </div>
         </div>
       </div>
+      {renderPagination()}
     </div>
   );
 };

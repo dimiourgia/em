@@ -13,23 +13,23 @@ const ProductCard = ({ product }) => {
         <div className="h-[15rem] rounded-t-md">
           <img
             className="h-[350px] w-full object-cover mx-auto flex justify-center items-center rounded-t-md"
-            src={product?.imageUrl}
+            src={product?.imageUrl[0]}
             alt="ss"
           />
         </div>
-        <div className="textPart mt-[100px] bg-white p-3 rounded-b-md">
+        <div className="mt-[100px] bg-gray-100 h-[100px] p-3 rounded-md">
           <div>
-            <p className="tracking-widest font-abc font-light text-md">
+          <p className="font-text text-red-700 opacity-70 mt-2 text-sm">{product.brand}</p>
+            <p className="truncate font-heading">
               {product.title}
             </p>
-            <p className="font-abc text-sm">{product.brand}</p>
           </div>
-          <div className="flex items-center space-x-2">
-            <p className="text-sm font-abc">{"₹" + product.discountedPrice}</p>
-            <p className="font-abc line-through text-sm text-gray-500">
+          <div className="flex items-center mt-1 space-x-2">
+            <p className="text-md font-text">{"₹" + product.discountedPrice}</p>
+            <p className="font-text line-through opacity-70 text-sm text-gray-500">
               {"₹" + product.price}
             </p>
-            <p className="text-red-500 text-sm font-abc">
+            <p className="text-green-500 text-xs font-text">
               {((1 - product.discountedPrice / product.price) * 100).toFixed(0) + "% off"}
             </p>
           </div>

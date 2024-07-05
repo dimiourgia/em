@@ -13,10 +13,10 @@ Greetings!
 
 You are just a step away from accessing your Empressa account.
 
-We are sharing a link to access your account and it is valid for 10 minutes, in case of invalid or  expired link please navigate back to Forgot Password and try again.
-Upon opening the link. you'll be prompted to set a new password immediately. This is to ensure that only you have access to your account.
+We are sharing a link to access your account and it is valid for 10 minutes, in case of invalid or expired link please navigate back to Forgot Password and try again.
+Upon opening the link, you'll be prompted to set a new password immediately. This is to ensure that only you have access to your account.
 
-Click the link to reset your password:  ${resetLink}
+Click the link to reset your password: ${resetLink}
 
 Expires in: 10 minutes
 
@@ -44,14 +44,31 @@ const sendOrderConfirmationEmail = async (orderId) => {
         const order = await orderService.findOrderById(orderId);
         const email = order.user.email;
         const orderDetails = order.orderItems.map(item => {
-            return `Product: ${item.product.title}, Size: ${item.size}, Quantity: ${item.quantity}`;
-        }).join('\n');
+            return `<div>
+                        <p><strong>Product:</strong> ${item.product.title}</p>
+                        <p><strong>Size:</strong> ${item.size}</p>
+                        <p><strong>Quantity:</strong> ${item.quantity}</p>
+                        <img src="${item.product.imageUrl[0]}" alt="${item.product.title}" style="max-width: 200px;"/>
+                    </div>`;
+        }).join('<br>');
 
         const message = {
             senderAddress: "DoNotReply@0b92c556-0591-4ff8-bfc5-9fa5358b53c0.azurecomm.net",
             content: {
                 subject: "Your Order is Placed",
-                plainText: `Hello ${order.user.firstName},\n\nYour order has been placed successfully.\n\nOrder Details:\n${orderDetails}\n\nTotal Price: ${order.totalDiscountedPrice}\n\nThank you for shopping with us!`,
+                html: `<html>
+                        <body>
+                            <p>Hello ${order.user.firstName},</p>
+                            <p>Your order has been placed successfully on ${new Date().toLocaleDateString()}.</p>
+                            <p><strong>Order Details:</strong></p>
+                            ${orderDetails}
+                            <p><strong>Total Price:</strong> ${order.totalDiscountedPrice}</p>
+                            <p>Thank you for shopping with Empressa, your tracking details will be available once your order is shipped.</p>
+                            <p>For any queries or feedback you can reach out to us at <a href="mailto:empressa.queries@gmail.com">empressa.queries@gmail.com</a>.</p>
+                            <p>Have a delightful day ahead ✨</p>
+                            <p>Team Empressa</p>
+                        </body>
+                    </html>`,
             },
             recipients: {
                 to: [
@@ -61,6 +78,7 @@ const sendOrderConfirmationEmail = async (orderId) => {
                 ],
             },
         };
+        
 
         const poller = await emailClient.beginSend(message);
         await poller.pollUntilDone();

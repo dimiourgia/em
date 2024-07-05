@@ -8,9 +8,12 @@ module.exports = withMT({
         marquee: 'marquee 25s linear infinite',
         marquee2: 'marquee2 25s linear infinite',
       },
+      fontSize: {
+        'xs-custom': '12px',
+      },
       fontFamily: {
-        abc: ["Noto Serif Georgian", "serif"],
-        para: ["Cormorant", "serif"],
+        heading: ["Playfair Display", "serif"],
+        text: ["Cormorant", "serif"],
       },
       keyframes: {
         marquee: {

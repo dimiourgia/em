@@ -63,7 +63,7 @@ const Admin = () => {
   );
 
   return (
-    <div className="flex h-[100vh]">
+    <div className="flex h-[10vh]">
       <CssBaseline />
       <div className="w-[15%] border-r border-gray-300 h-full fixed top-0">
         {drawer}

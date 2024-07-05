@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Typography, Grid, TextField, Button, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { Typography, Grid, TextField, Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { createProduct } from "../../State/Product/Action";
 import { useNavigate } from "react-router-dom";
@@ -12,9 +12,11 @@ const initialSizes = [
   { name: "2XL", quantity: 0 },
 ];
 
+const initialImageUrls = ["", "", "", "", ""];
+
 const CreateProductForm = () => {
   const [productData, setProductData] = useState({
-    imageUrl: "",
+    imageUrl: initialImageUrls,
     brand: "",
     title: "",
     color: "",
@@ -23,6 +25,8 @@ const CreateProductForm = () => {
     size: initialSizes,
     category: "",
     description: "",
+    fabricDescription: "", // Added fabricDescription
+    modelAttireDescription: "", // Added modelAttireDescription
   });
 
   const dispatch = useDispatch();
@@ -46,6 +50,16 @@ const CreateProductForm = () => {
     }));
   };
 
+  const handleImageUrlChange = (e, index) => {
+    const { value } = e.target;
+    const imageUrls = [...productData.imageUrl];
+    imageUrls[index] = value;
+    setProductData((prevState) => ({
+      ...prevState,
+      imageUrl: imageUrls,
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createProduct(productData));
@@ -54,20 +68,51 @@ const CreateProductForm = () => {
 
   return (
     <div className="p-10">
-      <Typography variant="h3" sx={{ textAlign: "center" }} className="py-10">
+      <Typography variant="h4" sx={{ textAlign: "center" }} className="py-4">
         Add New Product
       </Typography>
-      <form onSubmit={handleSubmit} className="min-h-screen">
+      <form onSubmit={handleSubmit} className="min-h-screen" noValidate>
         <Grid container spacing={2}>
-          {["imageUrl", "brand", "title", "color", "price", "discountedPrice", "category"].map((field, index) => (
-            <Grid item xs={12} sm={index % 2 === 0 ? 6 : 12} key={field}>
+          {productData.imageUrl.map((url, index) => (
+            <Grid item xs={12} key={`imageUrl-${index}`}>
               <TextField
                 fullWidth
-                label={field.charAt(0).toUpperCase() + field.slice(1).replace(/([A-Z])/g, ' $1').trim()}
+                label={`Image URL ${index + 1}`}
+                name={`imageUrl-${index}`}
+                value={url}
+                onChange={(e) => handleImageUrlChange(e, index)}
+                required
+              />
+            </Grid>
+          ))}
+          {[
+            "brand",
+            "title",
+            "color",
+            "price",
+            "discountedPrice",
+            "category",
+            "fabricDescription", // Added fabricDescription
+            "modelAttireDescription", // Added modelAttireDescription
+          ].map((field, index) => (
+            <Grid item xs={12} sm={index % 2 === 0 ? 12 : 12} key={field}>
+              <TextField
+                fullWidth
+                label={
+                  field === "fabricDescription"
+                    ? "Fabric Description"
+                    : field === "modelAttireDescription"
+                    ? "Model Attire Description"
+                    : field.charAt(0).toUpperCase() +
+                      field.slice(1).replace(/([A-Z])/g, " $1").trim()
+                }
                 name={field}
                 value={productData[field]}
                 onChange={handleChange}
+                multiline={field === "fabricDescription" || field === "modelAttireDescription"}
+                rows={3}
                 type={["price", "discountedPrice"].includes(field) ? "number" : "text"}
+                required
               />
             </Grid>
           ))}
@@ -81,6 +126,7 @@ const CreateProductForm = () => {
               rows={3}
               onChange={handleChange}
               value={productData.description}
+              required
             />
           </Grid>
           {productData.size.map((size, index) => (

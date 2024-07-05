@@ -25,18 +25,19 @@ const Cart = () => {
 
   return (
     <div className="cart-container min-h-screen bg-gray-100">
-      <div className="text-center py-8">
-        <h1 className="text-3xl font-bold">Cart</h1>
+      <div className="text-center py-4">
+        <h1 className="text-2xl font-semibold font-text">Cart</h1>
       </div>
+
       {isCartEmpty ? (
         // Display full-page layout with centered message when the cart is empty
         <div className="empty-cart-message min-h-screen flex items-center justify-center text-center">
           <div>
-            <p className="text-2xl font-semibold">Your cart is empty</p>
+            <p className="text-2xl text-gray-500 font-semibold">Your cart is empty</p>
             <Button
               onClick={() => navigate("/products")}
               variant="contained"
-              sx={{ padding: ".8rem 2rem", marginTop: "2rem" }}
+              sx={{ padding: ".8rem 2rem", marginTop: "2rem", bgcolor: "#bdbdbd" }}
             >
               Go to Shop
             </Button>
@@ -44,18 +45,17 @@ const Cart = () => {
         </div>
       ) : (
         // Original page layout when the cart is not empty
-        <div className=" lg:grid grid-cols-3 lg:px-16 relative">
-          <div className="lg:col-span-2 lg:px-5 bg-white">
-            <div className="pt-[30px] space-y-3">
-              {cart.cartItems.map((item, index) => (
-                // Added a key prop to the mapped elements
-                <CartItem key={index} item={item} showButton={true} />
-              ))}
-            </div>
+        <div className=" lg:grid grid-cols-3 lg:px-16 relative pb-8">
+          <div className="lg:col-span-2 rounded-lg pb-8">
+            {cart.cartItems.map((item, index) => (
+              // Added a key prop to the mapped elements
+              <CartItem key={index} item={item} showButton={true} />
+            ))}
+
           </div>
-          <div className="px-5 sticky top-0 h-[100vh] mt-5 lg:mt-0">
-            <div className="border p-5 bg-white shadow-lg rounded-md">
-              <p className="font-bold opacity-60 pb-4">PRICE DETAILS</p>
+          <div className="lg:px-2 sticky top-0">
+            <div className="border p-5 bg-white rounded-md">
+              <p className="font-bold opacity-60">PRICE DETAILS</p>
               <hr />
 
               <div className="space-y-3 font-semibold">
@@ -78,15 +78,12 @@ const Cart = () => {
                 </div>
               </div>
               <button
-                onClick={() => navigate("/checkout?step=2")}
+                onClick={() => navigate("/checkout?step=0")}
                 type="submit"
-                className="bg-black text-white py-3 px-8 mt-8 w-full transition duration-300 ease-in-out hover:bg-gray-800 hover:text-gray-300"
+                className="bg-black text-white  py-3 px-8 mt-8 w-full transition duration-300 ease-in-out hover:bg-gray-800 hover:text-gray-300"
               >
-                Check Out
+                Buy Now
               </button>
-
-
-
             </div>
           </div>
         </div>

@@ -14,11 +14,11 @@ const CategoryDress = () => {
                             alt="Mini Dresses"
                         />
                     </Link>
-                    <h1 className='font-ijk text-center text-2xl text-gray-800 mt-[10px]'>
+                    <h1 className='font-heading text-center text-2xl text-gray-800 mt-[10px]'>
                         Mini Dresses
                     </h1>
                     <h1 className='text-center mt-[10px]'>
-                        <button onClick={() => navigate("/products")} className="bg-white tracking-widest font-ijk hover:bg-gray-100 text-gray-800 py-2 px-4 border border-gray-400">
+                        <button onClick={() => navigate("/products")} className="bg-white tracking-widest font-text hover:bg-gray-100 text-gray-800 py-2 px-4 border border-gray-400">
                             SHOP MINIS
                         </button>
                     </h1>
@@ -31,11 +31,11 @@ const CategoryDress = () => {
                             alt="Midi Dresses"
                         />
                     </Link>
-                    <h1 className='font-ijk text-center text-2xl text-gray-800 mt-[10px]'>
+                    <h1 className='font-heading text-center text-2xl text-gray-800 mt-[10px]'>
                         Midi Dresses
                     </h1>
                     <h1 className='text-center mt-[10px]'>
-                        <button onClick={() => navigate("/products")} className="bg-white tracking-widest font-ijk hover:bg-gray-100 text-gray-800 py-2 px-4 border border-gray-400">
+                        <button onClick={() => navigate("/products")} className="bg-white tracking-widest font-text hover:bg-gray-100 text-gray-800 py-2 px-4 border border-gray-400">
                             SHOP MIDIS
                         </button>
                     </h1>
@@ -48,11 +48,11 @@ const CategoryDress = () => {
                             alt="Maxi Dresses"
                         />
                     </Link>
-                    <h1 className='font-ijk text-center text-2xl text-gray-800 mt-[10px]'>
+                    <h1 className='font-heading text-center text-2xl text-gray-800 mt-[10px]'>
                         Maxi Dresses
                     </h1>
                     <h1 className='text-center mt-[10px]'>
-                        <button onClick={() => navigate("/products")} className="bg-white tracking-widest font-ijk hover:bg-gray-100 text-gray-800 py-2 px-4 border border-gray-400">
+                        <button onClick={() => navigate("/products")} className="bg-white tracking-widest font-text hover:bg-gray-100 text-gray-800 py-2 px-4 border border-gray-400">
                             SHOP MAXIS
                         </button>
                     </h1>

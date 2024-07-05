@@ -1,32 +1,33 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-const BottomBanner = () => {
+const TopBanner = () => {
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+    const handleResize = () => {
+        setIsMobile(window.innerWidth <= 768);
+    };
+
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     return (
-        <>
-            <div >
-                <h1 className=' sm:hidden' >
-
+        <div className="w-screen">
+            <h1 className="w-full">
+                <Link to="/products">
                     <img
-                        // className="object-cover object-top w-full h-full"
-                        src="images/30.webp"
+                        className="w-full h-auto"
+                        src={isMobile ? "images/30.webp" : "images/29.webp"}
                         alt="asd"
                     />
-                </h1>
+                </Link>
+            </h1>
+        </div>
+    );
+};
 
-
-                <h1 className='hidden sm:block '>
-
-                    <img
-                        // className="object-cover object-top w-full h-full"
-                        src="images/29.webp"
-                        alt="asd"
-                    />
-                </h1>
-
-
-            </div>
-        </>
-    )
-}
-
-export default BottomBanner
+export default TopBanner;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Grid, TextField, Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -14,11 +14,12 @@ export default function DeliveryAddressForm({ handleNext }) {
     firstName: "",
     lastName: "",
     streetAddress: "",
+    houseNumber: "", 
     city: "",
     state: "",
     zipCode: ""
   });
-  const [zipError, setZipError] = useState(""); // State for ZIP code error message
+  const [zipError, setZipError] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -28,6 +29,7 @@ export default function DeliveryAddressForm({ handleNext }) {
       firstName: data.get("firstName"),
       lastName: data.get("lastName"),
       streetAddress: data.get("address"),
+      houseNumber: data.get("houseNumber"),
       city: data.get("city"),
       state: data.get("state"),
       zipCode: data.get("zip"),
@@ -46,12 +48,12 @@ export default function DeliveryAddressForm({ handleNext }) {
   };
 
   const handleZipCodeChange = async (event) => {
-    const zipCode = event.currentTarget.value.trim(); 
-    setAddress(prevAddress => ({ ...prevAddress, zipCode })); 
+    const zipCode = event.currentTarget.value.trim();
+    setAddress(prevAddress => ({ ...prevAddress, zipCode }));
 
     if (zipCode.length !== 6) {
       setZipError("ZIP code must be 6 digits");
-      setAddress(prevAddress => ({ ...prevAddress, city: "", state: "" })); 
+      setAddress(prevAddress => ({ ...prevAddress, city: "", state: "" }));
       return;
     } else {
       setZipError("");
@@ -63,72 +65,78 @@ export default function DeliveryAddressForm({ handleNext }) {
 
       if (data.Status === "Success" && data.PostOffice.length > 0) {
         const { District: city, State: state } = data.PostOffice[0];
-        setAddress(prevAddress => ({ ...prevAddress, city, state })); 
+        setAddress(prevAddress => ({ ...prevAddress, city, state }));
       } else {
-        setAddress(prevAddress => ({ ...prevAddress, city: "", state: "" })); 
+        setAddress(prevAddress => ({ ...prevAddress, city: "", state: "" }));
       }
     } catch (error) {
       console.error("Error fetching post office details:", error);
-      setAddress(prevAddress => ({ ...prevAddress, city: "", state: "" })); 
+      setAddress(prevAddress => ({ ...prevAddress, city: "", state: "" }));
     }
   };
 
   return (
-    <Grid container spacing={4}>
-      <Grid item xs={12} lg={2}></Grid>
-      <Grid item xs={12} lg={7}>
+    <Grid container spacing={8} className="flex items-center justify-center">
+      <Grid item xs={12} lg={10}>
         <Box className="border rounded-md shadow-md p-5">
           <form onSubmit={handleSubmit}>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>
+                <Typography sx={{fontSize:"15px", ml:"4px"}}>First Name</Typography>
                 <TextField
                   required
-                  id="firstName"
                   name="firstName"
-                  label="First Name"
+                  placeholder="First Name"
                   fullWidth
                   autoComplete="given-name"
-                  multiline
                   value={address.firstName}
                   onChange={(e) => setAddress({ ...address, firstName: e.target.value })}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
+              <Typography sx={{fontSize:"15px", ml:"4px"}}>Last Name</Typography>
                 <TextField
                   required
-                  id="lastName"
                   name="lastName"
-                  label="Last Name"
+                  placeholder="Last Name"
                   fullWidth
-                  autoComplete="given-name"
-                  multiline
+                  autoComplete="family-name"
                   value={address.lastName}
                   onChange={(e) => setAddress({ ...address, lastName: e.target.value })}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={12}>
+              <Typography sx={{fontSize:"15px", ml:"4px"}}>House No./Locality</Typography>
                 <TextField
                   required
-                  id="address"
+                  name="houseNumber"
+                  placeholder="House No./Locality"
+                  fullWidth
+                  autoComplete="shipping address-line1"
+                  value={address.houseNumber}
+                  onChange={(e) => setAddress({ ...address, houseNumber: e.target.value })}
+                />
+              </Grid>
+              <Grid item xs={12}>
+              <Typography sx={{fontSize:"15px", ml:"4px"}}>Area and Street</Typography>
+                <TextField
+                  required
                   name="address"
-                  label="Shipping Address(Building/Locality)"
+                  placeholder="Shipping Address (Area and Street)"
                   fullWidth
                   autoComplete="shipping address"
-                  multiline
-                  rows={4}
                   value={address.streetAddress}
                   onChange={(e) => setAddress({ ...address, streetAddress: e.target.value })}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
+              <Typography sx={{fontSize:"15px", ml:"4px"}}>Postal Code</Typography>
                 <TextField
                   required
-                  id="zip"
                   name="zip"
-                  label="Zip / Postal code"
+                  placeholder="Zip / Postal code"
                   fullWidth
                   autoComplete="shipping postal-code"
-                  multiline
                   value={address.zipCode}
                   onChange={handleZipCodeChange}
                   error={!!zipError} // Apply error style based on presence of error message
@@ -136,44 +144,41 @@ export default function DeliveryAddressForm({ handleNext }) {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
+              <Typography sx={{fontSize:"15px", ml:"4px"}}>City</Typography>
                 <TextField
                   required
-                  id="city"
                   name="city"
-                  label="City"
+                  placeholder="City"
                   fullWidth
                   autoComplete="shipping address-level2"
-                  multiline
                   value={address.city}
                   onChange={(e) => setAddress({ ...address, city: e.target.value })}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
+              <Typography sx={{fontSize:"15px", ml:"4px"}}>State</Typography>
                 <TextField
                   required
-                  id="state"
                   name="state"
-                  label="State/Province/Region"
+                  placeholder="State/Province/Region"
                   fullWidth
-                  multiline
                   value={address.state}
                   onChange={(e) => setAddress({ ...address, state: e.target.value })}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
+              <Typography sx={{fontSize:"15px", ml:"4px"}}>Phone Number</Typography>
                 <TextField
                   required
-                  id="phoneNumber"
                   name="phoneNumber"
-                  label="Phone Number"
+                  placeholder="Phone Number"
                   fullWidth
                   autoComplete="tel"
-                  multiline
                   value={phoneNumber}
                   onChange={handlePhoneNumberChange}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} className="flex justify-center">
                 <button
                   sx={{ padding: ".9rem 1.5rem" }}
                   size="large"

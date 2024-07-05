@@ -10,11 +10,12 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 500,
-  bgcolor: "background.paper",
+  width: { xs: 360, md: 500 },
+  bgcolor: "white",
   outline: "none",
   boxShadow: 24,
-  p: 4,
+  borderRadius: "10px",
+  padding: "25px",
 };
 
 const AuthModal = ({ handleClose, open }) => {

@@ -1,13 +1,18 @@
-import { Button, Grid, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../../State/Auth/Action'
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const LoginForm = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [error, setError] = useState('')
+    const [passwordVisible, setPasswordVisible] = useState(false);
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(!passwordVisible);
+    };
 
     const productToAdd = localStorage.getItem('productToAdd')
 
@@ -23,14 +28,11 @@ const LoginForm = () => {
 
         dispatch(login(userData))
             .then(response => {
-                // Check the response to determine if login was successful
                 if (response.error) {
                     setError('Username or Password is incorrect')
                 } else {
                     setError('')
-                    // Clear local storage
                     localStorage.removeItem('productToAdd')
-                    // Redirect to cart if there's a product to add
                     if (productToAdd) {
                         navigate('/cart')
                     } else {
@@ -47,63 +49,77 @@ const LoginForm = () => {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                        <TextField
-                            required
+        <div className="flex flex-col items-center">
+            <form onSubmit={handleSubmit} className="w-full bg-white rounded-md">
+                <div className="grid grid-cols-1 gap-6">
+                    <div>
+                        <label htmlFor="email" className="block text-sm ml-2 font-medium text-gray-700">
+                            Email
+                        </label>
+                        <input
+                            type="email"
                             id="email"
                             name="email"
-                            label="Email"
-                            fullWidth
-                            autoComplete="email"
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
                             required
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                        />
+                    </div>
+                    <div className='relative'>
+                        <label htmlFor="password" className="block text-sm ml-2 font-medium text-gray-700">
+                            Password
+                        </label>
+                        <input
+                            type={passwordVisible ? 'text' : 'password'}
                             id="password"
                             name="password"
-                            label="Password"
-                            fullWidth
-                            autoComplete="current-password"
-                            type="password"
+                            required
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                         />
-                    </Grid>
+                        <div
+                            type="button"
+                            onClick={togglePasswordVisibility}
+                            className="absolute right-3 top-8 outline:none text-gray-500 hover:text-gray-700"
+                        >
+                            {passwordVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                        </div>
+                    </div>
 
                     {error && (
-                        <Grid item xs={12}>
-                            <Typography sx={{ color: "red", fontSize: "15px" }}>{error}</Typography>
-                        </Grid>
+                        <div>
+                            <p className="text-red-500 text-sm">{error}</p>
+                        </div>
                     )}
 
-                    <Grid item xs={12}>
-                        <Button
-                            className="bg-[#9155FD] w-full"
+                    <div>
+                        <button
                             type="submit"
-                            variant="contained"
-                            size="large"
-                            sx={{ padding: ".8rem 0" }}
+                            className="w-full py-2 px-4 bg-gray-600 text-white font-semibold rounded-md hover:bg-gray-700"
                         >
                             Login
-                        </Button>
-                    </Grid>
+                        </button>
+                    </div>
 
-                    <Grid item xs={12} sx={{ textAlign: 'center', marginTop: '1rem' }}>
-                        <Button onClick={() => navigate("/forgot-password")} size="small">
+                    <div className="text-center">
+                        <button
+                            type="button"
+                            onClick={() => navigate("/forgot-password")}
+                            className="text-sm text-indigo-600 hover:underline"
+                        >
                             Forgot Password?
-                        </Button>
-                    </Grid>
-                </Grid>
+                        </button>
+                    </div>
+                </div>
             </form>
 
-            <div className="flex justify-center flex-col items-center">
+            <div className="mt-2 flex flex-col items-center">
                 <div className="py-3 flex items-center">
                     <p className="m-0 p-0">If you don't have an account?</p>
-                    <Button onClick={() => navigate("/register")} className="ml-5" size="small">
+                    <button
+                        onClick={() => navigate("/register")}
+                        className="ml-2 text-indigo-600 hover:underline text-sm"
+                    >
                         Register
-                    </Button>
+                    </button>
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -34,6 +34,15 @@ const Reset = () => {
         dispatch(resetPassword({ email, otp, newPassword: password, confirmPassword }));
     };
 
+    useEffect(() => {
+        if (resetPasswordSuccess) {
+            setTimeout(() => {
+                navigate('/');
+                window.location.reload();
+            }, 1500); // 1 second delay before redirect and page refresh
+        }
+    }, [resetPasswordSuccess, navigate]);
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
@@ -51,13 +60,13 @@ const Reset = () => {
                             required
                             disabled={isLoading}
                         />
-                        <button
+                        <div
                             type="button"
                             onClick={togglePasswordVisibility}
                             className="absolute right-3 top-10 text-gray-500 hover:text-gray-700"
                         >
                             {passwordVisible ? <VisibilityIcon/> : <VisibilityOffIcon/>}
-                        </button>
+                        </div>
                     </div>
                     <div className="mb-4 relative">
                         <label htmlFor="confirm-password" className="block text-gray-700 font-semibold mb-2">Confirm New Password</label>
@@ -71,13 +80,13 @@ const Reset = () => {
                             required
                             disabled={isLoading}
                         />
-                        <button
+                        <div
                             type="button"
                             onClick={toggleConfirmPasswordVisibility}
                             className="absolute right-3 top-10 text-gray-500 hover:text-gray-700"
                         >
                             {confirmPasswordVisible ? <VisibilityIcon/> : <VisibilityOffIcon/>}
-                        </button>
+                        </div>
                     </div>
                     {error && (
                         <div className="mb-4 text-red-500 text-center">{error}</div>
