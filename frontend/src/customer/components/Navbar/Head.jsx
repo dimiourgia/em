@@ -16,43 +16,25 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 import SearchBar from "./SearchBar";
 
-
 function NavList({ search, setSearch }) {
   return (
     <List className="flex lg:ml-[200px] items-center lg:flex-row flex-col lg:items-center lg:w-auto w-full">
-    <Typography>
+      <Typography>
       <ListItem className="lg:hidden">
-        <div>
-          <SearchBar search={search} setSearch={setSearch} />
-        </div>
+        <SearchBar search={search} setSearch={setSearch} />
       </ListItem>
-    </Typography>
-    <Typography
-      as={Link}
-      to="/products"
-      variant="h6"
-      className="font-heading"
-    >
-      <ListItem>Our Product</ListItem>
-    </Typography>
-    <Typography
-      as={Link}
-      to="/about"
-      variant="h6"
-      className="font-heading"
-    >
-      <ListItem>About Us</ListItem>
-    </Typography>
-    <Typography
-      as={Link}
-      to="/journal"
-      variant="h6"
-      className="font-heading"
-    >
-      <ListItem>Journal</ListItem>
-    </Typography>
-  </List>
-);
+      </Typography>
+      <Typography as={Link} to="/products" variant="h6" className="font-heading">
+        <ListItem>Our Products</ListItem>
+      </Typography>
+      <Typography as={Link} to="/about" variant="h6" className="font-heading">
+        <ListItem>About Us</ListItem>
+      </Typography>
+      <Typography as={Link} to="/journals" variant="h6" className="font-heading">
+        <ListItem>Journal</ListItem>
+      </Typography>
+    </List>
+  );
 }
 
 export default function Head({ search, setSearch }) {
@@ -110,10 +92,10 @@ export default function Head({ search, setSearch }) {
     }
   }, [auth.user]);
 
-  const isAdmin = auth?.user?.role == "ADMIN";
+  const isAdmin = auth?.user?.role === "ADMIN";
 
   return (
-    <div className=" bg-white">
+    <div className="pb-2">
       <div className="bg-[#eeeeee] py-1 text-center overflow-hidden">
         <div className="relative flex overflow-x-hidden">
           <div className="py-1 animate-marquee whitespace-nowrap">
@@ -192,7 +174,7 @@ export default function Head({ search, setSearch }) {
         <Typography
           as={Link}
           to="/"
-          className="cursor-pointer py-0.5 align-items-center ml-10 flex flex-col items-center"
+          className="cursor-pointer ml-10 flex flex-col items-center"
         >
           <img
             src="https://res.cloudinary.com/du5p1rnil/image/upload/v1712815729/empressa/trlajilv4tdjxco53foy.png"
@@ -206,19 +188,19 @@ export default function Head({ search, setSearch }) {
         <div className="hidden lg:block">
           <NavList search={search} setSearch={setSearch} />
         </div>
-        <div className="flex md:ml-[564px] lg:ml-0  ml-[130px] m items-center justify-center">
-          <div className="mx-auto w-max lg:block hidden">
+        <div className="flex items-center">
+          <div className="hidden lg:block p-1">
             <SearchBar search={search} setSearch={setSearch} />
           </div>
-          <div className="flex items-end justify-end">
+          <div className="flex items-center p-1">
             {auth.user ? (
               <div>
                 <div
-                  className="h-8 w-8 ml-2 text-white flex items-center cursor-pointer justify-center bg-gray-400 rounded-full"
+                  className="h-8 w-8 flex items-center justify-center bg-gray-400 text-white rounded-full cursor-pointer"
                   onClick={handleUserClick}
-                  aria-controls={openNav ? "basic-menu" : undefined}
+                  aria-controls={openUserMenu ? "basic-menu" : undefined}
                   aria-haspopup="true"
-                  aria-expanded={openNav ? "true" : undefined}
+                  aria-expanded={openUserMenu ? "true" : undefined}
                 >
                   {auth.user?.firstName[0].toUpperCase()}
                 </div>
@@ -230,63 +212,36 @@ export default function Head({ search, setSearch }) {
                   onClose={handleCloseUserMenu}
                   MenuListProps={{ "aria-labelledby": "user-circle" }}
                 >
-                  <MenuItem onClick={() => handleMenuItemClick("/order")}>
-                    My Orders
-                  </MenuItem>
-                  {
-                    isAdmin &&
-                    <Link to={"/admin"}>
-                      <MenuItem>DashBoard</MenuItem>
-                    </Link>
-                  }
-                  <MenuItem
-                    onClick={() => {
-                      handleLogout();
-                      handleCloseUserMenu();
-                    }}
-                  >
-                    Logout
-                  </MenuItem>
+                  <MenuItem onClick={() => handleMenuItemClick("/order")}>My Orders</MenuItem>
+                  {isAdmin && (
+                    <MenuItem onClick={() => handleMenuItemClick("/admin")}>DashBoard</MenuItem>
+                  )}
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
               </div>
             ) : (
-              <div onClick={handleOpen}>
-                <UserCircleIcon
-                  className="h-7 w-7 flex items-center justify-center cursor-pointer active:scale-50 ml-2"
-                  style={{ strokeWidth: '1' }}
-                />
-              </div>
+              <UserCircleIcon
+                className="h-7 w-7 cursor-pointer"
+                onClick={handleOpen}
+                style={{ strokeWidth: "1" }}
+              />
             )}
           </div>
-          <div className="mb-0.5">
-            <Link to="/cart" className="flex items-center p-2">
-              <ShoppingBagIcon
-                className="h-6 w-6  flex items-center justify-center cursor-pointer active:scale-50"
-                style={{ strokeWidth: '1.1' }}
-                aria-hidden="true"
-              />
-              <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-              </span>
-              <span className="sr-only">items in cart, view bag</span>
+          <div className="flex items-center p-1">
+            <Link to="/cart">
+              <ShoppingBagIcon className="h-6 w-6 lg:mr-2 cursor-pointer" style={{ strokeWidth: "1.1" }} />
             </Link>
           </div>
-        </div>
-
-        <div
-          color="blue-gray"
-          className="lg:hidden mr-[30px]"
-          onClick={() => setOpenNav(!openNav)}
-          style={{ position: "relative" }}
-        >
-          {openNav ? (
-            <XMarkIcon className="absolute inset-0 m-auto h-6 w-6" />
-          ) : (
-            <Bars3Icon className="absolute inset-0 m-auto h-6 w-6" />
-          )}
+          <div className="lg:hidden ml-2 mr-2" onClick={() => setOpenNav(!openNav)}>
+            {openNav ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
+          </div>
         </div>
       </div>
+
       <Collapse open={openNav}>
-        <NavList search={search} setSearch={setSearch} />
+        <div className="lg:hidden">
+          <NavList search={search} setSearch={setSearch} />
+        </div>
       </Collapse>
 
       <AuthModal open={openAuthModal} handleClose={handleClose} />

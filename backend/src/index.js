@@ -25,6 +25,9 @@ app.get('/api/address/:pincode',async (req, res) => {
 app.get("/",(req,res)=>{
     return res.status(200).send({message:"welcome to ecommerce api - node"})
 })
+// journal routes
+const journalRouter = require('./routes/journal.routes');
+app.use('/api/journals', journalRouter);
 
 const authRouter=require("./routes/auth.routes.js")
 app.use("/auth",authRouter)

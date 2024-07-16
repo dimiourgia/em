@@ -41,7 +41,7 @@ export default function Checkout() {
             disabled={step === '0'}
             onClick={handleBack}
             sx={{ mr: 1 }}
-            className={`text-black ${step === '0' ? 'opacity-50' : 'opacity-100'}`}
+            className={`text-black bg-gray-200 py-2 px-4 rounded-md hover:bg-gray-400 ${step === '0' ? 'opacity-50' : 'opacity-100'}`}
           >
             Back
           </button>

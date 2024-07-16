@@ -39,16 +39,15 @@ const CartItem = ({ item, showButton }) => {
           />
         </div>
         <div className="ml-5 space-y-1">
-          <p className="font-semibold">{item?.product?.title}</p>
-          <p className="opacity-70">Size: {item?.size}</p>
-          {/* <p className="opacity-70 mt-2">Seller: {item?.product?.brand}</p> */}
-          <p className="opacity-70 mt-2">Quantity: {item?.quantity}</p>
-          <div className="flex space-x-2 items-center pt-3">
-            <p className="font-semibold text-lg">
+          <p className="font-semibold font-heading">{item?.product?.title}</p>
+          <p className="opacity-70 font-medium mt-2">Size: {item?.size}</p>
+          <p className="opacity-70 font-medium mt-2">Quantity: {item?.quantity}</p>
+          <div className="flex space-x-2 items-center pt-2">
+            <p className="font-semibold font-text text-lg">
               ₹{item?.product?.discountedPrice}
             </p>
             <p className="opacity-50 line-through">₹{item?.product?.price}</p>
-            <p className="text-red-500 font-semibold">
+            <p className="text-green-600 font-text font-semibold">
               {(
                 (1 - item?.product?.discountedPrice / item?.product?.price) *
                 100

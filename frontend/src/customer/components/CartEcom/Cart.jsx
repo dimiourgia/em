@@ -46,19 +46,19 @@ const Cart = () => {
       ) : (
         // Original page layout when the cart is not empty
         <div className=" lg:grid grid-cols-3 lg:px-16 relative pb-8">
-          <div className="lg:col-span-2 rounded-lg pb-8">
+          <div className="lg:col-span-2 rounded-lg">
             {cart.cartItems.map((item, index) => (
-              // Added a key prop to the mapped elements
+              <div className="p-2">
               <CartItem key={index} item={item} showButton={true} />
+              </div>
             ))}
-
           </div>
-          <div className="lg:px-2 sticky top-0">
-            <div className="border p-5 bg-white rounded-md">
-              <p className="font-bold opacity-60">PRICE DETAILS</p>
+          <div className="lg:px-2 mt-2 sticky top-0">
+            <div className="border border-gray-500 p-5 bg-white rounded-md">
+              <p className="font-bold font-text opacity-70">PRICE DETAILS</p>
               <hr />
 
-              <div className="space-y-3 font-semibold">
+              <div className="space-y-3 font-text font-semibold">
                 <div className="flex justify-between pt-3 text-black">
                   <span>Price ({cart.cart?.totalItem} item)</span>
                   <span>₹{cart.cart?.totalPrice}</span>
@@ -72,7 +72,7 @@ const Cart = () => {
                   <span className="text-green-700">Free</span>
                 </div>
                 <hr />
-                <div className="flex justify-between font-bold text-lg">
+                <div className="flex justify-between font-bold font-text text-lg">
                   <span>Total Amount</span>
                   <span className="text-green-700">₹{cart.cart?.totalDiscountedPrice}</span>
                 </div>
@@ -80,7 +80,7 @@ const Cart = () => {
               <button
                 onClick={() => navigate("/checkout?step=0")}
                 type="submit"
-                className="bg-black text-white  py-3 px-8 mt-8 w-full transition duration-300 ease-in-out hover:bg-gray-800 hover:text-gray-300"
+                className="bg-gray-400 text-gray-700 font-extrabold py-3 px-8 mt-8 w-full transition duration-300 ease-in-out hover:bg-gray-500"
               >
                 Buy Now
               </button>

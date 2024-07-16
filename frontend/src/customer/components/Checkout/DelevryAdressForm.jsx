@@ -78,7 +78,7 @@ export default function DeliveryAddressForm({ handleNext }) {
   return (
     <Grid container spacing={8} className="flex items-center justify-center">
       <Grid item xs={12} lg={10}>
-        <Box className="border rounded-md shadow-md p-5">
+        <Box className="border bg-gray-200 rounded-md shadow-md p-5">
           <form onSubmit={handleSubmit}>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>
@@ -184,7 +184,7 @@ export default function DeliveryAddressForm({ handleNext }) {
                   size="large"
                   type="submit"
                   variant="contained"
-                  className="bg-black text-white py-3 px-8 mt-8 transition duration-300 ease-in-out hover:bg-gray-800 hover:text-gray-300"
+                  className="bg-gray-800 text-white rounded-lg py-3 px-8 mt-8 transition duration-300 ease-in-out hover:bg-gray-800 hover:text-gray-300"
                 >
                   Deliver Here
                 </button>

@@ -15,11 +15,18 @@ import Dashboard from "./components/Dashboard";
 import CreateProductForm from "./components/CreateProductForm";
 import ProductsTable from "./components/ProductsTable";
 import OrdersTable from "./components/OrdersTable";
+import JournalAdmin from "../customer/components/Journal/JournalAdmin";
+import CreateJournalForm from "./components/CreateJournalForm";
+import EditJournalForm from "./components/EditJournalForm";
+
 
 const menu = [
   { name: "Products", path: "/admin/products", icon: <DashboardIcon /> },
   { name: "AddProduct", path: "/admin/product/create", icon: <DashboardIcon /> },
-  { name: "OrdersTable", path: "/admin/orders", icon: <DashboardIcon/> },
+  { name: "OrdersTable", path: "/admin/orders", icon: <DashboardIcon /> },
+  { name: "Journals", path: "/admin/journals", icon: <DashboardIcon /> },
+  { name: "AddJournals", path: "/admin/journals/create", icon: <DashboardIcon /> },
+  // { name: "Edit_Journals", path: "admin/journals/edit/:id", icon: <DashboardIcon /> },
 
 ];
 
@@ -39,7 +46,7 @@ const Admin = () => {
       }}
     >
       <List>
-        {menu.map((item) => ( 
+        {menu.map((item) => (
           <ListItem key={item.name} disablePadding onClick={() => navigate(item.path)}>
             <ListItemButton>
               <ListItemIcon>{item.icon}</ListItemIcon>
@@ -75,7 +82,10 @@ const Admin = () => {
               <Route path="/" element={<Dashboard />} />
               <Route path="/product/create" element={<CreateProductForm />} />
               <Route path="/products" element={<ProductsTable />} />
-              <Route path="/orders" element={<OrdersTable/>}/>
+              <Route path="/orders" element={<OrdersTable />} />
+              <Route path="/journals" element={<JournalAdmin />} />
+              <Route path="/journals/create" element={<CreateJournalForm />} />
+              <Route path="/journals/edit/:id" element={<EditJournalForm />} />
             </>
           ) : (
             <Route path="/*" element={<Navigate to="/" replace />} />

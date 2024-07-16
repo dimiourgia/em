@@ -11,7 +11,6 @@ const initialSizes = [
   { name: "XL", quantity: 0 },
   { name: "2XL", quantity: 0 },
 ];
-
 const initialImageUrls = ["", "", "", "", ""];
 
 const CreateProductForm = () => {
@@ -23,10 +22,13 @@ const CreateProductForm = () => {
     discountedPrice: "",
     price: "",
     size: initialSizes,
-    category: "",
     description: "",
-    fabricDescription: "", // Added fabricDescription
-    modelAttireDescription: "", // Added modelAttireDescription
+    material: "",
+    modelAttireDescription: "",
+    SKU: "",
+    neck_type: "", 
+    sleeve_style: "", 
+    collections: "", 
   });
 
   const dispatch = useDispatch();
@@ -63,7 +65,6 @@ const CreateProductForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createProduct(productData));
-    navigate("/admin/products");
   };
 
   return (
@@ -91,26 +92,37 @@ const CreateProductForm = () => {
             "color",
             "price",
             "discountedPrice",
-            "category",
-            "fabricDescription", // Added fabricDescription
-            "modelAttireDescription", // Added modelAttireDescription
+            "material",
+            "modelAttireDescription",
+            "SKU",
+            "neck_type", 
+            "sleeve_style",
+            "collections"
           ].map((field, index) => (
             <Grid item xs={12} sm={index % 2 === 0 ? 12 : 12} key={field}>
               <TextField
                 fullWidth
                 label={
-                  field === "fabricDescription"
-                    ? "Fabric Description"
+                  field === "material"
+                    ? "Material"
                     : field === "modelAttireDescription"
                     ? "Model Attire Description"
+                    : field === "SKU"
+                    ? "SKU"
+                    : field === "neck_type"
+                    ? "Neck Type"
+                    : field === "sleeve_style"
+                    ? "Sleeve Style"
+                    : field === "collections"
+                    ? "Collections"
                     : field.charAt(0).toUpperCase() +
                       field.slice(1).replace(/([A-Z])/g, " $1").trim()
                 }
                 name={field}
                 value={productData[field]}
                 onChange={handleChange}
-                multiline={field === "fabricDescription" || field === "modelAttireDescription"}
-                rows={3}
+                multiline={field === "material" || field === "modelAttireDescription"}
+                rows={1}
                 type={["price", "discountedPrice"].includes(field) ? "number" : "text"}
                 required
               />
@@ -123,7 +135,7 @@ const CreateProductForm = () => {
               label="Description"
               multiline
               name="description"
-              rows={3}
+              rows={4}
               onChange={handleChange}
               value={productData.description}
               required

@@ -145,7 +145,7 @@ const Product = ({ search }) => {
             key={number}
             onClick={() => handlePageChange(number)}
             className={`px-3 py-1 mx-1 border rounded hover:bg-gray-200 ${
-              currentPage === number ? "text-white  bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700" : ""
+              currentPage === number ? "text-white  bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700" : ""
             }`}
           >
             {number}
@@ -165,7 +165,7 @@ const Product = ({ search }) => {
   return (
     <div className="min-h-80 bg- md:min-h-screen pb-16">
       <div className="flex items-center justify-center p-3">
-        <div className="bg-gray-100 m-2 px-4 py-2 rounded-md shadow-md">
+        <div className="bg-gray-100 px-4 py-1 rounded-md shadow-md">
           <Typography sx={{fontFamily:'heading', fontSize:{lg:"40px", md:"32px", sm:"24px", xs:"20px"}}} variant="h4">
             Online Boutique
           </Typography>
@@ -177,7 +177,7 @@ const Product = ({ search }) => {
             <div className="grid divide-y divide-neutral-200 max-w-xl mx-auto">
               <div className="py-5">
                 <details className="group" open>
-                  <summary className="font-heading flex justify-between items-center cursor-pointer list-none">
+                  <summary className="font-heading flex justify-between items-center cursor-pointer list-none space-x-4">
                     <span>
                       SIZE
                     </span>
@@ -210,7 +210,7 @@ const Product = ({ search }) => {
                           }
                           onChange={handleSizeFilter}
                           value={size}
-                          className="mr-2"
+                          className="mr-4"
                         />
                         {size}
                       </label>

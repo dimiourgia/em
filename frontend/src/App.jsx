@@ -5,10 +5,12 @@ import CustomerRouters from './customer/Routers/CustomerRouters';
 import AdminRouters from './customer/Routers/AdminRouters';
 import { MOBILE } from './constant';
 import { FloatingWhatsApp } from 'react-floating-whatsapp';
+import ScrollToTop from './customer/components/ScrollToTop/ScrollToTop';
 
 function App() {
   return (
     <div>
+    <ScrollToTop/>
 
 <FloatingWhatsApp
         accountName="Empressa"
