@@ -21,6 +21,28 @@ const register=async(req,res)=>{
     }
 }
 
+const loginWithGoogle = async(userData)=>{
+    //usr => {firstName, lastName, email, password, mobile, role},
+    try{
+        //check if the user exists
+        const user_ = await userService.getUserByEmail(email);
+
+        if (user_) {
+            const jwt = jwtProvider.generateToken(user._id);
+            return {success: true, jwt};
+        }
+
+        const user = await userService.createUser(userData);
+        const jwt = jwtProvider.generateToken(user._id);
+        await cartService.createCart(user);
+        return {success:true, jwt};
+
+    }catch(e){
+        console.log(e);
+        return {success: false, jwt:null}
+    }
+}
+
 const forgotPassword = async (req, res) => {
     try {
         const { email } = req.body;
@@ -41,8 +63,8 @@ const forgotPassword = async (req, res) => {
     }
 };
 
-const login=async(req,res)=>{
-    const {password,email}=req.body
+const login = async (req,res)=>{
+    const {password, email}=req.body
     try {
         const user = await userService.getUserByEmail(email);
 
@@ -50,7 +72,7 @@ const login=async(req,res)=>{
             return res.status(404).json({ message: 'User not found With Email ', email});
         }
 
-        const isPasswordValid=await bcrypt.compare(password,user.password)
+        const isPasswordValid = await bcrypt.compare(password,user.password)
 
         if(!isPasswordValid){
             return res.status(401).json({ message: 'Invalid password' });
@@ -108,4 +130,4 @@ const facebookCallback = (req, res) => {
 };
 
 
-module.exports={ register, login, forgotPassword, resetPassword, facebookCallback, googleCallback};
+module.exports={ register, login, forgotPassword, resetPassword, facebookCallback, googleCallback, loginWithGoogle};

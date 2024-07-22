@@ -5,6 +5,10 @@ import { login } from '../../State/Auth/Action';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
+const api_base_url = import.meta.env.VITE_API_BASE_URL;
+
+console.log(api_base_url, 'base url')
+
 const LoginForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -20,12 +24,12 @@ const LoginForm = () => {
     // };
 
     const loginWithGoogle = () => {
-        window.location.href = "http://localhost:5454/auth/google"; // Redirect to backend OAuth route
+        window.open(`${api_base_url}/auth/google`) // Redirect to backend OAuth route
       };
       
 
     const loginWithFacebook = () => {
-        window.open("http://localhost:5454/auth/facebook", "_self");
+        window.open(`${api_base_url}/auth/facebook`, "_self");
     };
 
     const handleSubmit = (event) => {
