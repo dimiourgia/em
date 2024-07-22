@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { HomePage } from "../pages/HomePage/HomePage";
 import CartEcom from "../components/CartEcom/Cart";
 import Head from "../components/Navbar/Head";
@@ -17,16 +17,16 @@ import Order from "../components/Order/Order";
 import Reset from "../Auth/Reset";
 import JournalList from "../components/Journal/JournalList";
 import JournalDetail from "../components/Journal/JournalDetails";
+import GoogleCallback from "../Auth/GoogleCallback";
+import FacebookCallback from "../Auth/FacebookCallback";
+import NotFound from "./NotFound";
 
 const CustomerRouters = () => {
   const [search, setSearch] = useState("");
 
   return (
     <div>
-      <div>
         <Head search={search} setSearch={setSearch} />
-      </div>
-      
       <Routes>
         <Route path="/forgot-password" element={<HomePage />} />
         <Route path="/reset-password" element={<Reset />} />
@@ -47,11 +47,11 @@ const CustomerRouters = () => {
         <Route path="/payment/:orderId" element={<PaymentSuccess />} />
         <Route path="/journals" element={<JournalList />} />
         <Route path="/journals/:id" element={<JournalDetail />} />
+        <Route path="/auth/google/callback" element={<GoogleCallback />} />
+        <Route path="/auth/facebook/callback" element={<FacebookCallback />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
-
-      <div>
         <Footer />
-      </div>
     </div>
   );
 };

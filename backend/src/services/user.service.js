@@ -1,4 +1,3 @@
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/user.model.js');
 const jwtProvider=require("../config/jwtProvider")
@@ -6,7 +5,7 @@ const jwtProvider=require("../config/jwtProvider")
 const createUser = async (userData)=>{
     try {
 
-        let {firstName,lastName,email,password,role}=userData;
+        let {firstName,lastName,email,password,mobile,role}=userData;
 
         const isUserExist=await User.findOne({email});
 
@@ -17,8 +16,7 @@ const createUser = async (userData)=>{
 
         password=await bcrypt.hash(password,8);
     
-        const user=await User.create({firstName,lastName,email,password,role})
-
+        const user=await User.create({firstName,lastName,email,password,mobile,role})
         console.log("user ",user)
     
         return user;

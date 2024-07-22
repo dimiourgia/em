@@ -25,15 +25,15 @@ const orderSchema = new Schema({
     ref: 'addresses',
   },
   paymentDetails: {
-    
+
     paymentMethod: {
       type: String,
     },
     transactionId: {
       type: String,
     },
-    paymentId:{
-      type:String,
+    paymentId: {
+      type: String,
     }
   },
   totalPrice: {
@@ -48,13 +48,14 @@ const orderSchema = new Schema({
     type: String,
     required: true,
   },
+  couponDiscount: { type: Number, default: 0 },
   totalItem: {
     type: Number,
     required: true,
   }
-},{
+}, {
   timestamps: {
-    type : Date,
+    type: Date,
     default: Date.now()
   }
 });

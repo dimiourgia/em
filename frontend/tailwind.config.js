@@ -14,6 +14,7 @@ module.exports = withMT({
       fontFamily: {
         heading: ["Playfair Display", "serif"],
         text: ["Cormorant", "serif"],
+        product: ["Playwrite Deutschland Lateinische Ausgangsschrift"]
       },
       keyframes: {
         marquee: {

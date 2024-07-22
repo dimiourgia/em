@@ -4,110 +4,81 @@ import CompanyCarousel from '../CompanyCarousel/CompanyCarousel'
 const CompanyBottomCard = () => {
     return (
         <>
-
             <div className='w-full md:w-1/3 px-3  mb-[100px]'>
-                <div className='w-full md:w-1/3 px-3  mt-[30px]  bg-[#faf8f1]  mx-auto max-w-[1000px] rounded-[40px]'>
+                <div className='w-full md:w-1/3 px-3 mt-12 pb-20 bg-gray-100  mx-auto max-w-[1000px] rounded-[40px]'>
                     <div className='pt-[50px]'>
-                        <h1 className='tracking-widest font-light text-2xl text-center'>
-                            IN PARTNERSHIP WITH
+                        <h1 className='font-bold font-heading text-center text-2xl  text-gray-800  mt-[40px]'>
+                            Partnership where Innovation Meets Quality
                         </h1>
-                        <h1 className='text-black text-5xl text-center'>
-                            Barakat Bundle
-                        </h1>
-                        <p className='font-ijk text-center text-lg  text-gray-800  mt-[50px] '>
-                            As a partner of Barakat Bundle, every Daughters of India purchase contributes directly towards
-                            <br />
-                            providing local communities in India with life-saving care and education bundles for mothers
-                            <br />
-                            and newborns in need.
+
+
+                        <p className='font-heading text-center text-lg  text-gray-800  mt-[50px] '>
+                            The spark that ignited our journey came from the shared experiences of women around us, <br />women who navigated the complexities of patriarchy while striving to stay true to their identity.
+                            <br />We realized that clothing is not just about fabric and design;<br /> it is a powerful tool for self-expression and empowerment.
                         </p>
-                        <p className='font-ijk text-center text-lg  text-gray-800  mt-[30px] '>
-                            Barakat Bundle is a women-owned, volunteer-run, non-profit organisation dedicated to<br /> supporting the health of women and newborns in India by working with local communities to<br /> create and distribute care bundles for expecting mothers.
+                        <p className='font-heading text-center text-lg  text-gray-800  mt-[30px] '>
+                            Today, our brand stands as a testament to the progress we have made.<br /> We are dedicated to crafting clothing that blends sophistication with comfort, <br />ensuring that every piece resonates with the spirit of the modern woman.<br /> Our collections are designed to inspire confidence, encourage ambition, and celebrate individuality.<br />
                         </p>
-                        <p className='font-ijk text-center text-lg  text-black  mt-[30px] font-bold'>
-                            We have pledged an ongoing monthly donation of $5,000 to support their powerful initiatives.
-                        </p>
-                        <div className='mt-[50px]'>
+
+                        {/* <CompanyCarousel /> */}
+
+                        <div className='mt-10 flex items-center justify-center'>
                             <img
-                                src="images/55.webp"
-                                alt="asd"
+                                src="https://res.cloudinary.com/du5p1rnil/image/upload/f_auto,q_auto/v1/empressa/ncssvho94hbodcku095o"
+                                alt="Empressa"
+                                className='h-20 w-20'
                             />
                         </div>
 
-                        <CompanyCarousel />
 
-                        <div className='mt-[50px]'>
-                            <img
-                                src="images/59.avif"
-                                alt="asd"
-                            />
-                        </div>
-                        <p className='font-ijk text-center text-lg  text-gray-800  mt-[50px] '>
-                            Daughters of India are empowered women in the workplace. We encourage Indian artisans, their families
-                        </p>
-                        <p className='font-ijk text-center text-lg  text-gray-800  mt-[5px] '>
-                            and communities to keep their sustainable craftsmanship alive and rise above impoverished and outdated
-                        </p>
-                        <p className='font-ijk text-center text-lg  text-gray-800  mt-[5px] '>
-                            circumstances. Every purchase contributes directly to supporting women empowerment initiatives in India
-                        </p>
-                        <p className='font-ijk text-center text-lg  text-gray-800  mt-[5px] '>
-                            through our charity partnerships.
+                        <p className='font-heading text-center text-lg  text-gray-800  m-[50px] '>
+                            Our brand is a movement to empower women, break free from patriarchy, <br /> and encourage women to pursue their dreams unapologetically.<br /> We aim to create a fostering environment where women thrive like true Empressa.
                         </p>
 
-
-
-                        <div className='mt-[50px]'>
-                            <img
-                                src="images/60.webp"
-                                alt="asd"
-                            />
-
-
-                        </div>
-                        <h1 className='font-ijk text-center text-2xl  text-gray-800  mt-[30px]'>
-                            Their mission is to break the cycle of poverty for Indian women <br />through creativity and enterprise by creating an environment of<br /> economic independence for marginalised women!
-                        </h1>
-                        <div className='mt-[70px]'>
-                            <img
-                                src="images/61.webp"
-                                alt="asd"
-                            />
-                        </div>
-                        <div className='mx-auto max-w-[860px]'>
-                            <p className='font-ijk text-center text-lg  text-gray-800  mt-[100px] '>
-                                Sewing the Seeds support women from nomadic, tribal, sex worker and disabled communities, whereby cultural traditions including child marriage and gender based violence can have a significant impact on their lives. Many are single mothers.
-                            </p>
-                            <p className='font-ijk text-center text-lg  text-gray-800  mt-[15px] '>
-                                Sewing the Seeds is a non-profit organisation who provide these women with training in sewing and textiles as well as education on health and life skills.
-                            </p>
-                            <p className='font-ijk text-center text-lg  text-gray-800  mt-[15px] '>
-                                Their mission is to become a fully self-sufficient organisation and break the cycle of poverty for Indian women through creativity and enterprise by creating an environment of self determinism and economic independence. Our aim is to assist with enhancing their outreach and employing teachers to deliver skills and education so they can reach their goals of self-sufficiency.
-                            </p>
-                        </div>
-
-                        <div className='flex justify-center items-center mt-[100px]'>
-                            <h1 className='font-ijk text-xl text-center text-gray-800'>
-                                “Empower a woman and help<br />
-                                break the cycle of world poverty."
+                        <div className="bg-gray-100">
+                            <h1 className='font-bold font-heading text-center text-2xl text-gray-800 m-8'>
+                                Our Founders
                             </h1>
-
-
+                            <div className='flex flex-wrap justify-center items-stretch space-x-10'>
+                                <div className="text-center p-6 rounded-lg max-w-sm m-4">
+                                    <img src='https://res.cloudinary.com/du5p1rnil/image/upload/f_auto,q_auto/v1/empressa/fkjxlqbieowk84uiag9q' alt='Alpha Code Labs Logo' className='h-44 w-60 mx-auto bg-gray-800 rounded-lg' />
+                                </div>
+                                <div className="text-center p-6 rounded-lg max-w-sm m-4">
+                                    <img src='https://res.cloudinary.com/du5p1rnil/image/upload/f_auto,q_auto/v1/empressa/g4nctbuhkb555mw5otrf' alt='MHK Exports Logo' className='h-44 w-60 mx-auto bg-gray-500 rounded-lg' />
+                                </div>
+                            </div>
+                            <div className='text-center max-w-3xl mx-auto'>
+                                <p className='font-heading text-lg text-gray-800 mb-4'>
+                                    Founded in partnership between Alpha Code Labs and MHK Exports, our company leverages the strengths and expertise of both partners.
+                                </p>
+                                <p className='font-heading text-lg text-gray-800'>
+                                    MHK Exports ensures our products meet international quality standards, while <br />Alpha Code Labs handles all technical needs seamlessly, ensuring excellence and innovation in everything we do.
+                                </p>
+                            </div>
                         </div>
-                        <h1 className='font-ijk font-semibold mt-[20px] text-xl text-center text-black '>
-                            ~ Sewing the Seeds
-                        </h1>
 
-                        <div className='mt-[100px] pb-[100px]'>
-                            <img
-                                src="images/59.avif"
-                                alt="asd"
-                            />
+
+                        <div className="bg-gray-100">
+                            <h1 className='font-bold font-heading text-center text-2xl text-gray-800 m-10'>
+                                Our Designers
+                            </h1>
+                            <div className='flex flex-wrap justify-center items-stretch space-x-6'>
+                                <div className="text-center bg-white shadow-xl p-6 rounded-lg max-w-sm m-4">
+                                    <img className='w-40 h-40 mx-auto border-4 border-gray-200' src='' alt='Lalita Batra' />
+                                    <p className='font-heading mt-6 text-2xl text-gray-800'>Lalita Batra</p>
+                                    <p className='text-gray-600 mt-4 text-sm'>
+                                        Lalita Batra is a seasoned designer with over 10 years of experience in graphic and web design.
+                                    </p>
+                                </div>
+                                <div className="text-center bg-white shadow-xl p-6 rounded-lg max-w-sm m-4">
+                                    <img className='w-40 h-40 mx-auto border-4 border-gray-200' src='' alt='Bhavya Keshwani' />
+                                    <p className='font-heading mt-6 text-2xl text-gray-800'>Bhavya Keswani</p>
+                                    <p className='text-gray-600 mt-4 text-sm'>
+                                        Bhavya Keswani specializes in user interface design and has a passion for creating intuitive user experiences.
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-
-
-
-
                     </div>
                 </div>
             </div>

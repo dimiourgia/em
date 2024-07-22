@@ -132,21 +132,20 @@ const Product = ({ search }) => {
     }
 
     return (
-      <div className="flex justify-center ">
+      <div className="flex justify-center ml-20 ">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
           className="px-3 py-1 mx-1 border rounded hover:bg-gray-200 disabled:opacity-20"
         >
-          <ChevronLeftIcon/>
+          <ChevronLeftIcon />
         </button>
         {pageNumbers.map((number) => (
           <button
             key={number}
             onClick={() => handlePageChange(number)}
-            className={`px-3 py-1 mx-1 border rounded hover:bg-gray-200 ${
-              currentPage === number ? "text-white  bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700" : ""
-            }`}
+            className={`px-3 py-1 mx-1 border rounded hover:bg-gray-200 ${currentPage === number ? "text-white  bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700" : ""
+              }`}
           >
             {number}
           </button>
@@ -156,7 +155,7 @@ const Product = ({ search }) => {
           disabled={currentPage === totalPages}
           className="px-3 py-1 mx-1 border rounded hover:bg-gray-200 disabled:opacity-20"
         >
-          <ChevronRightIcon/>
+          <ChevronRightIcon />
         </button>
       </div>
     );
@@ -164,12 +163,12 @@ const Product = ({ search }) => {
 
   return (
     <div className="min-h-80 bg- md:min-h-screen pb-16">
-      <div className="flex items-center justify-center p-3">
-        <div className="bg-gray-100 px-4 py-1 rounded-md shadow-md">
+      <div className="flex items-center justify-center p-6">
+        {/* <div className="bg-gray-100 px-4 py-1 rounded-md shadow-md">
           <Typography sx={{fontFamily:'heading', fontSize:{lg:"40px", md:"32px", sm:"24px", xs:"20px"}}} variant="h4">
             Online Boutique
           </Typography>
-        </div>
+        </div> */}
       </div>
       <div className="container mx-auto">
         <div className="flex">
@@ -223,11 +222,15 @@ const Product = ({ search }) => {
           <div className="sm:col-span-10 w-full">
             <div className="flex flex-wrap rounded-lg items-center w-auto justify-center">
               {currentProducts.length === 0 ? (
-                  <p className="min-h-80 text-center font-heading text-xl flex p-2 flex-col items-center justify-center">
-                  <span className="block">We don't have that item.</span>
-                  <span className="block">Check out our other collections!</span>
-                </p>
-                
+                <div className="min-h-80 text-center font-heading text-xl flex p-2 flex-col items-center justify-center">
+                  <img
+                    src="https://res.cloudinary.com/du5p1rnil/image/upload/f_auto,q_auto/v1/empressa/zie318b0p0k9jdcqhje1"
+                    alt="noProductImage"
+                    className="h-20"
+                  />
+                  <span className="block">SORRY!</span>
+                  <span className="block">We could not find any products to match your search</span>
+                </div>
               ) : (
                 currentProducts.map((product) => (
                   <ProductCard product={product} key={product._id} />

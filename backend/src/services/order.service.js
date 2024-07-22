@@ -3,6 +3,7 @@ const Order = require("../models/order.model.js");
 const OrderItem = require("../models/orderItems.js");
 const Product = require("../models/product.model.js");
 const cartService = require("../services/cart.service.js");
+const User = require("../models/user.model.js");
 
 async function createOrder(user, shippingAddress) {
   try {
@@ -29,8 +30,8 @@ async function createOrder(user, shippingAddress) {
         throw new Error(`Product ${product.name} in size ${item.size} is out of stock`);
       }
 
-      productSize.quantity -= item.quantity;
-      await product.save();
+      // productSize.quantity -= item.quantity;
+      // await product.save();
 
       const orderItem = new OrderItem({
         price: item.price,
@@ -41,8 +42,20 @@ async function createOrder(user, shippingAddress) {
         discountedPrice: item.discountedPrice,
       });
 
+
+
       const createdOrderItem = await orderItem.save();
       orderItems.push(createdOrderItem);
+      
+    }
+
+    let totalDiscountedPrice = cart.totalDiscountedPrice;
+    let couponDiscount = 0;
+
+    // Apply first purchase coupon if applicable
+    if (!user.hasMadeFirstPurchase) {
+      couponDiscount = totalDiscountedPrice * 0.2;
+      totalDiscountedPrice -= couponDiscount;
     }
 
     const createdOrder = new Order({
@@ -57,9 +70,14 @@ async function createOrder(user, shippingAddress) {
       orderStatus: "PENDING",
       paymentDetails: { status: "PENDING" },
       createdAt: new Date(),
+      couponDiscount: couponDiscount
     });
 
     const savedOrder = await createdOrder.save();
+    if (!user.hasMadeFirstPurchase) {
+      user.hasMadeFirstPurchase = true;
+      await user.save();
+    }
     return savedOrder;
   } catch (error) {
     throw new Error(error.message);
@@ -117,8 +135,8 @@ async function findOrderById(orderId) {
       .populate("user")
       .populate({ path: "orderItems", populate: { path: "product" } })
       .populate("shippingAddress");
-      return order;
-    
+    return order;
+
   } catch (error) {
     throw new Error(error.message);
   }
@@ -138,12 +156,12 @@ async function usersOrderHistory(userId) {
 async function getAllOrders() {
   try {
     const orders = await Order.find()
-     .populate("user")
-    .populate({
-      path: "orderItems",
-      populate: { path: "product" },
-    })
-    .populate("shippingAddress");
+      .populate("user")
+      .populate({
+        path: "orderItems",
+        populate: { path: "product" },
+      })
+      .populate("shippingAddress");
     return orders;
   } catch (error) {
     throw new Error(error.message);

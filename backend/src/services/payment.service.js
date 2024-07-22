@@ -48,7 +48,7 @@ const updatePaymentInformation = async (reqData) => {
 
   try {
     const order = await orderService.findOrderById(orderId);
-
+    const user = await User.findById(order.user._id);
     const payment = await razorpay.payments.fetch(paymentId);
 
     if (payment.status === "captured") {
@@ -74,6 +74,11 @@ const updatePaymentInformation = async (reqData) => {
       order.orderStatus = "PLACED";
 
       await order.save();
+
+      if (!user.hasMadeFirstPurchase) {
+        user.hasMadeFirstPurchase = true;
+        await user.save();
+      }
 
       await sendOrderConfirmationEmail(orderId);
     }

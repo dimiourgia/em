@@ -4,29 +4,27 @@ const CompanyTopMessage = () => {
     return (
         <>
             <div className='w-full md:w-1/3 px-3 md:mb-0  mx-auto max-w-[1000px]'>
-
-
-                <div className='mt-[100px]'>
+        
+                <div className='mt-[80px] flex items-center justify-center'>
                     <img
-                        src="images/31.webp"
-                        alt="asd"
+                        src="https://res.cloudinary.com/du5p1rnil/image/upload/f_auto,q_auto/v1/empressa/trlajilv4tdjxco53foy"
+                        alt="put an small icon here related to my empressa"
+                        className='h-20 w-20'
                     />
                 </div>
-                <p className='font-text text-center text-5xl  text-black mt-[50px] '>
-                    Empowering Change
+
+                <p className='font-text text-center text-4xl  text-black mt-[50px] '>
+                                Our Story                     
                 </p>
                 <p className='italic  text-center text-2xl  text-gray-800  mt-[5px] '>
-                    The power of love and reciprocity
+                "Be Bold, Be You, Be Unstoppable"
                 </p>
-                <p className='font-semibold text-center text-xl  text-black  mt-[50px] '>
-                    At the heart of Daughters of India, we believe supporting women to feel empowered is a key component<br></br> of a positive future.
-                </p>
-                <p className='font-text text-center text-base  text-gray-800  mt-[30px] '>
-                    This is why our goal has been supporting Indian women in the workplace and giving as much as possible to their local communities. Since our establishment, we’ve shared a dream with our makers for empowering all women to feel honoured with deep reverence for their being. Slowly, with love and intention, we’re empowering this dream.
+                <p className='font-heading text-center text-lg text-gray-800 mt-[30px]'>
+                Founded with a vision to dismantle the constraints of patriarchy and empower women, our fashion brand emerged as a beacon of change. Our journey began with the belief that fashion is not just clothing but a means of self-expression and liberation. We saw the need for a brand that celebrates women's beauty and strength while supporting their dreams and ambitions.
                 </p>
 
-                <p className='font-text text-center text-base  text-gray-800  mt-[30px] '>
-                    With the help of your contributions, every Daughters of India purchase is not only preserving traditional craftsmanship, they are also donating directly to women empowerment initiatives in India through our charity partnerships. We have pledged an ongoing monthly donation of $10,000 to support Sewing the Seeds & Barakat Bundle reach their goals.
+                <p className='font-heading text-center text-lg  text-gray-800  mt-[30px] '>
+                Inspired by countless stories of women who have defied societal norms and expectations, we sought to create a platform that showcases fashion as a testament to their resilience and spirit. We are committed to offering fashion that empowers women to be confident and bold.
                 </p>
             </div>
         </>

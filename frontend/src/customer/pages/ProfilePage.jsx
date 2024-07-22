@@ -13,7 +13,7 @@
 //         <div className='mx-auto container mt-[100px]'>
 //             {/* PERSONAL INFO */}
 //             <div>
-//                 <div className='mx-auto w-full md:w-1/3 px-3 md:mb-0 max-w-[520px] tracking-widest font-light text-black text-2xl font-abc'>
+//                 <div className='mx-auto w-full md:w-1/3 px-3 md:mb-0 max-w-[520px] tracking-widest font-light text-black text-2xl font-text'>
 //                     PERSONAL INFO
 //                 </div>
 //                 <div className='mx-auto max-w-[520px] mt-[20px]'>
@@ -45,7 +45,7 @@
 //             </div>
 
 //             <div className='mt-[30px]'>
-//                 <div className='w-full md:w-1/3 px-3 md:mb-0 mx-auto max-w-[520px] tracking-widest font-light text-black text-2xl font-abc'>
+//                 <div className='w-full md:w-1/3 px-3 md:mb-0 mx-auto max-w-[520px] tracking-widest font-light text-black text-2xl font-text'>
 //                     ADDRESS
 //                 </div>
 //                 <div className='mx-auto max-w-[520px] mt-[20px]'>

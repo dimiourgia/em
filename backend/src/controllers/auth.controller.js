@@ -86,4 +86,26 @@ const resetPassword = async (req, res) => {
     }
 };
 
-module.exports={ register, login, forgotPassword, resetPassword };
+const googleCallback = (req, res) => {
+    try {
+        const token = jwtProvider.generateToken(req.user._id);
+        console.log('Generated token:', token);
+        res.redirect(`${process.env.FRONTEND_URL}/?token=${token}`);
+    } catch (error) {
+        console.error('Error in googleCallback:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+const facebookCallback = (req, res) => {
+    try {
+        const token = jwtProvider.generateToken(req.user._id);
+        res.redirect(`${process.env.FRONTEND_URL}/?token=${token}`);
+    } catch (error) {
+        console.error('Error in facebookCallback:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+
+module.exports={ register, login, forgotPassword, resetPassword, facebookCallback, googleCallback};

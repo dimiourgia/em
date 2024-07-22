@@ -5,7 +5,7 @@ const RefundPage = () => {
     return (
         <>
             <div className='min-h-screen mx-auto max-w-[520px] mt-[100px]'>
-                <h1 className='text-black font-medium text-4xl text-center font-abc'>
+                <h1 className='text-black font-medium text-4xl text-center font-text'>
 
                     Refund policy
 
@@ -17,7 +17,7 @@ const RefundPage = () => {
                     <p className='font-thin mt-[40px] text-gray-700  text-sx  font-para italic '>
                         Due to their limited and unique nature, returned items (excluding final sale items) are eligible for an exchange of size or store credit in the form of a Daughters of India Gift Card.
                     </p>
-                    <h1 className='text-black mt-[100px] font-medium text-sx  font-abc'>
+                    <h1 className='text-black mt-[100px] font-medium text-sx  font-text'>
                         To lodge a return, please visit our <Link to={"/"}> <span className='underline  text-blue-800'>Returns Portal</span> </Link>
                     </h1>
                     <p className='font-thin mt-[70px] text-gray-700  text-sx  font-para italic '>
@@ -41,7 +41,7 @@ const RefundPage = () => {
                     <p className='font-thin mt-[50px] text-gray-700  text-sx  font-para italic '>
                         ~ Once you have placed your order we are unable to make any changes. This includes cancelling or swapping of any sizes or items within your order. Rest assured we do have a flexible returns policy should you receive your order and it’s not quite right for you.
                     </p>
-                    <h1 className='text-black mt-[100px] font-medium text-sx  font-abc'>
+                    <h1 className='text-black mt-[100px] font-medium text-sx  font-text'>
                         LOST OR MISSING RETURNS
                     </h1>
                     <p className='font-thin mt-[50px] text-gray-700  text-sx  font-para italic mb-[100px]'>

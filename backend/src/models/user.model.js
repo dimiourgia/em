@@ -12,30 +12,30 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
   },
   email: {
     type: String,
     required: true,
   },
+  googleId: { type: String },
   role: {
     type: String,
-    required:true,
-    default:"CUSTOMER"
+    required: true,
+    default: "CUSTOMER"
   },
   mobile: {
     type: String,
   },
   addresses: [
     {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "addresses",
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "addresses",
     },
-  ], 
+  ],
   paymentInformation: [
     {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "payment_information",
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "payment_information",
     },
   ],
   ratings: [
@@ -43,14 +43,14 @@ const userSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "ratings",
     },
-  ], 
+  ],
   reviews: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "reviews",
     },
   ],
-  resetPasswordOtp:{
+  resetPasswordOtp: {
     type: String,
     default: null,
   },
@@ -59,6 +59,7 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: null,
   },
+  hasMadeFirstPurchase: { type: Boolean, default: false }
 },{
   timestamps: true,
 });

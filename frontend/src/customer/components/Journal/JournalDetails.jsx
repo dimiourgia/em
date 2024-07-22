@@ -26,7 +26,7 @@ const JournalDetail = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-white">
-            <div className="p-10 rounded-lg w-full max-w-4xl">
+            <div className="p-10 rounded-lg w-full max-w-6xl">
                 <div className={`bg-gray-200 border border-gray-300 rounded-lg overflow-hidden shadow-lg journal-card`}>
                     {journal.images.length > 0 && (
                         <img src={journal?.images[0]} alt={journal.title} className="w-full h-80 object-cover" />

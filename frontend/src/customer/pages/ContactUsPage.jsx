@@ -16,7 +16,7 @@ const ContactUsPage = () => {
                             Contact Us
                         </h1>
 
-                        <p className='font-ijk text-center text-lg  text-black  mt-[30px] font-bold'>
+                        <p className='font-text text-center text-lg  text-black  mt-[30px] font-bold'>
                             email: <spna className="text-lg  text-gray-800">Emprissa@gmail.com</spna>
                         </p>
 
