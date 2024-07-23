@@ -18,17 +18,20 @@ import BottomMessages from '../../components/BottomMessages/BottomMessages'
 import BottomJournal from '../../components/BottomJournal/BottomJournal'
 import BottomReview from '../../components/BottomReview/BottomReview'
 import MiddleCarousel from '../../components/MiddleCarousel/MiddleCarousel'
+import Collections from '../../components/Collections/Index'
+import TopSellers from '../../components/TopSellers/Index'
 
 export const HomePage = () => {
     return (
         <div className='min-h-screen'>
             <TopBanner />
-            <TopMessage />
-            <CategoryDress />
-            <SupportBanner />
-            <VideoMiddle />
-            <MiddleCarousel />
-            <BottomBanner />
+            <Collections/>
+            <TopSellers />
+            {/* <SupportBanner /> */}
+            {/* <VideoMiddle /> */}
+            
+            {/* <MiddleCarousel /> */}
+            {/* <BottomBanner /> */}
             <BottomMessages />
             <BottomJournal />
             <BottomReview />

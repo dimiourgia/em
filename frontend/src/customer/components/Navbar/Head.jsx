@@ -16,7 +16,21 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 import SearchBar from "./SearchBar";
 
+
 function NavList({ search, setSearch }) {
+  const navigate = useNavigate();
+  
+  const handleScrollToSection = (event) => {
+    event.preventDefault();
+    navigate('/');
+    setTimeout(() => {
+      const element = document.getElementById('collection-section');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 0);
+  };
+
   return (
     <List className="flex lg:ml-[200px] items-center lg:flex-row flex-col lg:items-center lg:w-auto w-full">
       <Typography>
@@ -24,14 +38,14 @@ function NavList({ search, setSearch }) {
         <SearchBar search={search} setSearch={setSearch} />
       </ListItem>
       </Typography>
-      <Typography as={Link} to="/products" variant="h6" className="font-heading">
-        <ListItem>Our Products</ListItem>
+      <Typography  variant="h6" className="font-heading">
+        <ListItem onClick={handleScrollToSection}>Our Collections</ListItem>
       </Typography>
       <Typography as={Link} to="/about" variant="h6" className="font-heading">
         <ListItem>About Us</ListItem>
       </Typography>
-      <Typography as={Link} to="/journals" variant="h6" className="font-heading">
-        <ListItem>Journal</ListItem>
+      <Typography as={Link} to="/women-warriors" variant="h6" className="font-heading">
+        <ListItem>Women Warriors</ListItem>
       </Typography>
     </List>
   );
@@ -74,6 +88,8 @@ export default function Head({ search, setSearch }) {
     dispatch(logout());
     handleCloseUserMenu();
   };
+
+
 
   useEffect(() => {
     if (jwt) {

@@ -17,6 +17,7 @@ import Order from "../components/Order/Order";
 import Reset from "../Auth/Reset";
 import JournalList from "../components/Journal/JournalList";
 import JournalDetail from "../components/Journal/JournalDetails";
+import WomenWarriors from "../pages/WomenWarriors";
 
 const CustomerRouters = () => {
   const [search, setSearch] = useState("");
@@ -47,6 +48,7 @@ const CustomerRouters = () => {
         <Route path="/payment/:orderId" element={<PaymentSuccess />} />
         <Route path="/journals" element={<JournalList />} />
         <Route path="/journals/:id" element={<JournalDetail />} />
+        <Route path="/women-warriors" element={<WomenWarriors />} />
       </Routes>
 
       <div>

@@ -1,0 +1,18 @@
+.alice-carousel__dots-item.__active {
+    background: #ffc107 !important;
+  }
+  
+  .alice-carousel__dots-item {
+    background: #c7c7c1b9 !important;
+  }
+  
+  .item {
+    background: #cdaeec57;
+    height: fit-content;
+    margin-right: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
