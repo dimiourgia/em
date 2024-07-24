@@ -35,6 +35,8 @@ const Admin = () => {
   const navigate = useNavigate();
   const isAdmin = user && user.role === "ADMIN";
 
+  console.log(user, isAdmin, 'is user admin')
+
   const drawer = (
     <Box
       sx={{

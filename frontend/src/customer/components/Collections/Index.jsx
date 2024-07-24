@@ -3,6 +3,10 @@ import CompanyCarousel from '../CompanyCarousel/CompanyCarousel';
 //import './carousel.css'
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { findCollections, findCollectionById } from '../../../State/Collection/Action';
+
 
 const collections = [
     {
@@ -34,7 +38,20 @@ const responsive = {
     1024: { items: 3 },
 };
 
+
+
 const Collections = () => {
+    const dispatch = useDispatch();
+    const collections = useSelector((state)=>state.collections).collections;
+
+    useEffect(()=>{
+        console.log(collections)
+    },[collections])
+
+    useEffect(()=>{
+        dispatch(findCollections());
+    },[dispatch]);
+
     return (
         <>
             <div className='w-full md:w-1/3 px-3 md:mb-0' id='collection-section'>
@@ -49,12 +66,12 @@ const Collections = () => {
             </div>
             <div className="container mx-auto px-4">
                 <div className="w-full lg:w-4/5 mx-auto">
-                    <AliceCarousel 
+                   { collections != null && collections!= undefined && collections.length >0 && <AliceCarousel 
                         mouseTracking
                         responsive={responsive}
                         controlsStrategy="alternate"
-                        items={collections.map(collection=><Card title={collection.name} shopTitle={'SHOP NOW'} imageSrc={collection.thumbnail} />)}
-                    />
+                        items={collections.length >0 && collections?.map(collection=><Card title={collection.name} imageSrc={collection?.imageUrl[0]} />)}
+                    />}
                 </div>
             </div>
             

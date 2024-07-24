@@ -5,8 +5,10 @@ import { useSelector } from 'react-redux';
 
 const AdminRoutes = () => {
     const { user } = useSelector(state => state.auth);
+    const {currentState} = useSelector(state=>state.products);
     const isAdmin = user && user.role === 'ADMIN';
-    console.log("admin routes page hai", isAdmin)
+    console.log("admin routes page hai", isAdmin);
+    console.log(currentState, 'current state');
 
     return (
         <Routes>

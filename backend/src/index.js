@@ -62,4 +62,8 @@ app.use("/api/ratings",ratingRouter);
 const adminOrderRoutes=require("./routes/adminOrder.routes.js");
 app.use("/api/admin/orders",adminOrderRoutes);
 
+//collection routes handler
+const collectionRoutes=require("./routes/collection.routes.js");
+app.use("/api/collections", collectionRoutes)
+
 module.exports={app};

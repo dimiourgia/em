@@ -1,91 +1,117 @@
-const Category = require("../models/category.model");
-const Product = require("../models/product.model");
+const Collections = require("../models/collection.model.js");
 
-async function createCollection(reqData) {
+async function createCollection({name, description, imageUrls, products}) {
   try {
-    let level = await Category.findOne({ name: reqData.productCategory });
-    if (!level) {
-      const newLevel = new Category({
-        name: reqData.productCategory,
-      });
-      level = await newLevel.save();
-    }
-
-    const product = new Product({
-      title: reqData.title,
-      color: reqData.color,
-      description: reqData.description,
-      material: reqData.material,
-      SKU: reqData.SKU,
-      neck_type: reqData.neck_type,
-      sleeve_style: reqData.sleeve_style,
-      collections: reqData.collections,
-      modelAttireDescription: reqData.modelAttireDescription,
-      discountedPrice: reqData.discountedPrice,
-      imageUrl: reqData.imageUrl,
-      brand: reqData.brand,
-      price: reqData.price,
-      sizes: reqData.size,
-      category: level._id,
+    // Create a new collection instance
+    const newCollection = new Collections({
+      name,
+      description,
+      products, // Initialize with an empty array of products
+      imageUrl: imageUrls,
     });
-    const savedProduct = await product.save();
-    return savedProduct;
+
+    // Save the collection to the database
+    const savedCollection = await newCollection.save();
+
+    // Return the saved collection
+    return savedCollection;
   } catch (error) {
-    throw new Error("Error creating product: " + error.message);
+    console.log(error);
+    throw new Error("Error creating collection");
   }
 }
 
-async function deleteProduct(productId) {
+async function getCollectionIdByName(name) {
   try {
-    const product = await findProductById(productId);
-    if (!product) {
-      throw new Error("Product not found with id: " + productId);
+    // Find the collection by its name
+    const collection = await Collections.findOne({ name });
+    if (!collection) {
+      throw new Error("Collection not found");
     }
-    await Product.findByIdAndDelete(productId);
-    const products = await Product.find({});
-    return { message: "Product deleted successfully", products };
+
+    // Return the collection ID
+    return collection._id;
   } catch (error) {
-    throw new Error("Error deleting product: " + error.message);
+    throw new Error("Error retrieving collection ID");
   }
 }
 
-async function updateProduct(productId, reqData) {
+async function addProductToCollection(collectionId, productId) {
   try {
-    const updatedProduct = await Product.findByIdAndUpdate(productId, reqData, { new: true });
-    if (!updatedProduct) {
-      throw new Error("Product not found with id: " + productId);
+    // Find the collection by its ID
+    const collection = await Collections.findById(collectionId);
+    if (!collection) {
+      throw new Error("Collection not found");
     }
-    return updatedProduct;
+
+    // Add the product ID to the collection's products array
+    collection.products.push(productId);
+
+    // Save the updated collection
+    await collection.save();
+
+    // Return a success message or the updated collection
+    return collection;
   } catch (error) {
-    throw new Error("Error updating product: " + error.message);
+    throw new Error("Error adding product to collection");
   }
 }
 
-async function findProductById(id) {
+async function deleteProductFromCollection(collectionId, productId) {
   try {
-    const product = await Product.findById(id).populate("category").exec();
-    if (!product) {
-      throw new Error("Product not found with id " + id);
+    // Find the collection by its ID
+    const collection = await Collections.findById(collectionId);
+    if (!collection) {
+      throw new Error("Collection not found");
     }
-    return product;
+
+    // Remove the product ID from the collection's products array
+    collection.products = collection.products.filter(
+      (product) => product.toString() !== productId
+    );
+
+    // Save the updated collection
+    await collection.save();
+
+    // Return a success message or the updated collection
+    return collection;
   } catch (error) {
-    throw new Error("Error finding product: " + error.message);
+    throw new Error("Error deleting product from collection");
   }
 }
 
-async function getAllProducts() {
+async function getAllCollections() {
   try {
-    const query = await Product.find({}).exec();
-    return query;
+    // Retrieve all collections
+    const collections = await Collections.find();
+
+    // Return the collections
+    return collections;
   } catch (error) {
-    throw new Error("Error occurred while executing the query: " + error.message);
+    throw new Error("Error retrieving all collections");
+  }
+}
+
+async function getCollectionById(collectionId) {
+  try {
+    // Find the collection by its ID
+    const collection = await Collections.findById(collectionId);
+    if (!collection) {
+      throw new Error("Collection not found");
+    }
+
+    // Return the collection
+    return collection;
+  } catch (error) {
+    throw new Error("Error retrieving collection by ID");
   }
 }
 
 module.exports = {
-  createProduct,
-  deleteProduct,
-  updateProduct,
-  getAllProducts,
-  findProductById,
+  addProductToCollection,
+  deleteProductFromCollection,
+  getCollectionIdByName,
+  createCollection,
+  getAllCollections,
+  getCollectionById,
 };

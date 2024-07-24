@@ -14,11 +14,7 @@ const CompanyPage = () => {
             <CompanyMiddleImage />
             <CompanyBottomCard /> 
         </div>
-            
-
         </>
-
-
     )
 }
 

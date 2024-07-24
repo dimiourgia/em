@@ -53,7 +53,7 @@ const TopSellers = () => {
                         mouseTracking
                         responsive={responsive}
                         controlsStrategy="alternate"
-                        items={finalProducts.map(product=><ProductCard product={product}/>)}
+                        items={finalProducts.map(product=><Card product={product}/>)}
                     />
                 </div>
             </div>
