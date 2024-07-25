@@ -3,6 +3,7 @@ import { Typography, Grid, TextField, Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { createProduct } from "../../State/Product/Action";
 import { useNavigate } from "react-router-dom";
+import FileUploader from "../../customer/components/FileUploader/Index";
 
 const initialSizes = [
   { name: "S", quantity: 0 },
@@ -86,6 +87,8 @@ const CreateProductForm = () => {
               />
             </Grid>
           ))}
+
+          <FileUploader/>
           {[
             "brand",
             "title",

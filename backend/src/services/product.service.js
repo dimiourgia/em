@@ -1,6 +1,5 @@
 const Category = require("../models/category.model");
 const Product = require("../models/product.model");
-const Collections = require("../models/topSellerProducts.model");
 const collectionService = require("../services/collection.service");
 
 async function createProduct(reqData) {
