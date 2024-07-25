@@ -1,5 +1,7 @@
 const Category = require("../models/category.model");
 const Product = require("../models/product.model");
+const Collections = require("../models/topSellerProducts.model");
+const collectionService = require("../services/collection.service");
 
 async function createProduct(reqData) {
   try {
@@ -10,6 +12,8 @@ async function createProduct(reqData) {
       });
       level = await newLevel.save();
     }
+
+    let collectionId = await collectionService.getCollectionIdByName(reqData.collectionName);
 
     const product = new Product({
       title: reqData.title,
@@ -27,7 +31,9 @@ async function createProduct(reqData) {
       price: reqData.price,
       sizes: reqData.size,
       category: level._id,
+      collection: collectionId,
     });
+
     const savedProduct = await product.save();
     return savedProduct;
   } catch (error) {

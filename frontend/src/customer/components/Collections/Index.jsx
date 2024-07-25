@@ -8,30 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { findCollections, findCollectionById } from '../../../State/Collection/Action';
 
 
-const collections = [
-    {
-        name: 'Radiant Rebellion',
-        thumbnail: 'images/23.webp',
-    },
-    {
-        name: 'Empowered Ember',
-        thumbnail: 'images/24.webp',
-    },
-    {
-        name: 'Minted Resolve',
-        thumbnail: 'images/25.webp',
-    },
-    {
-        name: 'Eclipsed Empowerment',
-        thumbnail: 'images/25.webp',
-    },
-    {
-        name: 'Stripes of Strength',
-        thumbnail: 'images/25.webp',
-    }
-]
-
-
 const responsive = {
     0: { items: 1 },
     568: { items: 2 },
@@ -70,7 +46,7 @@ const Collections = () => {
                         mouseTracking
                         responsive={responsive}
                         controlsStrategy="alternate"
-                        items={collections.length >0 && collections?.map(collection=><Card title={collection.name} imageSrc={collection?.imageUrl[0]} />)}
+                        items={collections.length >0 && collections?.map(collection=><Card title={collection.name} shopTitle={'SHOP NOW'} imageSrc={collection?.imageUrl[0]} />)}
                     />}
                 </div>
             </div>
