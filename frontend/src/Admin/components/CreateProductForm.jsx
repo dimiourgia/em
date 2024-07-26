@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { Typography, Grid, TextField, Button } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Typography, Grid, TextField, Button, Select, MenuItem, InputLabel } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { createProduct } from "../../State/Product/Action";
 import { useNavigate } from "react-router-dom";
 import FileUploader from "../../customer/components/FileUploader/Index";
+import SelectInput from "@mui/material/Select/SelectInput";
 
 const initialSizes = [
   { name: "S", quantity: 0 },
@@ -12,11 +13,11 @@ const initialSizes = [
   { name: "XL", quantity: 0 },
   { name: "2XL", quantity: 0 },
 ];
-const initialImageUrls = ["", "", "", "", ""];
+
 
 const CreateProductForm = () => {
   const [productData, setProductData] = useState({
-    imageUrl: initialImageUrls,
+    imageUrl: [],
     brand: "",
     title: "",
     color: "",
@@ -29,8 +30,12 @@ const CreateProductForm = () => {
     SKU: "",
     neck_type: "", 
     sleeve_style: "", 
-    collections: "", 
+    collectionName: "Radiant Rebellion",
   });
+
+  useEffect(()=>{
+    console.log(productData, 'product data');
+  },[productData])
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -53,15 +58,6 @@ const CreateProductForm = () => {
     }));
   };
 
-  const handleImageUrlChange = (e, index) => {
-    const { value } = e.target;
-    const imageUrls = [...productData.imageUrl];
-    imageUrls[index] = value;
-    setProductData((prevState) => ({
-      ...prevState,
-      imageUrl: imageUrls,
-    }));
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -75,20 +71,9 @@ const CreateProductForm = () => {
       </Typography>
       <form onSubmit={handleSubmit} className="min-h-screen" noValidate>
         <Grid container spacing={2}>
-          {productData.imageUrl.map((url, index) => (
-            <Grid item xs={12} key={`imageUrl-${index}`}>
-              <TextField
-                fullWidth
-                label={`Image URL ${index + 1}`}
-                name={`imageUrl-${index}`}
-                value={url}
-                onChange={(e) => handleImageUrlChange(e, index)}
-                required
-              />
-            </Grid>
-          ))}
 
-          <FileUploader/>
+          <FileUploader updateImageUrls={setProductData} />
+          
           {[
             "brand",
             "title",
@@ -100,7 +85,6 @@ const CreateProductForm = () => {
             "SKU",
             "neck_type", 
             "sleeve_style",
-            "collections"
           ].map((field, index) => (
             <Grid item xs={12} sm={index % 2 === 0 ? 12 : 12} key={field}>
               <TextField
@@ -117,7 +101,7 @@ const CreateProductForm = () => {
                     : field === "sleeve_style"
                     ? "Sleeve Style"
                     : field === "collections"
-                    ? "Collections"
+                    ? "Select Collection Name"
                     : field.charAt(0).toUpperCase() +
                       field.slice(1).replace(/([A-Z])/g, " $1").trim()
                 }
@@ -131,6 +115,25 @@ const CreateProductForm = () => {
               />
             </Grid>
           ))}
+          <Grid item xs={12}>
+              <InputLabel id="collection-select-label">Select Collection</InputLabel>
+              <Select
+                className="w-full"
+                labelId="collection-select-label"
+                id="collection-select"
+                value={productData.collectionName}
+                label="Select Collection"
+                name='Select Collection'
+                onChange={(e)=>{setProductData(pre=>({...pre, collectionName: e.target.value}))}}
+                required
+              >
+              <MenuItem value={'Radiant Rebellion'}>Radiant Rebellion</MenuItem>
+              <MenuItem value={'Empowered Ember'}>Empowered Ember</MenuItem>
+              <MenuItem value={'Minted Resolve'}>Minted Resolve</MenuItem>
+              <MenuItem value={'Eclipsed Ascendancy'}>Eclipsed Ascendancy</MenuItem>
+              <MenuItem value={'Stripes of Strength'}>Stripes of Strength</MenuItem>
+            </Select>
+          </Grid>
           <Grid item xs={12}>
             <TextField
               fullWidth

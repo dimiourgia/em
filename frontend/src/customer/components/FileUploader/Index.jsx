@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BlobServiceClient } from '@azure/storage-blob';
 import { readAndCompressImage } from 'browser-image-resizer';
+import { Button } from '@mui/material';
 
 const storage_sas_token = import.meta.env.VITE_AZURE_BLOB_SAS_TOKEN;
 const storage_account = import.meta.env.VITE_AZURE_BLOB_ACCOUNT;
@@ -10,9 +11,9 @@ const blob_endpoint = `https://${storage_account}.blob.core.windows.net/?${stora
 
 // Configuration options for resizing
 const imageResizeConfig = {
-    quality: 0.8,
-    maxWidth: 800,
-    maxHeight: 800,
+    quality: 0.9,
+    maxWidth: 1024,
+    maxHeight: 1024,
     autoRotate: true,
     debug: true,
 };
@@ -41,7 +42,7 @@ async function uploadFileToAzure(file) {
     }
 }
 
-const FileUploader = () => {
+const FileUploader = ({updateImageUrls}) => {
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [uploadedFiles, setUploadedFiles] = useState([]);
 
@@ -70,6 +71,7 @@ const FileUploader = () => {
         }
 
         setUploadedFiles(uploadedFilesList);
+        updateImageUrls(pre=>({...pre, imageUrl:uploadedFilesList.map(item=>item.url)}));
     };
 
     const resizeImage = async (file) => {
@@ -84,10 +86,9 @@ const FileUploader = () => {
 
     return (
         <div>
-            <h2>Upload Images to Azure Blob Storage</h2>
+            <h2>Upload Images (Multiple images can be uploaded) </h2>
             <input type="file" accept="image/*" multiple onChange={handleFileChange} />
-            <button onClick={handleUpload}>Upload Files</button>
-
+            <Button variant="contained" sx={{ p: .8 }} className="py-20" size="small" onClick={handleUpload}>{`Upload File(s)`}</Button>
             <h3>Uploaded Files</h3>
             <ul>
                 {uploadedFiles.map((file) => (
