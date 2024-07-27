@@ -85,7 +85,7 @@ export default function ProductDetails() {
         </div>
 
 
-        <div className="mx-5 m-1 p-5 sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4 bg-gray-200">
+        <div className="mx-5 m-1 p-5 sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4 bg-white">
           <h1 className="text-lg lg:text-2xl font-heading font-medium text-black opacity-70">
             {product?.title}
           </h1>
@@ -96,18 +96,20 @@ export default function ProductDetails() {
           {/* Options */}
           <div className="">
             <div className="flex space-x-2 items-center pt-6">
-              <p className="text-md font-text">
+              <p className="text-md font-text font-semibold">
                 {"₹" + product?.discountedPrice}
               </p>
-              <p className="font-text line-through text-sm opacity-50">
-                {"₹" + product?.price}
-              </p>
-              <p className="text-green-500 text-sm font-text">
-                {(
-                  (1 - product?.discountedPrice / product?.price) *
-                  100
-                ).toFixed(0) + "% off"}
-              </p>
+              {product?.discountedPrice != product?.price && <div className="flex space-x-2">
+                <p className="font-text line-through text-sm opacity-50 font-semibold">
+                  {"₹" + product?.price}
+                </p>
+                <p className="text-green-500 text-sm font-text">
+                  {(
+                    (1 - product?.discountedPrice / product?.price) *
+                    100
+                  ).toFixed(0) + "% off"}
+                </p>
+              </div>}
             </div>
             <div className="opacity-50">inclusive of all taxes</div>
 
@@ -192,19 +194,19 @@ export default function ProductDetails() {
               </div>
 
               {/* highlights */}
-              <div className="p-3 mt-4">
-                <div className="opacity-80 font-semibold">Key Materials</div>
-                <div className="mt-2 grid grid-cols-2">
-                  <div className="font-semibold opacity-70 font-heading">Material</div>
-                  <div className="font-semibold font-heading">{product?.material}</div>
+              <div className="p-3 mt-4 font-sans-serif">
+                <div className="text-neutral-700 font-semibold">Key Materials</div>
+                <div className="grid grid-cols-2 text-neutral-600">
+                  <div className="text-neutral-400">Material</div>
+                  <div className="">{product?.material}</div>
                 </div>
-                <div className="mt-2 grid grid-cols-2">
-                  <div className="font-semibold opacity-70 font-heading">Sleeve Style</div>
-                  <div className="font-semibold font-heading">3/4 Sleeve</div>
+                <div className="grid grid-cols-2 text-neutral-600">
+                  <div className="text-neutral-400">Sleeve Style</div>
+                  <div className="">{product?.sleeve_style}</div>
                 </div>
-                <div className="mt-2 grid grid-cols-2">
-                  <div className="font-semibold opacity-70 font-heading">Neck</div>
-                  <div className="font-semibold font-heading">Round Neck</div>
+                <div className="grid grid-cols-2 text-neutral-600">
+                  <div className="text-neutral-400">Neck</div>
+                  <div className="">{product?.neck_type}</div>
                 </div>
               </div>
 
@@ -213,8 +215,9 @@ export default function ProductDetails() {
                 onClick={handelAddToCart}
                 type="submit"
                 className={`${selectedSize !== "" && selectedSize !== "Out of stock" ? "cursor-pointer" : "cursor-not-allowed"
-                  } w-full mt-6 hover:bg-gray-700 bg-gray-500 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700`}
+                  } flex gap-4 items-center justify-center w-full mt-6 hover:bg-gray-700 bg-gray-500 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700`}
               >
+                <img src="/images/cart_white.svg" />
                 Add to cart
               </button>
             </form>
@@ -223,9 +226,9 @@ export default function ProductDetails() {
       </div>
 
       {/* description */}
-      <div className="m-3 p-4 pb-16 bg-gray-200">
+      <div className="m-3 p-4 pb-16 bg-gray-50">
           <h3 className="font-text flex justify-center text-semibold text-2xl opacity-75 mx-auto p-2">Product Description</h3>
-          <div className="mx-auto md:w-1/2 font-serif ">
+          <div className="mx-auto md:w-1/2 text-neutral-600 font-sans-serif tracking-wide text-lg">
             <p className="flex items-center justify-center">{product?.description}</p>
             <p className="py-2">{product?.modelAttireDescription}</p>
           </div>

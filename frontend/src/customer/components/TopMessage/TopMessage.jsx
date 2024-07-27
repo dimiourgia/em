@@ -10,7 +10,7 @@ const TopMessage = () => {
                     <div className="flex justify-center items-center p-4 ">
                         <p className="p-2 px-4 group"  >
                         Our Collections
-                            <div className="bg-amber-500 h-[2px] w-0 group-hover:w-full transition-all duration-500"></div>
+                        {/* <div className="bg-amber-500 h-[2px] w-0 group-hover:w-full transition-all duration-500"></div> */}
                         </p>
                     </div>
                    

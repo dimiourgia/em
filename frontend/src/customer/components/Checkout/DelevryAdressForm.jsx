@@ -52,7 +52,7 @@ export default function DeliveryAddressForm({ handleNext }) {
     setAddress(prevAddress => ({ ...prevAddress, zipCode }));
 
     if (zipCode.length !== 6) {
-      setZipError("ZIP code must be 6 digits");
+      setZipError("ZIP code must be a 6 digits number");
       setAddress(prevAddress => ({ ...prevAddress, city: "", state: "" }));
       return;
     } else {

@@ -15,6 +15,7 @@ import { getUser, logout } from "../../../State/Auth/Action";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 import SearchBar from "./SearchBar";
+import { getCart } from "../../../State/Cart/Action";
 
 
 function NavList({ search, setSearch }) {
@@ -41,9 +42,9 @@ function NavList({ search, setSearch }) {
       <Typography  variant="h6" className="font-heading">
         <ListItem onClick={handleScrollToSection}>Our Collections</ListItem>
       </Typography>
-      <Typography as={Link} to="/about" variant="h6" className="font-heading">
+      {/* <Typography as={Link} to="/about" variant="h6" className="font-heading">
         <ListItem>About Us</ListItem>
-      </Typography>
+      </Typography> */}
       <Typography as={Link} to="/women-warriors" variant="h6" className="font-heading">
         <ListItem>Women Warriors</ListItem>
       </Typography>
@@ -57,11 +58,25 @@ export default function Head({ search, setSearch }) {
   const [openAuthModal, setOpenAuthModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const openUserMenu = Boolean(anchorEl);
-
   const dispatch = useDispatch();
   const location = useLocation();
   const jwt = localStorage.getItem("jwt");
   const auth = useSelector((state) => state.auth);
+  const cartContent = useSelector(state=>state.cart);
+  console.log(cartContent, 'item in cart');
+  const [totalCartItemQuantity, setTotalCartItemQuantity] = useState(0);
+
+  useEffect(()=>{
+      let totalQuantity = 0;
+      if(cartContent?.cartItems?.length > 0 ?? false){
+          cartContent?.cartItems.forEach(item=>{
+            totalQuantity+= item?.quantity;
+          });
+      }
+    
+      setTotalCartItemQuantity(totalQuantity);
+  },[cartContent]);
+
 
   const handleOpen = () => {
     setOpenAuthModal(true);
@@ -87,6 +102,7 @@ export default function Head({ search, setSearch }) {
   const handleLogout = () => {
     dispatch(logout());
     handleCloseUserMenu();
+    setTotalCartItemQuantity(0);
   };
 
 
@@ -94,6 +110,7 @@ export default function Head({ search, setSearch }) {
   useEffect(() => {
     if (jwt) {
       dispatch(getUser(jwt));
+      dispatch(getCart(jwt));
     } else if (location.pathname === '/login') {
       handleOpen();
     }
@@ -112,80 +129,6 @@ export default function Head({ search, setSearch }) {
 
   return (
     <div className="pb-2">
-      <div className="bg-[#eeeeee] py-1 text-center overflow-hidden">
-        <div className="relative flex overflow-x-hidden">
-          <div className="py-1 animate-marquee whitespace-nowrap">
-            <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
-            <span className="ml-8"></span>
-            <span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be YOU</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be UNSTOPPABLE</span>
-            <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
-            <span className="ml-8"></span>
-            <span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be YOU</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be UNSTOPPABLE</span>
-            <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
-            <span className="ml-8"></span>
-            <span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be YOU</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be UNSTOPPABLE</span>
-            <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
-            <span className="ml-8"></span>
-            <span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be YOU</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be UNSTOPPABLE</span>
-          </div>
-
-          <div className="absolute top-0 py-1 animate-marquee2 whitespace-nowrap">
-            <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
-            <span className="ml-8"></span>
-            <span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be YOU</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be UNSTOPPABLE</span>
-            <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
-            <span className="ml-8"></span>
-            <span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be YOU</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be UNSTOPPABLE</span>
-            <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
-            <span className="ml-8"></span>
-            <span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be YOU</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be UNSTOPPABLE</span>
-            <span className="ml-8"></span>
-            <FiberManualRecordIcon style={{ fontSize: "10px" }} />
-            <span className="ml-8"></span>
-            <span className="italic"> Be BOLD</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be YOU</span>
-            <span className="ml-8"></span>
-            <span className="italic">Be UNSTOPPABLE</span>
-          </div>
-        </div>
-      </div>
-
       <div className="flex items-center justify-between text-blue-gray-900">
         <Typography
           as={Link}
@@ -243,10 +186,13 @@ export default function Head({ search, setSearch }) {
               />
             )}
           </div>
-          <div className="flex items-center p-1">
+          <div className="flex items-center p-1 relative">
             <Link to="/cart">
-              <ShoppingBagIcon className="h-6 w-6 lg:mr-2 cursor-pointer" style={{ strokeWidth: "1.1" }} />
+              <ShoppingBagIcon className="h-8 w-8 lg:mr-2 cursor-pointer" style={{ strokeWidth: "1.1" }} />
             </Link>
+            {totalCartItemQuantity > 0 && <div className="absolute font-semibold w-4 h-4 bg-red-500 -top-[6px] right-[8px] rounded-full text-xs text-gray-100 flex items-center justify-center">
+                {totalCartItemQuantity}
+            </div>}
           </div>
           <div className="lg:hidden ml-2 mr-2" onClick={() => setOpenNav(!openNav)}>
             {openNav ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}

@@ -16,7 +16,7 @@ const TopMessage = () => {
                 <p className='italic  text-center text-2xl  text-gray-800  mt-[5px] '>
                     Empowering Change
                 </p>
-                <p className='font-semibold text-center text-xl  text-gray-500  mt-[50px] '>
+                <p className='font-text text-center text-xl  text-gray-700  mt-[50px] '>
                     At Empressa, we believe in the power of women to transform the world. <br/> Our clothing line is designed to empower you, just as these <br/> trailblazing women have empowered countless others <br/> with their strength, resilience, and courage.
                 </p>
             </div>
