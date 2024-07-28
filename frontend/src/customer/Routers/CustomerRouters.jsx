@@ -51,7 +51,7 @@ const CustomerRouters = () => {
   
       dispatch(findCollections());
       dispatch(findProducts(reqData));
-    },500)
+    },2500)
   },[])
 
   return (

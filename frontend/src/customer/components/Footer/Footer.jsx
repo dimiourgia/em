@@ -16,7 +16,7 @@ function Footer() {
         href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css"
       />
 
-      <footer className="relative bg-gray-400 pt-8 pb-6">
+      <footer className="relative bg-heading-bg pt-8 pb-6">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap text-left lg:text-left">
             <div className="w-full lg:w-6/12 px-4">

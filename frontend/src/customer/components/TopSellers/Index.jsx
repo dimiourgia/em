@@ -38,11 +38,11 @@ const TopSellers = () => {
     return (
         <>
             <div className='w-full md:w-1/3 px-3 md:mb-0'>
-                <h1 className='font-ijk text-center text-4xl  text-black  mt-4 '>
+                <h1 className='font-roboto font-semibold tracking-tight text-center text-3xl  text-black  mt-4 '>
                     <div className="flex justify-center items-center p-4 ">
                         <p className="p-2 px-4 group "  >
-                        Top Sellers
-                            <div className="bg-amber-500 h-[2px] w-full transition-all duration-500"></div>
+                        TOP SELLERS
+                            {/* <div className="bg-amber-500 h-[2px] w-full transition-all duration-500"></div> */}
                         </p>
                     </div>
                 </h1>

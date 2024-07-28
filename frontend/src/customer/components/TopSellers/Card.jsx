@@ -1,16 +1,25 @@
 import { Link, useNavigate } from "react-router-dom"
 import Product from "../Product/Product";
+import { useState } from "react";
 
 export default function({product}){
 
     const navigate = useNavigate();
+    const [imageIndex, setImageIndex] = useState(0);
+    const handleMouseEnter = ()=>{
+        // const totalImages = product?.imageUrl.length;
+        // setImageIndex(pre=> (pre+1)%totalImages);
+    }
+
 
     return(<div className='relative ml-4 flex flex-col' onClick={()=>navigate(`/product/${product._id}`)}>
-        <Link className="">
-            <img
-                src={product?.imageUrl[0]}
-                alt={product?.title}
-            />
+        <Link className="" onMouseEnter={handleMouseEnter}>
+            <div className="overflow-hidden">
+                <img
+                    className="transition-transform duration-300 ease-in-out transform hover:scale-110"
+                    src={product.imageUrl[imageIndex]}
+                    alt={product?.title}/>
+            </div>
         </Link>
         <div className="absolute bottom-0 w-full">
             {/* <h1 className='font-heading text-center text-2xl sm:text-[16px] md:text-2xl text-gray-800 mt-[10px] whitespace-nowrap'>
@@ -24,19 +33,22 @@ export default function({product}){
 
             <div className="bg-gray-100/60 px-4 py-6 rounded-md">
             <div>
-                <p className="truncate font-heading">
+                <p className="truncate font-roboto tracking-tight font-semibold">
                 {product.title}
                 </p>
             </div>
             <div className="flex items-center mt-1 space-x-2">
                 <p className="text-md font-text">{"₹" + product.discountedPrice}</p>
-                <p className="font-text line-through opacity-70 text-sm text-gray-500">
-                {"₹" + product.price}
-                </p>
-                <p className="text-green-500 text-xs font-text">
-                {((1 - product.discountedPrice / product.price) * 100).toFixed(0) + "% off"}
-                </p>
+                {product.discountedPrice != product.price && <div className="flex items-center space-x-2">
+                    <p className="font-text line-through opacity-70 text-sm text-gray-500">
+                        {"₹" + product.price}
+                    </p>
+                    <p className="text-green-500 text-xs font-text">
+                        {((1 - product.discountedPrice / product.price) * 100).toFixed(0) + "% off"}
+                    </p>
+                </div>}
             </div>
+
             </div>
         </div>
     </div>)

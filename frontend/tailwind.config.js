@@ -4,6 +4,9 @@ module.exports = withMT({
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      backgroundImage: {
+        'heading-bg': "url('/images/bg_2.jfif')",
+      },
       animation: {
         marquee: 'marquee 25s linear infinite',
         marquee2: 'marquee2 25s linear infinite',

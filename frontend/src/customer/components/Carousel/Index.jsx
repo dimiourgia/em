@@ -24,6 +24,10 @@ const CarouselComponent = ({items}) => {
       items={items}
       responsive={responsive}
       keyboardNavigation={true}
+      autoPlay
+      infinite
+      autoPlayInterval={2000} // Adjust this value for speed, 5000 ms = 5 seconds
+      animationDuration={1000}
       renderPrevButton={() => {
         return (
           <button className="custom-prev-button">

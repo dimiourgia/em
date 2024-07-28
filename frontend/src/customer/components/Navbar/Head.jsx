@@ -33,20 +33,20 @@ function NavList({ search, setSearch, closeNav }) {
   };
 
   return (
-    <List className="flex lg:ml-[200px] items-center lg:flex-row flex-col lg:items-center lg:w-auto w-full">
+    <List className="flex gap-4 text-gray-800 lg:ml-[200px] items-center lg:flex-row flex-col lg:items-center lg:w-auto w-full rounded-b-lg">
       <Typography>
       <ListItem className="lg:hidden">
         <SearchBar search={search} setSearch={setSearch} />
       </ListItem>
       </Typography>
-      <Typography  variant="h6" className="font-heading">
-        <ListItem onClick={handleScrollToSection}>Our Collections</ListItem>
-      </Typography>
+      <div  variant="h6" className="font-roboto tracking-tighter text-normal cursor-pointer hover:text-[#BFAE9F] ">
+        <span onClick={handleScrollToSection}>COLLECTIONS</span>
+      </div>
       {/* <Typography as={Link} to="/about" variant="h6" className="font-heading">
         <ListItem>About Us</ListItem>
       </Typography> */}
-      <div onClick={()=> {closeNav(); navigate("/women-warriors")}}  className="font-heading font-semibold">
-        <ListItem>Women Warriors</ListItem>
+      <div onClick={()=> {closeNav(); navigate("/women-warriors")}}  className="font-roboto text-normal tracking-tighter cursor-pointer hover:text-[#BFAE9F]">
+        WOMEN WARRIORS
       </div>
     </List>
   );
@@ -129,18 +129,18 @@ export default function Head({ search, setSearch }) {
   }
 
   return (
-    <div className="fixed top-0 z-[100] bg-gray-50 w-full pb-2">
-      <div className="flex items-end justify-between text-blue-gray-900">
+    <div className="fixed h-[70px] top-0 z-[100] bg-heading-bg w-full pb-2 pt-1">
+      <div className="flex items-center justify-between text-gray-800">
         <div
           onClick={()=>navigate('/')}
-          className="w-[54px] h-[54px] relative cursor-pointer ml-10 flex flex-col items-center"
+          className="w-[54px] h-[60px] relative cursor-pointer ml-10 flex flex-col items-center"
         >
           <img
             src="/images/logo.png"
             alt="Empressa"
             className="h-12 w-12"
           />
-          <div className="absolute top-[39px] font-heading">
+          <div className="absolute top-[39px] font-roboto">
             Empressa
           </div>
         </div>
@@ -155,7 +155,7 @@ export default function Head({ search, setSearch }) {
             {auth.user ? (
               <div>
                 <div
-                  className="h-8 w-8 flex items-center justify-center bg-gray-400 text-white rounded-full cursor-pointer"
+                  className="h-8 w-8 flex items-center justify-center bg-gray-800 text-white rounded-full cursor-pointer"
                   onClick={handleUserClick}
                   aria-controls={openUserMenu ? "basic-menu" : undefined}
                   aria-haspopup="true"
@@ -207,6 +207,7 @@ export default function Head({ search, setSearch }) {
       </Collapse>
 
       <AuthModal open={openAuthModal} handleClose={handleClose} />
+      <div className="absolute bottom-0 h-2 bg-white w-full"/>
     </div>
   );
 }

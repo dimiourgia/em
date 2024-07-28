@@ -23,7 +23,7 @@ import TopSellers from '../../components/TopSellers/Index'
 
 export const HomePage = () => {
     return (
-        <div className='min-h-screen'>
+        <div className='min-h-screen min-w-[100vw]'>
             <TopBanner />
             <Collections/>
             <TopSellers />
