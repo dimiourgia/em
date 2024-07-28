@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Avatar, Menu, MenuItem } from "@mui/material";
 import { Collapse, Typography, List, ListItem } from "@material-tailwind/react";
@@ -12,17 +12,17 @@ import {
 import AuthModal from "../../Auth/AuthModal";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, logout } from "../../../State/Auth/Action";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 import SearchBar from "./SearchBar";
-import { getCart } from "../../../State/Cart/Action";
 
 
-function NavList({ search, setSearch }) {
+function NavList({ search, setSearch, closeNav }) {
   const navigate = useNavigate();
+  console.log('close nav function', closeNav);
   
   const handleScrollToSection = (event) => {
     event.preventDefault();
+    closeNav();
     navigate('/');
     setTimeout(() => {
       const element = document.getElementById('collection-section');
@@ -45,9 +45,9 @@ function NavList({ search, setSearch }) {
       {/* <Typography as={Link} to="/about" variant="h6" className="font-heading">
         <ListItem>About Us</ListItem>
       </Typography> */}
-      <Typography as={Link} to="/women-warriors" variant="h6" className="font-heading">
+      <div onClick={()=> {closeNav(); navigate("/women-warriors")}}  className="font-heading font-semibold">
         <ListItem>Women Warriors</ListItem>
-      </Typography>
+      </div>
     </List>
   );
 }
@@ -105,13 +105,10 @@ export default function Head({ search, setSearch }) {
     setTotalCartItemQuantity(0);
   };
 
-
-
   useEffect(() => {
-    if (jwt) {
+    if(jwt){
       dispatch(getUser(jwt));
-      dispatch(getCart(jwt));
-    } else if (location.pathname === '/login') {
+    }else if (location.pathname === '/login') {
       handleOpen();
     }
   }, [jwt, location.pathname, dispatch]);
@@ -127,25 +124,28 @@ export default function Head({ search, setSearch }) {
 
   const isAdmin = auth?.user?.role === "ADMIN";
 
+  const closeNav = () => {
+    setOpenNav(false);
+  }
+
   return (
-    <div className="pb-2">
-      <div className="flex items-center justify-between text-blue-gray-900">
-        <Typography
-          as={Link}
-          to="/"
-          className="cursor-pointer ml-10 flex flex-col items-center"
+    <div className="fixed top-0 z-[100] bg-gray-50 w-full pb-2">
+      <div className="flex items-end justify-between text-blue-gray-900">
+        <div
+          onClick={()=>navigate('/')}
+          className="w-[54px] h-[54px] relative cursor-pointer ml-10 flex flex-col items-center"
         >
           <img
-            src="https://res.cloudinary.com/du5p1rnil/image/upload/v1712815729/empressa/trlajilv4tdjxco53foy.png"
+            src="/images/logo.png"
             alt="Empressa"
             className="h-12 w-12"
           />
-          <div className="font-heading">
+          <div className="absolute top-[39px] font-heading">
             Empressa
           </div>
-        </Typography>
+        </div>
         <div className="hidden lg:block">
-          <NavList search={search} setSearch={setSearch} />
+          <NavList search={search} setSearch={setSearch} closeNav={closeNav} />
         </div>
         <div className="flex items-center">
           <div className="hidden lg:block p-1">
@@ -190,7 +190,7 @@ export default function Head({ search, setSearch }) {
             <Link to="/cart">
               <ShoppingBagIcon className="h-8 w-8 lg:mr-2 cursor-pointer" style={{ strokeWidth: "1.1" }} />
             </Link>
-            {totalCartItemQuantity > 0 && <div className="absolute font-semibold w-4 h-4 bg-red-500 -top-[6px] right-[8px] rounded-full text-xs text-gray-100 flex items-center justify-center">
+            {totalCartItemQuantity > 0 && <div className="absolute font-semibold w-4 h-4 bg-red-500 -top-[6px] right-0 sm:right-2 rounded-full text-xs text-gray-100 flex items-center justify-center">
                 {totalCartItemQuantity}
             </div>}
           </div>
@@ -202,7 +202,7 @@ export default function Head({ search, setSearch }) {
 
       <Collapse open={openNav}>
         <div className="lg:hidden">
-          <NavList search={search} setSearch={setSearch} />
+          <NavList search={search} setSearch={setSearch} closeNav={closeNav} />
         </div>
       </Collapse>
 

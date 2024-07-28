@@ -3,6 +3,7 @@ import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import ProductCard from '../Product/ProductCard';
 import { useSelector } from 'react-redux';
+import CarouselComponent from '../Carousel/Index';
 
 
 const products = [
@@ -37,24 +38,25 @@ const TopSellers = () => {
     return (
         <>
             <div className='w-full md:w-1/3 px-3 md:mb-0'>
-                <h1 className='font-ijk text-center text-4xl  text-black  mt-[100px] '>
+                <h1 className='font-ijk text-center text-4xl  text-black  mt-4 '>
                     <div className="flex justify-center items-center p-4 ">
-                        <p className="p-2 px-4 group cursor-pointer"  >
+                        <p className="p-2 px-4 group "  >
                         Top Sellers
-                            <div className="bg-amber-500 h-[2px] w-full group-hover:w-[50%] transition-all duration-500"></div>
+                            <div className="bg-amber-500 h-[2px] w-full transition-all duration-500"></div>
                         </p>
                     </div>
                 </h1>
             </div>
 
-            <div className="container mx-auto px-4">
+            <div className="min-h-[calc(100vh-150px)] container mx-auto px-4">
                 <div className="w-full lg:w-4/5 mx-auto">
-                    <AliceCarousel 
+                    {/* <AliceCarousel 
                         mouseTracking
                         responsive={responsive}
                         controlsStrategy="alternate"
                         items={finalProducts.map(product=><Card product={product}/>)}
-                    />
+                    /> */}
+                    <CarouselComponent items={finalProducts.map(product=><Card product={product}/>)} />
                 </div>
             </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage } from "../pages/HomePage/HomePage";
 import CartEcom from "../components/CartEcom/Cart";
@@ -18,9 +18,41 @@ import Reset from "../Auth/Reset";
 import JournalList from "../components/Journal/JournalList";
 import JournalDetail from "../components/Journal/JournalDetails";
 import WomenWarriors from "../pages/WomenWarriors";
+import CollectionProducts from "../pages/CollectionProducts";
+import { useDispatch } from "react-redux";
+import { getCart } from "../../State/Cart/Action";
+import { getUser } from "../../State/Auth/Action";
+import { findCollections } from "../../State/Collection/Action";
+import { findProducts } from "../../State/Product/Action";
+import { useLocation } from "react-router-dom";
 
 const CustomerRouters = () => {
   const [search, setSearch] = useState("");
+  const dispatch = useDispatch();
+  const jwt = localStorage.getItem("jwt");
+
+  const reqData = {
+    color: '', 
+    size: '',
+    minPrice: 0,
+    maxPrice: 100000,
+    minDiscount: 0,
+    category: undefined,
+    sort: 'price_low',
+    pageNumber: 1,
+    pageSize: 30,
+  }
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      if(jwt){
+        dispatch(getCart(jwt));
+      }
+  
+      dispatch(findCollections());
+      dispatch(findProducts(reqData));
+    },500)
+  },[])
 
   return (
     <div>
@@ -28,28 +60,32 @@ const CustomerRouters = () => {
         <Head search={search} setSearch={setSearch} />
       </div>
       
-      <Routes>
-        <Route path="/forgot-password" element={<HomePage />} />
-        <Route path="/reset-password" element={<Reset />} />
-        <Route path="/login" element={<HomePage />} />
-        <Route path="/register" element={<HomePage />} />
-        <Route path="/" element={<HomePage />} />
-        <Route path="/cart" element={<CartEcom />} />
-        <Route path="/products" element={<Product search={search} />} />
-        <Route path="/product/:productId" element={<ProductDetails />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/product-detail/:productId" element={<ProductDetails />} />
-        <Route path="/about" element={<CompanyPage />} />
-        <Route path="/refund" element={<RefundPage />} />
-        <Route path="/privacy" element={<PrivacyPage />} />
-        <Route path="/term" element={<TermPage />} />
-        <Route path="/contact" element={<ContactUsPage />} />
-        <Route path="/order" element={<Order />} />
-        <Route path="/payment/:orderId" element={<PaymentSuccess />} />
-        <Route path="/journals" element={<JournalList />} />
-        <Route path="/journals/:id" element={<JournalDetail />} />
-        <Route path="/women-warriors" element={<WomenWarriors />} />
-      </Routes>
+      <div className='mt-[60px]'>
+        <Routes>
+          <Route path="/forgot-password" element={<HomePage />} />
+          <Route path="/reset-password" element={<Reset />} />
+          <Route path="/login" element={<HomePage />} />
+          <Route path="/register" element={<HomePage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/cart" element={<CartEcom />} />
+          <Route path="/products" element={<Product search={search} />} />
+          <Route path="/product/:productId" element={<ProductDetails />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/product-detail/:productId" element={<ProductDetails />} />
+          <Route path="/about" element={<CompanyPage />} />
+          <Route path="/refund" element={<RefundPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/term" element={<TermPage />} />
+          <Route path="/contact" element={<ContactUsPage />} />
+          <Route path="/order" element={<Order />} />
+          <Route path="/payment/:orderId" element={<PaymentSuccess />} />
+          <Route path="/journals" element={<JournalList />} />
+          <Route path="/journals/:id" element={<JournalDetail />} />
+          <Route path="/women-warriors" element={<WomenWarriors />} />
+          <Route path="/collections/:id" lement={<CollectionProducts />} />
+        </Routes>
+      </div>
+      
 
       <div>
         <Footer />

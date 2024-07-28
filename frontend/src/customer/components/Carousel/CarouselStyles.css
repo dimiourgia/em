@@ -1,0 +1,46 @@
+/* Make sure your CSS is correctly applied */
+
+.alice-carousel__prev-btn, .alice-carousel__next-btn {
+    display: none; /* Hide default buttons if needed */
+  }
+  
+  .custom-prev-button,
+  .custom-next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgb(12, 10, 10);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10000;
+    transition: background-color 0.3s ease;
+  }
+  
+  .custom-prev-button:hover,
+  .custom-next-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  .custom-prev-button {
+    left: 10px;
+  }
+  
+  .custom-next-button {
+    right: 10px;
+  }
+  
+  .alice-carousel__stage-item img {
+    width: 100%;
+    height: auto;
+    max-height: calc(100vh - 150px);
+    object-fit: cover; /* Ensure images cover the area */
+    object-position: top;
+}

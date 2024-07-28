@@ -5,14 +5,14 @@ export default function({product}){
 
     const navigate = useNavigate();
 
-    return(<div className='ml-4 flex flex-col' onClick={()=>navigate(`/product/${product._id}`)}>
+    return(<div className='relative ml-4 flex flex-col' onClick={()=>navigate(`/product/${product._id}`)}>
         <Link className="">
             <img
                 src={product?.imageUrl[0]}
                 alt={product?.title}
             />
         </Link>
-        <div>
+        <div className="absolute bottom-0 w-full">
             {/* <h1 className='font-heading text-center text-2xl sm:text-[16px] md:text-2xl text-gray-800 mt-[10px] whitespace-nowrap'>
                 {product.title}
             </h1>
@@ -22,9 +22,8 @@ export default function({product}){
                 </button>
             </h1> */}
 
-            <div className="bg-gray-100 h-[100px] p-3 rounded-md">
+            <div className="bg-gray-100/60 px-4 py-6 rounded-md">
             <div>
-            <p className="font-text text-red-700 opacity-70 mt-2 text-sm">{product.brand}</p>
                 <p className="truncate font-heading">
                 {product.title}
                 </p>
