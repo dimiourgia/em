@@ -69,7 +69,7 @@ const CarouselComponent = ({items, key}) => {
 
   return (
     <AliceCarousel
-      activeIndex={carouselKey}
+      // activeIndex={carouselKey}
       renderKey={key}
       ref={carouselRef}
       mouseTracking

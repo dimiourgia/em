@@ -104,14 +104,14 @@ function Footer() {
               </div>
             </div>
           </div>
-          <hr className="my-6 border-black" />
+          {/* <hr className="my-6 border-black" />
           <div className="flex flex-wrap items-center md:justify-between justify-center">
             <div className="w-full md:w-4/12 px-4 mx-auto text-center">
               <div className="text-sm text-gray-800 font-semibold py-1">
                 Copyright © <span id="get-current-year">2024</span>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </footer >
     </>

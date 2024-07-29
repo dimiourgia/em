@@ -37,13 +37,13 @@ const TopSellers = () => {
     console.log(products, 'products')
 
     return (
-        <div className='bg-[#faf8f1]'>
-            <div className='w-full md:w-1/3 px-3 md:mb-0'>
-                <h1 className='font-roboto font-semibold tracking-tight text-center text-3xl  text-black'>
+        <div className=''>
+            <div className='w-full md:w-1/3 px-3 md:mb-[20px]'>
+                <h1 className='font-roboto tracking-wide text-center text-3xl  text-black'>
                     <div className="flex justify-center items-center p-4 ">
                         <p className="p-2 px-4 group "  >
-                        TOP SELLERS
-                            {/* <div className="bg-amber-500 h-[2px] w-full transition-all duration-500"></div> */}
+                        TOP SELLING
+                            <div className="bg-amber-500 h-[2px] w-full transition-all duration-500"></div>
                         </p>
                     </div>
                 </h1>

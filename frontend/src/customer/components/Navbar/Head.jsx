@@ -8,6 +8,7 @@ import {
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { colors } from "../../../constant";
 
 import AuthModal from "../../Auth/AuthModal";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,22 +34,27 @@ function NavList({ search, setSearch, closeNav }) {
   };
 
   return (
-    <List className="flex gap-4 text-gray-800 lg:ml-[200px] items-center lg:flex-row flex-col lg:items-center lg:w-auto w-full rounded-b-lg">
+    <List className={`flex gap-4 text-[${colors["primary-100"]}] items-center lg:flex-row flex-col lg:items-center lg:w-auto w-full rounded-b-lg`}>
       <Typography>
       <ListItem className="lg:hidden">
         <SearchBar search={search} setSearch={setSearch} />
       </ListItem>
       </Typography>
-      <div className="flex divide-x gap-4">
-        <div  variant="h6" className="font-roboto tracking-tighter text-lg cursor-pointer hover:text-[#BFAE9F] ">
+      <div className="flex divide-x divide-gray-600 gap-4 tracking-wide whitespace-nowrap text-lg">
+        <div  variant="h6" className={`font-roboto tracking-widest text-[${colors["primary-100"]}] cursor-pointer hover:text-[${colors["primary-200"]}] `}>
           <span onClick={handleScrollToSection}>COLLECTIONS</span>
         </div>
         {/* <Typography as={Link} to="/about" variant="h6" className="font-heading">
           <ListItem>About Us</ListItem>
         </Typography> */}
-        <div onClick={()=> {closeNav(); navigate("/women-warriors")}}  className="pl-4 font-roboto text-lg tracking-tighter cursor-pointer hover:text-[#BFAE9F]">
+        <div onClick={()=> {closeNav(); navigate("/women-warriors")}}  className={`pl-4 font-roboto text-[${colors["primary-100"]}]  cursor-pointer hover:text-[${colors["primary-200"]}]`}>
           WOMEN WARRIORS
         </div>
+
+        <div onClick={()=> {closeNav(); navigate("/women-warriors")}}  className={`pl-4 font-roboto text-[${colors["primary-100"]}] cursor-pointer hover:text-[${colors["primary-200"]}]`}>
+          TOP SELLING
+        </div>
+
       </div>
     </List>
   );
@@ -133,7 +139,7 @@ export default function Head({ search, setSearch }) {
 
   return (
     <div className="fixed h-[70px] top-0 z-[100] bg-heading-bg w-full pb-2 pt-1">
-      <div className="flex items-center justify-between text-gray-800">
+      <div className={`flex items-center justify-between text-[${colors["primary-100"]}]`}>
         <div
           onClick={()=>navigate('/')}
           className="w-[54px] h-[60px] relative cursor-pointer ml-10 flex flex-col items-center"
@@ -141,9 +147,9 @@ export default function Head({ search, setSearch }) {
           <img
             src="/images/logo.png"
             alt="Empressa"
-            className="h-12 w-12"
+            className="absolute -top-[4px] h-12 w-12"
           />
-          <div className="absolute top-[39px] font-roboto">
+          <div className={`text-[${colors["primary-100"]}] absolute top-[32px] font-roboto font-semibold`}>
             Empressa
           </div>
         </div>
@@ -158,7 +164,7 @@ export default function Head({ search, setSearch }) {
             {auth.user ? (
               <div>
                 <div
-                  className="h-8 w-8 flex items-center justify-center bg-gray-800 text-white rounded-full cursor-pointer"
+                  className={`h-8 w-8 flex items-center justify-center text-[${colors["primary-100"]}] text-white rounded-full cursor-pointer`}
                   onClick={handleUserClick}
                   aria-controls={openUserMenu ? "basic-menu" : undefined}
                   aria-haspopup="true"
@@ -191,7 +197,7 @@ export default function Head({ search, setSearch }) {
           </div>
           <div className="flex items-center p-1 relative">
             <Link to="/cart">
-              <ShoppingBagIcon className="h-8 w-8 lg:mr-2 cursor-pointer" style={{ strokeWidth: "1.1" }} />
+              <ShoppingBagIcon className="h-8 w-8 lg:mr-2 cursor-pointer " style={{ strokeWidth: "1.1" }} />
             </Link>
             {totalCartItemQuantity > 0 && <div className="absolute font-semibold w-4 h-4 bg-red-500 -top-[6px] right-0 sm:right-2 rounded-full text-xs text-gray-100 flex items-center justify-center">
                 {totalCartItemQuantity}

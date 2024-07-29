@@ -32,6 +32,7 @@ const TopBanner = () => {
                     </div>
                 </Link>
             </h1>
+            {/* <div className='h-12 bg-gradient-to-b from-gray-800 to-white w-full absolute -bottom-[166px]'></div> */}
         </div>
     );
 };

@@ -46,6 +46,10 @@
 }
 
 .alice-carousel__stage-item {
-  padding: 16px;
+  padding: 8px;
   border-radius: .5rem;
+}
+
+.alice-carousel__stage{
+  background-color: black;
 }

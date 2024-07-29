@@ -25,6 +25,7 @@ import { getUser } from "../../State/Auth/Action";
 import { findCollections } from "../../State/Collection/Action";
 import { findProducts } from "../../State/Product/Action";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const CustomerRouters = () => {
   const [search, setSearch] = useState("");
@@ -42,6 +43,12 @@ const CustomerRouters = () => {
     pageNumber: 1,
     pageSize: 30,
   }
+
+  const collections = useSelector(state=>state.collections);
+  const products = useSelector(state=>state.products);
+
+
+  console.log(collections, products, 'collections products ......')
 
   useEffect(()=>{
     setTimeout(()=>{

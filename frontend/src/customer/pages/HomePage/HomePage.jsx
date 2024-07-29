@@ -20,20 +20,25 @@ import BottomReview from '../../components/BottomReview/BottomReview'
 import MiddleCarousel from '../../components/MiddleCarousel/MiddleCarousel'
 import Collections from '../../components/Collections/Index'
 import TopSellers from '../../components/TopSellers/Index'
+import Seperator from '../../components/Seperator/Seperator'
 
 export const HomePage = () => {
     return (
         <div className='min-h-screen min-w-[100vw]'>
             <TopBanner />
+            <Seperator/>
             <Collections/>
+            <div className='-mt-[250px]'>
+                <Seperator/>
+            </div>
             <TopSellers />
             {/* <SupportBanner /> */}
             {/* <VideoMiddle /> */}
             
             {/* <MiddleCarousel /> */}
             {/* <BottomBanner /> */}
-            <BottomMessages />
-            {/* <BottomReview /> */}
+            {/* <BottomMessages /> */}
+            <BottomReview />
             {/* <div className='space-y py-20 flex flex-col justify-center px-5 lg:px-10'>
                 < HomeSectionCarosel />
             </div> */}
