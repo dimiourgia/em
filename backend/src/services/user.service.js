@@ -1,24 +1,35 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/user.model.js');
-const jwtProvider=require("../config/jwtProvider")
+const jwtProvider=require("../config/jwtProvider");
+const referralService  = require("../services/referral.service.js");
 
 const createUser = async (userData)=>{
     try {
 
-        let {firstName,lastName,email,password,role}=userData;
+        let {firstName,lastName, email, password,role, referralCode}=userData;
 
         const isUserExist=await User.findOne({email});
 
 
         if(isUserExist){
-            throw new Error("user already exist with email : ",email)
+            throw new Error(`This email is already registered. Please login with your credentials.`)
         }
 
         password=await bcrypt.hash(password,8);
-    
-        const user=await User.create({firstName,lastName,email,password,role})
+        let referrer = null;
+        
+        if (referralCode) {
+            const referrer_ = await User.findOne({ referralCode });
+            if (referrer_) {
+                referrer = referrer_._id;
+                await referralService.handleReferral(referrer._id);
+            }
+        }
 
+const referralService  = require("../services/referral.service.js");
+const user = await User.create({firstName,lastName,email,password,role, referralCode: referralService.generateReferralCode(), referrer})
+        
         console.log("user ",user)
     
         return user;

@@ -20,22 +20,26 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    required:true,
-    default:"CUSTOMER"
+    required: true,
+    default: "CUSTOMER"
   },
+  referralCode: { type: String, unique: true },
+  referrer: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  referralCount: { type: Number, default: 0 },
+  referralRewards: { type: Number, default: 0 },
   mobile: {
     type: String,
   },
   addresses: [
     {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "addresses",
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "addresses",
     },
-  ], 
+  ],
   paymentInformation: [
     {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "payment_information",
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "payment_information",
     },
   ],
   ratings: [
@@ -43,14 +47,14 @@ const userSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "ratings",
     },
-  ], 
+  ],
   reviews: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "reviews",
     },
   ],
-  resetPasswordOtp:{
+  resetPasswordOtp: {
     type: String,
     default: null,
   },
@@ -59,7 +63,7 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: null,
   },
-},{
+}, {
   timestamps: true,
 });
 
