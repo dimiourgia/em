@@ -12,13 +12,14 @@ export default function({product}){
     }
 
 
-    return(<div className='relative ml-4 flex flex-col' onClick={()=>navigate(`/product/${product._id}`)}>
+    return(<div className='relative flex flex-col' onClick={()=>navigate(`/product/${product._id}`)}>
         <Link className="" onMouseEnter={handleMouseEnter}>
-            <div className="overflow-hidden">
+            <div className="overflow-hidden rounded-lg shadow-lg group">
                 <img
-                    className="transition-transform duration-300 ease-in-out transform hover:scale-110"
+                    className="transition-transform duration-300 ease-in-out transform group-hover:scale-110"
                     src={product.imageUrl[imageIndex]}
                     alt={product?.title}/>
+                    <div class="absolute rounded-lg inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
             </div>
         </Link>
         <div className="absolute bottom-0 w-full">

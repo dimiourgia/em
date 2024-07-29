@@ -39,7 +39,7 @@ const CartItem = ({ item, showButton }) => {
           />
         </div>
         <div className="ml-5 space-y-1">
-          <p className="font-semibold font-heading">{item?.product?.title}</p>
+          <p className="font-semibold font-roboto">{item?.product?.title}</p>
           <p className="opacity-70 font-medium mt-2">Size: {item?.size}</p>
           <p className="opacity-70 font-medium mt-2">Quantity: {item?.quantity}</p>
           <div className="flex space-x-2 items-center pt-2">

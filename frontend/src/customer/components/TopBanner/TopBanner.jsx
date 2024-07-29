@@ -17,7 +17,7 @@ const TopBanner = () => {
     }, []);
 
     return (
-        <div className="relative w-screen h-[calc(100vh-150px)] translate-y-[2vmin]">
+        <div className="relative w-screen h-[calc(100vh-150px)]">
             <h1 className="w-full">
                 <Link to="/products">
                     {/* <img

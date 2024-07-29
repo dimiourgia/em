@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import { useLocation, useNavigate } from "react-router-dom";
 import DelevryAdressForm from "./DelevryAdressForm";
@@ -11,7 +11,11 @@ export default function Checkout() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const searchParams = new URLSearchParams(location.search);
-  const step = searchParams.get('step');
+  const [step, setStep] = useState(searchParams.get('step'));
+
+  useEffect(()=>{
+    setStep(searchParams.get('step'));
+  },[location]);
   const orderId = searchParams.get("order_id");
   const order = useSelector(state => state.order);
 
@@ -28,8 +32,11 @@ export default function Checkout() {
   };
 
   const handleBack = () => {
-    if (step === '1') {
+    if (step == '1') {
       navigate('/checkout?step=0');
+    }
+    if(step == '0'){
+      navigate('/cart')
     }
   };
 

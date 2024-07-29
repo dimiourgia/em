@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { findProductsById } from "../../../State/Product/Action";
 import { addItemToCart } from "../../../State/Cart/Action";
+import ZoomComponent from "./ZoomComponent";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -22,10 +23,18 @@ export default function ProductDetails() {
     setActiveImage(imgUrl);
   };
 
+  const cart = useSelector(state=>state.cart);
+  const {user} = useSelector(state=>state.auth);
+
+  console.log('cart', cart);
+
   const handelAddToCart = () => {
     const data = { productId: params.productId, size: selectedSize.name };
     const jwt = localStorage.getItem('jwt');
-    if (jwt) {
+    console.log(jwt, 'jwt')
+    console.log('cart', cart);
+    console.log('user', user);
+    if (jwt && user != null) {
       dispatch(addItemToCart(data));
       navigate('/cart');
     } else {
@@ -60,11 +69,12 @@ export default function ProductDetails() {
         {/* Image gallery */}
         <div className="mx-4 sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4">
           <div className="">
-            <img
+            {/* <img
               src={activeImage || product?.imageUrl[0]}
               alt={product?.title}
               className="p-1 h-full w-full object-contain"
-            />
+            /> */}
+            <ZoomComponent src={activeImage || product?.imageUrl[0]} />
           </div>
 
           <div className="flex space-x-1 px-1">
@@ -86,10 +96,10 @@ export default function ProductDetails() {
 
 
         <div className="mx-5 m-1 p-5 sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4 bg-white">
-          <h1 className="text-lg lg:text-2xl font-heading font-medium text-black opacity-70">
+          <h1 className="text-lg lg:text-2xl font-roboto font-medium text-black opacity-70">
             {product?.title}
           </h1>
-          <h1 className="font-heading text-red-700 opacity-70">
+          <h1 className="font-roboto text-red-700 opacity-70">
             {product?.brand}
           </h1>
 
@@ -117,7 +127,7 @@ export default function ProductDetails() {
               {/* Sizes */}
               <div className="md:mt-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-heading text-center">
+                  <h3 className="font-roboto text-center">
                     Size
                   </h3>
                   <h2 className="font-text text-red-600">
@@ -194,8 +204,8 @@ export default function ProductDetails() {
               </div>
 
               {/* highlights */}
-              <div className="p-3 mt-4 font-sans-serif">
-                <div className="text-neutral-700 font-semibold">Key Materials</div>
+              <div className="p-3 mt-4 font-roboto opacity-70">
+                <div className="text-neutral-400 font-semibold">Key Features</div>
                 <div className="grid grid-cols-2 text-neutral-600">
                   <div className="text-neutral-400">Material</div>
                   <div className="">{product?.material}</div>
@@ -215,7 +225,7 @@ export default function ProductDetails() {
                 onClick={handelAddToCart}
                 type="submit"
                 className={`${selectedSize !== "" && selectedSize !== "Out of stock" ? "cursor-pointer" : "cursor-not-allowed"
-                  } flex gap-4 items-center justify-center w-full mt-6 hover:bg-gray-700 bg-gray-500 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700`}
+                  } flex gap-4 items-center text-white justify-center w-full mt-6 hover:bg-blue-700 bg-blue-400 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700`}
               >
                 <img src="/images/cart_white.svg" />
                 Add to cart

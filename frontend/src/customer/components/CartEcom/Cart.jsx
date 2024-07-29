@@ -55,10 +55,10 @@ const Cart = () => {
           </div>
           <div className="lg:px-2 mt-2 sticky top-0">
             <div className="border border-gray-500 p-5 bg-white rounded-md">
-              <p className="font-bold font-text opacity-70">PRICE DETAILS</p>
+              <p className="font-bold font-roboto opacity-70">PRICE DETAILS</p>
               <hr />
 
-              <div className="space-y-3 font-text font-semibold">
+              <div className="space-y-3 font-roboto font-semibold">
                 <div className="flex justify-between pt-3 text-black">
                   <span>Price ({cart.cart?.totalItem} item)</span>
                   <span>₹{cart.cart?.totalPrice}</span>
@@ -72,7 +72,7 @@ const Cart = () => {
                   <span className="text-green-700">Free</span>
                 </div>
                 <hr />
-                <div className="flex justify-between font-bold font-text text-lg">
+                <div className="flex justify-between font-bold font-roboto text-lg">
                   <span>Total Amount</span>
                   <span className="text-green-700">₹{cart.cart?.totalDiscountedPrice}</span>
                 </div>
@@ -80,7 +80,7 @@ const Cart = () => {
               <button
                 onClick={() => navigate("/checkout?step=0")}
                 type="submit"
-                className="bg-gray-400 text-gray-700 font-extrabold py-3 px-8 mt-8 w-full transition duration-300 ease-in-out hover:bg-gray-500"
+                className="bg-blue-600 text-white font-extrabold py-3 px-8 mt-8 w-full transition duration-300 ease-in-out hover:bg-blue-700"
               >
                 Buy Now
               </button>

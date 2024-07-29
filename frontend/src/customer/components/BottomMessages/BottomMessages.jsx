@@ -2,7 +2,7 @@ import React from 'react'
 
 const BottomMessages = () => {
     return (
-        <div className='w-full'>
+        <div className='w-full mb-10'>
             <div className='mt-[100px]'>
                 <img
                     src="images/31.webp"

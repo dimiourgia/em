@@ -33,8 +33,7 @@ export const HomePage = () => {
             {/* <MiddleCarousel /> */}
             {/* <BottomBanner /> */}
             <BottomMessages />
-            <BottomJournal />
-            <BottomReview />
+            {/* <BottomReview /> */}
             {/* <div className='space-y py-20 flex flex-col justify-center px-5 lg:px-10'>
                 < HomeSectionCarosel />
             </div> */}

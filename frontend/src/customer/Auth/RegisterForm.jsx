@@ -34,6 +34,7 @@ const RegisterForm = () => {
             lastName: data.get("lastName"),
             email: data.get("email"),
             password: data.get("password"),
+            referralCode: data.get("referralCode"),
         }
 
         dispatch(register(userData))
@@ -46,7 +47,7 @@ const RegisterForm = () => {
                 <div className="grid grid-cols-1 mb-6 sm:grid-cols-2 gap-2">
                     <div>
                         <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
-                            First Name
+                            First Name <span className='text-red-400'>*</span>
                         </label>
                         <input
                             type="text"
@@ -58,7 +59,7 @@ const RegisterForm = () => {
                     </div>
                     <div>
                         <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
-                            Last Name
+                            Last Name <span className='text-red-400'>*</span>
                         </label>
                         <input
                             type="text"
@@ -70,7 +71,7 @@ const RegisterForm = () => {
                     </div>
                     <div className="sm:col-span-2">
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                            Email
+                            Email <span className='text-red-400'>*</span>
                         </label>
                         <input
                             type="email"
@@ -82,7 +83,7 @@ const RegisterForm = () => {
                     </div>
                     <div className="sm:col-span-2 relative">
                         <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                            Password
+                            Password <span className='text-red-400'>*</span>
                         </label>
                         <input
                             type={passwordVisible ? 'text' : 'password'}
@@ -99,6 +100,17 @@ const RegisterForm = () => {
                             {passwordVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
                         </div>
                     </div>
+                    <div className="sm:col-span-2">
+                        <label htmlFor="referralCode" className="block text-sm font-medium text-gray-700">
+                            Referral Code <span className='text-gray-500'>(Optional)</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="referralCode"
+                            name="referralCode"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                        />
+                    </div>
                 </div>
 
                 <div className="sm:col-span-2">
@@ -109,6 +121,8 @@ const RegisterForm = () => {
                         Register
                     </button>
                 </div>
+
+                <p className='text-red-400 mt-4'>{auth?.error}</p>
             </form>
 
             <div className="mt-6 flex flex-col items-center">

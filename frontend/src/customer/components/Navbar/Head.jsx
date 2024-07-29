@@ -39,14 +39,16 @@ function NavList({ search, setSearch, closeNav }) {
         <SearchBar search={search} setSearch={setSearch} />
       </ListItem>
       </Typography>
-      <div  variant="h6" className="font-roboto tracking-tighter text-normal cursor-pointer hover:text-[#BFAE9F] ">
-        <span onClick={handleScrollToSection}>COLLECTIONS</span>
-      </div>
-      {/* <Typography as={Link} to="/about" variant="h6" className="font-heading">
-        <ListItem>About Us</ListItem>
-      </Typography> */}
-      <div onClick={()=> {closeNav(); navigate("/women-warriors")}}  className="font-roboto text-normal tracking-tighter cursor-pointer hover:text-[#BFAE9F]">
-        WOMEN WARRIORS
+      <div className="flex divide-x gap-4">
+        <div  variant="h6" className="font-roboto tracking-tighter text-lg cursor-pointer hover:text-[#BFAE9F] ">
+          <span onClick={handleScrollToSection}>COLLECTIONS</span>
+        </div>
+        {/* <Typography as={Link} to="/about" variant="h6" className="font-heading">
+          <ListItem>About Us</ListItem>
+        </Typography> */}
+        <div onClick={()=> {closeNav(); navigate("/women-warriors")}}  className="pl-4 font-roboto text-lg tracking-tighter cursor-pointer hover:text-[#BFAE9F]">
+          WOMEN WARRIORS
+        </div>
       </div>
     </List>
   );
@@ -65,6 +67,7 @@ export default function Head({ search, setSearch }) {
   const cartContent = useSelector(state=>state.cart);
   console.log(cartContent, 'item in cart');
   const [totalCartItemQuantity, setTotalCartItemQuantity] = useState(0);
+  const {user, error} = useSelector(state=>state.auth);
 
   useEffect(()=>{
       let totalQuantity = 0;
@@ -106,7 +109,7 @@ export default function Head({ search, setSearch }) {
   };
 
   useEffect(() => {
-    if(jwt){
+    if(jwt && auth.error != 'jwt expired'){
       dispatch(getUser(jwt));
     }else if (location.pathname === '/login') {
       handleOpen();

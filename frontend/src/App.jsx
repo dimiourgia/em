@@ -12,7 +12,7 @@ function App() {
     <div>
     <ScrollToTop/>
 
-<FloatingWhatsApp
+{/* <FloatingWhatsApp
         accountName="Empressa"
         buttonClassName="whatsappButton"
         avatar="https://res.cloudinary.com/du5p1rnil/image/upload/v1713256699/empressa/ul5agvxpmsozwrahu5z0.png"
@@ -25,7 +25,7 @@ function App() {
         allowClickAway
         notification
         notificationSound
-      />
+      /> */}
 
       <Routes>
         <Route path='/*' element={<CustomerRouters />}></Route>

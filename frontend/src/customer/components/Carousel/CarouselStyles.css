@@ -40,7 +40,12 @@
   .alice-carousel__stage-item img {
     width: 100%;
     height: auto;
-    max-height: calc(100vh - 150px);
+    /* max-height: calc(100vh - 150px); */
     object-fit: cover; /* Ensure images cover the area */
     object-position: top;
+}
+
+.alice-carousel__stage-item {
+  padding: 16px;
+  border-radius: .5rem;
 }
