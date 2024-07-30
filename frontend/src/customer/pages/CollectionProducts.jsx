@@ -8,8 +8,6 @@ export default function(){
     const params = useParams();
     const id = params.id;
 
-    const products = useSelector(state=>state.products);
-
     return(<>  
         <Product collectionId={id}/>  
     </>)

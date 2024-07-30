@@ -21,12 +21,12 @@ function NavList({ search, setSearch, closeNav }) {
   const navigate = useNavigate();
   console.log('close nav function', closeNav);
   
-  const handleScrollToSection = (event) => {
+  const handleScrollToSection = (event, section) => {
     event.preventDefault();
     closeNav();
     navigate('/');
     setTimeout(() => {
-      const element = document.getElementById('collection-section');
+      const element = document.getElementById(section);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
@@ -42,19 +42,18 @@ function NavList({ search, setSearch, closeNav }) {
       </Typography>
       <div className="flex divide-x divide-gray-600 gap-4 tracking-wide whitespace-nowrap text-lg">
         <div  variant="h6" className={`font-roboto tracking-widest text-[${colors["primary-100"]}] cursor-pointer hover:text-[${colors["primary-200"]}] `}>
-          <span onClick={handleScrollToSection}>COLLECTIONS</span>
+          <span onClick={(e)=>handleScrollToSection(e,'collection-section')}>COLLECTIONS</span>
         </div>
         {/* <Typography as={Link} to="/about" variant="h6" className="font-heading">
           <ListItem>About Us</ListItem>
         </Typography> */}
-        <div onClick={()=> {closeNav(); navigate("/women-warriors")}}  className={`pl-4 font-roboto text-[${colors["primary-100"]}]  cursor-pointer hover:text-[${colors["primary-200"]}]`}>
-          WOMEN WARRIORS
-        </div>
-
-        <div onClick={()=> {closeNav(); navigate("/women-warriors")}}  className={`pl-4 font-roboto text-[${colors["primary-100"]}] cursor-pointer hover:text-[${colors["primary-200"]}]`}>
+        <div onClick={(e)=> handleScrollToSection(e, 'top-selling-section')}  className={`pl-4 font-roboto text-[${colors["primary-100"]}] cursor-pointer hover:text-[${colors["primary-200"]}]`}>
           TOP SELLING
         </div>
 
+        <div onClick={()=> {closeNav(); navigate("/women-warriors")}}  className={`pl-4 font-roboto text-[${colors["primary-100"]}]  cursor-pointer hover:text-[${colors["primary-200"]}]`}>
+          WOMEN WARRIORS
+        </div>
       </div>
     </List>
   );
@@ -164,7 +163,7 @@ export default function Head({ search, setSearch }) {
             {auth.user ? (
               <div>
                 <div
-                  className={`h-8 w-8 flex items-center justify-center text-[${colors["primary-100"]}] text-white rounded-full cursor-pointer`}
+                  className={`h-8 w-8 flex items-center justify-center text-[${colors["primary-100"]}] text-white bg-gray-600 rounded-full cursor-pointer`}
                   onClick={handleUserClick}
                   aria-controls={openUserMenu ? "basic-menu" : undefined}
                   aria-haspopup="true"

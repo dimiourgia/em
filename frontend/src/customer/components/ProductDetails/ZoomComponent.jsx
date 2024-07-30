@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 const ZoomComponent = ({ src }) => {
   const [backgroundPosition, setBackgroundPosition] = useState("0% 0%");
   const [backgroundImage, setBackgroundImage] = useState("");
-  const [imageWidth, setImageWidth] = useState(0);
+  const [scaleFactor, setScaleFactor] = useState(2);  // Adjust this as needed
   const zoomRef = useRef(null);
   const lensRef = useRef(null);
 
@@ -11,8 +11,7 @@ const ZoomComponent = ({ src }) => {
     setBackgroundImage(`url(${src})`);
     const updateImageWidth = () => {
       if (zoomRef.current) {
-        setImageWidth(zoomRef.current.offsetWidth);
-        console.log('image widht', zoomRef.current.offsetWidth);
+        console.log('image width', zoomRef.current.offsetWidth);
       }
     };
     updateImageWidth();
@@ -23,32 +22,36 @@ const ZoomComponent = ({ src }) => {
   }, [src]);
 
   const handleMouseMove = (e) => {
-    const { offsetX, offsetY, target } = e.nativeEvent;
-    const { width, height } = target.getBoundingClientRect();
+    if (!zoomRef.current) return;
 
-    const x = (offsetX / width) * 100;
-    const y = (offsetY / height) * 100;
-    
-    setBackgroundPosition(`${x}% ${y}%`);
+    const { offsetX, offsetY } = e.nativeEvent;
+    const { width, height } = zoomRef.current.getBoundingClientRect();
 
-    // Move the lens
+    // Ensure the lens position and size are correctly calculated
+    const lensSize = 100;  // Adjust the size of the lens
     const lens = lensRef.current;
-    lens.style.left = `${offsetX - lens.offsetWidth / 2}px`;
-    lens.style.top = `${offsetY - lens.offsetHeight / 2}px`;
+    const posX = offsetX - lensSize / 2;
+    const posY = offsetY - lensSize / 2;
+
+    // Adjust lens position without exceeding image boundaries
+    lens.style.left = `${Math.max(0, Math.min(posX, width - lensSize))}px`;
+    lens.style.top = `${Math.max(0, Math.min(posY, height - lensSize))}px`;
+
+    // Calculate background position for zoom effect
+    const xPercent = (offsetX / width) * 100;
+    const yPercent = (offsetY / height) * 100;
+    setBackgroundPosition(`${xPercent}% ${yPercent}%`);
   };
 
   const [showLens, setShowLens] = useState(false);
 
-  const handleMouseEnter = ()=>{
+  const handleMouseEnter = () => {
     setShowLens(true);
-  }
+  };
 
-  const handleMouseLeave = ()=>{
+  const handleMouseLeave = () => {
     setShowLens(false);
-  }
-
-
-
+  };
 
   return (
     <div className="relative flex items-start">
@@ -62,12 +65,12 @@ const ZoomComponent = ({ src }) => {
 
       </div>
       {showLens && <div
-        className={`zoom-result absolute z-[100] -right-[450px] border border-gray-400`}
+        className="zoom-result absolute z-[100] -right-[450px] border border-gray-400"
         style={{
           width: "396px",
           height: "600px",
           backgroundImage,
-          backgroundSize: "800px 800px",
+          backgroundSize: `${scaleFactor * 100}% ${scaleFactor * 100}%`, // Adjusted background size based on scaleFactor
           backgroundPosition,
         }}
       ></div>}

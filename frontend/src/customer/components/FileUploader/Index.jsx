@@ -11,9 +11,9 @@ const blob_endpoint = `https://${storage_account}.blob.core.windows.net/?${stora
 
 // Configuration options for resizing
 const imageResizeConfig = {
-    quality: 0.9,
-    maxWidth: 1024,
-    maxHeight: 1024,
+    quality: 0.95,
+    maxWidth: 2048,
+    maxHeight: 2048,
     autoRotate: true,
     debug: true,
 };

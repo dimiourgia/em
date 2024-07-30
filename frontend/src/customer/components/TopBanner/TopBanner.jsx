@@ -33,6 +33,8 @@ const TopBanner = () => {
                 </Link>
             </h1>
             {/* <div className='h-12 bg-gradient-to-b from-gray-800 to-white w-full absolute -bottom-[166px]'></div> */}
+            <img src={'./images/transparent_grayscale_logo.png'} className='absolute top-[225px] left-[38px] h-[400px] w-[400px] -z-[1]' />
+            
         </div>
     );
 };

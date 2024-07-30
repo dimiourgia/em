@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { findProductsById } from "../../../State/Product/Action";
 import { addItemToCart } from "../../../State/Cart/Action";
 import ZoomComponent from "./ZoomComponent";
+import SkeletonProductDetails from "./SkeletonProductDetails";
+import ErrorComponent from "../Error/Index";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -63,8 +65,8 @@ export default function ProductDetails() {
     }
   }, [product]);
 
-  return (
-    <div className="bg-white pt-6">
+  return (<>
+    {!products.loading && !products.error && <div className="bg-white pt-6">
       <div className="md:flex justify-center">
         {/* Image gallery */}
         <div className="mx-4 sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4">
@@ -251,6 +253,11 @@ export default function ProductDetails() {
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </div>
         </div>
-      </div>
-  );
+    </div>}
+
+    {products.loading && <SkeletonProductDetails/>}
+
+    {products.error && <ErrorComponent errorMessage={products.error} />}
+
+      </>);
 }

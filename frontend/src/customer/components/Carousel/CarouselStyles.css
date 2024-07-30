@@ -9,10 +9,10 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.2);
     color: rgb(12, 10, 10);
     border: none;
-    border-radius: 50%;
+    border-radius: 5px;
     width: 40px;
     height: 40px;
     font-size: 24px;
@@ -20,17 +20,23 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    z-index: 10000;
+    z-index: 1;
     transition: background-color 0.3s ease;
   }
   
   .custom-prev-button:hover,
   .custom-next-button:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .custom-prev-button-disabled, 
+  .custom-next-button-disabled {
+    color: rgb(175, 174, 174);
   }
   
   .custom-prev-button {
     left: 10px;
+    padding-left: 8px;
   }
   
   .custom-next-button {
@@ -48,8 +54,4 @@
 .alice-carousel__stage-item {
   padding: 8px;
   border-radius: .5rem;
-}
-
-.alice-carousel__stage{
-  background-color: black;
 }

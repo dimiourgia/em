@@ -1,22 +1,11 @@
 import Card from './Card';
-import CompanyCarousel from '../CompanyCarousel/CompanyCarousel';
-//import './carousel.css'
-import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { findCollections, findCollectionById } from '../../../State/Collection/Action';
+import { findCollections} from '../../../State/Collection/Action';
 import CarouselComponent from '../Carousel/Index';
 import PlaceholderCard from './CardSkeleton';
 
-
-const responsive = {
-    0: { items: 1 },
-    568: { items: 2 },
-    1024: { items: 3 },
-};
-
-const placeholderItems = ['first', 'second', 'third'];
 
 const order = ['Stripes of Strength', 'Empowered Ember', 'Minted Resolve', 'Eclipsed Ascendancy', 'Radiant Rebellion'];
 
@@ -36,7 +25,10 @@ const Collections = () => {
 
     useEffect(()=>{
         console.log(collections, 'collections')
-    },[collections])
+        if(collections?.length < 1){
+            dispatch(findCollections());
+        }
+    },[])
 
     return (
         <div className=''>
@@ -67,7 +59,7 @@ const Collections = () => {
                     }
 
                     {collections == null || collections == undefined || collections.length == 0 &&
-                        <CarouselComponent key="collections_carousel" items={ [<PlaceholderCard />, <PlaceholderCard />, <PlaceholderCard />] } 
+                        <CarouselComponent isDummy={true} key="collections_carousel" items={[<PlaceholderCard/>, <PlaceholderCard/>, <PlaceholderCard/>] } 
                             />}
                 </div>
             </div>
