@@ -7,9 +7,9 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import debounce from 'lodash.debounce';
 
 const responsive = {
-    0: { items: 1 },
-    568: { items: 2 },
-    1024: { items: 3 },
+    0: { items: 2 },
+    568: { items: 3 },
+    1024: { items: 5 },
 };
 
 

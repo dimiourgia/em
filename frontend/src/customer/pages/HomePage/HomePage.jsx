@@ -28,11 +28,8 @@ export const HomePage = () => {
         <div className='min-h-screen min-w-[100vw]'>
             <TopBanner />
             {/* <TopBanner2 /> */}
-            <Seperator/>
+            {/* <Seperator/> */}
             <Collections/>
-            <div className='-mt-[250px]'>
-                <Seperator/>
-            </div>
             <TopSellers />
             {/* <SupportBanner /> */}
             {/* <VideoMiddle /> */}

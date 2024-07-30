@@ -137,7 +137,7 @@ export default function Head({ search, setSearch }) {
   }
 
   return (
-    <div className="fixed h-[70px] top-0 z-[100] bg-heading-bg w-full pb-2 pt-1">
+    <div className="fixed h-[70px] top-0 z-[100] bg-[#fff] w-full pb-2 pt-1 shadow-sm">
       <div className={`flex items-center justify-between text-[${colors["primary-100"]}]`}>
         <div
           onClick={()=>navigate('/')}

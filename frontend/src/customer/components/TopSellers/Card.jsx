@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom"
 import Product from "../Product/Product";
 import { useState } from "react";
 
-export default function({product}){
+export default function({product, defaultImageIndex}){
 
     const navigate = useNavigate();
     const [imageIndex, setImageIndex] = useState(0);
@@ -17,7 +17,7 @@ export default function({product}){
             <div className="overflow-hidden rounded-lg shadow-lg group">
                 <img
                     className="transition-transform duration-300 ease-in-out transform group-hover:scale-110"
-                    src={product.imageUrl[imageIndex]}
+                    src={product.imageUrl[defaultImageIndex]}
                     alt={product?.title}/>
                     <div class="absolute rounded-lg inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
             </div>

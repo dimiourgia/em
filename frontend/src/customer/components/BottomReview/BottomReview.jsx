@@ -71,14 +71,7 @@ const items = [
 const Review = ({review}) => {
 
     return (
-        <div className="item hover:shadow-xl min-h-[300px]  mt-[100px] mb-[50px] border border-gray-200 rounded-lg m-[10px] " data-value="1">
-            <div className='text-center pt-[30px]'>
-                <GradeIcon />
-                <GradeIcon />
-                <GradeIcon />
-                <GradeIcon />
-                <GradeIcon />
-            </div>
+        <div className="relative item hover:shadow-xl min-h-[300px]  mt-[100px] mb-[50px] border border-gray-200 rounded-lg m-[10px] " data-value="1">
             <div className='w-full md:w-1/3 px-3 md:mb-0'>
                 <div className="flex justify-center items-center p-4 ">
                     <p className="p-2 px-4 group font-roboto font-semibold"  >
@@ -94,11 +87,18 @@ const Review = ({review}) => {
                 </p>
             </div>
 
+            <div className='absolute flex w-full justify-center bottom-10 text-center pt-[30px]'>
+                <GradeIcon />
+                <GradeIcon />
+                <GradeIcon />
+                <GradeIcon />
+                <GradeIcon />
+            </div>
         </div>)
 }
 
 const BottomReview = () => (
-    <CarouselComponent showControls={false} autoplay={true} items={reviews.map(review=><Review review={review}/>)} key='review_carousel' isDummy={false} />
+    <AliceCarousel responsive={responsive} infinite autoPlayInterval={700} autoPlay={true} items={reviews.map(review=><Review review={review}/>)} key='review_carousel'/>
 );
 
 
