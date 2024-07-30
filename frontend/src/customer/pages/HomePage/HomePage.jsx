@@ -21,11 +21,13 @@ import MiddleCarousel from '../../components/MiddleCarousel/MiddleCarousel'
 import Collections from '../../components/Collections/Index'
 import TopSellers from '../../components/TopSellers/Index'
 import Seperator from '../../components/Seperator/Seperator'
+import TopBanner2 from '../../components/AlternateTopBanner/Index'
 
 export const HomePage = () => {
     return (
         <div className='min-h-screen min-w-[100vw]'>
             <TopBanner />
+            {/* <TopBanner2 /> */}
             <Seperator/>
             <Collections/>
             <div className='-mt-[250px]'>

@@ -141,14 +141,14 @@ export default function Head({ search, setSearch }) {
       <div className={`flex items-center justify-between text-[${colors["primary-100"]}]`}>
         <div
           onClick={()=>navigate('/')}
-          className="w-[54px] h-[60px] relative cursor-pointer ml-10 flex flex-col items-center"
+          className="relative w-[280px] h-[60px] relative cursor-pointer pl-10 flex flex-col items-start"
         >
           <img
             src="/images/logo.png"
             alt="Empressa"
             className="absolute -top-[4px] h-12 w-12"
           />
-          <div className={`text-[${colors["primary-100"]}] absolute top-[32px] font-roboto font-semibold`}>
+          <div className={`text-[${colors["primary-100"]}] absolute top-[32px] left-[29px] font-roboto font-semibold`}>
             Empressa
           </div>
         </div>
@@ -198,7 +198,7 @@ export default function Head({ search, setSearch }) {
             <Link to="/cart">
               <ShoppingBagIcon className="h-8 w-8 lg:mr-2 cursor-pointer " style={{ strokeWidth: "1.1" }} />
             </Link>
-            {totalCartItemQuantity > 0 && <div className="absolute font-semibold w-4 h-4 bg-red-500 -top-[6px] right-0 sm:right-2 rounded-full text-xs text-gray-100 flex items-center justify-center">
+            {totalCartItemQuantity > 0 && <div className="absolute font-semibold w-4 h-4 bg-red-500 -top-[6px] right-0 sm:-ml-2 rounded-full text-xs text-gray-100 flex items-center justify-center">
                 {totalCartItemQuantity}
             </div>}
           </div>

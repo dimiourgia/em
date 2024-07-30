@@ -2,6 +2,7 @@ import React from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import GradeIcon from '@mui/icons-material/Grade';
+import CarouselComponent from '../Carousel/Index';
 
 const responsive = {
     0: { items: 1 },
@@ -9,131 +10,96 @@ const responsive = {
     1024: { items: 3 },
 };
 
+
+const reviews = [
+    {
+        "reviewHighlight": "Absolutely stunning!",
+        "review": "The Sunny Day Smocked Dress is perfect for a sunny day out. The fit is flattering, and the smocked detailing adds a nice touch. It pairs beautifully with sandals or heels.",
+        "user": {
+            "name": "Priya",
+            "location": "Jaipur"
+        }
+    },
+    {
+        "reviewHighlight": "Perfect summer dress!",
+        "review": "I love the bright color and comfortable fabric of the Sunny Day Smocked Dress. It’s great for casual outings and easy to dress up with accessories.",
+        "user": {
+            "name": "Kavya",
+            "location": "Mumbai"
+        }
+    },
+    {
+        "reviewHighlight": "Versatile and stylish!",
+        "review": "The Minted Resolve Collection has something for every occasion. The designs are chic and the quality is impressive. I’ve received so many compliments already!",
+        "user": {
+            "name": "Rahul",
+            "location": "Delhi"
+        }
+    },
+    {
+        "reviewHighlight": "Great collection!",
+        "review": "I recently purchased a few pieces from the Minted Resolve Collection and I am thrilled with my choices. The fabrics are soft and the colors are vibrant. Highly recommend!",
+        "user": {
+            "name": "Sanya",
+            "location": "Bangalore"
+        }
+    },
+    {
+        "reviewHighlight": "Chic and comfortable!",
+        "review": "The Citrus Breeze Button-Up Blouse is a must-have. It’s perfect for both work and casual wear. The fit is just right and the material is breathable.",
+        "user": {
+            "name": "Anika",
+            "location": "Chennai"
+        }
+    },
+    {
+        "reviewHighlight": "Stylish and elegant!",
+        "review": "I love how the Citrus Breeze Button-Up Blouse fits. The buttons add a nice touch and it pairs well with both jeans and skirts. Perfect addition to my wardrobe!",
+        "user": {
+            "name": "Saumya",
+            "location": "Hyderabad"
+        }
+    }
+]
+
 const items = [
     // 1
-    <div className="item hover:shadow-2xl  mt-[100px] mb-[50px] border border-gray-200 rounded m-[10px] " data-value="1">
-        <div className='text-center pt-[30px]'>
-            <GradeIcon />
-            <GradeIcon />
-            <GradeIcon />
-            <GradeIcon />
-            <GradeIcon />
-        </div>
-        <div className='w-full md:w-1/3 px-3 md:mb-0'>
-            <div className="flex justify-center items-center p-4 ">
-                <p className="p-2 px-4 group"  >
-                    Gorgeous dress!
-                </p>
-            </div>
-            {/* <p className='font-text text-center text-lg  text-black mt-[30px] underline  '>
-                Gorgeous dress!
-            </p> */}
-            <p className='font-text text-center text-base  text-gray-800'>
-                The Kyra Midi is just beautiful and looks great layered & with boots as we change seasons. I love the volume of the fabric, especially the gathering at the back, and the length of the dress.
-            </p>
-            <p className='font-text text-center text-lg  text-black mt-[30px] '>
-                Anjali, Lucknow
-            </p>
-        </div>
 
-    </div>,
-    //2
-    <div className="item hover:shadow-2xl  mt-[100px] mb-[50px]  border border-gray-200 rounded m-[10px]" data-value="2">
-        <div className='text-center pt-[30px]'>
-            <GradeIcon />
-            <GradeIcon />
-            <GradeIcon />
-            <GradeIcon />
-            <GradeIcon />
-        </div>
-        <div className='w-full md:w-1/3 px-3 md:mb-0'>
-            <div className="flex justify-center items-center p-4 ">
-                <p className="p-2 px-4 group"  >
-                    I love my dress
-                </p>
-            </div>
-            {/* <p className='font-text text-center text-lg  text-black mt-[30px] underline '>
-                I love my dress
-            </p> */}
-            <p className='font-text text-center text-base  text-gray-800'>
-                It is beautifully made, it looks fabulous and I feel good knowing that my Daughters of India dress in an investment in slow fashion, empowering women and a community in there artisan crafts .
-            </p>
-            <p className='font-text text-center text-lg  text-black mt-[30px] '>
-                Kanhaiya, Sandila
-            </p>
-        </div>
-
-    </div>,
-    //3
-    <div className="item hover:shadow-2xl  mt-[100px] mb-[50px] border border-gray-200 rounded m-[10px]" data-value="3">
-        <div className='text-center pt-[30px]'>
-            <GradeIcon />
-            <GradeIcon />
-            <GradeIcon />
-            <GradeIcon />
-            <GradeIcon />
-        </div>
-        <div className='w-full md:w-1/3 px-3 md:mb-0'>
-            <div className="flex justify-center items-center p-4 ">
-                <p className="p-2 px-4 group"  >
-                    The most beautiful piece of clothing I own.
-                </p>
-            </div>
-            {/* <p className='font-text text-center text-lg  text-black mt-[30px] underline '>
-                The most beautiful piece of clothing I own
-            </p> */}
-            <p className='font-text text-center text-base  text-gray-800'>
-                MY GOODNESS. This dress is worth every single penny. I have never felt more beautiful and feminine in my life. It is so lightweight, flowy, and just down right stunning. Also the color is so sweet and romantic.
-            </p>
-            <p className='font-text text-center text-lg  text-black mt-[30px] '>
-                Parul , Bihar
-            </p>
-        </div>
-
-    </div>
 ];
 
+
+const Review = ({review}) => {
+
+    return (
+        <div className="item hover:shadow-xl min-h-[300px]  mt-[100px] mb-[50px] border border-gray-200 rounded-lg m-[10px] " data-value="1">
+            <div className='text-center pt-[30px]'>
+                <GradeIcon />
+                <GradeIcon />
+                <GradeIcon />
+                <GradeIcon />
+                <GradeIcon />
+            </div>
+            <div className='w-full md:w-1/3 px-3 md:mb-0'>
+                <div className="flex justify-center items-center p-4 ">
+                    <p className="p-2 px-4 group font-roboto font-semibold"  >
+                        {review.reviewHighlight}
+                    </p>
+                </div>
+                
+                <p className='font-roboto text-center text-base text-gray-800'>
+                    {review.review}
+                </p>
+                <p className='font-text text-center text-lg  text-black mt-[30px] '>
+                    {`${review.user.name}, ${review.user.location}`}
+                </p>
+            </div>
+
+        </div>)
+}
+
 const BottomReview = () => (
-    <AliceCarousel
-        mouseTracking
-        items={items}
-        responsive={responsive}
-        controlsStrategy="alternate"
-        infinite
-    />
+    <CarouselComponent showControls={false} autoplay={true} items={reviews.map(review=><Review review={review}/>)} key='review_carousel' isDummy={false} />
 );
-// import React from "react";
-// import AliceCarousel from "react-alice-carousel";
-// import "react-alice-carousel/lib/alice-carousel.css";
-// import InstagramIcon from '@mui/icons-material/Instagram';
-// import GradeIcon from '@mui/icons-material/Grade';
-// const items = [
 
-//     <div className="item bg-[#f9f9f9]" data-value="1">
-
-//         <div className="text-center ">
-//             <GradeIcon />
-//             <GradeIcon />
-//             <GradeIcon />
-//             <GradeIcon />
-//             <GradeIcon />
-
-//         </div>
-//         <p>The most beautiful piece of clothing I own</p>
-//     </div>,
-
-
-// ];
-
-// const BottomReview = () => (
-
-//     <AliceCarousel
-//         mouseTracking
-//         items={items}
-//         autoPlay
-//         autoPlayInterval={5000}
-//         infinite
-//     />
-// );
 
 export default BottomReview;

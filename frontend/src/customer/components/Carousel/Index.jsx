@@ -13,7 +13,7 @@ const responsive = {
 };
 
 
-const CarouselComponent = ({items, key, isDummy}) => {
+const CarouselComponent = ({items, key, isDummy, showControls=true, autoPlay=false}) => {
 
   const carouselRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
@@ -143,14 +143,14 @@ const CarouselComponent = ({items, key, isDummy}) => {
 
   return (<div className='relative'>
     <AliceCarousel
-      activeIndex={carouselKey}
+      activeIndex={showControls&&carouselKey}
       renderKey={key}
       ref={carouselRef}
       mouseTracking
       items={items}
       responsive={responsive}
       keyboardNavigation={true}
-      autoPlay={false}
+      autoPlay={autoPlay}
       autoPlayInterval={2000} // Adjust this value for speed, 5000 ms = 5 seconds
       animationDuration={700}
       renderDotsItem={()=>null}
@@ -171,7 +171,7 @@ const CarouselComponent = ({items, key, isDummy}) => {
         );
       }}
     />
-    {!isDummy && 
+    {!isDummy && showControls &&
       <>
         <div onClick={handlePrevious} className={`custom-prev-button ${!isPrevEnabled&&'custom-prev-button-disabled'}`}><ArrowBackIosIcon /></div>
         <div onClick={handleNext} className={`custom-next-button ${!isNextEnabled&&'custom-next-button-disabled'}`}><ArrowForwardIosIcon/></div>

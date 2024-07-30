@@ -1,5 +1,5 @@
 #images > .image{
-    width: 33%;;
+    width: 32.7%;
     height: 100vh;
     object-fit: cover;
     object-position: center;
@@ -7,7 +7,6 @@
 
 #images{
     display:flex;
-    gap: 1vmin;
     position:absolute;
     left: 50%;
     transform: translate(0%,0%);
@@ -26,5 +25,12 @@
 @media (max-width: 768px) {
     #images {
         animation-duration: 1s;
+        gap: 1vmin;
+    }
+    #images > .image{
+        width: 32.7vmin;
+        height: 100vh;
+        object-fit: cover;
+        object-position: center;
     }
 }
