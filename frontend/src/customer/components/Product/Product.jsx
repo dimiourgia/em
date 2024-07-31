@@ -15,7 +15,7 @@ const Product = ({ search, collectionId}) => {
   const  products  = useSelector((state) => state.products).products.filter(product=>product.collections == collectionId);
   const { collections } = useSelector((state) => state.collections);
   const [collection, setCollection] = useState({});
-  
+  const defaultImageIndex = [2, 6, 1, 0, 3]
 
   const [filterSize, setFilterSize] = useState({
     s: false,
@@ -220,8 +220,8 @@ const Product = ({ search, collectionId}) => {
                 </p>
                 
               ) : (
-                currentProducts.map((product) => (
-                  <ProductCard product={product} key={product._id} />
+                currentProducts.map((product, index) => (
+                  <ProductCard product={product} key={product._id} defaultImageIndex={defaultImageIndex[index]??0} />
                 ))
               )}
             </div>

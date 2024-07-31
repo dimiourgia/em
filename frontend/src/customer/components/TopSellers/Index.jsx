@@ -33,7 +33,7 @@ const TopSellers = () => {
             <div className="container pb-24 mx-auto px-4 mt-4">
                 <div className="w-full mx-auto">
                     {products != undefined && products !=null && products.length >0 && 
-                        <CarouselComponent isDummy={false} key='top_sellers_carousel' items={products.map((product,index)=><Card product={product} defaultImageIndex={defaultImageIndex[index]}/>)} />
+                        <CarouselComponent isDummy={false} key='top_sellers_carousel' items={products.map((product,index)=><Card product={product} defaultImageIndex={defaultImageIndex[index]??0}/>)} />
                     }
 
                     {products === undefined || products ==null || products.length == 0 &&

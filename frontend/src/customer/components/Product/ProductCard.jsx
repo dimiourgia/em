@@ -2,7 +2,7 @@ import React from "react";
 import "./ProductCard.css";
 import { useNavigate } from "react-router-dom";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, defaultImageIndex=0 }) => {
   const navigate = useNavigate();
   return (
     <>
@@ -13,7 +13,7 @@ const ProductCard = ({ product }) => {
         <div className="h-[15rem] rounded-t-md">
           <img
             className="h-[350px] w-full object-cover mx-auto flex justify-center items-center rounded-t-md"
-            src={product?.imageUrl[0]}
+            src={product?.imageUrl[defaultImageIndex]}
             alt="ss"
           />
         </div>
@@ -26,12 +26,14 @@ const ProductCard = ({ product }) => {
           </div>
           <div className="flex items-center mt-1 space-x-2">
             <p className="text-md font-text">{"₹" + product.discountedPrice}</p>
-            <p className="font-text line-through opacity-70 text-sm text-gray-500">
-              {"₹" + product.price}
-            </p>
-            <p className="text-green-500 text-xs font-text">
-              {((1 - product.discountedPrice / product.price) * 100).toFixed(0) + "% off"}
-            </p>
+            {product.price != product.discountedPrice && <div className="flex space-x-2">
+              <p className="font-text line-through opacity-70 text-sm text-gray-500">
+                {"₹" + product.price}
+              </p>
+              <p className="text-green-500 text-xs font-text">
+                {((1 - product.discountedPrice / product.price) * 100).toFixed(0) + "% off"}
+              </p>
+            </div>}
           </div>
         </div>
       </div>
