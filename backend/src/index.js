@@ -66,4 +66,8 @@ app.use("/api/admin/orders",adminOrderRoutes);
 const collectionRoutes=require("./routes/collection.routes.js");
 app.use("/api/collections", collectionRoutes)
 
+//address routes handler
+const addressRoutes=require("./routes/address.routes.js");
+app.use("/api/addresses", addressRoutes);
+
 module.exports={app};

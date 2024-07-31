@@ -14,7 +14,7 @@ const findOrderById = async (req, res) => {
   const user = req.user;
   try {
     let order = await orderService.findOrderById(req.params.id);
-    return res.status(201).send(order);
+    return res.status(200).send(order);
   } catch (error) {
     return res.status(500).send(error.message);
   }

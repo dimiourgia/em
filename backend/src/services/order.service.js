@@ -2,17 +2,27 @@ const Address = require("../models/address.model.js");
 const Order = require("../models/order.model.js");
 const OrderItem = require("../models/orderItems.js");
 const Product = require("../models/product.model.js");
+const User = require("../models/user.model.js");
 const cartService = require("../services/cart.service.js");
 
 async function createOrder(user, shippingAddress) {
   try {
+    // Check if the user exists
+    const existingUser = await User.findById(user._id);
+    if (!existingUser) {
+      throw new Error(`User not found with id: ${user._id}`);
+    }
+
     let address;
     if (shippingAddress._id) {
       address = await Address.findById(shippingAddress._id);
     } else {
       address = new Address(shippingAddress);
       address.user = user._id;
+      // Set address for the user
+      existingUser.address = address._id;
       await address.save();
+      await existingUser.save(); // Save the user with the new address
     }
 
     const cart = await cartService.findUserCart(user._id);
@@ -50,7 +60,7 @@ async function createOrder(user, shippingAddress) {
       orderItems: orderItems,
       totalPrice: cart.totalPrice,
       totalDiscountedPrice: cart.totalDiscountedPrice,
-      discounte: cart.discounte,
+      discount: cart.discount,
       totalItem: cart.totalItem,
       shippingAddress: address._id,
       orderDate: new Date(),
@@ -65,6 +75,7 @@ async function createOrder(user, shippingAddress) {
     throw new Error(error.message);
   }
 }
+
 
 async function placedOrder(orderId) {
   try {
