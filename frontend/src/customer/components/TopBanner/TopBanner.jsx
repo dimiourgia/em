@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './TopBanner.css';
+import AliceCarousel from 'react-alice-carousel';
+import './Carousel.css';
 
 const TopBanner = () => {
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -16,10 +18,18 @@ const TopBanner = () => {
         };
     }, []);
 
+    const imageNames = ['g3.png', '1.jpg', '2.jpg'];
+
+
     return (
-        <div className="relative w-[100vw] bg-[#f1f1f1]">
-           <img src='images/g3.png'></img>
-        </div>
+        <AliceCarousel
+            autoPlay={true}
+            autoPlayStrategy='none'
+            infinite
+            disableButtonsControls
+            autoPlayInterval={3000}
+            items={imageNames.map(imageName=><img src={`images/${imageName}`} className='absollute left-0 w-[100vw]' />)}
+        />
     );
 };
 

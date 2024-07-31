@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, TextField, Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createOrder } from "../../../State/Order/Action";
+import {findAddress} from "../../../State/Address/Action"
 import axios from "axios";
+import AddressCard from "../AdressCard/AdressCard";
 
 export default function DeliveryAddressForm({ handleNext }) {
   const navigate = useNavigate();
@@ -11,7 +13,9 @@ export default function DeliveryAddressForm({ handleNext }) {
   const jwt = localStorage.getItem("jwt");
   const [phoneNumber, setPhoneNumber] = useState("");
   const {user} = useSelector(state=>state.auth);
-  const [addNewAddres, setAddNewAddress] = useState(user.addresses.length == 0 ? true : false);
+  const [addNewAddres, setAddNewAddress] = useState(user?.addresses?.length == 0 ? true : false);
+  const storedAddresses = useSelector(state=>state.address).addresses;
+  const [isNextDisabled, setIsNextDisabled] = useState(true);
   
   console.log(user, 'user from checkout')
   const [address, setAddress] = useState({
@@ -23,6 +27,7 @@ export default function DeliveryAddressForm({ handleNext }) {
     state: "",
     zipCode: ""
   });
+
   const [zipError, setZipError] = useState("");
 
   const handleSubmit = (event) => {
@@ -79,9 +84,59 @@ export default function DeliveryAddressForm({ handleNext }) {
     }
   };
 
+  const handleAddressSelect = (address) => {
+    setAddress(address);
+  };
+
+  useEffect(()=>{
+    if(user){
+      dispatch(findAddress(user._id))
+    }
+  },[user]);
+
+  useEffect(()=>{
+    console.log(storedAddresses, 'stored addresses');
+    setAddNewAddress(false);
+  },[storedAddresses])
+
+  const isValidAddress = (address) => {
+    const requiredFields = ['firstName', 'lastName', 'streetAddress', 'houseNumber', 'city', 'state', 'zipCode'];
+    
+    for (let field of requiredFields) {
+      if (!address[field] || address[field].trim() === "") {
+        return false;
+      }
+    }
+    
+    return true;
+  };
+
+  const handleProceed = ()=>{
+    if(isValidAddress(address)){
+      dispatch(createOrder({ address, jwt, navigate }));
+      handleNext();
+    }
+  }
+
+
+  useEffect(()=>{
+    if(isValidAddress(address)){
+      setIsNextDisabled(false);
+    }else setIsNextDisabled(true);
+  },[address])
+
   return (<>
-    {(user?.addresses?.length != 0 && addNewAddres) && <div>Pick and address</div>}
-    {(user?.addresses?.length == 0 || addNewAddres) == 0 && <Grid container spacing={8} className="flex items-center justify-center">
+    {(storedAddresses && storedAddresses.length >0 && !addNewAddres) && <div className="w-full flex flex-col justify-center items-center">
+      <p className="text-roboto text-2xl mt-4 ml-4 py-4 text-semibold text-gray-600 w-[450px] flex justify-start">Select an address to continue</p>
+        <div className="flex flex-col gap-4 mt-10">
+          {storedAddresses.map(address_=><SelectableAddressCard address={address_} onSelect={handleAddressSelect} isSelected={address && address?._id === address_._id} />)}
+        </div>
+        <div className="w-[450px] flex justify-between">
+          <p className="text-blue-800 cursor-pointer mt-10  px-4 py-2" onClick={()=>setAddNewAddress(true)}>+ Add new address</p>
+          <p className={`${isNextDisabled? 'text-gray-400 border-gray-100 cursor-not-allowed' : 'text-blue-800 border-blue-500 hover:bg-blue-100 hover:text-white cursor-pointer'} mt-10  px-4 py-2 border border-sm`} onClick={handleProceed}>Proceed</p>
+        </div>
+      </div>}
+    {(addNewAddres) && <Grid container spacing={8} className="flex items-center justify-center">
       <Grid item xs={12} lg={10}>
         <Box className="border bg-gray-200 rounded-md shadow-md p-5">
           <form onSubmit={handleSubmit}>
@@ -201,3 +256,13 @@ export default function DeliveryAddressForm({ handleNext }) {
     </Grid>}
     </>);
 }
+
+
+const SelectableAddressCard = ({ address, onSelect, isSelected }) => (
+  <div 
+    className={`${isSelected ? 'border border-[2px] border-blue-500' : 'border border-[1px] border-gray-200'} rounded w-[450px] px-6 py-4 cursor-pointer`}
+    onClick={() => onSelect(address)} 
+  >
+    <AddressCard address={address} /> 
+  </div>
+);

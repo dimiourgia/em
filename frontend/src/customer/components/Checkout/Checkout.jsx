@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import { useLocation, useNavigate } from "react-router-dom";
 import DelevryAdressForm from "./DelevryAdressForm";
@@ -25,17 +25,16 @@ export default function Checkout() {
     }
   }, [orderId]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (step === '0') {
       navigate('/checkout?step=1');
     }
-  };
+  },[])
 
   const handleBack = () => {
-    if (step == '1') {
+    if (step == 1) {
       navigate('/checkout?step=0');
-    }
-    if(step == '0'){
+    }else if(step == 0){
       navigate('/cart')
     }
   };

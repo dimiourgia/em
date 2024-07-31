@@ -2,7 +2,6 @@ import React from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import GradeIcon from '@mui/icons-material/Grade';
-import CarouselComponent from '../Carousel/Index';
 
 const responsive = {
     0: { items: 1 },
@@ -71,8 +70,9 @@ const items = [
 const Review = ({review}) => {
 
     return (
-        <div className="relative item hover:shadow-xl min-h-[300px]  mt-[100px] mb-[50px] border border-gray-200 rounded-lg m-[10px] " data-value="1">
-            <div className='w-full md:w-1/3 px-3 md:mb-0'>
+        <div className="relative hover:shadow-xl min-h-[300px] mt-[20px] border border-gray-200 rounded-lg m-[10px] bg-[#fffff7]" data-value="1">
+            
+            <div className='w-full px-3 md:mb-0'>
                 <div className="flex justify-center items-center p-4 ">
                     <p className="p-2 px-4 group font-roboto font-semibold"  >
                         {review.reviewHighlight}
@@ -82,24 +82,27 @@ const Review = ({review}) => {
                 <p className='font-roboto text-center text-base text-gray-800'>
                     {review.review}
                 </p>
+
                 <p className='font-text text-center text-lg  text-black mt-[30px] '>
                     {`${review.user.name}, ${review.user.location}`}
                 </p>
             </div>
 
-            <div className='absolute flex w-full justify-center bottom-10 text-center pt-[30px]'>
+            <div className='flex w-full justify-center mt-4 text-center pt-[30px]'>
                 <GradeIcon />
                 <GradeIcon />
                 <GradeIcon />
                 <GradeIcon />
                 <GradeIcon />
             </div>
+
         </div>)
 }
 
-const BottomReview = () => (
-    <AliceCarousel responsive={responsive} infinite autoPlayInterval={700} autoPlay={true} items={reviews.map(review=><Review review={review}/>)} key='review_carousel'/>
-);
+const BottomReview = () => (<>
+    <div className='w-full flex items-cetner justify-center text-2xl'>What are customers say about us</div>
+    <AliceCarousel responsive={responsive} infinite autoPlayInterval={700} autoPlay={true} items={reviews.map(review=><Review review={review}/>)} key='review_carousel'/>   
+</>);
 
 
 export default BottomReview;

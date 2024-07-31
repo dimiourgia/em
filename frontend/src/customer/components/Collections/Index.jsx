@@ -34,8 +34,8 @@ const Collections = () => {
         <div className='mt-20 bg-white'>
             
             <div className='w-full -mt-[20px] md:w-1/3 px-3 md:mb-0 bg-white z-[10]' id='collection-section'>
-                <h1 className='font-ijk text-center text-2xl  text-black mt-4'>
-                    <div className="flex justify-start items-center pl-10 w-full">
+                <h1 className='font-roboto text-center text-2xl md:text-2xl  text-black mt-4 w-full'>
+                    <div className="flex justify-center items-center w-full">
                         <p className="p-2 px-4 group font-roboto tracking-wide">
                             OUR COLLECTIONS
                             {/* <div className="bg-amber-500 h-[2px] w-full transition-all duration-500"></div> */}
@@ -44,7 +44,7 @@ const Collections = () => {
                 </h1>
             </div>
 
-            <div className="container pb-6 mx-auto px-4 mt-4">
+            <div className="container pb-6 mx-auto px-4">
                 <div className="w-full mx-auto">
                    { collections != null && collections!= undefined && collections.length >0 &&      
                         <CarouselComponent showControls={false} items={ 

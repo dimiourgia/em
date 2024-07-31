@@ -16,9 +16,9 @@ const TopSellers = () => {
 
     return (
         <div className=''>
-            <div className='w-full md:w-1/3 px-3 md:mb-[20px]' id={'top-selling-section'}>
-                <h1 className='font-roboto tracking-wide text-center text-2xl  text-black'>
-                    <div className="flex justify-start items-center pl-10 ">
+            <div className='w-full md:w-1/3 px-3' id={'top-selling-section'}>
+                <h1 className='font-roboto tracking-wide text-center text-2xl md:text-2xl  text-black'>
+                    <div className="flex justify-center items-center">
                         <p className="p-2 px-4 group "  >
                             TOP SELLING
                             {/* <div className="bg-amber-500 h-[2px] w-full transition-all duration-500"></div> */}
@@ -30,7 +30,7 @@ const TopSellers = () => {
 
             
 
-            <div className="container pb-24 mx-auto px-4 mt-4">
+            <div className="container pb-24 mx-auto px-4">
                 <div className="w-full mx-auto">
                     {products != undefined && products !=null && products.length >0 && 
                         <CarouselComponent isDummy={false} key='top_sellers_carousel' items={products.map((product,index)=><Card product={product} defaultImageIndex={defaultImageIndex[index]??0}/>)} />
