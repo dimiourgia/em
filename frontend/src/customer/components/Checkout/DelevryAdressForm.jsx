@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Grid, TextField, Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createOrder } from "../../../State/Order/Action";
 import axios from "axios";
 
@@ -10,9 +10,13 @@ export default function DeliveryAddressForm({ handleNext }) {
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const {user} = useSelector(state=>state.auth);
+  const [addNewAddres, setAddNewAddress] = useState(user.addresses.length == 0 ? true : false);
+  
+  console.log(user, 'user from checkout')
   const [address, setAddress] = useState({
-    firstName: "",
-    lastName: "",
+    firstName: user?.firstName??"",
+    lastName: user?.lastName??"",
     streetAddress: "",
     houseNumber: "", 
     city: "",
@@ -75,8 +79,9 @@ export default function DeliveryAddressForm({ handleNext }) {
     }
   };
 
-  return (
-    <Grid container spacing={8} className="flex items-center justify-center">
+  return (<>
+    {(user?.addresses?.length != 0 && addNewAddres) && <div>Pick and address</div>}
+    {(user?.addresses?.length == 0 || addNewAddres) == 0 && <Grid container spacing={8} className="flex items-center justify-center">
       <Grid item xs={12} lg={10}>
         <Box className="border bg-gray-200 rounded-md shadow-md p-5">
           <form onSubmit={handleSubmit}>
@@ -193,6 +198,6 @@ export default function DeliveryAddressForm({ handleNext }) {
           </form>
         </Box>
       </Grid>
-    </Grid>
-  );
+    </Grid>}
+    </>);
 }
