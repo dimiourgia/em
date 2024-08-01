@@ -3,6 +3,7 @@ import React, { useEffect, useSyncExternalStore } from "react";
 import OrderCard from "./OrderCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderHistory } from "../../../State/Order/Action";
+import OrderItemCard from "./OrderItemCard";
 
 const Order = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const Order = () => {
   console.log("users orders ",order.orders)
   return (
     <>
-    <div className="min-h-screen pb-8 bg-[#eeeeee] justify-center">
+    <div className="min-h-screen pb-8 justify-center">
     <div className="flex justify-center items-center p-4 ">
                         <p className="p-2 font-heading px- text-3xl"  >
                         Order History
@@ -29,7 +30,7 @@ const Order = () => {
         <Grid item xs={12} className="flex items-center justify-center">
           <Box className="space-y-5 ">
             {order.orders?.length>0 && order.orders?.map((order )=> {
-              return order?.orderItems?.map((item,index)=> <OrderCard item={item} order={order} />)
+              return <OrderItemCard order={order} />
             })}
           </Box>
         </Grid>
