@@ -8,10 +8,6 @@ const OrderItemCard = ({ order }) => {
     return dateTime.split('T')[0];
   };
 
-  const totalPrice = useCallback(()=>{
-
-  },[])
-
   return (
     <Box className="p-5 bg-white w-[800px] flex items-center justify-center hover:shadow-2xl border">
       <Grid spacing={2} container sx={{ justifyContent: "space-between" }}>
