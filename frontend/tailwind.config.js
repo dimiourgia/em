@@ -1,6 +1,5 @@
-const withMT = require("@material-tailwind/react/utils/withMT");
 
-module.exports = withMT({
+module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
@@ -17,6 +16,7 @@ module.exports = withMT({
       fontFamily: {
         heading: ["Playfair Display", "serif"],
         text: ["Cormorant", "serif"],
+        sans: ['Inter', 'system-ui', 'Avenir', 'Helvetica', 'Arial', 'sans-serif'],
       },
       keyframes: {
         marquee: {
@@ -32,4 +32,4 @@ module.exports = withMT({
     },
   },
   plugins: [],
-});
+};

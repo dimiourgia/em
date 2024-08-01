@@ -7,6 +7,7 @@ import { addItemToCart } from "../../../State/Cart/Action";
 import ZoomComponent from "./ZoomComponent";
 import SkeletonProductDetails from "./SkeletonProductDetails";
 import ErrorComponent from "../Error/Index";
+import Button from "../Button/Index";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -97,18 +98,16 @@ export default function ProductDetails() {
         </div>
 
 
-        <div className="mx-5 m-1 p-5 sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4 bg-white">
-          <h1 className="text-lg lg:text-2xl font-roboto font-medium text-black opacity-70">
-            {product?.title}
-          </h1>
-          <h1 className="font-roboto text-red-700 opacity-70">
+        <div className="mx-4 m-1 p-5 sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4 bg-white">
+          <div className="text-lg lg:text-2xl text-neutral-800 font-semibold mb-4">{product?.title}</div>
+          {/* <h1 className="font-roboto text-red-700 opacity-70">
             {product?.brand}
-          </h1>
+          </h1> */}
 
           {/* Options */}
           <div className="">
             <div className="flex space-x-2 items-center pt-6">
-              <p className="text-md font-text font-semibold">
+              <p className="text-md font-sans">
                 {"₹" + product?.discountedPrice}
               </p>
               {product?.discountedPrice != product?.price && <div className="flex space-x-2">
@@ -123,15 +122,13 @@ export default function ProductDetails() {
                 </p>
               </div>}
             </div>
-            <div className="opacity-50">inclusive of all taxes</div>
+            <div className="opacity-60">inclusive of all taxes</div>
 
             <form className="mt-4 md:0">
               {/* Sizes */}
               <div className="md:mt-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-roboto text-center">
-                    Size
-                  </h3>
+                  <div className="text-neutral-800 font-semibold">Size</div>
                   <h2 className="font-text text-red-600">
                     {selectedSize === "Out of stock" ? "Out of stock" : selectedSize === "" ? "Please select size" : ""}
                   </h2>
@@ -140,13 +137,13 @@ export default function ProductDetails() {
                 <RadioGroup
                   value={selectedSize}
                   onChange={setSelectedSize}
-                  className="mt-4"
+                  className="mt-2"
                   disabled={selectedSize === "Out of stock"}
                 >
                   <RadioGroup.Label className="sr-only">
                     Choose a size
                   </RadioGroup.Label>
-                  <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
+                  <div className="grid grid-cols-4 gap-2 sm:grid-cols-8 lg:grid-cols-4">
                     {product?.sizes?.map((size) => (
                       <RadioGroup.Option
                         key={size.name}
@@ -206,8 +203,8 @@ export default function ProductDetails() {
               </div>
 
               {/* highlights */}
-              <div className="p-3 mt-4 font-roboto opacity-70">
-                <div className="text-neutral-400 font-semibold">Key Features</div>
+              <div className="mt-4 font-roboto">
+                <div className="text-neutral-800 font-semibold mb-2">Key Features</div>
                 <div className="grid grid-cols-2 text-neutral-600">
                   <div className="text-neutral-400">Material</div>
                   <div className="">{product?.material}</div>
@@ -222,23 +219,21 @@ export default function ProductDetails() {
                 </div>
               </div>
 
-              <button
-                disabled={selectedSize === "" || selectedSize === "Out of stock"}
-                onClick={handelAddToCart}
-                type="submit"
-                className={`${selectedSize !== "" && selectedSize !== "Out of stock" ? "cursor-pointer" : "cursor-not-allowed"
-                  } flex gap-4 items-center text-white justify-center w-full mt-6 hover:bg-blue-700 bg-blue-400 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700`}
-              >
-                <img src="/images/cart_white.svg" />
-                Add to cart
-              </button>
+              <div className="w-full mt-6">
+              <Button
+                classname='w-full'
+                text='Add to Cart'
+                imageSrc='/images/cart_white.svg'
+                onClick={handelAddToCart} 
+                disabled={selectedSize === "" || selectedSize === "Out of stock"} />
+              </div>
             </form>
           </div>
         </div>
       </div>
 
       {/* description */}
-      <div className="m-3 p-4 pb-16 bg-gray-50">
+      <div className="m-3 mt-10 p-4 pb-16 bg-gray-50">
           <h3 className="font-text flex justify-center text-semibold text-2xl opacity-75 mx-auto p-2">Product Description</h3>
           <div className="mx-auto md:w-1/2 text-neutral-600 font-sans-serif tracking-wide text-lg">
             <p className="flex items-center justify-center">{product?.description}</p>

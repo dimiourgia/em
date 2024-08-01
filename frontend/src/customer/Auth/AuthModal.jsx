@@ -1,7 +1,7 @@
 import { Box, Modal } from "@mui/material";
 import React from "react";
-import RegisterForm from "./RegisterForm";
-import LoginForm from "./LoginForm";
+import RegisterForm from "./Register";
+import LoginForm from "./Login";
 import Forgot from "./Forgot";
 import { useLocation } from "react-router-dom";
 

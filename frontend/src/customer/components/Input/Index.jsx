@@ -1,6 +1,5 @@
-import { useRef, useState, forwardRef, useEffect } from "react"
-
-
+import { useState, forwardRef, useEffect } from "react"
+import './style.css'
 
 export default forwardRef(function Input(props, ref){
 

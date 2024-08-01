@@ -29,63 +29,73 @@ const CartItem = ({ item, showButton }) => {
   };
 
   return (
-    <div className="p-6 border border-gray-500 bg-white rounded-lg h-[310px]">
+    <div className="px-6 py-2 border border-gray-200 bg-white rounded-sm h-fit">
       <div className="flex items-center gap-4">
         <div className="w-[9rem] h-[12rem]">
           <img
-            className="w-full h-full object-cover rounded shadow-md object-top"
+            className="w-full h-full object-cover"
             src={item?.product?.imageUrl[0]}
             alt=""
           />
         </div>
-        <div className="ml-5 space-y-1">
-          <p className="font-semibold font-roboto">{item?.product?.title}</p>
-          <p className="opacity-70 font-medium mt-2">Size: {item?.size}</p>
-          <p className="opacity-70 font-medium mt-2">Quantity: {item?.quantity}</p>
-          <div className="flex space-x-2 items-center pt-2">
-            <p className="font-semibold font-text text-lg">
-              ₹{item?.product?.discountedPrice}
-            </p>
-            <p className="opacity-50 line-through">₹{item?.product?.price}</p>
-            <p className="text-green-600 font-text font-semibold">
-              {(
-                (1 - item?.product?.discountedPrice / item?.product?.price) *
-                100
-              ).toFixed(0) + "% off"}
-            </p>
+        <div className="ml-5 flex flex-col">
+          <p className="text-neutral-700 text-[18px] font-roboto">{item?.product?.title}</p>
+          <div className="flex gap-2">
+            <p className="text-normal text-neutral-600 font-normal">size:</p>
+            <p className="text-normal text-neutral-700 font-normal">{item?.size}</p>
           </div>
+          <div className="flex gap-2">
+            <p className="text-normal text-neutral-600 ">quantity:</p>
+            <p className="text-normal text-neutral-700 ">{item?.quantity}</p>
+          </div>
+
+          <div className="flex space-x-2 items-center mt-2">
+              <p className="font-roboto text-normal">
+                  ₹{item?.product?.discountedPrice}
+              </p>
+              {item?.product?.price != item?.product?.discountedPrice && <div className="flex space-x-2 items-center">
+                <p className="opacity-50 line-through text-sm">₹{item?.product?.price}</p>
+                <p className="text-blue-600 text-sm">
+                  {(
+                    (1 - item?.product?.discountedPrice / item?.product?.price) *
+                    100
+                  ).toFixed(0) + "% off"}
+                </p>
+              </div>}
+          </div>
+          
+            {showButton && (
+              <div className="flex flex-col space-y-2 pt-4">
+                <div className="flex items-center gap-1">
+                  <IconButton
+                    onClick={() => handleUpdateCartItem(-1)}
+                    disabled={item?.quantity <= 1}
+                    sx={{ '&:focus': { outline: 'none' } }}
+                  >
+                    <RemoveCircleOutlineIcon sx={{fontSize:"18px"}} />
+                  </IconButton>
+
+                  <div>{console.log(item?.product)}</div>
+                  <span className="py-0 px-2 border rounded-md">
+                    {item?.quantity}
+                  </span>
+                  <IconButton
+                    onClick={() => handleUpdateCartItem(1)}
+                    color="primary"
+                    sx={{ '&:focus': { outline: 'none' } }}
+                  >
+                    <AddCircleOutlineIcon sx={{fontSize:"18px"}} />
+                  </IconButton>
+                </div>
+                <div className="text-sm lg:text-text">
+                  <Button onClick={handleRemoveItemFromCart} variant="outlined" color="error" sx={{ '&:focus': { outline: 'none' } , fontSize:"12px" }} >
+                    Remove{" "}
+                  </Button>
+                </div>
+              </div>
+            )}
         </div>
       </div>
-      {showButton && (
-        <div className="flex items-center space-x-8 pt-4">
-          <div className="flex items-center gap-1">
-            <IconButton
-              onClick={() => handleUpdateCartItem(-1)}
-              disabled={item?.quantity <= 1}
-              sx={{ '&:focus': { outline: 'none' } }}
-            >
-              <RemoveCircleOutlineIcon sx={{fontSize:"20px"}} />
-            </IconButton>
-
-            <div>{console.log(item?.product)}</div>
-            <span className="py-1 px-5 border rounded-sm">
-              {item?.quantity}
-            </span>
-            <IconButton
-              onClick={() => handleUpdateCartItem(1)}
-              color="primary"
-              sx={{ '&:focus': { outline: 'none' } }}
-            >
-              <AddCircleOutlineIcon sx={{fontSize:"20px"}} />
-            </IconButton>
-          </div>
-          <div className="text-sm lg:text-text">
-            <Button onClick={handleRemoveItemFromCart} variant="outlined" color="error" sx={{ '&:focus': { outline: 'none' } , fontSize:"12px" }} >
-              Remove{" "}
-            </Button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

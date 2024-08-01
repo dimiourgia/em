@@ -34,7 +34,7 @@ const Collections = () => {
         <div className='mt-20 bg-white'>
             
             <div className='w-full -mt-[20px] md:w-1/3 px-3 md:mb-0 bg-white z-[10]' id='collection-section'>
-                <h1 className='font-roboto text-center text-2xl md:text-2xl  text-black mt-4 w-full'>
+                <h1 className='font-roboto text-center text-2xl sm:text-2xl  text-black mt-4 w-full'>
                     <div className="flex justify-center items-center w-full">
                         <p className="p-2 px-4 group font-roboto tracking-wide">
                             OUR COLLECTIONS

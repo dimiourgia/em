@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import CartItem from "./CartItem";
-import { Button } from "@mui/material";
+import Button from "../Button/Index";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCart } from "../../../State/Cart/Action";
@@ -24,9 +24,9 @@ const Cart = () => {
   const isCartEmpty = !cart.cartItems || cart.cartItems.length === 0;
 
   return (
-    <div className="cart-container min-h-screen bg-gray-100">
+    <div className="cart-container min-h-screen">
       <div className="text-center py-4">
-        <h1 className="text-2xl font-semibold font-text">Cart</h1>
+        <h1 className="text-2xl font-thin font-roboto">Cart</h1>
       </div>
 
       {isCartEmpty ? (
@@ -39,7 +39,7 @@ const Cart = () => {
               variant="contained"
               sx={{ padding: ".8rem 2rem", marginTop: "2rem", bgcolor: "#bdbdbd" }}
             >
-              Go to Shop
+              Go to Shop 
             </Button>
           </div>
         </div>
@@ -53,12 +53,12 @@ const Cart = () => {
               </div>
             ))}
           </div>
-          <div className="lg:px-2 mt-2 sticky top-0">
-            <div className="border border-gray-500 p-5 bg-white rounded-md">
-              <p className="font-bold font-roboto opacity-70">PRICE DETAILS</p>
+          <div className="lg:px-2 p-2">
+            <div className="border border-gray-200 p-5 bg-white rounded-sm">
+              <p className="font-semibold text-neutral-700 font-roboto">Price Details</p>
               <hr />
 
-              <div className="space-y-3 font-roboto font-semibold">
+              <div className="space-y-2 font-roboto">
                 <div className="flex justify-between pt-3 text-black">
                   <span>Price ({cart.cart?.totalItem} item)</span>
                   <span>₹{cart.cart?.totalPrice}</span>
@@ -72,18 +72,14 @@ const Cart = () => {
                   <span className="text-green-700">Free</span>
                 </div>
                 <hr />
-                <div className="flex justify-between font-bold font-roboto text-lg">
+                <div className="flex justify-between font-semibold font-roboto text-normal text-neutral-700 sm:text-lg">
                   <span>Total Amount</span>
-                  <span className="text-green-700">₹{cart.cart?.totalDiscountedPrice}</span>
+                  <span className="text-neutral-700">₹{cart.cart?.totalDiscountedPrice}</span>
                 </div>
               </div>
-              <button
-                onClick={() => navigate("/checkout?step=0")}
-                type="submit"
-                className="bg-blue-600 text-white font-extrabold py-3 px-8 mt-8 w-full transition duration-300 ease-in-out hover:bg-blue-700"
-              >
-                Buy Now
-              </button>
+
+              <Button text="Buy Now" classname='w-full' onClick={()=>navigate('/checkout?step=0')} type='submit'/>
+
             </div>
           </div>
         </div>

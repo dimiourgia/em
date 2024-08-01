@@ -10,17 +10,17 @@ const ProductCard = ({ product, defaultImageIndex=0 }) => {
         onClick={() => navigate(`/product/${product._id}`)}
         className="productCard w-[15rem] m-3 transition-all cursor-pointer rounded-md"
       >
-        <div className="h-[15rem] rounded-t-md">
+        <div className="h-[15rem] rounded">
           <img
-            className="h-[350px] w-full object-cover mx-auto flex justify-center items-center rounded-t-md"
+            className="h-[350px] w-full object-cover mx-auto flex justify-center items-center rounded"
             src={product?.imageUrl[defaultImageIndex]}
             alt="ss"
           />
         </div>
-        <div className="mt-[100px] bg-gray-100 h-[100px] p-3 rounded-md">
+        <div className="mt-[100px] h-[100px] p-3 rounded-md">
           <div>
-          <p className="font-text text-red-700 opacity-70 mt-2 text-sm">{product.brand}</p>
-            <p className="truncate font-heading">
+          {/* <p className="font-text text-red-700 opacity-70 mt-2 text-sm">{product.brand}</p> */}
+            <p className="font-sans">
               {product.title}
             </p>
           </div>
@@ -30,7 +30,7 @@ const ProductCard = ({ product, defaultImageIndex=0 }) => {
               <p className="font-text line-through opacity-70 text-sm text-gray-500">
                 {"₹" + product.price}
               </p>
-              <p className="text-green-500 text-xs font-text">
+              <p className="text-blue-500 text-sm font-text">
                 {((1 - product.discountedPrice / product.price) * 100).toFixed(0) + "% off"}
               </p>
             </div>}

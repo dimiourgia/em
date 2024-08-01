@@ -70,7 +70,7 @@ const items = [
 const Review = ({review}) => {
 
     return (
-        <div className="relative hover:shadow-xl min-h-[300px] mt-[20px] border border-gray-200 rounded-lg m-[10px] bg-[#fffff7]" data-value="1">
+        <div className="relative hover:shadow-xl min-h-[300px] mt-[20px] border border-gray-200 rounded-lg m-[10px] bg-[#fffffe]" data-value="1">
             
             <div className='w-full px-3 md:mb-0'>
                 <div className="flex justify-center items-center p-4 ">
@@ -100,7 +100,7 @@ const Review = ({review}) => {
 }
 
 const BottomReview = () => (<>
-    <div className='w-full flex items-cetner justify-center text-2xl'>What are customers say about us</div>
+    <div className='w-full flex items-cetner justify-center text-2xl'>What our customers say about us</div>
     <AliceCarousel responsive={responsive} infinite autoPlayInterval={700} autoPlay={true} items={reviews.map(review=><Review review={review}/>)} key='review_carousel'/>   
 </>);
 

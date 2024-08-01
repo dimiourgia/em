@@ -67,7 +67,7 @@ const CustomerRouters = () => {
         <Head search={search} setSearch={setSearch} />
       </div>
       
-      <div className='mt-[70px]'>
+      <div className='mt-[60px]'>
         <Routes>
           <Route path="/forgot-password" element={<HomePage />} />
           <Route path="/reset-password" element={<Reset />} />
@@ -93,10 +93,10 @@ const CustomerRouters = () => {
         </Routes>
       </div>
       
-
       <div>
         <Footer />
       </div>
+      
     </div>
   );
 };

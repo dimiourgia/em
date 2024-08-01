@@ -11,7 +11,9 @@ export const colors = {
     'primary-200' : '#000',
     'primary-300' : '#8C8C8C',
     'primary-400' : '#262626',
-    'primary-500' : '#0D0D0D',    
+    'primary-500' : '#0D0D0D',
+    'button-primary' : '#fcaf3c',
+        
 }
 
 export const fonts = {

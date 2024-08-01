@@ -158,9 +158,9 @@ const Product = ({ search, collectionId}) => {
     { collection != undefined && <div className="min-h-80 bg- md:min-h-screen pb-16">
       <div className="container mx-auto">
         
-        <div className="mt-24 bg-[#faf8f1] rounded-2xl py-4 text-neutral-800  px-6 font-ijk w-full flex flex-col gap-4 items-center justify-center">
-          <h1 className="text-3xl">{collection?.name}</h1>
-          <p className="text-lg text-neutral-600">{collection?.description}</p>
+        <div className="mt-24 bg-[#faf8f1] rounded-2xl py-4 text-neutral-800  px-6 font-sans w-full flex flex-col gap-4 items-center justify-center">
+          <h1 className="text-2xl sm:text-3xl">{collection?.name}</h1>
+          <p className="text-normal sm:text-lg text-neutral-600">{collection?.description}</p>
         </div>
 
         <div className="flex mt-10">
@@ -214,8 +214,8 @@ const Product = ({ search, collectionId}) => {
           <div className="sm:col-span-10 w-full">
             <div className="flex flex-wrap rounded-lg items-start w-auto">
               {currentProducts.length === 0 ? (
-                  <p className="min-h-80 text-center font-heading text-xl flex p-2 flex-col items-center justify-center">
-                  <span className="block">We don't have that item.</span>
+                  <p className="min-h-80 text-center font-heading text-lg sm:text-xl flex p-2 flex-col items-center justify-center">
+                  <span className="block">We don't have anything available here.</span>
                   <span className="block">Check out our other collections!</span>
                 </p>
                 
