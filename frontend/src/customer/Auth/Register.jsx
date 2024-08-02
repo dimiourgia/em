@@ -16,7 +16,8 @@ export default function RegisterForm(){
     const lastNameRef = useRef(null)
     const countryRef = useRef(null)
     const emailRef = useRef(null)
-    const passwordRef = useRef()
+    const passwordRef = useRef(null)
+    const referralCodeRef = useRef(null)
 
     const dispatch = useDispatch();
     const jwt = localStorage.getItem("jwt")
@@ -81,6 +82,7 @@ export default function RegisterForm(){
         const lastName = lastNameRef.current.value
         const email = emailRef.current.value.toLowerCase()
         const password = passwordRef.current.value
+        const referralCode = referralCodeRef.current.value
 
         setFirstNameError(false)
         setLastNameError(false)
@@ -105,12 +107,12 @@ export default function RegisterForm(){
             setEmailError(true)
             return
         }
+
         if(password === '') {
             setError('Please enter a password')
             setPasswordError(true)
             return
         }
-
 
         if(email!==''){
             if(!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
@@ -126,7 +128,7 @@ export default function RegisterForm(){
         lastName,
         email,
         password,
-        referralCode: undefined,
+        referralCode,
     }
 
     dispatch(register(userData))
@@ -139,22 +141,24 @@ export default function RegisterForm(){
     <div className='flex items-center justify-center'>
         <div className="">
             <motion.div className="form_container" initial={{transform:'scale(.2)', opacity:0}} animate={{transform:'scale(1)', opacity:1}} transition={{duration:.2, spring}}>
-            <form onSubmit={handleSubmit}>
-            <div style={{display:'flex', columnGap:'8px', marginBottom:'14px'}}>
-                <Input placeholder={'First Name'} ref={firstNameRef} type={'text'} error={firstNameError} />
-                <Input placeholder={'Last Name'} ref={lastNameRef} type={'text'} error={lastNameError} />
-            </div>
-            <Input placeholder={'Email'} ref={emailRef} type={'text'} error={emailError} />
-            <Input placeholder={'Password'} ref={passwordRef} type={'password'} error={passwordError} />
-            {error && <FormMessage type='error' message={error}/>}
-            {success && <FormMessage type='success' message={success}/>}
-            {fetchingFromServer && <Loading/>}
-            <Button text='Register' type='submit'  />
-            <br/>
-        <div style={{textAlign:'center'}}>
-         Already have an account? <Link to='/login' className='registerLink'>Login</Link>
-        </div>
-        </form>      
+                <form onSubmit={handleSubmit}>
+                <div style={{display:'flex', columnGap:'8px', marginBottom:'14px'}}>
+                    <Input placeholder={'First Name'} ref={firstNameRef} type={'text'} error={firstNameError} />
+                    <Input placeholder={'Last Name'} ref={lastNameRef} type={'text'} error={lastNameError} />
+                </div>
+                <Input placeholder={'Email'} ref={emailRef} type={'text'} error={emailError} />
+                <Input placeholder={'Password'} ref={passwordRef} type={'password'} error={passwordError} />
+                <Input placeholder={'Referral Code (Optional)'} ref={referralCodeRef} type='input'/>
+                {error && <FormMessage type='error' message={error}/>}
+                {success && <FormMessage type='success' message={success}/>}
+                {fetchingFromServer && <Loading/>}
+                <Button text='Register' type='submit'  />
+                <br/>
+
+                <div style={{textAlign:'center'}}>
+                Already have an account? <Link to='/login' className='registerLink'>Login</Link>
+                </div>
+                </form>      
             </motion.div>
         </div>
         <div className='spacer layer1'></div>

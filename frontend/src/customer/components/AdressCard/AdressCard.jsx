@@ -2,7 +2,7 @@ import React from "react";
 
 const AddressCard = ({ address }) => {
   return (
-    <div className="p-2">
+    <div className="p-2 font-sans">
       <div className="space-y-1">
 
         <span className="font-semibold">Name: </span><span>{`${address?.firstName} ${address?.lastName}`}</span>

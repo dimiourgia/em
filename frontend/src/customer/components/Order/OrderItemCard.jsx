@@ -1,6 +1,7 @@
 import { Box, Grid } from "@mui/material";
 import React, { useCallback } from "react";
 import moment from "moment/moment";
+import { useSelector } from "react-redux";
 
 const OrderItemCard = ({ order }) => {
   // Function to format the date and remove the time part
@@ -8,10 +9,13 @@ const OrderItemCard = ({ order }) => {
     return dateTime.split('T')[0];
   };
 
+  const {user} = useSelector(state=>state.auth)
+  console.log('order referral code', order?.referralCode);
+
   return (
-    <Box className="p-5 bg-white w-[800px] flex items-center justify-center hover:shadow-2xl border">
-      <Grid spacing={2} container sx={{ justifyContent: "space-between" }}>
-        <Grid item xs={6}>
+    <Box className="p-5 bg-white sm:w-[700px] md:w-[800px] flex items-center justify-center hover:shadow-2xl border">
+      <div className="flex flex-col gap-4 sm:flex-row  sm:justify-between w-full">
+        <div className="flex-6">
           <div className="flex cursor-pointer">
             <img
               className="w-[5rem] h-[5rem] object-cover object-top"
@@ -32,23 +36,31 @@ const OrderItemCard = ({ order }) => {
                 ))}
             </div>
           </div>
-        </Grid>
+        </div>
 
-        <Grid item xs={2}>
+        <div className="flex-2">
           <p>₹{order?.totalDiscountedPrice}</p>
-          <p className="mt-[10px] text-xs font-semibold flex flex-col">
-                <span className="text-neutral-400">Order Date</span>
+          <p className="mt-[10px] text-xs flex flex-col">
+                <span className="text-neutral-400">Ordered On</span>
                 <span className="text-neutral-600">{moment(order?.OrderDate).format('D MMMM YYYY')}</span>
               </p>
-        </Grid>
+        </div>
 
-        <Grid item xs={2}>
+        <div className="flex-2" >
             <div className="flex flex-col gap-1">
-                <p>Referral Code:</p>
-                <p className="p-1 bg-gray-50 flex items-center justify-center border border-gray-100 text-neutral-800 font-sans">AJDEAL25</p>
+                <p className="text-sm">Referral Code:</p>
+                <p className="p-1 bg-gray-50 flex items-center justify-center border border-gray-100 text-neutral-800 font-sans">{order.referralCode??'AJDEAL25'}</p>
             </div>
-        </Grid>
-      </Grid>
+        </div>
+
+        <div className="flex-2" >
+            <div className="flex flex-col gap-1">
+                <p className="text-sm">Status:</p>
+                <p className="p-1 bg-green-100 text-sm flex items-center justify-center border border-green-600 rounded-md text-green-800 font-sans">{order?.orderStatus}</p>
+            </div>
+        </div>
+
+      </div>
     </Box>
   );
 };

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getOrderById } from "../../../State/Order/Action";
 import AdressCard from "../AdressCard/AdressCard";
 import { createPayment } from "../../../State/Payment/Action";
+import Button from "../Button/Index";
 
 const OrderSummary = () => {
   const location = useLocation();
@@ -30,17 +31,17 @@ const OrderSummary = () => {
 
 
   return ( 
-      <div className="space-y-6 p-6 rounded-xl bg-gray-200">
-      <h1 className='font-text text-center text-3xl  text-black'>
+      <div className="space-y-6 p-6 rounded-xl bg-white">
+      <h1 className='font-sans text-center text-3xl  text-black'>
         <div className="flex justify-center items-center">
           Order Summary
         </div>
       </h1>
         <div className="p-6 rounded-lg border bg-white font-text">
-        <span className="font-semibold text-lg">Shipping Details:</span>
-        <div className="mx-2">
+        <span className="font-sans text-lg">Shipping Details:</span>
+        <div className="">
           <AdressCard address={order.order?.shippingAddress} />
-          </div>
+        </div>
         </div>
         <div className="lg:grid grid-cols-3 relative justify-between">
           <div className="lg:col-span-2">
@@ -78,15 +79,7 @@ const OrderSummary = () => {
                 </div>
               </div>
 
-              <button
-                onClick={handleCreatePayment}
-                variant="contained"
-                type="submit"
-                sx={{ padding: ".8rem 2rem", marginTop: "2rem", width: "100%" }}
-                className=" bg-gray-700 rounded-lg text-white p-3 mt-6 mb-2 w-full transition duration-300 ease-in-out hover:bg-gray-800 hover:text-gray-300"
-              >
-                Payment
-              </button>
+              <Button text='Place Order' onClick={handleCreatePayment} type='submit'/>
             </div>
           </div>
         </div>

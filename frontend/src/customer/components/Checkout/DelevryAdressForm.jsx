@@ -6,6 +6,7 @@ import { createOrder } from "../../../State/Order/Action";
 import {findAddress} from "../../../State/Address/Action"
 import axios from "axios";
 import AddressCard from "../AdressCard/AdressCard";
+import Button from "../Button/Index";
 
 export default function DeliveryAddressForm({ handleNext }) {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export default function DeliveryAddressForm({ handleNext }) {
   const jwt = localStorage.getItem("jwt");
   const [phoneNumber, setPhoneNumber] = useState("");
   const {user} = useSelector(state=>state.auth);
-  const [addNewAddres, setAddNewAddress] = useState(user?.addresses?.length == 0 ? true : false);
+  const [addNewAddres, setAddNewAddress] = useState();
   const storedAddresses = useSelector(state=>state.address).addresses;
   const [isNextDisabled, setIsNextDisabled] = useState(true);
   
@@ -96,7 +97,9 @@ export default function DeliveryAddressForm({ handleNext }) {
 
   useEffect(()=>{
     console.log(storedAddresses, 'stored addresses');
-    setAddNewAddress(false);
+    if(storedAddresses && storedAddresses.length > 0){
+      setAddNewAddress(false);
+    }else setAddNewAddress(true);
   },[storedAddresses])
 
   const isValidAddress = (address) => {
@@ -138,7 +141,7 @@ export default function DeliveryAddressForm({ handleNext }) {
       </div>}
     {(addNewAddres) && <Grid container spacing={8} className="flex items-center justify-center">
       <Grid item xs={12} lg={10}>
-        <Box className="border bg-gray-200 rounded-md shadow-md p-5">
+        <Box className="border bg-white rounded-md shadow-md p-5">
           <form onSubmit={handleSubmit}>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>
@@ -239,15 +242,7 @@ export default function DeliveryAddressForm({ handleNext }) {
                 />
               </Grid>
               <Grid item xs={12} className="flex justify-center">
-                <button
-                  sx={{ padding: ".9rem 1.5rem" }}
-                  size="large"
-                  type="submit"
-                  variant="contained"
-                  className="bg-gray-800 text-white rounded-lg py-3 px-8 mt-8 transition duration-300 ease-in-out hover:bg-gray-800 hover:text-gray-300"
-                >
-                  Deliver Here
-                </button>
+                <Button text='Deliver Here' type="submit"/>
               </Grid>
             </Grid>
           </form>

@@ -36,7 +36,7 @@ function NavList({ search, setSearch, closeNav }) {
   };
 
   return (
-    <List className={`flex gap-4 text-[${colors["primary-100"]}] items-center lg:flex-row flex-col lg:items-center lg:w-auto w-full rounded-b-lg`}>
+    <List className={`flex gap-4 text-[${colors["primary-100"]}] items-center lg:flex-row flex-col lg:items-center lg:w-auto w-full rounded-b-lg bg-white`}>
       <Typography>
       <ListItem className="lg:hidden">
         <SearchBar search={search} setSearch={setSearch} />
@@ -200,7 +200,7 @@ export default function Head({ search, setSearch }) {
             <Link to="/cart">
               <ShoppingBagIcon className="h-8 w-8 lg:mr-2 cursor-pointer " style={{ strokeWidth: "1.1" }} />
             </Link>
-            {totalCartItemQuantity > 0 && <div className="absolute font-semibold w-4 h-4 bg-red-500 -top-[6px] right-0 sm:-ml-2 rounded-full text-xs text-gray-100 flex items-center justify-center">
+            {totalCartItemQuantity > 0 && <div className="absolute font-semibold w-4 h-4 bg-red-500 -top-[6px] right-0 sm:right-2 rounded-full text-xs text-gray-100 flex items-center justify-center">
                 {totalCartItemQuantity}
             </div>}
           </div>

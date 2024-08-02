@@ -9,6 +9,7 @@ const Order = () => {
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
   const order =useSelector((state)=> state.order);
+  const {user} = useSelector((state)=>state.auth)
 
   useEffect(() => {
     if (jwt) {
@@ -19,23 +20,31 @@ const Order = () => {
   console.log("users orders ",order.orders)
   return (
     <>
-    <div className="min-h-screen pb-8 justify-center">
+    <div className="relative min-h-screen pb-8 justify-center">
     <div className="flex justify-center items-center p-4 ">
-                        <p className="p-2 font-heading px- text-3xl"  >
-                        Order History
-                        </p>
-                    </div>
-      <Box className="px-10 mt-[20px]">
+        <p className="p-2 font-heading px- text-3xl"  >
+        Order History
+        </p>
+    </div>
+    <Box className="px-10 mt-[20px]">
       <Grid container spacing={0} sx={{ justifyContent: "space-between" }}>
         <Grid item xs={12} className="flex items-center justify-center">
           <Box className="space-y-5 ">
-            {order.orders?.length>0 && order.orders?.map((order )=> {
+            {order.orders?.length>0 && sortOrdersByLatest(order?.orders)?.map((order)=> {
               return <OrderItemCard order={order} />
             })}
           </Box>
         </Grid>
       </Grid>
     </Box>
+    <div className="fixed top-[70px] right-[10px] flex flex-col justify-center items-center gap-1 border w-fit px-4 py-2 rounded-md border-blue-100">
+          <p className="text-sm">Rewards</p>
+
+          <div className="flex gap-2 items-center">
+            <img src='images/wallet.svg' />
+            <p>{user?.referralRewards}%</p>
+          </div>
+    </div>
     </div>
     
     </>
@@ -44,3 +53,7 @@ const Order = () => {
 };
 
 export default Order;
+
+function sortOrdersByLatest(orders) {
+  return orders.sort((a, b) => new Date(a.OrderDate) - new Date(b.OrderDate));
+}

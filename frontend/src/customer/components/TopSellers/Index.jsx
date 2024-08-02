@@ -27,9 +27,6 @@ const TopSellers = () => {
                 </h1>
             </div>
 
-
-            
-
             <div className="container pb-24 mx-auto px-4">
                 <div className="w-full mx-auto">
                     {products != undefined && products !=null && products.length >0 && 
