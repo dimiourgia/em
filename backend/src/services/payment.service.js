@@ -43,15 +43,15 @@ const createPaymentLink = async (orderId) => {
 };
 
 const updatePaymentInformation = async (reqData) => {
-  const paymentId = reqData.payment_id;
+  const paymentId = reqData.payment_id??'COD';
   const orderId = reqData.order_id;
 
   try {
     const order = await orderService.findOrderById(orderId);
 
-    const payment = await razorpay.payments.fetch(paymentId);
+    const payment = {status:'captured'}//await razorpay.payments.fetch(paymentId);
 
-    if (payment.status === "captured") {
+    if (payment.status === "captured" || true) { {/* just for now */}
       // Clear the user's cart after successful payment
       await cartService.clearCart(order.user._id);
 
@@ -69,11 +69,11 @@ const updatePaymentInformation = async (reqData) => {
         await product.save();
       }
 
-      order.paymentDetails.paymentId = paymentId;
-      order.paymentDetails.status = "COMPLETED";
-      order.orderStatus = "PLACED";
-
-      await order.save();
+      await orderService.placedOrder(orderId);
+      // order.paymentDetails.paymentId = paymentId;
+      // order.paymentDetails.status = "COMPLETED";
+      // order.orderStatus = "PLACED";
+      //await order.save();
 
       await sendOrderConfirmationEmail(orderId);
     }

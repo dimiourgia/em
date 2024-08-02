@@ -55,11 +55,10 @@ async function findProductByCategory(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
+
 async function getAllProducts(req, res) {
   try {
-    console.log("getAllProducts",req.query)
     const products = await productService.getAllProducts(req.query);
-    console.log("getAllProducts 2",products)
     return res.status(200).send(products);
   } catch (err) {
     return res.status(500).json({ error: err.message });

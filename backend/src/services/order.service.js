@@ -4,6 +4,7 @@ const OrderItem = require("../models/orderItems.js");
 const Product = require("../models/product.model.js");
 const User = require("../models/user.model.js");
 const cartService = require("../services/cart.service.js");
+const { v4: uuidv4 } = require('uuid');
 
 async function createOrder(user, shippingAddress) {
   try {
@@ -76,17 +77,62 @@ async function createOrder(user, shippingAddress) {
   }
 }
 
-
 async function placedOrder(orderId) {
   try {
     const order = await findOrderById(orderId);
     if (!order) throw new Error(`Order not found with id: ${orderId}`);
+
+    // Generate and assign referral code
+    const referralCode = await generateAndAssignReferralCode(order.user._id);
+    console.log(referralCode, 'generated referral code');
+
+    // Update order status
     order.orderStatus = "PLACED";
+    order.referralCode = referralCode;
     order.paymentDetails.status = "COMPLETED";
-    return await order.save();
+    await order.save();
+
+    console.log(`Order placed and referral code generated for user: ${order.user}`);
+    return order;
   } catch (error) {
+    console.error("Error placing order:", error.message);
     throw new Error(error.message);
   }
+}
+
+async function generateAndAssignReferralCode(userId) {
+  try {
+    const user = await User.findById(userId);
+    if (!user) throw new Error(`User not found with id: ${userId}`);
+    console.log('user found for asssigning referral code')
+    const newReferralCode = generateUniqueReferralCode(user.firstName);
+    const referralExists = await User.findOne({ "referrals.referralCode": newReferralCode });
+
+    // Ensure the referral code is unique
+    if (referralExists) {
+      console.log('retrying refferal generation')
+      await generateAndAssignReferralCode(userId); // Retry generating a unique code
+    }
+
+    user.referrals.push({
+      referralCode: newReferralCode,
+      referrer: [],
+      referralCount: 0,
+    });
+
+    await user.save();
+    return newReferralCode;
+  } catch (error) {
+    console.error("Error generating referral code:", error.message);
+    throw new Error(error.message);
+  }
+}
+
+function generateUniqueReferralCode(firstName) {
+  // Generate a unique code using UUID or any custom logic
+  console.log('generating referral code...')
+  const referralCode =  uuidv4().slice(0, 8); // Shorten UUID for a simple referral code
+  return referralCode;
 }
 
 async function confirmedOrder(orderId) {

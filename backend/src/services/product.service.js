@@ -4,7 +4,6 @@ const collectionService = require("../services/collection.service");
 
 async function createProduct(reqData) {
   try {
-    console.log(reqData, 'req data from product service')
     let level = await Category.findOne({ name: reqData.productCategory });
     if (!level) {
       const newLevel = new Category({
@@ -15,7 +14,6 @@ async function createProduct(reqData) {
 
     let collectionId = await collectionService.getCollectionIdByName(reqData.collectionName);
 
-    console.log(collectionId, 'collectionId');
 
     const product = new Product({
       title: reqData.title,
@@ -38,7 +36,6 @@ async function createProduct(reqData) {
 
     const savedProduct = await product.save();
 
-    console.log(savedProduct, 'savedProduct from products...')
     return savedProduct;
   } catch (error) {
     throw new Error("Error creating product: " + error.message);

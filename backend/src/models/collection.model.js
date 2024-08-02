@@ -9,7 +9,7 @@ const collectionSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  products: [{type : mongoose.Types.ObjectId, ref:'products'}],
+  products: [{type : mongoose.Types.ObjectId}],
 
   imageUrl: [
     {

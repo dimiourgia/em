@@ -25,7 +25,7 @@ const orderSchema = new Schema({
     ref: 'addresses',
   },
   paymentDetails: {
-    
+
     paymentMethod: {
       type: String,
     },
@@ -51,8 +51,12 @@ const orderSchema = new Schema({
   totalItem: {
     type: Number,
     required: true,
-  }
-},{
+  },
+  referralCode:{
+    type: String, 
+  },
+}
+,{
   timestamps: {
     type : Date,
     default: Date.now()

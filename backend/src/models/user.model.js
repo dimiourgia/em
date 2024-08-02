@@ -23,10 +23,18 @@ const userSchema = new mongoose.Schema({
     required: true,
     default: "CUSTOMER"
   },
-  referralCode: { type: String, unique: true },
-  referrer: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  referralCount: { type: Number, default: 0 },
+
+  referrals: [
+    { 
+      referralCode: { type: String, unique: true },
+      orderId: {type: mongoose.Types.ObjectId},
+      referree: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+      referralCount: { type: Number, default: 0 },
+    }
+  ],
+
   referralRewards: { type: Number, default: 0 },
+ 
   mobile: {
     type: String,
   },
