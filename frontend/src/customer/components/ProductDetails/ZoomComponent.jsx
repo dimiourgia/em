@@ -65,7 +65,7 @@ const ZoomComponent = ({ src }) => {
 
       </div>
       {showLens && <div
-        className="zoom-result absolute z-[100] -right-[450px] border border-gray-400"
+        className="zoom-result absolute z-[100] -right-[420px] border border-gray-100 rounded-sm shadow-lg"
         style={{
           width: "396px",
           height: "600px",
