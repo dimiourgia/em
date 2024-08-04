@@ -25,11 +25,16 @@ const PaymentSuccess = () => {
   }, []);
 
   useEffect(() => {
-    if (paymentId && paymentStatus === "paid") {
-      const data = { orderId, paymentId, jwt };
-      dispatch(updatePayment(data));
-      dispatch(getOrderById(orderId));
-    }
+    // if (paymentId && paymentStatus === "paid") {
+    //   const data = { orderId, paymentId, jwt };
+    //   dispatch(updatePayment(data));
+    //   dispatch(getOrderById(orderId));
+    // }
+
+    const data = { orderId, paymentId, jwt };
+    dispatch(updatePayment(data));
+    dispatch(getOrderById(orderId));
+
   }, [orderId, paymentId]);
 
   return (

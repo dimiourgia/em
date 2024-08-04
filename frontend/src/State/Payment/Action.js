@@ -24,9 +24,9 @@ import {
       };
   
       const { data } = await axios.post(`${API_BASE_URL}/api/payments/${reqData.orderId}`,reqData, config);
-  console.log("datta",data)
+  console.log("datta payment",data)
   if(data.payment_link_url){
-    window.location.href=data.payment_link_url;
+    //window.location.href=data.payment_link_url;
   }
       dispatch({
         type: CREATE_PAYMENT_SUCCESS,

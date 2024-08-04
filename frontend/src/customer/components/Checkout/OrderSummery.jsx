@@ -5,8 +5,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderById } from "../../../State/Order/Action";
 import AdressCard from "../AdressCard/AdressCard";
-import { createPayment } from "../../../State/Payment/Action";
+import { createPayment, updatePayment } from "../../../State/Payment/Action";
 import Button from "../Button/Index";
+import { useNavigate } from "react-router-dom";
 
 const OrderSummary = () => {
   const location = useLocation();
@@ -15,14 +16,17 @@ const OrderSummary = () => {
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
   const order = useSelector(state => state.order)
+  const navigate = useNavigate();
   console.log("orderId ", order)
   useEffect(() => {
     dispatch(getOrderById(orderId))
   }, [orderId])
 
-  const handleCreatePayment = () => {
+  const handleCreatePayment = async () => {
     const data = { orderId: order.order?._id, jwt }
     dispatch(createPayment(data))
+    //await dispatch(updatePayment({}))
+    navigate(`/payment/${order.order?._id}`)
   }
 
   const discount = order.order
