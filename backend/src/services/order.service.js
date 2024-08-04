@@ -4,6 +4,8 @@ const OrderItem = require("../models/orderItems.js");
 const Product = require("../models/product.model.js");
 const User = require("../models/user.model.js");
 const cartService = require("../services/cart.service.js");
+const twilioService = require('../services/twilio.service.js');
+const { sendOrderConfirmationEmail } = require("../services/email.service.js");
 const { v4: uuidv4 } = require('uuid');
 
 async function createOrder(user, shippingAddress) {
@@ -82,20 +84,28 @@ async function placedOrder(orderId) {
     const order = await findOrderById(orderId);
     if (!order) throw new Error(`Order not found with id: ${orderId}`);
 
-    // Generate and assign referral code
-    const referralCode = await generateAndAssignReferralCode(order.user._id);
-    console.log(referralCode, 'generated referral code');
+    if(order.orderStatus != "PLACED"){
+      // Generate and assign referral code
+      const referralCode = await generateAndAssignReferralCode(order.user._id);
+      console.log(referralCode, 'generated referral code');
 
-    // Update order status
-    order.orderStatus = "PLACED";
-    order.referralCode = referralCode;
-    order.paymentDetails.status = "COMPLETED";
-    await order.save();
+      // Update order status
+      order.orderStatus = "PLACED";
+      order.referralCode = referralCode;
+      order.paymentDetails.status = "COMPLETED";
+      await order.save();
 
-    console.log(`Order placed and referral code generated for user: ${order.user}`);
+      console.log(`Order placed and referral code generated for user: ${order.user}`);
+      // Send confirmation message
+      const userPhoneNumber = `+91${order.shippingAddress.mobile}`??'+916397710583'; // This should be dynamically fetched based on the order
+      const messageBody = `Your Empressa order worth Rs. ${order.totalDiscountedPrice} has been received. Thank you for shopping with us! Additionally you have earned a coupon code ${order.referralCode}. You can get upto 25% discount by sharing the coupon code with others`;
+      
+      await twilioService.sendMessage(`whatsapp:${userPhoneNumber}`, messageBody);
+      await sendOrderConfirmationEmail(orderId);
+    }
     return order;
   } catch (error) {
-    console.error("Error placing order:", error.message);
+    console.error("Error placing order from orders:", error.message);
     throw new Error(error.message);
   }
 }
@@ -131,7 +141,7 @@ async function generateAndAssignReferralCode(userId) {
 function generateUniqueReferralCode(firstName) {
   // Generate a unique code using UUID or any custom logic
   console.log('generating referral code...')
-  const referralCode =  uuidv4().slice(0, 8); // Shorten UUID for a simple referral code
+  const referralCode =  uuidv4().slice(0, 8).toUpperCase(); // Shorten UUID for a simple referral code
   return referralCode;
 }
 

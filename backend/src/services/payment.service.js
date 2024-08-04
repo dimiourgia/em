@@ -2,11 +2,17 @@ const razorpay = require("../config/razorpayClient");
 const orderService = require("../services/order.service.js");
 const cartService = require("../services/cart.service.js");
 const Product = require("../models/product.model.js");
-const { sendOrderConfirmationEmail } = require("../services/email.service.js");
+// const { sendOrderConfirmationEmail } = require("../services/email.service.js");
 
 const createPaymentLink = async (orderId) => {
   try {
     const order = await orderService.findOrderById(orderId);
+
+    // await orderService.placedOrder(orderId);
+    // order.paymentDetails.paymentId = paymentId;
+    // order.paymentDetails.status = "COMPLETED";
+    // order.orderStatus = "PLACED";
+    // await order.save();
 
     const paymentLinkRequest = {
       amount: order.totalDiscountedPrice * 100,
@@ -34,6 +40,7 @@ const createPaymentLink = async (orderId) => {
     const resData = {
       paymentLinkId: paymentLinkId,
       payment_link_url,
+      //paymentLinkRequest, //temporary addition
     };
     return resData;
   } catch (error) {
@@ -73,9 +80,9 @@ const updatePaymentInformation = async (reqData) => {
       // order.paymentDetails.paymentId = paymentId;
       // order.paymentDetails.status = "COMPLETED";
       // order.orderStatus = "PLACED";
-      //await order.save();
+      // await order.save();
 
-      await sendOrderConfirmationEmail(orderId);
+      //await sendOrderConfirmationEmail(orderId);
     }
 
     const resData = { message: "Your order is placed", success: true };
