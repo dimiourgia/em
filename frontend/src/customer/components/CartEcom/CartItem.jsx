@@ -29,7 +29,7 @@ const CartItem = ({ item, showButton }) => {
   };
 
   return (
-    <div className="px-6 py-2 border border-gray-200 bg-white rounded-sm h-fit">
+    <div className="px-4 py-2 border border-gray-200 bg-white rounded-md max-w-screen">
       <div className="flex items-center gap-4">
         <div className="w-[9rem] h-[12rem]">
           <img

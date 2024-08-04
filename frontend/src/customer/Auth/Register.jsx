@@ -140,7 +140,7 @@ export default function RegisterForm(){
     return(
     <div className='flex items-center justify-center'>
         <div className="">
-            <motion.div className="form_container" initial={{transform:'scale(.2)', opacity:0}} animate={{transform:'scale(1)', opacity:1}} transition={{duration:.2, spring}}>
+            <motion.div className="form_container" initial={{transform:'scale(.8)', opacity:.5}} animate={{transform:'scale(1)', opacity:1}} transition={{duration:.2, spring}}>
                 <form onSubmit={handleSubmit}>
                 <div style={{display:'flex', columnGap:'8px', marginBottom:'14px'}}>
                     <Input placeholder={'First Name'} ref={firstNameRef} type={'text'} error={firstNameError} />

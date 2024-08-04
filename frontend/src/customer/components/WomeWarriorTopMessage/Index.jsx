@@ -1,7 +1,7 @@
 const TopMessage = () => {
     return (
         <>
-            <div className='w-full md:w-1/3 px-3 md:mb-0  mx-auto max-w-[1000px]'>
+            <div className='w-full px-3 md:mb-0  mx-auto max-w-[1000px]'>
 
 
                 <div className='mt-[100px]'>

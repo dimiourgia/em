@@ -36,13 +36,13 @@ function NavList({ search, setSearch, closeNav }) {
   };
 
   return (
-    <List className={`flex gap-4 text-[${colors["primary-100"]}] items-center lg:flex-row flex-col lg:items-center lg:w-auto w-full rounded-b-lg bg-white`}>
+    <List className={`flex gap-4 text-[${colors["primary-100"]}] items-center lg:flex-row flex-col lg:items-center lg:w-auto w-full rounded-b-lg bg-slate-50`}>
       <Typography>
-      <ListItem className="lg:hidden">
-        <SearchBar search={search} setSearch={setSearch} />
-      </ListItem>
+        <ListItem className="lg:hidden bg-gray-50">
+          <SearchBar search={search} setSearch={setSearch} />
+        </ListItem>
       </Typography>
-      <div className="flex divide-x divide-gray-600 gap-4 tracking-wide whitespace-nowrap text-lg">
+      <div className="flex divide-x leading-1 divide-gray-300 gap-4 tracking-wide whitespace-nowrap text-normal">
         <div  variant="h6" className={`font-roboto tracking-widest text-[${colors["primary-100"]}] cursor-pointer hover:text-[${colors["primary-200"]}] `}>
           <span onClick={(e)=>handleScrollToSection(e,'collection-section')}>COLLECTIONS</span>
         </div>
@@ -139,29 +139,32 @@ export default function Head({ search, setSearch }) {
   }
 
   return (
-    <div className="fixed h-[60px] top-0 z-[100] bg-[#fff] w-full shadow-sm">
+    <div className="fixed h-[60px] top-0 z-[100] bg-slate-50 w-full shadow-sm px-4">
       <div className={`flex items-center justify-between text-[${colors["primary-100"]}]`}>
+        
         <div
           onClick={()=>navigate('/')}
-          className="relative w-[280px] h-[60px] relative cursor-pointer pl-10 flex flex-col items-start"
+          className="relative w-[280px] h-[60px] relative cursor-pointer flex items-center gap-1"
         >
           <img
             src="/images/logo.png"
             alt="Empressa"
-            className="absolute -top-[4px] h-12 w-12"
+            className="h-10 w-10"
           />
-          <div className={`text-[${colors["primary-100"]}] absolute top-[32px] left-[29px] font-roboto font-semibold`}>
-            Empressa
+          <div className={`text-black font-sans font-thin tracking-tight`}>
+            EMPRESSA
           </div>
         </div>
-        <div className="hidden lg:block">
+
+        <div className="hidden sm:block">
           <NavList search={search} setSearch={setSearch} closeNav={closeNav} />
         </div>
-        <div className="flex items-center">
-          <div className="hidden lg:block p-1">
+
+        <div className="flex items-end gap-4">
+          <div className="hidden sm:block">
             <SearchBar search={search} setSearch={setSearch} />
           </div>
-          <div className="flex items-center p-1">
+          <div className="flex items-center">
             {auth.user ? (
               <div>
                 <div
@@ -190,22 +193,22 @@ export default function Head({ search, setSearch }) {
               </div>
             ) : (
               <UserCircleIcon
-                className="h-7 w-7 cursor-pointer"
+                className="h-8 w-8 cursor-pointer text-gray-600"
                 onClick={handleOpen}
                 style={{ strokeWidth: "1" }}
               />
             )}
           </div>
-          <div className="flex items-center p-1 relative">
+          <div className="flex items-center relative">
             <Link to="/cart">
-              <ShoppingBagIcon className="h-8 w-8 lg:mr-2 cursor-pointer " style={{ strokeWidth: "1.1" }} />
+              <ShoppingBagIcon className="h-8 w-8 cursor-pointer " style={{ strokeWidth: "1" }} />
             </Link>
-            {totalCartItemQuantity > 0 && <div className="absolute font-semibold w-4 h-4 bg-red-500 -top-[6px] right-0 sm:right-2 rounded-full text-xs text-gray-100 flex items-center justify-center">
+            {totalCartItemQuantity > 0 && <div className="absolute font-semibold w-4 h-4 bg-red-500 -top-[6px] -right-2 sm:-right-2 rounded-full text-xs text-gray-100 flex items-center justify-center">
                 {totalCartItemQuantity}
             </div>}
           </div>
-          <div className="lg:hidden ml-2 mr-2" onClick={() => setOpenNav(!openNav)}>
-            {openNav ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
+          <div className="lg:hidden mr-2 cursor-pointer" onClick={() => setOpenNav(!openNav)}>
+            {openNav ? <XMarkIcon className="h-8 w-8 text-gray-500" /> : <Bars3Icon className="h-8 w-8 text-gray-500" />}
           </div>
         </div>
       </div>
@@ -217,7 +220,6 @@ export default function Head({ search, setSearch }) {
       </Collapse>
 
       <AuthModal open={openAuthModal} handleClose={handleClose} />
-      <div className="absolute bottom-0 h-2 bg-white w-full"/>
     </div>
   );
 }

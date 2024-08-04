@@ -98,8 +98,8 @@ export default function ProductDetails() {
         </div>
 
 
-        <div className="mx-4 m-1 p-5 sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4 bg-white">
-          <div className="text-lg lg:text-2xl text-neutral-800 font-semibold mb-4">{product?.title}</div>
+        <div className="border border-[1px] border-gray-100 rounded-md mx-4 m-1 px-5 py-2  sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4 bg-white">
+          <div className="text-lg lg:text-xl text-neutral-600 font-semibold mb-4">{product?.title}</div>
           {/* <h1 className="font-roboto text-red-700 opacity-70">
             {product?.brand}
           </h1> */}
@@ -154,8 +154,8 @@ export default function ProductDetails() {
                             size.quantity
                               ? "cursor-pointer bg-white text-gray-900 shadow-sm"
                               : "cursor-not-allowed bg-gray-50 text-gray-200",
-                            active ? "ring-2 ring-indigo-500" : "",
-                            "group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6"
+                            active ? "ring-1 ring-indigo-500" : "",
+                            "group relative flex items-center justify-center rounded-md border p-1 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1"
                           )
                         }
                       >
@@ -219,7 +219,7 @@ export default function ProductDetails() {
                 </div>
               </div>
 
-              <div className="w-full mt-6">
+              <div className="w-full mt-10">
               <Button
                 classname='w-full'
                 text='Add to Cart'
@@ -233,20 +233,21 @@ export default function ProductDetails() {
       </div>
 
       {/* description */}
-      <div className="m-3 mt-10 p-4 pb-16 bg-gray-50">
+      <hr className="mt-4 text-gray-50 bg-gray-50"/>
+      <div className="m-3 mt-4 p-4 pb-16">
           <h3 className="font-text flex justify-center text-semibold text-2xl opacity-75 mx-auto p-2">Product Description</h3>
-          <div className="mx-auto md:w-1/2 text-neutral-600 font-sans-serif tracking-wide text-lg">
-            <p className="flex items-center justify-center">{product?.description}</p>
+          <div className="mx-auto text-neutral-600 font-sans tracking-wide text-normal">
+            <p className="">{product?.description}</p>
             <p className="py-2">{product?.modelAttireDescription}</p>
           </div>
-          <h3 className="font-text flex justify-center text-semibold text-2xl opacity-75 mx-auto p-2">Shipping and Returns</h3>
+          {/* <h3 className="font-text flex justify-center text-semibold text-2xl opacity-75 mx-auto p-2">Shipping and Returns</h3>
           <div className="mx-auto md:w-1/2 font-serif ">
             <p className="flex items-center justify-center ">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             <h4 className="p-2 text-lg">Eligibilty</h4>
             <p className="">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             <h6 className="p-2 text-lg">Return Process</h6>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
+          </div> */}
         </div>
     </div>}
 

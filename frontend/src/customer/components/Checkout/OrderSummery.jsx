@@ -30,61 +30,63 @@ const OrderSummary = () => {
     : 0;
 
 
-  return ( 
-      <div className="space-y-6 p-6 rounded-xl bg-white">
-      <h1 className='font-sans text-center text-3xl  text-black'>
-        <div className="flex justify-center items-center">
-          Order Summary
-        </div>
-      </h1>
-        <div className="p-6 rounded-lg border bg-white font-text">
-        <span className="font-sans text-lg">Shipping Details:</span>
-        <div className="">
-          <AdressCard address={order.order?.shippingAddress} />
-        </div>
-        </div>
-        <div className="lg:grid grid-cols-3 relative justify-between">
-          <div className="lg:col-span-2">
-            <div className="space-y-3 font-text">
-              {order.order?.orderItems.map((item) => (
-                <div className="p-2">
-                  <CartItem className="bg-red-500" item={item} showButton={false} />
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="sticky top-0 h-[100vh] lg:mt-0 lg:ml-5 ">
-            <div className="border border-gray-500 mt-2 px-5 py-2 rounded-lg bg-white ">
-              <p className="font-text opacity-60 text-center p-2">PRICE DETAILS</p>
-              <hr className="border-black p-2" />
-
-              <div className="space-y-3 font-semibold">
-                <div className="flex justify-between text-black ">
-                  <span className="font-text">Price ({order.order?.totalItem} item)</span>
-                  <span className="font-text">₹{order.order?.totalPrice}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="font-text">Discount</span>
-                  <span className="text-green-700 font-text ">-₹{discount}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="font-text" >Delivery Charges</span>
-                  <span className="text-green-700 font-text">Free</span>
-                </div>
-                <hr className="h-10px border-3 border-black" />
-
-                <div className="flex justify-between font-bold text-lg">
-                  <span className="font-text">Total Amount</span>
-                  <span className="text-green-700 font-text">₹{order.order?.totalDiscountedPrice}</span>
-                </div>
+  return ( <>
+    {<div className="space-y-6 p-6 rounded-xl bg-white">
+    <h1 className='font-sans text-center text-3xl  text-black'>
+      <div className="flex justify-center items-center">
+        Order Summary
+      </div>
+    </h1>
+      <div className="p-6 rounded-md border bg-white font-text">
+      <span className="font-sans text-lg">Shipping Details:</span>
+      <div className="">
+        <AdressCard address={order.order?.shippingAddress} />
+      </div>
+      </div>
+      <div className="lg:grid grid-cols-3 relative justify-between">
+        <div className="lg:col-span-2">
+          <div className="space-y-3 font-text">
+            {order.order?.orderItems.map((item) => (
+              <div className="p-2">
+                <CartItem className="bg-red-500" item={item} showButton={false} />
               </div>
+            ))}
+          </div>
+        </div>
+        <div className="sticky top-0 lg:mt-0 lg:ml-5 font-roboto text-neutral-700">
+          <div className="border border-gray-200 mt-2 px-5 py-2 rounded-md bg-white ">
+            <p className="text-center p-2">Price Details</p>
+            <hr className="border-gray-100 p-2" />
 
-              <Button text='Place Order' onClick={handleCreatePayment} type='submit'/>
+            <div className="space-y-2">
+              <div className="flex justify-between">
+                <span className="">Price ({order.order?.totalItem} item)</span>
+                <span className="">₹{order.order?.totalPrice}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="">Discount</span>
+                <span className="text-green-700  ">-₹{discount}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="" >Delivery Charges</span>
+                <span className="text-green-700 ">Free</span>
+              </div>
+              <hr className="py-2 border-gray-100" />
+
+              <div className="flex justify-between font-bold text-lg">
+                <span className="">Total Amount</span>
+                <span className="text-green-700 ">₹{order.order?.totalDiscountedPrice}</span>
+              </div>
             </div>
+
+            <Button text='Place Order' classname={'mt-2'} onClick={handleCreatePayment} type='submit'/>
           </div>
         </div>
       </div>
-  );
+    </div>}
+
+    {}
+    </>);
 };
 
 export default OrderSummary;

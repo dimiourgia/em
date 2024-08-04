@@ -24,7 +24,7 @@ const Cart = () => {
   const isCartEmpty = !cart.cartItems || cart.cartItems.length === 0;
 
   return (
-    <div className="cart-container min-h-screen">
+    <div className="cart-container min-h-screen px-4">
       <div className="text-center py-4">
         <h1 className="text-2xl font-thin font-roboto">Cart</h1>
       </div>

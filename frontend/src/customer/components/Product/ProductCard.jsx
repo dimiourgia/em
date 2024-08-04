@@ -8,7 +8,7 @@ const ProductCard = ({ product, defaultImageIndex=0 }) => {
     <>
       <div
         onClick={() => navigate(`/product/${product._id}`)}
-        className="productCard w-[15rem] m-3 transition-all cursor-pointer rounded-md"
+        className="productCard w-[15rem] m-3 transition-all cursor-pointer rounded-md hover:shadow-xl"
       >
         <div className="h-[15rem] rounded">
           <img

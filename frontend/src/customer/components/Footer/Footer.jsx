@@ -16,9 +16,9 @@ function Footer() {
         href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css"
       />
 
-      <footer className="relative bg-heading-bg pt-6">
+      <footer className="relative bg-slate-50 border border-t-[1px] border-t-slate-200 min-h-[250px] pt-6">
         <div className="container mx-auto px-4">
-          <div className="flex flex-wrap text-left lg:text-left">
+          <div className="flex flex-wrap text-left lg:text-left mb-6">
             <div className="w-full lg:w-6/12 px-4">
               <h4 className="text-3xl font-roboto ">
                 EMPRESSA
@@ -26,15 +26,15 @@ function Footer() {
               <h5 className="text-gray-900 font-roboto text-lg mt-0 mb-2">
                 BE BOLD, BE YOU, BE UNSTOPPABLE
               </h5>
-              <div className="mt-2 lg:mb-0 mb-6">
+              <div className="mt-2 flex gap-2 lg:mb-0 mb-6">
                 <button onClick={() => window.location.href = "https://www.instagram.com/empressa_fashion/"}
-                  className="bg-white text-gray-500 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+                  className="flex bg-white text-gray-500 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                   type="button"
                 >
                   <InstagramIcon />
                 </button>
                 <button onClick={() => navigate("/contact")}
-                  className="bg-white text-gray-500 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+                  className="flex bg-white text-gray-500 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                   type="button"
                 >
                   <EmailIcon />

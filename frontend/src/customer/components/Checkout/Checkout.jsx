@@ -42,9 +42,8 @@ export default function Checkout() {
   return (
     <div className="min-h-screen">
       <Box className="sm:px-30 lg:px-32" sx={{ width: "100%" }}>
-        <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+        <Box sx={{ display: "flex", flexDirection: "row", pt: 2, pl:4 }}>
           <button
-            disabled={step === '0'}
             onClick={handleBack}
             sx={{ mr: 1 }}
             className={`text-black bg-gray-200 py-2 px-4 rounded-md hover:bg-gray-400 ${step === '0' ? 'opacity-50' : 'opacity-100'}`}

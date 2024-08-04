@@ -1,6 +1,6 @@
-import React, {useRef, useEffect, useState} from 'react';
+import React, {useRef, useEffect, useState, useLayoutEffect} from 'react';
 import AliceCarousel from 'react-alice-carousel';
-import 'react-alice-carousel/lib/alice-carousel.css';
+// import 'react-alice-carousel/lib/alice-carousel.css';
 import './CarouselStyles.css'; // Ensure this is correctly imported
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -22,6 +22,7 @@ const CarouselComponent = ({items, key, isDummy, showControls=true, autoPlay=fal
   const [isButtonEnabled, setIsButtonEnabled] = useState(true);
   const [isPrevEnabled, setIsPrevEnabled] = useState(false);
   const [isNextEnabled, setIsNextEnabled] = useState(true);
+  const [showControls_, setShowControls_] = useState(showControls??true)
 
   useEffect(() => {
     const handleScroll = (e) => {
@@ -32,6 +33,7 @@ const CarouselComponent = ({items, key, isDummy, showControls=true, autoPlay=fal
         }
       }
     };
+
 
     const carouselWrapper = carouselRef.current?.rootElement?.querySelector('.alice-carousel__stage');
 
@@ -67,15 +69,33 @@ const CarouselComponent = ({items, key, isDummy, showControls=true, autoPlay=fal
     };
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const updateItemsPerView = () => {
       const width = window.innerWidth;
       if (width < 568) {
         setItemsPerView(responsive[0].items);
+        const total = 1+(items.length-itemsPerView);
+        if(total <= responsive[0].items){
+          setShowControls_(false);
+        }else{
+          setShowControls_(true);
+        }
       } else if (width < 1024) {
         setItemsPerView(responsive[568].items);
+        const total = 1+(items.length-itemsPerView);
+        if(total <= responsive[568].items){
+          setShowControls_(false);
+        }else{
+          setShowControls_(true);
+        }
       } else {
         setItemsPerView(responsive[1024].items);
+        const total = 1+(items.length-itemsPerView);
+        if(total <= responsive[1024].items){
+          setShowControls_(false);
+        }else{
+          setShowControls_(true);
+        }
       }
     };
 
@@ -86,6 +106,7 @@ const CarouselComponent = ({items, key, isDummy, showControls=true, autoPlay=fal
       window.removeEventListener('resize', updateItemsPerView);
     };
   }, []);
+
 
   // useEffect(() => {
   //   console.log(isInView, 'is carousel in view');
@@ -103,8 +124,6 @@ const CarouselComponent = ({items, key, isDummy, showControls=true, autoPlay=fal
       if(carouselKey > 1)
         setIsPrevEnabled(true);
     },700);
-
-    const total = 1+(items.length-itemsPerView);
 
     setCarouselKey(pre=>{
       if(pre>0){
@@ -143,7 +162,7 @@ const CarouselComponent = ({items, key, isDummy, showControls=true, autoPlay=fal
 
   return (<div className='relative'>
     <AliceCarousel
-      activeIndex={showControls&&carouselKey}
+      activeIndex={showControls_&&carouselKey}
       renderKey={key}
       ref={carouselRef}
       mouseTracking
@@ -171,7 +190,7 @@ const CarouselComponent = ({items, key, isDummy, showControls=true, autoPlay=fal
         );
       }}
     />
-    {!isDummy && showControls &&
+    {!isDummy && showControls_ &&
       <>
         <div onClick={handlePrevious} className={`custom-prev-button ${!isPrevEnabled&&'custom-prev-button-disabled'}`}><ArrowBackIosIcon /></div>
         <div onClick={handleNext} className={`custom-next-button ${!isNextEnabled&&'custom-next-button-disabled'}`}><ArrowForwardIosIcon/></div>

@@ -12,7 +12,7 @@ export default function({product, defaultImageIndex}){
     }
 
 
-    return(<div className='relative flex flex-col' onClick={()=>navigate(`/product/${product._id}`)}>
+    return(<div className='relative flex flex-col ml-4' onClick={()=>navigate(`/product/${product._id}`)}>
         <Link className="" onMouseEnter={handleMouseEnter}>
             <div className="overflow-hidden rounded-lg shadow-lg group">
                 <img
@@ -34,14 +34,14 @@ export default function({product, defaultImageIndex}){
 
             <div className="bg-gray-100/60 px-4 py-6 rounded-md">
             <div>
-                <p className="truncate font-roboto tracking-tight font-semibold">
+                <p className="text-sm font-roboto tracking-tight font-thin">
                 {product.title}
                 </p>
             </div>
-            <div className="flex items-center mt-1 space-x-2">
-                <p className="text-md font-text">{"₹" + product.discountedPrice}</p>
+            <div className="flex items-center mt-1 space-x-2 text-neutral-600">
+                <p className="text-md font-roboto text-sm">{"₹" + product.discountedPrice}</p>
                 {product.discountedPrice != product.price && <div className="flex items-center space-x-2">
-                    <p className="font-text line-through opacity-70 text-sm text-gray-500">
+                    <p className="font-roboto line-through opacity-70 text-sm text-gray-500">
                         {"₹" + product.price}
                     </p>
                     <p className="text-green-500 text-xs font-text">
@@ -49,7 +49,13 @@ export default function({product, defaultImageIndex}){
                     </p>
                 </div>}
             </div>
-
+            <div className="flex gap-4 text-xs text-neutral-500 mt-2">
+                <p>S</p>
+                <p>M</p>
+                <p>L</p>
+                <p>XL</p>
+                <p>2XL</p>
+            </div>
             </div>
         </div>
     </div>)

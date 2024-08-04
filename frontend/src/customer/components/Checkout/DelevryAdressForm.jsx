@@ -129,17 +129,17 @@ export default function DeliveryAddressForm({ handleNext }) {
   },[address])
 
   return (<>
-    {(storedAddresses && storedAddresses.length >0 && !addNewAddres) && <div className="w-full flex flex-col justify-center items-center">
-      <p className="text-roboto text-2xl mt-4 ml-4 py-4 text-semibold text-gray-600 w-[450px] flex justify-start">Select an address to continue</p>
+    {(storedAddresses && storedAddresses.length >0 && !addNewAddres) && <div className="w-full flex flex-col justify-center items-center px-6">
+      <p className="text-roboto text-xl sm:text-2xl mt-4 py-4 text-semibold text-gray-600 max-w-[450px] flex justify-start">Select an address to continue</p>
         <div className="flex flex-col gap-4 mt-10">
           {storedAddresses.map(address_=><SelectableAddressCard address={address_} onSelect={handleAddressSelect} isSelected={address && address?._id === address_._id} />)}
         </div>
-        <div className="w-[450px] flex justify-between">
+        <div className="w-full max-w-[450px] flex justify-between">
           <p className="text-blue-800 cursor-pointer mt-10  px-4 py-2" onClick={()=>setAddNewAddress(true)}>+ Add new address</p>
           <p className={`${isNextDisabled? 'text-gray-400 border-gray-100 cursor-not-allowed' : 'text-blue-800 border-blue-500 hover:bg-blue-100 hover:text-white cursor-pointer'} mt-10  px-4 py-2 border border-sm`} onClick={handleProceed}>Proceed</p>
         </div>
       </div>}
-    {(addNewAddres) && <Grid container spacing={8} className="flex items-center justify-center">
+    {(addNewAddres) && <Grid container spacing={8} className="flex items-center justify-center px-6">
       <Grid item xs={12} lg={10}>
         <Box className="border bg-white rounded-md shadow-md p-5">
           <form onSubmit={handleSubmit}>
@@ -255,7 +255,7 @@ export default function DeliveryAddressForm({ handleNext }) {
 
 const SelectableAddressCard = ({ address, onSelect, isSelected }) => (
   <div 
-    className={`${isSelected ? 'border border-[2px] border-blue-500' : 'border border-[1px] border-gray-200'} rounded w-[450px] px-6 py-4 cursor-pointer`}
+    className={`${isSelected ? 'border border-[2px] border-blue-500' : 'border border-[1px] border-gray-200'} rounded max-w-[450px] px-6 py-4 cursor-pointer`}
     onClick={() => onSelect(address)} 
   >
     <AddressCard address={address} /> 

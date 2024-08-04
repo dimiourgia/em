@@ -117,7 +117,7 @@ const handleLogin = (e)=>{
     <div className='flex items-center justify-center'>
         
        <div className="">
-            <motion.div className="form_container" initial={{transform:'scale(.2)', opacity:0}} animate={{transform:'scale(1)', opacity:1}} transition={{duration:.2, spring}}>
+            <motion.div className="form_container" initial={{transform:'scale(.8)', opacity:.5}} animate={{transform:'scale(1)', opacity:1}} transition={{duration:.2, spring}}>
                 <form onSubmit={handleLogin}>
                         <Input placeholder={'Email'} ref={emailRef} type={'text'} error={emailError} />     
                         <Input placeholder={'Password'} ref={passwordRef} type={'password'} error={passwordError} />

@@ -47,3 +47,8 @@
 .alice-carousel-next-button {
   right: 10px;
 }
+
+.alice-carousel__stage-item {
+  padding: 0px;
+  border-radius: .5rem;
+}

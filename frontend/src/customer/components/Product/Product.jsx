@@ -155,10 +155,10 @@ const Product = ({ search, collectionId}) => {
   };
 
   return (<>
-    { collection != undefined && <div className="min-h-80 bg- md:min-h-screen pb-16">
+    { collection != undefined && <div className="min-h-80 bg- md:min-h-screen pb-16 px-6">
       <div className="container mx-auto">
         
-        <div className="mt-24 bg-[#faf8f1] rounded-2xl py-4 text-neutral-800  px-6 font-sans w-full flex flex-col gap-4 items-center justify-center">
+        <div className="mt-24 bg-[#fff] rounded-2xl border border-[1px] border-gray-100 py-4 text-neutral-800  px-6 font-sans w-full flex flex-col gap-4 items-center justify-center">
           <h1 className="text-2xl sm:text-3xl">{collection?.name}</h1>
           <p className="text-normal sm:text-lg text-neutral-600">{collection?.description}</p>
         </div>
@@ -228,7 +228,7 @@ const Product = ({ search, collectionId}) => {
           </div>
         </div>
       </div>
-      {renderPagination()}
+      {/* {renderPagination()} */}
     </div> }
     
     {collection == undefined && <Placeholder/> }

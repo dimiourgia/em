@@ -58,7 +58,7 @@ const Collections = () => {
                             />
                     }
 
-                    {collections == null || collections == undefined || collections.length == 0 &&
+                    {(collections == null || collections == undefined || collections.length == 0) &&
                         <CarouselComponent isDummy={true} key="collections_carousel" items={[<PlaceholderCard/>, <PlaceholderCard/>, <PlaceholderCard/>, <PlaceholderCard/>, <PlaceholderCard/>] } 
                             />}
                 </div>
