@@ -22,7 +22,7 @@ export default function SearchBar({search, setSearch}) {
             type="search"
             placeholder="Search"
             onChange={handleChange}
-            className="h-8 w-32 md:w-40 lg:w-48 rounded-full pl-10 border border-[1px] focus:outline-blue-400 focus:border-0"
+            className="h-8 w-32 md:w-40 lg:w-48 flex items-center rounded-full pl-10 border border-[1px] focus:outline-blue-400 focus:border-0 pr-2"
           />
         </div>
       </form>

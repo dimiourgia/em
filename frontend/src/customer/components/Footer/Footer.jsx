@@ -65,9 +65,9 @@ function Footer() {
                       </Link>
                     </li>
                     <li>
-                      <Link to="/journal">
+                      <Link to="/women-warriors">
                         <p className="text-gray-800 hover:text-blueGray-800 font-semibold block pb-2 text-sm">
-                          Journal
+                          Women Warriors
                         </p>
                       </Link>
                     </li>
@@ -78,13 +78,13 @@ function Footer() {
                     Other Resources
                   </span>
                   <ul className="list-unstyled">
-                    <li>
+                    {/* <li>
                       <Link to="/refund">
                         <p className="text-gray-800 hover:text-blueGray-800 font-semibold block pb-2 text-sm">
                           Refund
                         </p>
                       </Link>
-                    </li>
+                    </li> */}
                     <li>
                       <Link to="/privacy">
                         <p className="text-gray-800 hover:text-blueGray-800 font-semibold block pb-2 text-sm">

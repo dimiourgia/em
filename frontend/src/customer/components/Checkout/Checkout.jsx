@@ -43,13 +43,14 @@ export default function Checkout() {
     <div className="min-h-screen">
       <Box className="sm:px-30 lg:px-32" sx={{ width: "100%" }}>
         <Box sx={{ display: "flex", flexDirection: "row", pt: 2, pl:4 }}>
-          <button
+          {/* <button
             onClick={handleBack}
             sx={{ mr: 1 }}
-            className={`text-black bg-gray-200 py-2 px-4 rounded-md hover:bg-gray-400 ${step === '0' ? 'opacity-50' : 'opacity-100'}`}
+            className={`text-blue bg-gray-200 py-2 px-4 rounded-md hover:bg-gray-400 ${step === '0' ? 'opacity-50' : 'opacity-100'}`}
           >
             Back
-          </button>
+          </button> */}
+          <p className={`${step === '-1'? 'text-gray-400 border-gray-100 cursor-not-allowed' : 'text-blue-800 border-blue-500 hover:bg-blue-100 hover:text-white cursor-pointer'} mt-10  px-4 py-2 border border-sm`} onClick={handleBack}>Back</p>
         </Box>
         <div className="my-5">
           {step === '0' && <DelevryAdressForm handleNext={handleNext} />}

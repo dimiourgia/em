@@ -36,11 +36,12 @@ const OrderSummary = () => {
 
   return ( <>
     {<div className="space-y-6 p-6 rounded-xl bg-white">
-    <h1 className='font-sans text-center text-3xl  text-black'>
-      <div className="flex justify-center items-center">
-        Order Summary
-      </div>
-    </h1>
+    <div className="sticky top-[60px] flex justify-center items-center p-4 w-full bg-white ">
+        <p className="p-2 font-heading px- text-3xl"  >
+          Order Summary
+        </p>
+    </div>
+    
       <div className="p-6 rounded-md border bg-white font-text">
       <span className="font-sans text-lg">Shipping Details:</span>
       <div className="">

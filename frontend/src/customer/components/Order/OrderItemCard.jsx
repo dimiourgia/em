@@ -56,7 +56,7 @@ const OrderItemCard = ({ order }) => {
         <div className="flex-2" >
             <div className="flex flex-col gap-1">
                 <p className="text-sm">Status:</p>
-                <p className="p-1 bg-green-100 text-sm flex items-center justify-center border border-green-600 rounded-md text-green-800 font-sans">{order?.orderStatus}</p>
+                <p className="p-1 bg-green-100 text-sm flex items-center justify-center border border-0 border-green-600 rounded-md text-green-800 font-sans">{order?.orderStatus}</p>
             </div>
         </div>
 

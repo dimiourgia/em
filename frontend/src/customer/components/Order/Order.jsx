@@ -21,9 +21,9 @@ const Order = () => {
   return (
     <>
     <div className="relative min-h-screen pb-8 justify-center">
-    <div className="flex justify-center items-center p-4 ">
-        <p className="p-2 font-heading px- text-3xl"  >
-        Order History
+    <div className="sticky top-[60px] flex justify-center items-center p-4 w-full bg-white">
+        <p className="p-2 font-heading text-3xl bg-white z-[100]"  >
+          Order History
         </p>
     </div>
     <Box className="px-10 mt-[20px]">

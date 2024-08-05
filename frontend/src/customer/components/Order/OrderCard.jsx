@@ -19,20 +19,19 @@ const OrderCard = ({ item, order }) => {
             />
             <div className="ml-5">
               <p className="mb-2">{item?.product?.title}</p>
-              <p className="opacity-50 text-xs font-semibold space-x-5">
+              <p className="text-neutral-400 text-xs font-semibold space-x-5">
                 <span>Size: {item?.size}</span>
               </p>
-              <p className="opacity-50 text-xs font-semibold space-x-5">
+              <p className="text-neutral-400 text-xs font-semibold space-x-5">
                 <span>Quantity: {item?.quantity}</span>
               </p>
-              
             </div>
           </div>
         </Grid>
 
         <Grid item xs={2}>
           <p>₹{item?.discountedPrice}</p>
-          <p className="mt-[10px] opacity-50 text-xs font-semibold space-x-5">
+          <p className="mt-[10px] text-neutral-400 text-xs font-semibold space-x-5">
                 <span>Order Date: {formatDate(item?.OrderDate)}</span>
               </p>
         </Grid>

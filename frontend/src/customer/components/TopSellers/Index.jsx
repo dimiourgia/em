@@ -5,11 +5,13 @@ import ProductCard from '../Product/ProductCard';
 import { useSelector } from 'react-redux';
 import CarouselComponent from '../Carousel/Index';
 import PlaceholderCard from './CardSkeleton';
+import { useNavigate } from 'react-router-dom';
 
 const TopSellers = () => {
 
     const { products } = useSelector((state) => state.products);
     const defaultImageIndex = [2, 6, 1, 0, 3]
+    const navigate = useNavigate();
 
 
     console.log(products, 'products')
@@ -27,7 +29,7 @@ const TopSellers = () => {
                 </h1>
             </div>
 
-            <div className="container pb-24 mx-auto px-4">
+            <div className="container pb-0 mx-auto px-4">
                 <div className="w-full mx-auto">
                     {products != undefined && products !=null && products.length >0 && 
                         <CarouselComponent isDummy={false} key='top_sellers_carousel' items={products.map((product,index)=><Card product={product} defaultImageIndex={defaultImageIndex[index]??0}/>)} />
@@ -38,7 +40,13 @@ const TopSellers = () => {
                     }
                 </div>
             </div>
-
+            
+            <h1 className='font-roboto text-center mt-[10px] pb-24'>
+                <button onClick={() => navigate("/products")} className="bg-white tracking-widest hover:bg-heading-bg text-sm text-gray-800 py-2 px-4 border border-gray-400">
+                    {'VIEW ALL'}
+                </button>
+            </h1>
+            
         </div>
     )
 }

@@ -20,12 +20,12 @@ const ProductCard = ({ product, defaultImageIndex=0 }) => {
         <div className="mt-[100px] h-[100px] p-3 rounded-md">
           <div>
           {/* <p className="font-text text-red-700 opacity-70 mt-2 text-sm">{product.brand}</p> */}
-            <p className="font-sans">
+            <p className="font-sans text-sm text-neutral-700 mt-1">
               {product.title}
             </p>
           </div>
           <div className="flex items-center mt-1 space-x-2">
-            <p className="text-md font-text">{"₹" + product.discountedPrice}</p>
+            <p className="text-md font-text text-neutral-600">{"₹" + product.discountedPrice}</p>
             {product.price != product.discountedPrice && <div className="flex space-x-2">
               <p className="font-text line-through opacity-70 text-sm text-gray-500">
                 {"₹" + product.price}
@@ -35,6 +35,13 @@ const ProductCard = ({ product, defaultImageIndex=0 }) => {
               </p>
             </div>}
           </div>
+          <div className="flex gap-4 text-xs text-neutral-500 my-1">
+                <p>S</p>
+                <p>M</p>
+                <p>L</p>
+                <p>XL</p>
+                <p>2XL</p>
+            </div>
         </div>
       </div>
     </>

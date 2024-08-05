@@ -9,10 +9,10 @@ const CompanyPage = () => {
     return (
         <> 
         <div className='min-h-screen'>
-           <CompanyTopBanner />
+           {/* <CompanyTopBanner /> */}
             <CompanyTopMessage />
-            <CompanyMiddleImage />
-            <CompanyBottomCard /> 
+            {/* <CompanyMiddleImage /> */}
+            {/* <CompanyBottomCard />  */}
         </div>
         </>
     )

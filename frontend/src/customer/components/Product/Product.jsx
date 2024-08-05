@@ -71,7 +71,6 @@ const Product = ({ search, collectionId}) => {
     if(collections== undefined || collections.length == 0){
       dispatch(findCollections());
     }
-
   },[collections])
 
 

@@ -12,6 +12,11 @@ const responsive = {
     1024: { items: 5 },
 };
 
+const detectDeviceType = () =>
+  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    ? 'Mobile'
+    : 'Desktop';
+
 
 const CarouselComponent = ({items, key, isDummy, showControls=true, autoPlay=false}) => {
 
@@ -190,7 +195,7 @@ const CarouselComponent = ({items, key, isDummy, showControls=true, autoPlay=fal
         );
       }}
     />
-    {!isDummy && showControls_ &&
+    {!isDummy && showControls_ && detectDeviceType() != 'Mobile' &&
       <>
         <div onClick={handlePrevious} className={`custom-prev-button ${!isPrevEnabled&&'custom-prev-button-disabled'}`}><ArrowBackIosIcon /></div>
         <div onClick={handleNext} className={`custom-next-button ${!isNextEnabled&&'custom-next-button-disabled'}`}><ArrowForwardIosIcon/></div>

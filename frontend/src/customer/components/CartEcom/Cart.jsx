@@ -25,9 +25,11 @@ const Cart = () => {
 
   return (
     <div className="cart-container min-h-screen px-4">
-      <div className="text-center py-4">
-        <h1 className="text-2xl font-thin font-roboto">Cart</h1>
-      </div>
+      <div className="sticky top-[60px] flex justify-center items-center p-4 w-full bg-white z-[10] shadow-sm">
+        <p className="p-2 font-heading px- text-3xl"  >
+        Cart
+        </p>
+    </div>
 
       {isCartEmpty ? (
         // Display full-page layout with centered message when the cart is empty
@@ -35,11 +37,9 @@ const Cart = () => {
           <div>
             <p className="text-2xl text-gray-500 font-semibold">Your cart is empty</p>
             <Button
+              text='Go to Shop'
               onClick={() => navigate("/products")}
-              variant="contained"
-              sx={{ padding: ".8rem 2rem", marginTop: "2rem", bgcolor: "#bdbdbd" }}
             >
-              Go to Shop 
             </Button>
           </div>
         </div>
@@ -58,15 +58,20 @@ const Cart = () => {
               <p className="font-semibold text-neutral-700 font-roboto">Price Details</p>
               <hr />
 
-              <div className="space-y-2 font-roboto">
+              <div className="space-y-2 font-roboto text-normal">
                 <div className="flex justify-between pt-3 text-black">
                   <span>Price ({cart.cart?.totalItem} item)</span>
                   <span>₹{cart.cart?.totalPrice}</span>
                 </div>
+
                 <div className="flex justify-between">
+                 <div className="flex flex-col">
                   <span>Discount</span>
+                  <span className="text-xs font-thin text-green-700">{`(includes referral discount of ${cart.cart?.referralDiscountPercentage}%)`}</span>
+                 </div>
                   <span className="text-green-700">-₹{cart.cart?.discounte}</span>
                 </div>
+
                 <div className="flex justify-between">
                   <span>Delivery Charges</span>
                   <span className="text-green-700">Free</span>

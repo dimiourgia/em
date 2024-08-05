@@ -3,7 +3,7 @@ import React from 'react'
 const CompanyTopMessage = () => {
     return (
         <>
-            <div className='w-full md:w-1/3 px-3 md:mb-0  mx-auto max-w-[1000px]'>
+            <div className='w-full md:w-1/3 px-3 md:mb-0  mx-auto max-w-[1000px] '>
 
 
                 <div className='mt-[100px]'>
@@ -12,21 +12,14 @@ const CompanyTopMessage = () => {
                         alt="asd"
                     />
                 </div>
-                <p className='font-text text-center text-5xl  text-black mt-[50px] '>
+                <p className='text-center text-5xl  text-black mt-[50px] '>
                     Empowering Change
                 </p>
                 <p className='italic  text-center text-2xl  text-gray-800  mt-[5px] '>
                     The power of love and reciprocity
                 </p>
-                <p className='font-semibold text-center text-xl  text-black  mt-[50px] '>
-                    At the heart of Daughters of India, we believe supporting women to feel empowered is a key component<br></br> of a positive future.
-                </p>
-                <p className='font-text text-center text-base  text-gray-800  mt-[30px] '>
-                    This is why our goal has been supporting Indian women in the workplace and giving as much as possible to their local communities. Since our establishment, we’ve shared a dream with our makers for empowering all women to feel honoured with deep reverence for their being. Slowly, with love and intention, we’re empowering this dream.
-                </p>
-
-                <p className='font-text text-center text-base  text-gray-800  mt-[30px] '>
-                    With the help of your contributions, every Daughters of India purchase is not only preserving traditional craftsmanship, they are also donating directly to women empowerment initiatives in India through our charity partnerships. We have pledged an ongoing monthly donation of $10,000 to support Sewing the Seeds & Barakat Bundle reach their goals.
+                <p className='text-center text-xl text-justify text-gray-700 mt-[50px] px-4'>
+                    Our goal has always been to support Indian women in the workplace and to honor their contributions with deep reverence. Since our establishment, we’ve shared a dream with our makers to empower all women and make them feel valued and respected. Slowly, with love and intention, we’re bringing this dream to life.
                 </p>
             </div>
         </>

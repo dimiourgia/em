@@ -26,6 +26,7 @@ import { findCollections } from "../../State/Collection/Action";
 import { findProducts } from "../../State/Product/Action";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import MainProduct from "../components/Product/MainProductPage";
 
 const CustomerRouters = () => {
   const [search, setSearch] = useState("");
@@ -75,7 +76,7 @@ const CustomerRouters = () => {
           <Route path="/register" element={<HomePage />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/cart" element={<CartEcom />} />
-          <Route path="/products" element={<Product search={search} />} />
+          <Route path="/products" element={<MainProduct search={search} />} />
           <Route path="/product/:productId" element={<ProductDetails />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/product-detail/:productId" element={<ProductDetails />} />
