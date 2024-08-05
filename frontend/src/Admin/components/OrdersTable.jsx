@@ -37,7 +37,7 @@ const OrdersList = () => {
   const [expandedRows, setExpandedRows] = useState([]);
   const [orderStatus, setOrderStatus] = useState({});
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
-  const [statusFilter, setStatusFilter] = useState('All'); // State for status filter
+  const [statusFilter, setStatusFilter] = useState('ALL'); // State for status filter
 
   useEffect(() => {
     dispatch(getOrders());
