@@ -23,7 +23,7 @@ async function createOrder(user, shippingAddress) {
       address = new Address(shippingAddress);
       address.user = user._id;
       // Set address for the user
-      existingUser.address = address._id;
+      existingUser.addresses.push(address._id);
       await address.save();
       await existingUser.save(); // Save the user with the new address
     }
@@ -63,7 +63,8 @@ async function createOrder(user, shippingAddress) {
       orderItems: orderItems,
       totalPrice: cart.totalPrice,
       totalDiscountedPrice: cart.totalDiscountedPrice,
-      discount: cart.discount,
+      referralDiscountPercentage: cart.referralDiscountPercentage,
+      discount: cart.discounte,
       totalItem: cart.totalItem,
       shippingAddress: address._id,
       orderDate: new Date(),
@@ -82,6 +83,7 @@ async function createOrder(user, shippingAddress) {
 async function placedOrder(orderId) {
   try {
     const order = await findOrderById(orderId);
+    
     if (!order) throw new Error(`Order not found with id: ${orderId}`);
 
     if(order.orderStatus != "PLACED"){
@@ -102,6 +104,12 @@ async function placedOrder(orderId) {
       
       await twilioService.sendMessage(`whatsapp:${userPhoneNumber}`, messageBody);
       await sendOrderConfirmationEmail(orderId);
+      //check if referral discount was taken if so update it
+      const user = await User.findById(order.user._id);
+      if(order.referralDiscountPercentage > 0){
+        user.referralRewards -= order.referralDiscountPercentage;
+        user.save();
+      }
     }
     return order;
   } catch (error) {
@@ -178,6 +186,17 @@ async function deliveredOrder(orderId) {
   }
 }
 
+async function cancelledOrder(orderId) {
+  try {
+    const order = await findOrderById(orderId);
+    if (!order) throw new Error(`Order not found with id: ${orderId}`);
+    order.orderStatus = "CANCELLED";
+    return await order.save();
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
 async function findOrderById(orderId) {
   try {
     const order = await Order.findById(orderId)
@@ -224,7 +243,7 @@ module.exports = {
   confirmedOrder,
   shipOrder,
   deliveredOrder,
-  // cancelledOrder,
+  cancelledOrder,
   findOrderById,
   usersOrderHistory,
   getAllOrders,

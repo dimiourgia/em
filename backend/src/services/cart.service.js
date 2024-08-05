@@ -1,6 +1,8 @@
 const Cart = require("../models/cart.model.js");
 const CartItem = require("../models/cartItem.model.js");
 const Product = require("../models/product.model.js");
+const User = require("../models/user.model.js");
+
 // const userService = require("./user.service.js");
 
 // Create a new cart for a user
@@ -12,30 +14,47 @@ async function createCart(user) {
 
 // Find a user's cart and update cart details
 async function findUserCart(userId) {
-  const cart = await Cart.findOne({ user: userId }).populate('cartItems').exec();
-  if (!cart) {
-    throw new Error('Cart not found for the user');
+  try{
+    const cart = await Cart.findOne({ user: userId }).populate('cartItems').exec();
+    const user = await User.findOne({ _id:userId });
+    const referralDiscountPercentage = Math.min(25, user.referralRewards);
+   
+
+    if (!cart && !user) {
+      throw new Error('Cart not found for the user');
+    }
+
+    const cartItems = await CartItem.find({ cart: cart._id }).populate('product').exec();
+    cart.cartItems = cartItems;
+
+    let totalPrice = 0;
+    let totalDiscountedPrice = 0;
+    let totalItem = 0;
+
+    cart.cartItems.forEach(cartItem => {
+      totalPrice += cartItem.price;
+      totalDiscountedPrice += cartItem.discountedPrice;
+      totalItem += cartItem.quantity;
+    });
+
+    const referralDiscount = (totalDiscountedPrice * referralDiscountPercentage)/100;
+    
+    totalDiscountedPrice = totalDiscountedPrice - referralDiscount;
+
+    cart.totalPrice = totalPrice;
+    cart.totalItem = totalItem;
+    cart.referralDiscount = referralDiscount;
+    cart.referralDiscountNeeded = true;
+    cart.referralDiscountPercentage = referralDiscountPercentage;
+    cart.totalDiscountedPrice = totalDiscountedPrice;
+    cart.discounte = totalPrice - totalDiscountedPrice;
+
+    await cart.save();
+
+    return cart;
+  }catch(e){
+    console.log(e, 'error in getting cart');
   }
-
-  const cartItems = await CartItem.find({ cart: cart._id }).populate('product').exec();
-  cart.cartItems = cartItems;
-
-  let totalPrice = 0;
-  let totalDiscountedPrice = 0;
-  let totalItem = 0;
-
-  cart.cartItems.forEach(cartItem => {
-    totalPrice += cartItem.price;
-    totalDiscountedPrice += cartItem.discountedPrice;
-    totalItem += cartItem.quantity;
-  });
-
-  cart.totalPrice = totalPrice;
-  cart.totalItem = totalItem;
-  cart.totalDiscountedPrice = totalDiscountedPrice;
-  cart.discounte = totalPrice - totalDiscountedPrice;
-
-  return cart;
 }
 
 async function addCartItem(userId, itemData) {

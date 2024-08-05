@@ -44,6 +44,11 @@ const orderSchema = new Schema({
     type: Number,
     required: true,
   },
+  referralDiscountPercentage:{
+    type:Number,
+    required:true,
+    default:0,
+  },
   orderStatus: {
     type: String,
     required: true,

@@ -31,6 +31,21 @@ const cartSchema = new mongoose.Schema({
     required: true,
     default:0
   },
+  referralDiscountPercentage:{
+    type:Number,
+    required:true,
+    default:0,
+  },
+  referralDiscount:{
+    type:Number,
+    required:true,
+    default:0,
+  },
+  referralDiscountNeeded:{
+    type:Boolean,
+    required:true,
+    default:true,
+  },
   DateInfo: {
     type: Date,
     default: Date.now(),
