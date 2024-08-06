@@ -85,7 +85,7 @@ const sendOrderConfirmationEmail = async (order) => {
         }
     } catch (error) {
         console.error("Error sending order confirmation email:", error);
-        throw new Error("Failed to send order confirmation email");
+        //throw new Error("Failed to send order confirmation email");
     }
 };
 

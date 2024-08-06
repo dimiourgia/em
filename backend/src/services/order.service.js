@@ -110,7 +110,6 @@ async function placedOrder(orderId) {
         user.referralRewards -= order.referralDiscountPercentage;
         await user.save();
       }
-
     }
     return order;
   } catch (error) {
