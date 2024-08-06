@@ -33,9 +33,12 @@ const ZoomComponent = ({ src }) => {
     const posX = offsetX - lensSize / 2;
     const posY = offsetY - lensSize / 2;
 
-    // Adjust lens position without exceeding image boundaries
-    lens.style.left = `${Math.max(0, Math.min(posX, width - lensSize))}px`;
-    lens.style.top = `${Math.max(0, Math.min(posY, height - lensSize))}px`;
+    if(lens){
+      // Adjust lens position without exceeding image boundaries
+      lens.style.left = `${Math.max(0, Math.min(posX, width - lensSize))}px`;
+      lens.style.top = `${Math.max(0, Math.min(posY, height - lensSize))}px`;
+    }
+    
 
     // Calculate background position for zoom effect
     const xPercent = (offsetX / width) * 100;

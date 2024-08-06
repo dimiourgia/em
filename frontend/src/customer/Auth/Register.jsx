@@ -10,7 +10,7 @@ import { getUser, register } from '../../State/Auth/Action';
 import { useSelector } from 'react-redux';
 import Button from '../components/Button/Index';
 
-export default function RegisterForm(){
+export default function RegisterForm({setType}){
     //Input refs
     const firstNameRef = useRef(null)
     const lastNameRef = useRef(null)
@@ -156,7 +156,7 @@ export default function RegisterForm(){
                 <br/>
 
                 <div style={{textAlign:'center'}}>
-                Already have an account? <Link to='/login' className='registerLink'>Login</Link>
+                    Already have an account? <Link onClick={()=>setType('login')} className='registerLink'>Login</Link>
                 </div>
                 </form>      
             </motion.div>

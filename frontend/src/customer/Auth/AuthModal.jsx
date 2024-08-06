@@ -18,7 +18,7 @@ const style = {
   padding: "25px",
 };
 
-const AuthModal = ({ handleClose, open }) => {
+const AuthModal = ({ handleClose, open, type, setType}) => {
   const location = useLocation();
 
   return (
@@ -29,12 +29,12 @@ const AuthModal = ({ handleClose, open }) => {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        {location.pathname.includes("/register") ? (
-          <RegisterForm />
-        ) : location.pathname.includes("/forgot-password") ? (
-          <Forgot />
+        {type == "register" ? (
+          <RegisterForm setType={setType} />
+        ) : type == "forgot-password" ? (
+          <Forgot setType={setType} />
         ) : (
-          <LoginForm />
+          <LoginForm setType={setType} />
         )}
       </Box>
     </Modal>

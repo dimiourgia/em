@@ -1,5 +1,4 @@
 const { EmailClient, KnownEmailSendStatus } = require("@azure/communication-email");
-const orderService = require("../services/order.service");
 const emailClient = new EmailClient(process.env.Email_Connection_String);
 
 const sendResetPasswordEmail = async (email, resetLink) => {
@@ -39,9 +38,8 @@ Team Empressa`,
     }
 };
 
-const sendOrderConfirmationEmail = async (orderId) => {
+const sendOrderConfirmationEmail = async (order) => {
     try {
-        const order = await orderService.findOrderById(orderId);
         const email = order.user.email;
         const orderDetails = order.orderItems.map(item => {
             return `<div>

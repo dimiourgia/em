@@ -3,9 +3,9 @@ const Order = require("../models/order.model.js");
 const OrderItem = require("../models/orderItems.js");
 const Product = require("../models/product.model.js");
 const User = require("../models/user.model.js");
-const cartService = require("../services/cart.service.js");
-const twilioService = require('../services/twilio.service.js');
-const { sendOrderConfirmationEmail } = require("../services/email.service.js");
+const cartService = require("./cart.service.js");
+const twilioService = require('./twilio.service.js');
+const { sendOrderConfirmationEmail } = require("./email.service.js");
 const { v4: uuidv4 } = require('uuid');
 
 async function createOrder(user, shippingAddress) {
@@ -103,13 +103,14 @@ async function placedOrder(orderId) {
       const messageBody = `Your Empressa order worth Rs. ${order.totalDiscountedPrice} has been received. Thank you for shopping with us! Additionally you have earned a coupon code ${order.referralCode}. You can get upto 25% discount by sharing the coupon code with others`;
       
       await twilioService.sendMessage(`whatsapp:${userPhoneNumber}`, messageBody);
-      await sendOrderConfirmationEmail(orderId);
+      await sendOrderConfirmationEmail(order);
       //check if referral discount was taken if so update it
       const user = await User.findById(order.user._id);
       if(order.referralDiscountPercentage > 0){
         user.referralRewards -= order.referralDiscountPercentage;
-        user.save();
+        await user.save();
       }
+
     }
     return order;
   } catch (error) {

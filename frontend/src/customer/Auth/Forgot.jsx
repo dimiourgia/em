@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword } from "../../State/Auth/Action";
 
-const Forgot = () => {
+const Forgot = ({setType}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { isLoading, forgotPasswordSuccess, error } = useSelector((state) => state.auth);
@@ -68,7 +68,7 @@ const Forgot = () => {
                     </Grid>
 
                     <Grid item xs={12} sx={{ textAlign: "center" }}>
-                        <div>Remember your password?<Button onClick={() => navigate("/login")} size="small">
+                        <div>Remember your password?<Button onClick={() => setType('login')} size="small">
                             Login
                         </Button></div>
                     </Grid>

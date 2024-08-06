@@ -15,12 +15,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser, logout } from "../../../State/Auth/Action";
 
 import SearchBar from "./SearchBar";
+import { setAuthModal } from "../../../State/Auth/Action";
 
 
 function NavList({ search, setSearch, closeNav }) {
   const navigate = useNavigate();
-  console.log('close nav function', closeNav);
-  
+
   const handleScrollToSection = (event, section) => {
     event.preventDefault();
     closeNav();
@@ -61,10 +61,9 @@ function NavList({ search, setSearch, closeNav }) {
   );
 }
 
-export default function Head({ search, setSearch }) {
+export default function Head({ search, setSearch, openAuthModal, setOpenAuthModal }) {
   const [openNav, setOpenNav] = useState(false);
   const navigate = useNavigate();
-  const [openAuthModal, setOpenAuthModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const openUserMenu = Boolean(anchorEl);
   const dispatch = useDispatch();
@@ -74,7 +73,9 @@ export default function Head({ search, setSearch }) {
   const cartContent = useSelector(state=>state.cart);
   console.log(cartContent, 'item in cart');
   const [totalCartItemQuantity, setTotalCartItemQuantity] = useState(0);
-  const {user, error} = useSelector(state=>state.auth);
+  const {user, error, showAuthModal} = auth;
+  const [type, setType] = useState('login');
+
 
   useEffect(()=>{
       let totalQuantity = 0;
@@ -89,7 +90,10 @@ export default function Head({ search, setSearch }) {
 
 
   const handleOpen = () => {
+    console.log('dispatching setAuthModal to open')
     setOpenAuthModal(true);
+    dispatch(setAuthModal(true));
+    console.log(auth)
   };
 
   const handleUserClick = (event) => {
@@ -107,6 +111,7 @@ export default function Head({ search, setSearch }) {
 
   const handleClose = () => {
     setOpenAuthModal(false);
+    dispatch(setAuthModal(false));
   };
 
   const handleLogout = () => {
@@ -114,6 +119,10 @@ export default function Head({ search, setSearch }) {
     handleCloseUserMenu();
     setTotalCartItemQuantity(0);
   };
+
+  useEffect(()=>{
+    console.log(showAuthModal, 'show auth modal');
+  },[auth])
 
   useEffect(() => {
     if(jwt && auth.error != 'jwt expired'){
@@ -136,6 +145,7 @@ export default function Head({ search, setSearch }) {
 
   const closeNav = () => {
     setOpenNav(false);
+    dispatch(setAuthModal(false));
   }
 
   return (
@@ -219,7 +229,7 @@ export default function Head({ search, setSearch }) {
         </div>
       </Collapse>
 
-      <AuthModal open={openAuthModal} handleClose={handleClose} />
+      <AuthModal open={openAuthModal} handleClose={handleClose} type={type} setType={setType} />
     </div>
   );
 }

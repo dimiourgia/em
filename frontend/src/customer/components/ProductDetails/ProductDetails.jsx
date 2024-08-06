@@ -13,7 +13,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function ProductDetails() {
+export default function ProductDetails({setOpenAuthModal}) {
   const [selectedSize, setSelectedSize] = useState("");
   const navigate = useNavigate();
   const params = useParams();
@@ -38,11 +38,12 @@ export default function ProductDetails() {
     console.log('cart', cart);
     console.log('user', user);
     if (jwt && user != null) {
+      console.log('redirecting to cart....')
       dispatch(addItemToCart(data));
       navigate('/cart');
     } else {
       localStorage.setItem('productToAdd', params.productId);
-      navigate('/login');
+      setOpenAuthModal(true);
     }
   };
 
@@ -143,7 +144,7 @@ export default function ProductDetails() {
                   <RadioGroup.Label className="sr-only">
                     Choose a size
                   </RadioGroup.Label>
-                  <div className="grid grid-cols-4 gap-2 sm:grid-cols-8 lg:grid-cols-4">
+                  <div className="grid grid-cols-5 gap-4">
                     {product?.sizes?.map((size) => (
                       <RadioGroup.Option
                         key={size.name}
@@ -154,8 +155,8 @@ export default function ProductDetails() {
                             size.quantity
                               ? "cursor-pointer bg-white text-gray-900 shadow-sm"
                               : "cursor-not-allowed bg-gray-50 text-gray-200",
-                            active ? "ring-1 ring-indigo-500" : "",
-                            "group relative flex items-center justify-center rounded-md border p-1 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1"
+                            active ? "ring-.5 ring-indigo-500" : "",
+                            "group relative flex items-center justify-center rounded-md border px-0 py-2 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1"
                           )
                         }
                       >

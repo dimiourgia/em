@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 
 const env =  'production'
 
-export default function LoginForm(){
+export default function LoginForm({setType}){
 
 
 const emailRef = useRef()
@@ -128,7 +128,7 @@ const handleLogin = (e)=>{
 
                         <br/>
                         <div style={{textAlign:'center'}}>
-                            Don't have an account? <Link to='/register' className='registerLink'>Sign Up</Link>
+                            Don't have an account? <Link onClick={()=>setType('register')} className='registerLink'>Sign Up</Link>
                         </div> 
                    </form>
             </motion.div>

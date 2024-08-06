@@ -6,6 +6,7 @@ import {
     LOGOUT, REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS,
     FORGOT_PASSWORD_FAILURE, FORGOT_PASSWORD_SUCCESS, FORGOT_PASSWORD_REQUEST,
     RESET_PASSWORD_FAILURE, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_REQUEST,
+    TOGGLE_AUTH_MODAL,
 } from "./ActionType";
 
 const token = localStorage.getItem("jwt");
@@ -102,3 +103,8 @@ export const resetPassword = (data) => async (dispatch) => {
         dispatch(resetPasswordFailure(error.response?.data?.error || error.message));
     }
 };
+
+
+export const setAuthModal = (bool)=>(dispatch)=>{
+    dispatch(()=>({type: TOGGLE_AUTH_MODAL, payload: bool}));
+}

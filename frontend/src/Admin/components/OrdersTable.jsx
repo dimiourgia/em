@@ -30,9 +30,6 @@ const OrdersList = () => {
   const adminOrder = useSelector((state) => state.adminOrder);
   console.log("admin12345", adminOrder);
 
-  // JWT token
-  const jwt = "YOUR_JWT_TOKEN_HERE"; // Replace with your actual JWT token
-
   // State to track expanded rows
   const [expandedRows, setExpandedRows] = useState([]);
   const [orderStatus, setOrderStatus] = useState({});
@@ -93,25 +90,9 @@ const OrdersList = () => {
       [orderId]: newStatus,
     }));
 
-    const url =
-      newStatus === "Shipped"
-        ? dispatch(shipOrder(orderId))
-        : dispatch(deliveredOrder(orderId));
-
-    try {
-      await axios.post(
-        url,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-          },
-        }
-      );
-      console.log(`Order ${orderId} status updated to ${newStatus}`);
-    } catch (error) {
-      console.error(`Failed to update order ${orderId} status:`, error);
-    }
+    newStatus === "Shipped"
+      ? dispatch(shipOrder(orderId))
+      : dispatch(deliveredOrder(orderId));
   };
 
   // Handle sort request

@@ -30,6 +30,8 @@ import MainProduct from "../components/Product/MainProductPage";
 
 const CustomerRouters = () => {
   const [search, setSearch] = useState("");
+  const [openAuthModal, setOpenAuthModal] = useState(false);
+
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
 
@@ -65,19 +67,19 @@ const CustomerRouters = () => {
   return (
     <div>
       <div>
-        <Head search={search} setSearch={setSearch} />
+        <Head search={search} setSearch={setSearch} openAuthModal={openAuthModal} setOpenAuthModal={setOpenAuthModal} />
       </div>
       
       <div className='mt-[60px]'>
         <Routes>
           <Route path="/forgot-password" element={<HomePage />} />
           <Route path="/reset-password" element={<Reset />} />
-          <Route path="/login" element={<HomePage />} />
-          <Route path="/register" element={<HomePage />} />
+          {/* <Route path="/login" element={<HomePage />} /> */}
+          {/* <Route path="/register" element={<HomePage />} /> */}
           <Route path="/" element={<HomePage />} />
-          <Route path="/cart" element={<CartEcom />} />
+          <Route path="/cart" element={<CartEcom setOpenAuthModal={setOpenAuthModal} />} />
           <Route path="/products" element={<MainProduct search={search} />} />
-          <Route path="/product/:productId" element={<ProductDetails />} />
+          <Route path="/product/:productId" element={<ProductDetails setOpenAuthModal={setOpenAuthModal} />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/product-detail/:productId" element={<ProductDetails />} />
           <Route path="/about" element={<CompanyPage />} />

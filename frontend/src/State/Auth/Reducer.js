@@ -1,4 +1,21 @@
-import { GET_USER_FAILURE, GET_USER_REQUEST, GET_USER_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT, REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS, FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, FORGOT_PASSWORD_FAILURE, RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILURE, } from "./ActionType";
+import { 
+    GET_USER_FAILURE, 
+    GET_USER_REQUEST, 
+    GET_USER_SUCCESS, 
+    LOGIN_FAILURE, 
+    LOGIN_REQUEST, 
+    LOGIN_SUCCESS, 
+    LOGOUT, 
+    REGISTER_FAILURE, 
+    REGISTER_REQUEST, 
+    REGISTER_SUCCESS, 
+    FORGOT_PASSWORD_REQUEST, 
+    FORGOT_PASSWORD_SUCCESS, 
+    FORGOT_PASSWORD_FAILURE, 
+    RESET_PASSWORD_REQUEST, 
+    RESET_PASSWORD_SUCCESS, 
+    RESET_PASSWORD_FAILURE, 
+    TOGGLE_AUTH_MODAL, } from "./ActionType";
 
 const initialState = {
     user: null,
@@ -7,6 +24,7 @@ const initialState = {
     jwt: null,
     forgotPasswordSuccess: null,
     resetPasswordSuccess: null,
+    showAuthModal: false,
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -45,6 +63,9 @@ export const authReducer = (state = initialState, action) => {
 
         case LOGOUT:
             return { ...initialState }
+
+        case TOGGLE_AUTH_MODAL:
+            return { ...state, showAuthModal: action.payload};
         default:
             return state;
     }
