@@ -42,18 +42,18 @@ function NavList({ search, setSearch, closeNav }) {
           <SearchBar search={search} setSearch={setSearch} />
         </ListItem>
       </Typography>
-      <div className="flex divide-x leading-1 divide-gray-300 gap-4 tracking-wide whitespace-nowrap text-normal">
-        <div  variant="h6" className={`font-roboto tracking-widest text-[${colors["primary-100"]}] cursor-pointer hover:text-[${colors["primary-200"]}] `}>
+      <div className="flex flex-col lg:flex-row lg:divide-x leading-1 lg:divide-gray-300 gap-4 tracking-wide whitespace-nowrap text-normal">
+        <div  variant="h6" className={`flex justify-center sm:block font-roboto tracking-widest text-[${colors["primary-100"]}] cursor-pointer hover:text-[${colors["primary-200"]}] `}>
           <span onClick={(e)=>handleScrollToSection(e,'collection-section')}>COLLECTIONS</span>
         </div>
         {/* <Typography as={Link} to="/about" variant="h6" className="font-heading">
           <ListItem>About Us</ListItem>
         </Typography> */}
-        <div onClick={(e)=> handleScrollToSection(e, 'top-selling-section')}  className={`pl-4 font-roboto text-[${colors["primary-100"]}] cursor-pointer hover:text-[${colors["primary-200"]}]`}>
+        <div onClick={(e)=> handleScrollToSection(e, 'top-selling-section')}  className={`lg:pl-4 flex justify-center sm:block font-roboto text-[${colors["primary-100"]}] cursor-pointer hover:text-[${colors["primary-200"]}]`}>
           TOP SELLING
         </div>
 
-        <div onClick={()=> {closeNav(); navigate("/women-warriors")}}  className={`pl-4 font-roboto text-[${colors["primary-100"]}]  cursor-pointer hover:text-[${colors["primary-200"]}]`}>
+        <div onClick={()=> {closeNav(); navigate("/women-warriors")}}  className={`lg:pl-4 flex justify-center sm:block font-roboto text-[${colors["primary-100"]}]  cursor-pointer hover:text-[${colors["primary-200"]}]`}>
           WOMEN WARRIORS
         </div>
       </div>
@@ -136,9 +136,7 @@ export default function Head({ search, setSearch, openAuthModal, setOpenAuthModa
     if (auth.user) {
       handleClose();
     }
-    if (location.pathname === "/login" || location.pathname === "/register") {
-      navigate(-1);
-    }
+   
   }, [auth.user]);
 
   const isAdmin = auth?.user?.role === "ADMIN";
@@ -149,12 +147,12 @@ export default function Head({ search, setSearch, openAuthModal, setOpenAuthModa
   }
 
   return (
-    <div className="fixed h-[60px] top-0 z-[100] bg-slate-50 w-full shadow-sm px-4">
+    <div className="fixed h-[60px] top-0 z-[100] bg-slate-50 w-full shadow-sm">
       <div className={`flex items-center justify-between text-[${colors["primary-100"]}]`}>
         
         <div
           onClick={()=>navigate('/')}
-          className="relative w-[280px] h-[60px] relative cursor-pointer flex items-center gap-1"
+          className="relative w-[280px] h-[60px] relative cursor-pointer flex items-center gap-1 ml-4"
         >
           <img
             src="/images/logo.png"
@@ -166,11 +164,11 @@ export default function Head({ search, setSearch, openAuthModal, setOpenAuthModa
           </div>
         </div>
 
-        <div className="hidden sm:block">
+        <div className="hidden lg:block">
           <NavList search={search} setSearch={setSearch} closeNav={closeNav} />
         </div>
 
-        <div className="flex items-end gap-4">
+        <div className="flex items-end gap-4 mr-4">
           <div className="hidden sm:block">
             <SearchBar search={search} setSearch={setSearch} />
           </div>

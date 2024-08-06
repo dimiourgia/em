@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCart } from "../../../State/Cart/Action";
 import Loading from "../Loader/Index";
+import ErrorComponent from "../Error/Index";
 
 const Cart = ({setOpenAuthModal}) => {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const Cart = ({setOpenAuthModal}) => {
         </p>
     </div>
 
-      {!cart.isLoading && <div>
+      {!cart.loading && !cart.error && <div>
         {isCartEmpty ? (
           // Display full-page layout with centered message when the cart is empty
           <div className="empty-cart-message min-h-screen flex items-center justify-center text-center">
@@ -69,7 +70,7 @@ const Cart = ({setOpenAuthModal}) => {
                   <div className="flex justify-between">
                   <div className="flex flex-col">
                     <span>Discount</span>
-                    <span className="text-xs font-thin text-green-700">{`(includes referral discount of ${cart.cart?.referralDiscountPercentage}%)`}</span>
+                    {cart.cart?.referralDiscountPercentage > 0 && <span className="text-xs font-thin text-green-700">{`(includes referral discount of ${cart.cart?.referralDiscountPercentage}%)`}</span>}
                   </div>
                     <span className="text-green-700">-₹{cart.cart?.discounte}</span>
                   </div>
@@ -93,9 +94,13 @@ const Cart = ({setOpenAuthModal}) => {
         )}
       </div>}
 
-      {cart.isLoading && <div>
+      {cart.loading && !cart.error && <div className="w-[100%] flex justify-center mt-10">
           <Loading />
       </div>}
+
+      {!cart.loading && cart.error && <div>
+          <ErrorComponent errorMessage={cart.error} />
+        </div>}
 
     </div>
   );

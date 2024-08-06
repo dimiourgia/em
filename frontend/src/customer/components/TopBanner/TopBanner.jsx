@@ -66,15 +66,15 @@ export default TopBanner;
 //                 </Link> */}
 //             {/* <div className='h-12 bg-gradient-to-b from-gray-800 to-white w-full absolute -bottom-[166px]'></div> */}
 //             {/* <img src={'./images/transparent_grayscale_logo.png'} className='absolute top-[225px] left-[38px] h-[400px] w-[400px] -z-[1]' /> */}
-//             <p className='text-black text-3xl'></p>
-//             <img src='images/g1.png' className='-mt-[90px] -ml-[190px]'/>
-//             <div className='absolute top-[175px] left-[748px]'>
+//             <p className='text-black text-[118px]'></p>
+//             <img src='images/g1.png' className='-mt-[90px] -ml-[290px]'/>
+//             <div className='absolute top-[375px] left-[948px]'>
 //                 <p className='text-[#83a7a7] text-[90px] font-fantasy font-bold'>Bold</p>
 //             </div>
-//             <div className='absolute top-[275px] left-[748px]'>
+//             <div className='absolute top-[475px] left-[948px]'>
 //                 <p className='text-[#83a7a7] text-[90px] font-fantasy font-bold'>Strong</p>
 //             </div>
-//             <div className='absolute top-[375px] left-[748px]'>
+//             <div className='absolute top-[575px] left-[948px]'>
 //                 <p className='text-[#83a7a7] text-[90px] font-fantasy font-bold'>Unstoppable</p>
 //             </div>
 //         </div>
