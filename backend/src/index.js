@@ -1,6 +1,7 @@
 const express=require("express")
 const axios = require('axios');
 const cors=require('cors');
+const emailService = require('../src/services/email.service.js');
 
 const app=express();
 
@@ -69,5 +70,11 @@ app.use("/api/collections", collectionRoutes)
 //address routes handler
 const addressRoutes=require("./routes/address.routes.js");
 app.use("/api/addresses", addressRoutes);
+
+// (async function(){
+//     const result = await emailService.sendAccountConfirmationEmail('ajayaxes318@gmail.com');
+//     console.log(result);
+// })();
+
 
 module.exports={app};

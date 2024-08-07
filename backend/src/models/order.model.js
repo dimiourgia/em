@@ -49,6 +49,11 @@ const orderSchema = new Schema({
     required:true,
     default:0,
   },
+  referralDiscountAvailed:{
+    type: Boolean,
+    required: true,
+    default: false,
+  },
   orderStatus: {
     type: String,
     required: true,

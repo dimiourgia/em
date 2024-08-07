@@ -85,32 +85,43 @@ async function placedOrder(orderId) {
     const order = await findOrderById(orderId);
     
     if (!order) throw new Error(`Order not found with id: ${orderId}`);
-
+    console.log('placing order for order id:', orderId, ' with current status: ', order.orderStatus);
     if(order.orderStatus != "PLACED"){
       // Generate and assign referral code
-      const referralCode = await generateAndAssignReferralCode(order.user._id);
-      console.log(referralCode, 'generated referral code');
+      
+      
 
       // Update order status
       order.orderStatus = "PLACED";
-      order.referralCode = referralCode;
-      order.paymentDetails.status = "COMPLETED";
-      await order.save();
-
-      console.log(`Order placed and referral code generated for user: ${order.user}`);
+      order.paymentDetails.status = "COMPLETED";   
+      
       // Send confirmation message
       const userPhoneNumber = `+91${order.shippingAddress.mobile}`??'+916397710583'; // This should be dynamically fetched based on the order
       const messageBody = `Your Empressa order worth Rs. ${order.totalDiscountedPrice} has been received. Thank you for shopping with us! Additionally you have earned a coupon code ${order.referralCode}. You can get upto 25% discount by sharing the coupon code with others`;
       
       await twilioService.sendMessage(`whatsapp:${userPhoneNumber}`, messageBody);
       await sendOrderConfirmationEmail(order);
-      //check if referral discount was taken if so update it
+
+      //check if referral discount is available and not yet availed
       const user = await User.findById(order.user._id);
-      if(order.referralDiscountPercentage > 0){
+      if(order.referralDiscountPercentage > 0 && !order.referralDiscountAvailed ){
         user.referralRewards -= order.referralDiscountPercentage;
         await user.save();
+        order.referralDiscountAvailed = true; //will prevent adjusting the user referrl rewards again.
       }
+
+      //generate and assign referral code for the order if not already generated
+      if(!user.referrals.find(referral=>referral.orderId == orderId)){
+        const referralCode = await generateAndAssignReferralCode(order.user._id, orderId);
+        order.referralCode = referralCode;
+        console.log(referralCode, 'generated referral code');
+      }
+
+      await order.save();
     }
+
+    
+
     return order;
   } catch (error) {
     console.error("Error placing order from orders:", error.message);
@@ -118,7 +129,7 @@ async function placedOrder(orderId) {
   }
 }
 
-async function generateAndAssignReferralCode(userId) {
+async function generateAndAssignReferralCode(userId, orderId) {
   try {
     const user = await User.findById(userId);
     if (!user) throw new Error(`User not found with id: ${userId}`);
@@ -134,6 +145,7 @@ async function generateAndAssignReferralCode(userId) {
 
     user.referrals.push({
       referralCode: newReferralCode,
+      orderId,
       referrer: [],
       referralCount: 0,
     });

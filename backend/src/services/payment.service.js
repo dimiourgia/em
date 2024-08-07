@@ -6,13 +6,7 @@ const Product = require("../models/product.model.js");
 const createPaymentLink = async (orderId) => {
   try {
     const order = await orderService.findOrderById(orderId);
-
-    // await orderService.placedOrder(orderId);
-    // order.paymentDetails.paymentId = paymentId;
-    // order.paymentDetails.status = "COMPLETED";
-    // order.orderStatus = "PLACED";
-    // await order.save();
-
+    
     const paymentLinkRequest = {
       amount: order.totalDiscountedPrice * 100,
       currency: "INR",

@@ -27,7 +27,7 @@ const handleReferral = async ({referreeId, referrerId, referralCode}) => {
             return {success: false, message: 'Invalid referral code'}
         }
     }catch(e){
-        return {success: false, message: 'Something wen wrong while processing this refferal code'}
+        return {success: false, message: 'Something went wrong while processing this refferal code'}
     }
 };
 
