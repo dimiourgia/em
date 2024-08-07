@@ -26,10 +26,10 @@ const OrderItemCard = ({ order }) => {
                 {order?.orderItems?.map(item=>(
                     <div className="ml-5 flex gap-1 w-full justify-start items-center">
                         <p className="text-sm">{item?.product?.title}</p>
-                        <p className="opacity-50 text-xs font-semibold space-x-5">
+                        <p className="text-neutral-400 text-xs font-semibold space-x-5">
                             <span>({item?.size})</span>
                         </p>
-                        <p className="opacity-50 text-xs font-semibold space-x-5">
+                        <p className="text-neutral-400 text-xs font-semibold space-x-5">
                             <span> - {item?.quantity}</span>
                         </p>
                     </div>
