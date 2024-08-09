@@ -71,6 +71,14 @@ app.use("/api/collections", collectionRoutes)
 const addressRoutes=require("./routes/address.routes.js");
 app.use("/api/addresses", addressRoutes);
 
+//coupon routes handler
+const couponRouter = require("./routes/coupon.routes.js");
+app.use("/api/coupons", couponRouter);
+
+//wallet routes handler
+const walletRouter = require("./routes/wallet.routes.js");
+app.use("/api/wallet", walletRouter);
+
 // (async function(){
 //     const result = await emailService.sendAccountConfirmationEmail('ajayaxes318@gmail.com');
 //     console.log(result);

@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user.model.js');
 const jwtProvider=require("../config/jwtProvider");
 const referralService  = require("../services/referral.service.js");
+const walletService = require('../services/wallet.service.js');
 
 // const createUser = async (userData)=>{
 //     try {
@@ -75,71 +76,74 @@ const createUser = async (userData) => {
   
       // Handle referral code logic
       const user = referralCode ? await handleReferralCode(userData, hashedPassword) : await createNewUser(userData, hashedPassword);
-  
+
+      //create user wallet
+      await walletService.creatUserWallet(user._id);
       console.log("User created:", user);
-  
+
       return user;
+
     } catch (error) {
       console.error("Error creating user:", error.message);
       throw new Error(error.message);
     }
   };
   
-  // Validate user data
-  const validateUserData = (data) => {
-    const requiredFields = ["firstName", "lastName", "email", "password"];
-    for (const field of requiredFields) {
-      if (!data[field]) {
-        throw new Error(`Missing required field: ${field}`);
-      }
+// Validate user data
+const validateUserData = (data) => {
+  const requiredFields = ["firstName", "lastName", "email", "password"];
+  for (const field of requiredFields) {
+    if (!data[field]) {
+      throw new Error(`Missing required field: ${field}`);
     }
-  };
-  
-  // Create new user without referral
-  const createNewUser = async (userData, hashedPassword) => {
-    const { firstName, lastName, email, role } = userData;
-    return await User.create({ firstName, lastName, email, password: hashedPassword, role });
-  };
-  
-  // Handle referral code logic
-  const handleReferralCode = async (userData, hashedPassword) => {
-    const { firstName, lastName, email, role, referralCode } = userData;
-    const referrer = await User.findOne({ "referrals.referralCode": referralCode });
-  
-    if (!referrer) {
-      throw new Error('Invalid referral code');
+  }
+};
+
+// Create new user without referral
+const createNewUser = async (userData, hashedPassword) => {
+  const { firstName, lastName, email, role } = userData;
+  return await User.create({ firstName, lastName, email, password: hashedPassword, role });
+};
+
+// Handle referral code logic
+const handleReferralCode = async (userData, hashedPassword) => {
+  const { firstName, lastName, email, role, referralCode } = userData;
+  const referrer = await User.findOne({ "referrals.referralCode": referralCode });
+
+  if (!referrer) {
+    throw new Error('Invalid referral code');
+  }
+
+  const referralItem = referrer.referrals.find(item => item.referralCode === referralCode);
+  if (!referralItem) {
+    throw new Error('Invalid referral code');
+  }
+
+  if (referralItem.referralCount >= 5) {
+    throw new Error('Referral limit exceeded for this referral code');
+  }
+
+  // Create user and award referral rewards
+  const user = await User.create({
+    firstName,
+    lastName,
+    email,
+    password: hashedPassword,
+    role,
+    referralRewards: 5,
+  });
+
+  // Update referrer
+  await User.updateOne(
+    { _id: referrer._id, "referrals.referralCode": referralCode },
+    {
+      $push: { "referrals.$.referrer": user._id },
+      $inc: { "referrals.$.referralCount": 1, referralRewards: 5 },
     }
-  
-    const referralItem = referrer.referrals.find(item => item.referralCode === referralCode);
-    if (!referralItem) {
-      throw new Error('Invalid referral code');
-    }
-  
-    if (referralItem.referralCount >= 5) {
-      throw new Error('Referral limit exceeded for this referral code');
-    }
-  
-    // Create user and award referral rewards
-    const user = await User.create({
-      firstName,
-      lastName,
-      email,
-      password: hashedPassword,
-      role,
-      referralRewards: 5,
-    });
-  
-    // Update referrer
-    await User.updateOne(
-      { _id: referrer._id, "referrals.referralCode": referralCode },
-      {
-        $push: { "referrals.$.referrer": user._id },
-        $inc: { "referrals.$.referralCount": 1, referralRewards: 5 },
-      }
-    );
-  
-    return user;
-  };
+  );
+
+  return user;
+};
 
 const findUserById=async(userId)=>{
     try {
@@ -202,6 +206,7 @@ const updatePassword = async (userId, newPassword) => {
         resetPasswordOtpExpires: null,
     });
 };
+
 
 module.exports={
     createUser,

@@ -5,10 +5,13 @@ const Product = require("../models/product.model.js");
 const User = require("../models/user.model.js");
 const cartService = require("./cart.service.js");
 const twilioService = require('./twilio.service.js');
+const walletService = require('./wallet.service.js');
+const couponService = require('./coupon.service.js');
+
 const { sendOrderConfirmationEmail } = require("./email.service.js");
 const { v4: uuidv4 } = require('uuid');
 
-async function createOrder(user, shippingAddress) {
+async function createOrder(user, shippingAddress, couponId) {
   try {
     // Check if the user exists
     const existingUser = await User.findById(user._id);
@@ -117,6 +120,14 @@ async function placedOrder(orderId) {
         console.log(referralCode, 'generated referral code');
       }
 
+      //generate coupon code for the order
+      await couponService.createUserCouponForOrder(order.user._id, orderId);
+
+      //update user wallet balance
+      const currentWalletBalance = await walletService.getUserWalletBalance(order.user._id);
+      const balanceEarned = Math.floor(order.totalPrice*.25);
+      await walletService.updateUserWalletBalance(order.user._id, currentWalletBalance+balanceEarned);
+
       await order.save();
     }
 
@@ -203,6 +214,18 @@ async function cancelledOrder(orderId) {
     const order = await findOrderById(orderId);
     if (!order) throw new Error(`Order not found with id: ${orderId}`);
     order.orderStatus = "CANCELLED";
+
+    //deduct awarded coin from user wallet
+    const currentWalletBalance = await walletService.getUserWalletBalance(order.user._id);
+    const balanceEarned = Math.floor(order.totalPrice*.25);
+    await walletService.updateUserWalletBalance(order.user._id, currentWalletBalance-balanceEarned);
+
+    //delete the coupon generated for this order
+    await couponService.deleteCouponByOrderId(orderId);
+
+    //reverse availed referral discount
+
+
     return await order.save();
   } catch (error) {
     throw new Error(error.message);

@@ -2,10 +2,11 @@ const mongoose = require("mongoose");
 
 const referralSchema = new mongoose.Schema({
     referralCode: { type: String, unique: true },
-    referree:  {type: mongoose.Schema.Types.ObjectId, ref:  'User'},
-    referrer: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    referree:  {type: mongoose.Types.ObjectId},
+    referrer: [{ type: mongoose.Types.ObjectId}],
     referralCount: { type: Number, default: 0 },
+    orderId: {type: mongoose.Types.ObjectId}
 });
 
-const referrals = mongoose.model("referral", referralSchema);
-module.exports = referrals;
+const Referral = mongoose.model("referral", referralSchema);
+module.exports = Referral;
