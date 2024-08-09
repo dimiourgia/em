@@ -27,6 +27,8 @@ import { findProducts } from "../../State/Product/Action";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import MainProduct from "../components/Product/MainProductPage";
+import { getWallet } from "../../State/Wallet/Action";
+import { getCoupons } from "../../State/Coupon/Action";
 
 const CustomerRouters = () => {
   const [search, setSearch] = useState("");
@@ -50,8 +52,11 @@ const CustomerRouters = () => {
   const collections = useSelector(state=>state.collections);
   const products = useSelector(state=>state.products);
 
+  const wallet = useSelector(state=>state.wallet);
+  const coupon = useSelector(state=>state.coupon);
 
-  console.log(collections, products, 'collections products ......')
+
+  console.log(collections, products, wallet, coupon, 'collections products ......')
 
   useEffect(()=>{
     setTimeout(()=>{
@@ -61,6 +66,9 @@ const CustomerRouters = () => {
   
       dispatch(findCollections());
       dispatch(findProducts(reqData));
+      dispatch(getWallet());
+      dispatch(getCoupons());
+
     },2500)
   },[])
 

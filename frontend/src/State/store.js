@@ -7,6 +7,8 @@ import { orderReducer } from "./Order/Reducer";
 import { adminOrderReducer } from "./AdminOrder/Reducer";
 import { collectionsReducer } from "./Collection/Reducer";
 import { addressReducer } from "./Address/Reducer";
+import { walletReducer } from "./Wallet/Reducer";
+import { couponReducer } from "./Coupon/Reducer";
 
 import journalReducer from "./Journal/reducers";
 
@@ -19,6 +21,8 @@ const rootReducers = combineReducers({
     journal: journalReducer,
     collections: collectionsReducer,
     address: addressReducer,
+    wallet: walletReducer,
+    coupon: couponReducer,
 })
 
 export const store = createStore(rootReducers, applyMiddleware(thunk))
