@@ -75,6 +75,7 @@ export default function Head({ search, setSearch, openAuthModal, setOpenAuthModa
   const [totalCartItemQuantity, setTotalCartItemQuantity] = useState(0);
   const {user, error, showAuthModal} = auth;
   const [type, setType] = useState('login');
+  const coinBalance = useSelector(state=>state.wallet).balance;
 
 
   useEffect(()=>{
@@ -171,6 +172,15 @@ export default function Head({ search, setSearch, openAuthModal, setOpenAuthModa
         <div className="flex items-end gap-4 mr-4">
           <div className="hidden sm:block">
             <SearchBar search={search} setSearch={setSearch} />
+          </div>
+          <div className="flex items-center w-[90px] h-8 rounded-md relative bg-[#9a5938] px-2 justify-between">
+            <img src='/images/coin_0.png' className="w-6 h-6"/>
+            <span className="text-white font-fantasy text-sm font-semibold text-[14px]">{coinBalance}</span>
+            {/* <div className="absolute left-4 -translate-x-[50%] -bottom-1 font-semibold rounded-sm text-[9px] bg-gray-500 text-white px-[4px]">500</div> */}
+            <div className="absolute left-0 -bottom-1 rounded-lg border border-b border-b-[1px] border-gray-400 w-full h-[6px] flex bg-white">
+              <div className={`w-[50px] bg-yellow-600 rounded-sm h-[4px]`}/>
+              <div className="flex-2 bg-white rounded-sm"/>
+            </div>
           </div>
           <div className="flex items-center">
             {auth.user ? (
