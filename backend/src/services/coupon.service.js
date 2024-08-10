@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require('uuid');
         
         const maxDiscount = 50;
         const code = await generateUniqueCouponCode();
-        const offer = Math.floor(Math.random()*maxDiscount);
+        const offer = nearestFive(Math.floor(Math.random()*maxDiscount));
         const createdAt = new Date();
         const expirationDate = (()=>{
             const date = new Date();
@@ -72,7 +72,7 @@ const { v4: uuidv4 } = require('uuid');
     }
   }
 
-  //utitlity function to generate Unique coupon codes
+  //utitlity functions 
   async function generateUniqueCouponCode() {
     // Generate a unique code using UUID 
     console.log('generating referral code...')
@@ -87,6 +87,27 @@ const { v4: uuidv4 } = require('uuid');
 
     return couponCode;
   }
+
+//utility functions
+function nearestFive(num){
+  try{
+      if(num%5 == 0) return num;
+      let multiplier = num/5;
+      
+      let nearestFive_floor = Math.floor(multiplier)*5;
+      let nearestFive_ceil = Math.ceil(multiplier)*5;
+      let diff_floor = num - nearestFive_floor;
+      let diff_ceil = nearestFive_ceil - num;
+      
+      if(diff_floor < diff_ceil){
+          if(nearestFive_floor == 0) return 5;
+          return nearestFive_floor;
+      };
+      return nearestFive_ceil;
+  }catch(e){
+      return num;
+  }
+}
 
   module.exports = {
     createUserCouponForOrder,
