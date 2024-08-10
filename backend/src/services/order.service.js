@@ -90,20 +90,9 @@ async function placedOrder(orderId) {
     if (!order) throw new Error(`Order not found with id: ${orderId}`);
     console.log('placing order for order id:', orderId, ' with current status: ', order.orderStatus);
     if(order.orderStatus != "PLACED"){
-      // Generate and assign referral code
-      
-      
-
       // Update order status
       order.orderStatus = "PLACED";
       order.paymentDetails.status = "COMPLETED";   
-      
-      // Send confirmation message
-      const userPhoneNumber = `+91${order.shippingAddress.mobile}`??'+916397710583'; // This should be dynamically fetched based on the order
-      const messageBody = `Your Empressa order worth Rs. ${order.totalDiscountedPrice} has been received. Thank you for shopping with us! Additionally you have earned a coupon code ${order.referralCode}. You can get upto 25% discount by sharing the coupon code with others`;
-      
-      await twilioService.sendMessage(`whatsapp:${userPhoneNumber}`, messageBody);
-      await sendOrderConfirmationEmail(order);
 
       //check if referral discount is available and not yet availed
       const user = await User.findById(order.user._id);
@@ -125,13 +114,17 @@ async function placedOrder(orderId) {
 
       //update user wallet balance
       const currentWalletBalance = await walletService.getUserWalletBalance(order.user._id);
-      const balanceEarned = Math.floor(order.totalPrice*.25);
+      const balanceEarned = Math.floor(order.totalPrice*.05);
       await walletService.updateUserWalletBalance(order.user._id, currentWalletBalance+balanceEarned);
 
       await order.save();
-    }
 
-    
+      // Send confirmation message and email
+      const userPhoneNumber = `+91${order.shippingAddress.mobile}`??'+916397710583'; // This should be dynamically fetched based on the order
+      const messageBody = `Your Empressa order worth Rs. ${order.totalDiscountedPrice} has been received. Thank you for shopping with us! Additionally you have earned a coupon code ${order.referralCode}. You can get upto 25% discount by sharing the coupon code with others`;
+      await twilioService.sendMessage(`whatsapp:${userPhoneNumber}`, messageBody);
+      await sendOrderConfirmationEmail(order);
+    }
 
     return order;
   } catch (error) {
