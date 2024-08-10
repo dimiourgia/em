@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert, AlertTitle, Box, Grid } from "@mui/material";
 import { getOrderById } from "../../../State/Order/Action";
@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import Loading from "../Loader/Index";
 import ErrorComponent from "../Error/Index";
 import { getCart } from "../../../State/Cart/Action";
+import debounce from "lodash.debounce";
 
 const PaymentSuccess = () => {
   const [paymentId, setPaymentId] = useState("");
@@ -18,9 +19,27 @@ const PaymentSuccess = () => {
   const jwt = localStorage.getItem("jwt");
   const dispatch = useDispatch();
   const order = useSelector((state) => state.order);
+  const payment = useSelector((state)=> state.payment);
+
+  const fetchDebouncdedOrder = useCallback(debounce(()=>{
+    console.log('Placing debounced call');
+    dispatch(getOrderById(orderId));
+  }, 300), [orderId]);
 
   useEffect(()=>{
-  }, [order])
+    console.log(payment, 'payment from payment success');
+    console.log(order, 'order from payment success');
+    if(payment.success && order.order.orderStatus != 'PLACED'){
+      fetchDebouncdedOrder()
+    }
+
+  }, [payment, order, dispatch])
+
+  useEffect(()=>{
+    if(order?.order?.orderStatus == 'PLACED'){
+      dispatch(getCart(jwt));
+    }
+  },[order])
 
   useEffect(() => {
     console.log("orderId", orderId);
@@ -39,14 +58,11 @@ const PaymentSuccess = () => {
 
     const data = { orderId, paymentId, jwt };
     dispatch(updatePayment(data));
-    dispatch(getOrderById(orderId));
-    dispatch(getCart(jwt));
-
   }, []);
 
-  return (<div className="min-h-[calc(100vh-322px)] md:min-h-[calc(100vh-310px)]">
-    {!order.loading && !order.error && order.success && <div className="p-4 lg:px-36">
-      <div className="flex flex-col justify-center items-center">
+  return (<div className="min-h-[calc(100vh-322px)] md:min-h-[calc(100vh-310px)] items-center flex w-full justify-center">
+    {!payment.loading && !payment.error && payment.success && order.order.orderStatus == 'PLACED' && <div className="p-4 lg:px-36">
+      <div className="flex flex-col justify-center items-center max-w-[1000px]">
         <Alert
           variant="filled"
           severity="success"
@@ -55,7 +71,7 @@ const PaymentSuccess = () => {
           <AlertTitle>Payment Success</AlertTitle>
           {`Congratulations, your order has been placed.
           You have also earned a refferal code : ${order.order.referralCode}.
-          Share this with others and if they use it signup on our platform,
+          Share this with others and if they use it to signup on our platform,
           you will earn 5% discount for each referral`}
         </Alert>
       </div>
@@ -101,12 +117,12 @@ const PaymentSuccess = () => {
       </div>
       
     </div>}
-    {order.loading && !order.error &&
-      <div>
+    {payment.loading && !payment.error &&
+      <div className="w-full flex justify-center">
         <Loading />
       </div>}
-    {order.error && <div>
-        <ErrorComponent errorMessage={order.error} />
+    {!payment.loading && payment.error && <div className="h-[100%] w-full flex items-center justify-center">
+        <ErrorComponent errorMessage={'Something went wrong while the placing the order'} />
       </div>}
   </div>);
 };

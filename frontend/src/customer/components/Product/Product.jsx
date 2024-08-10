@@ -211,10 +211,10 @@ const Product = ({ search, collectionId}) => {
             </div>
           </div>
           <div className="sm:col-span-10 w-full">
-            <div className="flex flex-wrap rounded-lg items-start w-auto">
+            <div className="flex flex-wrap rounded-lg items-start w-full justify-center">
               {currentProducts.length === 0 ? (
                   <p className="min-h-80 text-center font-heading text-lg sm:text-xl flex p-2 flex-col items-center justify-center">
-                  <span className="block">We don't have anything available here.</span>
+                  <span className="block">We don't have anything available here currently.</span>
                   <span className="block">Check out our other collections!</span>
                 </p>
                 

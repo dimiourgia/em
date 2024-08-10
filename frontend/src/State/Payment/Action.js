@@ -57,6 +57,9 @@ import {
         console.log("updated data ---- ",response.data)
         dispatch(updatePaymentSuccess(response.data));
       } catch (error) {
+        if(error.response){
+          dispatch(updatePaymentFailure(error.response.message));
+        }
         dispatch(updatePaymentFailure(error.message));
         console.log("catch error ",error)
       }
