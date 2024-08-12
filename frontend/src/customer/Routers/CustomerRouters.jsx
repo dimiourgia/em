@@ -51,26 +51,25 @@ const CustomerRouters = () => {
 
   const collections = useSelector(state=>state.collections);
   const products = useSelector(state=>state.products);
-
   const wallet = useSelector(state=>state.wallet);
   const coupon = useSelector(state=>state.coupon);
+  const auth  = useSelector(state=>state.auth);
 
 
   console.log(collections, products, wallet, coupon, 'collections products ......')
 
   useEffect(()=>{
-    setTimeout(()=>{
-      if(jwt){
+    
+      if(auth.user){
         dispatch(getCart(jwt));
+        dispatch(getWallet());
+        dispatch(getCoupons());
       }
-  
+
       dispatch(findCollections());
       dispatch(findProducts(reqData));
-      dispatch(getWallet());
-      dispatch(getCoupons());
 
-    },2500)
-  },[])
+  },[auth])
 
   return (
     <div>
