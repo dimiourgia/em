@@ -43,6 +43,10 @@ useEffect(()=>{
 },[])
 
 useEffect(()=>{
+    console.log(auth, 'auth from login')
+},[auth])
+
+useEffect(()=>{
     if(dispatched && auth.isLoading){
         setFetchingFromServer(true);
     }else{setFetchingFromServer(false);}
@@ -57,7 +61,7 @@ useEffect(()=>{
         
         setTimeout(()=>{
             if (productToAdd) {
-                navigate('/cart')
+                // navigate('/cart')
             } else {
                 navigate('/')
             }
@@ -134,15 +138,5 @@ const handleLogin = (e)=>{
             </motion.div>
        </div>
         <div className='spacer layer1'></div>
-
-        {success && 
-        <motion.div 
-            className='login_splash' 
-            initial={{opacity:0}} 
-            animate={{opacity:1}}
-            transition={{duration:.28, spring}}
-            >
-            <h1>{`${userName}, Welcome to the system !`}</h1>
-            </motion.div>}
     </div>
 )}
