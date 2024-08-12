@@ -80,6 +80,8 @@ export default function Head({ search, setSearch, openAuthModal, setOpenAuthModa
   const {user, error, showAuthModal} = auth;
   const [type, setType] = useState('login');
   const coinBalance = useSelector(state=>state.wallet).balance;
+  const [displayBalance, setDisplayBalance] = useState(coinBalance);
+  const [isUpdating, setIsUpdating] = useState(false);
 
 
   useEffect(()=>{
@@ -92,6 +94,36 @@ export default function Head({ search, setSearch, openAuthModal, setOpenAuthModa
     
       setTotalCartItemQuantity(totalQuantity);
   },[cartContent]);
+
+
+  useEffect(()=>{
+    setIsUpdating(true);
+    animateBalanceUpdate(coinBalance);
+  },[coinBalance])
+
+
+  const animateBalanceUpdate = (newBalance) => {
+    let currentBalance = displayBalance;
+    let step = 0;
+  
+    const animate = () => {
+      step++;
+      const increment = Math.ceil((newBalance - currentBalance) / (10 + Math.random() * 5));
+  
+      currentBalance += increment;
+  
+      if (currentBalance >= newBalance || step > 20) {
+        setDisplayBalance(newBalance);
+        setIsUpdating(false)
+      } else {
+        setDisplayBalance(currentBalance);
+        requestAnimationFrame(animate);
+      }
+    };
+  
+    requestAnimationFrame(animate);
+  };
+  
 
 
   const handleOpen = () => {
@@ -190,15 +222,15 @@ export default function Head({ search, setSearch, openAuthModal, setOpenAuthModa
             <SearchBar search={search} setSearch={setSearch} />
           </div>
           {/* coin balance section begin-- */}
-          {auth.user && <div className="flex items-center w-[90px] h-8 rounded-md relative bg-[#9a5938] px-2 justify-between">
+          {auth.user && <div className="flex items-center w-[90px] h-8 rounded-t-sm border border-[1px] border-yellow-200 relative bg-[#fff] px-2 justify-between">
             <img src='/images/coin_0.png' className="w-6 h-6"/>
-            <span className="text-white font-fantasy text-sm font-semibold text-[14px]">{coinBalance}</span>
+            <span className={`text-[#6a6a6a] font-fantasy font-semibold text-[16px] mr-1 ${isUpdating ? 'transform scale-110 transition-transform duration-500 ease-out' : ''}`}>{displayBalance}</span>
             {/* <div className="absolute left-4 -translate-x-[50%] -bottom-1 font-semibold rounded-sm text-[9px] bg-gray-500 text-white px-[4px]">500</div> */}
-            <div className="absolute left-0 -bottom-1 rounded-lg border border-b border-b-[1px] border-gray-400 w-full h-[6px] flex bg-white">
+            <div className="absolute -left-[1px] -bottom-[6px] border border-[1px] border-yellow-400 w-[calc(100%+2px)] h-[6px] flex bg-white">
               <div
-                style={{width: `${coinBalance / 10}%`}} 
-                className={`w-[${coinBalance/1000}%] bg-yellow-600 rounded-sm h-[4px]`}/>
-              <div className="flex-2 bg-white rounded-sm"/>
+                style={{width: `${displayBalance < 1000 ? displayBalance / 10 : 100}%`}} 
+                className={`bg-[#e7c155] h-[4px] ${isUpdating ? 'transform transition-transform duration-500 ease-out' : ''}`}/>
+              <div className={`bg-white h-1`}/>
             </div>
           </div>}
           {/* coin balance section end --- */}
