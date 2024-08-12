@@ -174,9 +174,9 @@ export default function Head({ search, setSearch, openAuthModal, setOpenAuthModa
           <img
             src="/images/logo.png"
             alt="Empressa"
-            className="h-10 w-10"
+            className="h-12 w-12"
           />
-          <div className={`text-black font-sans font-thin tracking-tight`}>
+          <div className={`text-black font-sans font-thin tracking-tight hidden sm:block`}>
             EMPRESSA
           </div>
         </div>
