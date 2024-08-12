@@ -55,5 +55,5 @@ const Order = () => {
 export default Order;
 
 function sortOrdersByLatest(orders) {
-  return orders.sort((a, b) => new Date(a.OrderDate) - new Date(b.OrderDate));
+  return orders.sort((a, b) => new Date(b.OrderDate) - new Date(a.OrderDate));
 }
