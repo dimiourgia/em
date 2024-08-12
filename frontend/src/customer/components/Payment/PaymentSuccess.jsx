@@ -9,6 +9,8 @@ import Loading from "../Loader/Index";
 import ErrorComponent from "../Error/Index";
 import { getCart } from "../../../State/Cart/Action";
 import debounce from "lodash.debounce";
+import { getWallet } from "../../../State/Wallet/Action";
+import { getCoupons } from "../../../State/Coupon/Action";
 
 const PaymentSuccess = () => {
   const [paymentId, setPaymentId] = useState("");
@@ -29,7 +31,7 @@ const PaymentSuccess = () => {
   useEffect(()=>{
     console.log(payment, 'payment from payment success');
     console.log(order, 'order from payment success');
-    if(payment.success && order.order.orderStatus != 'PLACED'){
+    if(payment.success && order.order.orderStatus != 'PLACED' && !order.error){
       fetchDebouncdedOrder()
     }
 
@@ -38,6 +40,8 @@ const PaymentSuccess = () => {
   useEffect(()=>{
     if(order?.order?.orderStatus == 'PLACED'){
       dispatch(getCart(jwt));
+      dispatch(getWallet());
+      dispatch(getCoupons());
     }
   },[order])
 
