@@ -17,7 +17,6 @@ export const getWallet = () => async (dispatch) => {
         },
       });
       dispatch({ type: GET_USER_WALLET_SUCCESS, payload: data });
-      console.log("wallet balance", data);
     } catch (error) {
       dispatch({ type: GET_USER_WALLET_FAILURE, payload: error.message });
     }

@@ -13,7 +13,7 @@ export const getCoupons = ()=> async (dispatch)=>{
     try{
         dispatch({type: GET_USER_COUPONS_REQUEST});
 
-        const {data} = api.get('/api/coupons/', {
+        const {data} = await api.get('/api/coupons/', {
             headers: {
                 Authorization : `Bearer ${jwt}`,
             }
