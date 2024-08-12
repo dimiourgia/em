@@ -16,6 +16,10 @@ import { getUser, logout } from "../../../State/Auth/Action";
 
 import SearchBar from "./SearchBar";
 import { setAuthModal } from "../../../State/Auth/Action";
+import { getCart } from "../../../State/Cart/Action";
+import { getCoupons } from "../../../State/Coupon/Action";
+import { getWallet } from "../../../State/Wallet/Action";
+import debounce from "lodash.debounce";
 
 
 function NavList({ search, setSearch, closeNav }) {
@@ -147,6 +151,18 @@ export default function Head({ search, setSearch, openAuthModal, setOpenAuthModa
     dispatch(setAuthModal(false));
   }
 
+
+  useEffect(()=>{
+    if(auth.user){
+      debounce(()=>{
+        dispatch(getCart(jwt));
+        dispatch(getWallet());
+        dispatch(getCoupons());
+      },300);
+    }
+   
+},[auth])
+
   return (
     <div className="fixed h-[60px] top-0 z-[100] bg-slate-50 w-full shadow-sm">
       <div className={`flex items-center justify-between text-[${colors["primary-100"]}]`}>
@@ -173,7 +189,8 @@ export default function Head({ search, setSearch, openAuthModal, setOpenAuthModa
           <div className="hidden sm:block">
             <SearchBar search={search} setSearch={setSearch} />
           </div>
-          <div className="flex items-center w-[90px] h-8 rounded-md relative bg-[#9a5938] px-2 justify-between">
+          {/* coin balance section begin-- */}
+          {auth.user && <div className="flex items-center w-[90px] h-8 rounded-md relative bg-[#9a5938] px-2 justify-between">
             <img src='/images/coin_0.png' className="w-6 h-6"/>
             <span className="text-white font-fantasy text-sm font-semibold text-[14px]">{coinBalance}</span>
             {/* <div className="absolute left-4 -translate-x-[50%] -bottom-1 font-semibold rounded-sm text-[9px] bg-gray-500 text-white px-[4px]">500</div> */}
@@ -181,7 +198,8 @@ export default function Head({ search, setSearch, openAuthModal, setOpenAuthModa
               <div className={`w-[50px] bg-yellow-600 rounded-sm h-[4px]`}/>
               <div className="flex-2 bg-white rounded-sm"/>
             </div>
-          </div>
+          </div>}
+          {/* coin balance section end --- */}
           <div className="flex items-center">
             {auth.user ? (
               <div>
