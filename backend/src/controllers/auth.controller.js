@@ -13,8 +13,9 @@ const register=async(req,res)=>{
         const jwt=jwtProvider.generateToken(user._id);
 
         await cartService.createCart(user);
-
-        return res.status(200).send({jwt,message:"register success"})
+        const otp = otpService.generateOtp();
+        await userService.saveVerificationOtp(user._id, otp);
+        return res.status(200).send({jwt, message:"register success, email sent to email id"});
 
     } catch (error) {
         return res.status(500).send({error:error.message})
@@ -49,6 +50,10 @@ const login=async(req,res)=>{
         if (!user) {
             return res.status(404).json({ message: 'User not found With Email ', email});
         }
+
+        // if(!user.accountVerified){
+        //     return res.status(401).json({message: 'Please verify your email first'});
+        // }
 
         const isPasswordValid=await bcrypt.compare(password,user.password)
 
@@ -85,5 +90,9 @@ const resetPassword = async (req, res) => {
         res.status(500).send({ error: error.message });
     }
 };
+
+const verifyUser = async (req, res)=>{
+
+}
 
 module.exports={ register, login, forgotPassword, resetPassword };

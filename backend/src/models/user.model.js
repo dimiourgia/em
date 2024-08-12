@@ -70,6 +70,11 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  verifyAccountOtpExpires:
+  {
+    type: Date,
+    default: null,
+  },
   resetPasswordOtp: {
     type: String,
     default: null,

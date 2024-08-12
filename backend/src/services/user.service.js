@@ -198,6 +198,17 @@ const saveOtp = async (userId, otp) => {
     });
 };
 
+const saveVerificationOtp = async (userId, otp)=>{
+  const expiryDate = new Date();
+  expiryDate.setDate(expiryDate.getDate() + 15);
+
+  await User.findByIdAndUpdate(userId, {
+      verifyAccountOtp: otp,
+      verifyAccountOtpExpires: expiryDate,
+  });
+
+}
+
 const updatePassword = async (userId, newPassword) => {
     const hashedPassword = await bcrypt.hash(newPassword, 8);
     await User.findByIdAndUpdate(userId, {
@@ -214,6 +225,7 @@ module.exports={
     getUserProfileByToken,
     getUserByEmail,
     saveOtp,
+    saveVerificationOtp,
     updatePassword,
     getAllUsers
 }
