@@ -54,6 +54,9 @@ const orderSchema = new Schema({
     required: true,
     default: false,
   },
+  couponId: {
+    type: mongoose.Types.ObjectId,
+  },
   orderStatus: {
     type: String,
     required: true,

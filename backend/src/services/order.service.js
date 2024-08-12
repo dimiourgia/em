@@ -11,6 +11,7 @@ const couponService = require('./coupon.service.js');
 const { sendOrderConfirmationEmail } = require("./email.service.js");
 const { v4: uuidv4 } = require('uuid');
 
+
 async function createOrder(user, shippingAddress, couponId) {
   try {
     // Check if the user exists
@@ -61,12 +62,14 @@ async function createOrder(user, shippingAddress, couponId) {
       orderItems.push(createdOrderItem);
     }
 
+
     const createdOrder = new Order({
       user: user._id,
       orderItems: orderItems,
       totalPrice: cart.totalPrice,
       totalDiscountedPrice: cart.totalDiscountedPrice,
       referralDiscountPercentage: cart.referralDiscountPercentage,
+      couponId: cart.couponId,
       discount: cart.discounte,
       totalItem: cart.totalItem,
       shippingAddress: address._id,
@@ -100,6 +103,11 @@ async function placedOrder(orderId) {
         user.referralRewards -= order.referralDiscountPercentage;
         await user.save();
         order.referralDiscountAvailed = true; //will prevent adjusting the user referrl rewards again.
+      }
+
+      //check if some coupon is applied
+      if(order.couponId){
+        await couponService.availUserCouponForOrder(order.couponId, orderId);
       }
 
       //generate and assign referral code for the order if not already generated
@@ -217,7 +225,9 @@ async function cancelledOrder(orderId) {
     await couponService.deleteCouponByOrderId(orderId);
 
     //reverse availed referral discount
-
+    if(order.couponId){
+      await couponService.restoreUserCouponForOrder(orderId);
+    }
 
     return await order.save();
   } catch (error) {

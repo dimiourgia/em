@@ -41,7 +41,7 @@ const { v4: uuidv4 } = require('uuid');
 
   const availUserCouponForOrder = async (couponId, orderId)=>{
     try{
-        const coupon = await Coupon.findOne({_id:couponId});
+        const coupon = await Coupon.findById(couponId);
         coupon.usedForOrderId = orderId;
         coupon.usedAt = new Date();
         coupon.save();
@@ -52,9 +52,22 @@ const { v4: uuidv4 } = require('uuid');
     }
   }
 
+  const restoreUserCouponForOrder = async (couponId, orderId)=>{
+    try{
+        const coupon = await Coupon.findById(couponId);
+        coupon.usedForOrderId = null;
+        coupon.usedAt = null;
+        coupon.save();
+    }catch(e){
+        console.log(e);
+        throw e;
+    }
+  }
+
   const getCouponById = async (couponId)=>{
     try{
-        const coupon = await Coupon.findOne({_id:couponId});
+        const coupon = await Coupon.findById(couponId);
+        if(!coupon) throw new Error('Coupon does not exist');
         return coupon;
     }catch(e){
         console.log(e);
@@ -88,30 +101,31 @@ const { v4: uuidv4 } = require('uuid');
     return couponCode;
   }
 
-//utility functions
-function nearestFive(num){
-  try{
-      if(num%5 == 0) return num;
-      let multiplier = num/5;
-      
-      let nearestFive_floor = Math.floor(multiplier)*5;
-      let nearestFive_ceil = Math.ceil(multiplier)*5;
-      let diff_floor = num - nearestFive_floor;
-      let diff_ceil = nearestFive_ceil - num;
-      
-      if(diff_floor < diff_ceil){
-          if(nearestFive_floor == 0) return 5;
-          return nearestFive_floor;
-      };
-      return nearestFive_ceil;
-  }catch(e){
-      return num;
+  //utility functions
+  function nearestFive(num){
+    try{
+        if(num%5 == 0) return num;
+        let multiplier = num/5;
+        
+        let nearestFive_floor = Math.floor(multiplier)*5;
+        let nearestFive_ceil = Math.ceil(multiplier)*5;
+        let diff_floor = num - nearestFive_floor;
+        let diff_ceil = nearestFive_ceil - num;
+        
+        if(diff_floor < diff_ceil){
+            if(nearestFive_floor == 0) return 5;
+            return nearestFive_floor;
+        };
+        return nearestFive_ceil;
+    }catch(e){
+        return num;
+    }
   }
-}
 
   module.exports = {
     createUserCouponForOrder,
     availUserCouponForOrder,
+    restoreUserCouponForOrder,
     getUserCoupons,
     getCouponById,
     deleteCouponByOrderId,

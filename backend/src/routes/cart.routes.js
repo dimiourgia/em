@@ -9,5 +9,11 @@ router.get("/", authenticate, cartController.findUserCart);
 // PUT: /api/cart/add
 router.put("/add", authenticate, cartController.addItemToCart);
 
+//PUT: /api/cart/coupon
+router.put("/coupon", authenticate, cartController.applyCoupon)
+
+//delete: /api/cart/coupon
+router.delete("/coupon", authenticate, cartController.removeCoupon)
+
 
 module.exports=router;

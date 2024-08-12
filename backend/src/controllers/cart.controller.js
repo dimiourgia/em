@@ -27,4 +27,26 @@ const addItemToCart = async (req, res) => {
   }
 };
 
-module.exports = { findUserCart, addItemToCart };
+const applyCoupon = async (req, res)=>{
+  try{
+    const user = req.user;
+    const couponId = req.body.couponId;
+    await cartService.applyCoupon(user._id, couponId);
+    res.status(202).json({message: "Coupon applied successfully", error:null, status: true});
+  }catch(error){
+    res.status(500).json({message: "Failed to apply coupon to cart", error: error.message, status:false});
+  }
+}
+
+
+const removeCoupon = async (req, res)=>{
+  try{
+    const user = req.user;
+    await cartService.removeCoupon(user._id);
+    res.status(202).json({message: "Coupon removed successfully", error:null, status: true});
+  }catch(error){
+    res.status(500).json({message: "Failed to remove coupon from cart", error: error.message, status:false});
+  }
+}
+
+module.exports = { findUserCart, addItemToCart, applyCoupon, removeCoupon };

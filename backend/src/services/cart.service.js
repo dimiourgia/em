@@ -2,6 +2,7 @@ const Cart = require("../models/cart.model.js");
 const CartItem = require("../models/cartItem.model.js");
 const Product = require("../models/product.model.js");
 const User = require("../models/user.model.js");
+const couponService = require("./coupon.service.js");
 
 // const userService = require("./user.service.js");
 
@@ -41,6 +42,18 @@ async function findUserCart(userId) {
     
     totalDiscountedPrice = totalDiscountedPrice - referralDiscount;
 
+    //update discounted price if coupon code is applied
+    if(cart.cartItems.length > 0){
+      if(cart?.couponId){
+        totalDiscountedPrice = totalDiscountedPrice - cart.totalPrice*(cart.couponOffer/100)
+      }
+    }else {
+      cart.couponId = null;
+      cart.couponDiscount=0;
+      cart.couponOffer=null;
+    }
+    
+
     cart.totalPrice = totalPrice;
     cart.totalItem = totalItem;
     cart.referralDiscount = referralDiscount;
@@ -48,7 +61,11 @@ async function findUserCart(userId) {
     cart.referralDiscountPercentage = referralDiscountPercentage;
     cart.totalDiscountedPrice = totalDiscountedPrice;
     cart.discounte = totalPrice - totalDiscountedPrice;
-
+    if(cart?.couponId && cart.cartItems.length>0){
+      const couponDiscount = cart.totalPrice*(cart.couponOffer/100);
+      cart.couponDiscount = couponDiscount;
+    }
+ 
     await cart.save();
 
     return cart;
@@ -123,12 +140,63 @@ async function clearCart(userId) {
   }
 }
 
+async function applyCoupon(userId, couponId){
+  try {
+    // Find the user's cart and remove all cart items
+    const cart = await Cart.findOne({ user: userId });
+    if (!cart) {
+      throw new Error('Cart not found for the user');
+    }
+
+    const coupon = await couponService.getCouponById(couponId);
+
+    //check if coupon has expired
+    const currentDateTime = new Date();
+    if(coupon.expirationDate - currentDateTime < 0) throw new Error('Coupon expired')
+    
+    // set coupon Id
+    cart.couponId = couponId;
+    const couponDiscount = cart.totalPrice*(coupon.offer/100);
+    cart.couponDiscount = couponDiscount;
+    cart.couponOffer = coupon.offer;
+
+    // Save the updated cart
+    await cart.save();
+
+  } catch (error) {
+    console.error("Error applying coupon to cart:", error);
+    throw error;
+  }
+}
+
+async function removeCoupon(userId){
+  try {
+    // Find the user's cart and remove all cart items
+    const cart = await Cart.findOne({ user: userId });
+    if (!cart) {
+      throw new Error('Cart not found for the user');
+    }
+
+    //remove coupon Id and couponDiscount
+    cart.couponId = null;
+    cart.couponDiscount = 0;
+
+    // Save the updated cart
+    await cart.save();
+
+  } catch (error) {
+    console.error("Error removing coupon from cart:", error);
+    throw error;
+  }
+}
 
 module.exports = {
   createCart,
   findUserCart,
   addCartItem,
   clearCart,
+  applyCoupon,
+  removeCoupon,
   // addCartItem,
   // updateCartItem,
   // removeCartItem,

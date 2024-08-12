@@ -46,6 +46,17 @@ const cartSchema = new mongoose.Schema({
     required:true,
     default:true,
   },
+  couponId:{
+    type: mongoose.Types.ObjectId,
+  },
+  couponDiscount:{
+    type: Number,
+    default: 0,
+  },
+  couponOffer:{
+    type: Number,
+    default: 0,
+  },
   DateInfo: {
     type: Date,
     default: Date.now(),
