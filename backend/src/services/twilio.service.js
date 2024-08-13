@@ -12,6 +12,7 @@ const sendMessage = async (to, body) => {
     to,
   })
   .then(message=>console.log(`${message.sid} - ${to}`))
+  .catch(err=>console.log(err));
 };
 
 module.exports = { sendMessage };

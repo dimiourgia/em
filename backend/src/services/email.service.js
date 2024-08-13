@@ -99,7 +99,7 @@ const sendOrderConfirmationEmail = async (order) => {
                         <p style="margin: 0;"><strong>Product:</strong> ${item.product.title}</p>
                         <p style="margin: 0;"><strong>Size:</strong> ${item.size}</p>
                         <p style="margin: 0;"><strong>Quantity:</strong> ${item.quantity}</p>
-                        <img src="${item.product.imageUrl[0]}" alt="${item.product.title}" style="max-width: 200px; margin-top: 10px;"/>
+                        <img src="${item.product.imageUrl[item.product.defaultImageIndex??0]}@mq" alt="${item.product.title}" style="max-width: 200px; margin-top: 10px;"/>
                     </div>`;
         }).join('<br>');
 

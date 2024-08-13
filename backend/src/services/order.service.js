@@ -136,7 +136,7 @@ async function placedOrder(orderId) {
 
     return order;
   } catch (error) {
-    console.error("Error placing order from orders:", error.message);
+    console.error("Error placing order from orders:", error);
     throw new Error(error.message);
   }
 }
