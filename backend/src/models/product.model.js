@@ -86,6 +86,16 @@ const productSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'categories',
   },
+  isExclusive:{
+    type: Boolean,
+    required:  true,
+    default: false,
+  },
+  defaultImageIndex:{
+    type: Number,
+    required: true,
+    default: 0,
+  }, 
   collection: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'collections',
