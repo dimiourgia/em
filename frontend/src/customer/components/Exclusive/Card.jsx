@@ -2,36 +2,29 @@ import { Link, useNavigate } from "react-router-dom"
 import Product from "../Product/Product";
 import { useState } from "react";
 
-export default function({product, defaultImageIndex}){
+export default function({product, isExclusive='true'}){
 
     const navigate = useNavigate();
-    const [imageIndex, setImageIndex] = useState(0);
-    const handleMouseEnter = ()=>{
-        // const totalImages = product?.imageUrl.length;
-        // setImageIndex(pre=> (pre+1)%totalImages);
-    }
-
-
-    return(<div className='relative flex flex-col ml-4' onClick={()=>navigate(`/product/${product._id}`)}>
-        <Link className="" onMouseEnter={handleMouseEnter}>
+    
+    return(<div className='relative flex flex-col ml-4' onClick={()=> !isExclusive && navigate(`/product/${product._id}`)}>
+        <Link className="">
             <div className="overflow-hidden rounded-lg shadow-lg group">
                 <img
                     className="transition-transform duration-300 ease-in-out transform group-hover:scale-110"
-                    src={product.imageUrl[defaultImageIndex]}
+                    src={`${product.imageUrl[product.defaultImageIndex]}@mq`}
                     alt={product?.title}/>
+                    {isExclusive && (
+                        <div className="absolute rounded-lg inset-0 bg-black bg-opacity-10 backdrop-blur-lg z-10 flex items-center justify-center">
+                            <div className="flex flex-col items-center justify-center gap-4">
+                                <span className="text-white text-lg font-semibold tracking-wider">EXCLUSIVE</span>
+                                <img src='/images/white_lock.svg' style={{width:'32px', height:'32px'}}/>
+                            </div>
+                        </div>
+                    )}
                     <div class="absolute rounded-lg inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
             </div>
         </Link>
         <div className="absolute bottom-0 w-full">
-            {/* <h1 className='font-heading text-center text-2xl sm:text-[16px] md:text-2xl text-gray-800 mt-[10px] whitespace-nowrap'>
-                {product.title}
-            </h1>
-            <h1 className='text-center mt-[10px]'>
-                <button onClick={() => navigate("/products")} className="bg-white tracking-widest font-text hover:bg-gray-100 text-gray-800 py-2 px-4 border border-gray-400">
-                    {'SHOP NOW'}
-                </button>
-            </h1> */}
-
             <div className="bg-gray-100/60 px-4 py-6 rounded-md">
             <div>
                 <p className="text-sm font-roboto tracking-tight font-thin">

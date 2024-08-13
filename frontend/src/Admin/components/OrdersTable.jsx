@@ -295,9 +295,9 @@ const OrdersList = () => {
                                   {item?.product?.imageUrl &&
                                     item?.product?.imageUrl.length > 0 ? (
                                     <img
-                                      src={item?.product?.imageUrl[0]}
+                                      src={`${item?.product?.imageUrl[item?.product?.defaultImageIndex]}@lq`}
                                       alt="Item"
-                                      style={{ width: "50px", height: "50px" }}
+                                      style={{ width: "50px", height: "auto" }}
                                     />
                                   ) : (
                                     "No Image"

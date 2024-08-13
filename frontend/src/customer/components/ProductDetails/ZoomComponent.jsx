@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 
-const ZoomComponent = ({ src }) => {
+const ZoomComponent = ({ src, imageUrl, handleActiveImageShow }) => {
   const [backgroundPosition, setBackgroundPosition] = useState("0% 0%");
   const [backgroundImage, setBackgroundImage] = useState("");
   const [scaleFactor, setScaleFactor] = useState(2);  // Adjust this as needed
@@ -58,17 +58,36 @@ const ZoomComponent = ({ src }) => {
 
   return (
     <div className="relative flex items-start">
-      <div className="relative zoom p-1 h-full w-full object-contain" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onMouseMove={handleMouseMove} ref={zoomRef}>
-        <img src={src} alt="Zoomable" className="w-full h-auto" />
-        {showLens && <div
-          ref={lensRef}
-          className="absolute border border-black w-24 h-24"
-          style={{ pointerEvents: "none" }}
-        ></div>}
+      <div className="flex flex-col md:flex-row md:flex-row-reverse">
+        <div className="relative zoom px-1 h-full w-full md:w-[calc(100%-80px)] object-contain" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onMouseMove={handleMouseMove} ref={zoomRef}>
+          <img src={src} alt="Zoomable" className="w-full h-auto" />
+          {showLens && <div
+            ref={lensRef}
+            className="absolute border border-black w-24 h-24"
+            style={{ pointerEvents: "none" }}
+          ></div>}
+        </div>
+
+        <div className="flex flex-row md:flex-col justify-between px-1 py-2 md:py-0">
+            {imageUrl?.map((image, index) => (
+              <div  
+                key={index}
+                className="h-24 md:h-26 rounded cursor-pointer"
+                onClick={() => handleActiveImageShow(image)}
+              >
+                <img
+                  src={`${image}@lq`}
+                  className="w-full h-full object-contain"
+                  alt={`Product ${index + 1}`}
+                />
+              </div>
+            ))}
+          </div>
 
       </div>
+
       {showLens && <div
-        className="zoom-result absolute z-[100] -right-[420px] border border-gray-100 rounded-sm shadow-lg"
+        className="zoom-result absolute z-[100] -top-14 -right-[420px] border border-gray-100 rounded-sm shadow-lg"
         style={{
           width: "396px",
           height: "600px",

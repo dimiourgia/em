@@ -13,7 +13,7 @@ const ProductCard = ({ product, defaultImageIndex=0 }) => {
         <div className="h-[15rem] rounded">
           <img
             className="h-[350px] w-full object-cover mx-auto flex justify-center items-center rounded"
-            src={product?.imageUrl[defaultImageIndex]}
+            src={`${product?.imageUrl[product.defaultImageIndex]}@mq`}
             alt="ss"
           />
         </div>
@@ -36,12 +36,8 @@ const ProductCard = ({ product, defaultImageIndex=0 }) => {
             </div>}
           </div>
           <div className="flex gap-4 text-xs text-neutral-500 my-1">
-                <p>S</p>
-                <p>M</p>
-                <p>L</p>
-                <p>XL</p>
-                <p>2XL</p>
-            </div>
+            {product.sizes.map(size=><p className={`${size.quantity < 1 && 'line-through'}`}>{size.name}</p>)}
+          </div>
         </div>
       </div>
     </>

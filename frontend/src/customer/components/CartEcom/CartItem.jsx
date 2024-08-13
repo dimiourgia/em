@@ -34,7 +34,7 @@ const CartItem = ({ item, showButton }) => {
         <div className="w-[9rem] h-[12rem]">
           <img
             className="w-full h-full object-cover"
-            src={item?.product?.imageUrl[0]}
+            src={`${item?.product?.imageUrl[item?.product?.defaultImageIndex]}@mq`}
             alt=""
           />
         </div>

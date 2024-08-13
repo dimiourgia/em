@@ -48,7 +48,7 @@ const ProductsTable = () => {
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
                                     <TableCell align="left">
-                                        <Avatar src={item.imageUrl[0]} />
+                                        <Avatar src={`${item.imageUrl[item.defaultImageIndex]}@lq`} />
                                     </TableCell>
                                     <TableCell align="left" scope="row">
                                         {item.title}

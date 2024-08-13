@@ -68,38 +68,38 @@ export default function ProductDetails({setOpenAuthModal}) {
   }, [product]);
 
   return (<>
-    {!products.loading && !products.error && <div className="bg-white pt-6">
+    {!products.loading && !products.error && <div className="bg-white pt-4">
       <div className="md:flex justify-center">
         {/* Image gallery */}
-        <div className="mx-4 sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4">
+        <div className="mx-4 sm:w-[calc(75%+80px)] md:w-[calc(50%+80px)] lg:w-[calc(33%+80px)] xl:w-[calc(25%+80px)]">
           <div className="">
             {/* <img
               src={activeImage || product?.imageUrl[0]}
               alt={product?.title}
               className="p-1 h-full w-full object-contain"
             /> */}
-            <ZoomComponent src={activeImage || product?.imageUrl[0]} />
+            <ZoomComponent handleActiveImageShow={handleActiveImageShow} imageUrl={product?.imageUrl} src={activeImage || product?.imageUrl[0]} />
           </div>
 
-          <div className="flex space-x-1 px-1">
+          {/* <div className="flex justify-between px-1">
             {product?.imageUrl?.map((image, index) => (
               <div
                 key={index}
-                className="h-24 w-20 md:h-26 md:w-24 rounded cursor-pointer"
-                onMouseEnter={() => handleActiveImageShow(image)}
+                className="h-24 md:h-26 rounded cursor-pointer"
+                onClick={() => handleActiveImageShow(image)}
               >
                 <img
-                  src={image}
+                  src={`${image}@lq`}
                   className="w-full h-full object-contain"
                   alt={`Product ${index + 1}`}
                 />
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
 
 
-        <div className="border border-[1px] border-gray-100 rounded-md mx-4 m-1 px-5 py-2  sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4 bg-white">
+        <div className="border border-[1px] border-gray-100 rounded-md mx-4 mx-1 my-2 sm:my-0 px-5 py-2  sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4 bg-white">
           <div className="text-lg lg:text-xl text-neutral-600 font-semibold mb-4">{product?.title}</div>
           {/* <h1 className="font-roboto text-red-700 opacity-70">
             {product?.brand}
