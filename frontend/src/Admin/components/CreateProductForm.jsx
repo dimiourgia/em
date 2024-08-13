@@ -31,6 +31,7 @@ const CreateProductForm = () => {
     neck_type: "", 
     sleeve_style: "", 
     collectionName: "Radiant Rebellion",
+    defaultImageIndex: 0,
   });
 
   useEffect(()=>{
@@ -58,10 +59,16 @@ const CreateProductForm = () => {
     }));
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createProduct(productData));
+  };
+
+  const handleImageSelect = (index) => {
+    setProductData(pre=>({
+      ...pre,
+      defaultImageIndex:index
+    }))
   };
 
   return (
@@ -69,11 +76,27 @@ const CreateProductForm = () => {
       <Typography variant="h4" sx={{ textAlign: "center" }} className="py-4">
         Add New Product
       </Typography>
-      <form onSubmit={handleSubmit} className="min-h-screen" noValidate>
+
+      <FileUploader updateImageUrls={setProductData} />
+
+      {productData?.imageUrl && productData?.imageUrl.length > 0 && <div className="mt-10 mb-4">
+        <div className="">Pick cover image</div>
+          <div className="px-4 py-2 w-full flex gap-2">
+            {productData.imageUrl.map((url,index)=>
+              <img
+              key={index}
+              src={`${url}@lq`}
+              className={`w-24 cursor-pointer ${productData.defaultImageIndex === index ? 'border-2 border-blue-500' : ''}`}
+              onClick={() => handleImageSelect(index)}
+            />
+            )}
+          </div>
+        </div>
+        }
+
+      <form onSubmit={handleSubmit} className="min-h-screen mt-4" noValidate>
         <Grid container spacing={2}>
 
-          <FileUploader updateImageUrls={setProductData} />
-          
           {[
             "brand",
             "title",

@@ -106,11 +106,11 @@ const FileUploader = ({updateImageUrls}) => {
                 }
                 case 'mq' : {
                     const resizedImage = await readAndCompressImage(file, imageResizeConfig_medium);
-                    return new File([resizedImage], `${file.name}_mq`, { type: file.type });
+                    return new File([resizedImage], `${file.name}@mq`, { type: file.type });
                 }
                 case 'lq' : {
                     const resizedImage = await readAndCompressImage(file, imageResizeConfig_thumbnail);
-                    return new File([resizedImage], `${file.name}_lq`, { type: file.type });
+                    return new File([resizedImage], `${file.name}@lq`, { type: file.type });
                 }
             }
             

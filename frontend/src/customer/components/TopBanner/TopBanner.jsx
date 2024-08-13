@@ -18,7 +18,7 @@ const TopBanner = () => {
         };
     }, []);
 
-    const imageNames = ['g3.png', '1.jpg', '2.jpg'];
+    const imageNames = ['g5.jpg', '1.jpg', '2.jpg'];
 
 
     return (
@@ -68,14 +68,14 @@ export default TopBanner;
 //             {/* <img src={'./images/transparent_grayscale_logo.png'} className='absolute top-[225px] left-[38px] h-[400px] w-[400px] -z-[1]' /> */}
 //             <p className='text-black text-[118px]'></p>
 //             <img src='images/g1.png' className='-mt-[90px] -ml-[290px]'/>
-//             <div className='absolute top-[375px] left-[948px]'>
-//                 <p className='text-[#83a7a7] text-[90px] font-fantasy font-bold'>Bold</p>
+//             <div className='absolute top-[325px] left-[948px]'>
+//                 <p className='text-[#83a7a7] text-[120px] font-fantasy font-bold'>Bold</p>
 //             </div>
-//             <div className='absolute top-[475px] left-[948px]'>
-//                 <p className='text-[#83a7a7] text-[90px] font-fantasy font-bold'>Strong</p>
+//             <div className='absolute top-[450px] left-[948px]'>
+//                 <p className='text-[#83a7a7] text-[120px] font-fantasy font-bold'>Strong</p>
 //             </div>
 //             <div className='absolute top-[575px] left-[948px]'>
-//                 <p className='text-[#83a7a7] text-[90px] font-fantasy font-bold'>Unstoppable</p>
+//                 <p className='text-[#83a7a7] text-[120px] font-fantasy font-bold'>Unstoppable</p>
 //             </div>
 //         </div>
 //     );

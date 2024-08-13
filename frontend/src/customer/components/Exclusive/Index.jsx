@@ -8,7 +8,7 @@ import PlaceholderCard from './CardSkeleton';
 import { useNavigate } from 'react-router-dom';
 import ShallowButton from '../ShallowButton/Index';
 
-const TopSellers = () => {
+const Exclusive = () => {
 
     const { products } = useSelector((state) => state.products);
     const defaultImageIndex = [2, 6, 1, 0, 3]
@@ -22,7 +22,7 @@ const TopSellers = () => {
             <div className="container pb-0 mx-auto px-4">
                 <div className="flex w-full items-start justify-start">
                     <p className="p-2 px-4 group font-roboto tracking-wide text-center text-xl sm:text-2xl md:text-2xl  text-neutral-700"  >
-                        TOP SELLING
+                        EXCLUSIVE
                         {/* <div className="bg-amber-500 h-[2px] w-full transition-all duration-500"></div> */}
                     </p>
                 </div>
@@ -37,13 +37,8 @@ const TopSellers = () => {
                     }
                 </div>
             </div>
-            
-            <h1 className='font-roboto text-center mt-[10px] pb-10'>
-                <ShallowButton shopTitle={'VIEW ALL'} onClick={() => navigate("/products")} />
-            </h1>
-            
         </div>
     )
 }
 
-export default TopSellers
+export default Exclusive

@@ -31,20 +31,16 @@ const Collections = () => {
     },[])
 
     return (
-        <div className='mt-20 bg-white'>
+        <div className='mt-20 mb-24 bg-white'>
             
-            <div className='w-full -mt-[20px] md:w-1/3 px-3 md:mb-0 bg-white z-[10]' id='collection-section'>
-                <h1 className='font-roboto text-center text-2xl sm:text-2xl  text-black mt-4 w-full'>
-                    <div className="flex justify-center items-center w-full">
-                        <p className="p-2 px-4 group font-roboto tracking-wide">
-                            OUR COLLECTIONS
-                            {/* <div className="bg-amber-500 h-[2px] w-full transition-all duration-500"></div> */}
-                        </p>
-                    </div>
-                </h1>
-            </div>
-
             <div className="container pb-6 mx-auto px-4">
+                <div className="flex w-full items-start justify-start">
+                    <p className="p-2 px-4 group font-roboto tracking-wide text-center text-2xl md:text-2xl  text-neutral-700"  >
+                        OUR COLLECTIONS
+                        {/* <div className="bg-amber-500 h-[2px] w-full transition-all duration-500"></div> */}
+                    </p>
+                </div>
+
                 <div className="w-full mx-auto">
                    { collections != null && collections!= undefined && collections.length >0 &&      
                         <CarouselComponent showControls={false} items={ 

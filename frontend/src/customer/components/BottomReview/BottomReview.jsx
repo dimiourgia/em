@@ -89,20 +89,18 @@ const Review = ({review}) => {
             </div>
 
             <div className='flex w-full justify-center mt-4 text-center pt-[30px]'>
-                <GradeIcon />
-                <GradeIcon />
-                <GradeIcon />
-                <GradeIcon />
-                <GradeIcon />
+                {Array.from({ length: 5 }, (_, index) => (
+                    <GradeIcon className='text-[#FCAF3C]' key={index} />
+                ))}
             </div>
 
         </div>)
 }
 
-const BottomReview = () => (<>
-    <div className='w-full flex items-cetner justify-center text-2xl'>What our customers say about us</div>
+const BottomReview = () => (<div className='mb-24'>
+    <div className='w-full flex items-cetner justify-center text-xl sm:text-2xl'>What our customers say about us</div>
     <AliceCarousel responsive={responsive} infinite autoPlayInterval={2000} autoPlay={true} items={reviews.map(review=><Review review={review}/>)} key='review_carousel'/>   
-</>);
+</div>);
 
 
 export default BottomReview;

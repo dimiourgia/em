@@ -63,7 +63,7 @@ const Cart = ({setOpenAuthModal}) => {
   
 
   return (
-    <div className="cart-container min-h-screen px-4">
+    <div className="cart-container min-h-screen">
       <div className="sticky top-[60px] flex justify-center items-center p-4 w-full bg-white z-[10] shadow-sm">
         <p className="p-2 font-heading px- text-3xl"  >
         Cart

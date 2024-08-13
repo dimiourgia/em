@@ -21,6 +21,7 @@ import Collections from '../../components/Collections/Index'
 import TopSellers from '../../components/TopSellers/Index'
 import BottomReview from '../../components/BottomReview/BottomReview'
 import TopBanner from '../../components/TopBanner/TopBanner'
+import Exclusive from '../../components/Exclusive/Index'
 
 export const HomePage = () => {
     return (
@@ -30,6 +31,7 @@ export const HomePage = () => {
             {/* <Seperator/> */}
             <Collections/>
             <TopSellers />
+            <Exclusive />
             {/* <SupportBanner /> */}
             {/* <VideoMiddle /> */}
             
