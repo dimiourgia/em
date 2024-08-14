@@ -52,7 +52,7 @@ const MainProduct = () => {
                   <div className="grid divide-y divide-neutral-200 max-w-xl mx-auto">
                     <div className="py-5">
                       <details className="group" open>
-                        <summary className="font-heading flex justify-between items-center cursor-pointer list-none space-x-4">
+                        <summary className="font-roboto flex justify-between items-center cursor-pointer list-none space-x-4">
                           <span>
                             SIZE
                           </span>

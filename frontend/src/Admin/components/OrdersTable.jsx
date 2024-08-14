@@ -197,8 +197,8 @@ const OrdersList = () => {
                     </IconButton>
                   </TableCell>
                   <TableCell>
-                    {order.shippingAddress.firstName}{" "}
-                    {order.shippingAddress.lastName}
+                    {order?.shippingAddress?.firstName}{" "}
+                    {order?.shippingAddress?.lastName}
                   </TableCell>
                   <TableCell>{order?.user?.email}</TableCell>
                   <TableCell>{order?.shippingAddress?.mobile}</TableCell>
@@ -208,7 +208,7 @@ const OrdersList = () => {
                   <TableCell>{order?._id}</TableCell>
                   <TableCell>₹{order.totalDiscountedPrice}</TableCell>
                   <TableCell>{order.totalItem}</TableCell>
-                  <TableCell>{order.shippingAddress.city}</TableCell>
+                  <TableCell>{order?.shippingAddress?.city}</TableCell>
                   <TableCell>{order.orderStatus}</TableCell>
                 </TableRow>
                 <TableRow>
@@ -234,8 +234,8 @@ const OrdersList = () => {
                               Shipping Address
                             </Typography>
                             <Typography variant="body1" style={{ marginTop: 16 }}>
-                              {order.shippingAddress.firstName}{" "}
-                              {order.shippingAddress.lastName}
+                              {order.shippingAddress?.firstName}{" "}
+                              {order.shippingAddress?.lastName}
                             </Typography>
                           </div>
                           <div className="w-[300px]">
@@ -259,13 +259,13 @@ const OrdersList = () => {
                         </div>
 
                         <Typography variant="body1">
-                          {order.shippingAddress.streetAddress},{" "}
-                          {order.shippingAddress.city},{" "}
-                          {order.shippingAddress.state} -{" "}
-                          {order.shippingAddress.zipCode}
+                          {order.shippingAddress?.streetAddress},{" "}
+                          {order.shippingAddress?.city},{" "}
+                          {order.shippingAddress?.state} -{" "}
+                          {order.shippingAddress?.zipCode}
                         </Typography>
                         <Typography variant="body1">
-                          Mobile: {order.shippingAddress.mobile}
+                          Mobile: {order.shippingAddress?.mobile}
                         </Typography>
 
                         <Typography
@@ -289,7 +289,7 @@ const OrdersList = () => {
                             </TableRow>
                           </TableHead>
                           <TableBody>
-                            {order.orderItems.map((item) => (
+                            {order.orderItems && order.orderItems.length>0 && order.orderItems.map((item) => (
                               <TableRow key={item._id}>
                                 <TableCell>
                                   {item?.product?.imageUrl &&

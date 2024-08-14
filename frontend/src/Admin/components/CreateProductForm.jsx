@@ -153,7 +153,7 @@ const CreateProductForm = () => {
               <MenuItem value={'Radiant Rebellion'}>Radiant Rebellion</MenuItem>
               <MenuItem value={'Empowered Ember'}>Empowered Ember</MenuItem>
               <MenuItem value={'Minted Resolve'}>Minted Resolve</MenuItem>
-              <MenuItem value={'Eclipsed Ascendancy'}>Eclipsed Ascendancy</MenuItem>
+              <MenuItem value={'Eclipsed'}>Eclipsed</MenuItem>
               <MenuItem value={'Stripes of Strength'}>Stripes of Strength</MenuItem>
             </Select>
           </Grid>

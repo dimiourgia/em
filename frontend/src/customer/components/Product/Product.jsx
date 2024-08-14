@@ -63,6 +63,7 @@ const Product = ({ search, collectionId}) => {
         pageSize: 30,
       };
        dispatch(findProducts(data));
+       setCurrentProducts(products);
     }
   },[]);
 
@@ -79,11 +80,8 @@ const Product = ({ search, collectionId}) => {
   const totalPages = Math.ceil(copyProduct.length / productsPerPage);
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  let currentProducts = copyProduct.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  );
-
+  const [currentProducts, setCurrentProducts] = useState(products)
+  
   useEffect(() => {
     const [minPrice, maxPrice] = priceValue
       ? priceValue.split("-").map(Number)
@@ -100,8 +98,11 @@ const Product = ({ search, collectionId}) => {
       pageNumber,
       pageSize: 30,
     };
-     dispatch(findProducts(data));
-     currentProducts = products.slice(indexOfFirstProduct, indexOfFirstProduct);
+  
+    dispatch(findProducts(data));
+    setCurrentProducts(products);
+ 
+    //  currentProducts = products.slice(indexOfFirstProduct, indexOfFirstProduct);
   }, [
     param.level,
     colorValue,
@@ -167,7 +168,7 @@ const Product = ({ search, collectionId}) => {
             <div className="grid divide-y divide-neutral-200 max-w-xl mx-auto">
               <div className="py-5">
                 <details className="group" open>
-                  <summary className="font-heading flex justify-between items-center cursor-pointer list-none space-x-4">
+                  <summary className="font-roboto flex justify-between items-center cursor-pointer list-none space-x-4">
                     <span>
                       SIZE
                     </span>
@@ -211,7 +212,7 @@ const Product = ({ search, collectionId}) => {
             </div>
           </div>
           <div className="sm:col-span-10 w-full">
-            <div className="flex flex-wrap rounded-lg items-start w-full justify-center">
+            <div className="flex flex-wrap rounded-lg items-start w-full justify-start">
               {currentProducts.length === 0 ? (
                   <p className="min-h-80 text-center font-heading text-lg sm:text-xl flex p-2 flex-col items-center justify-center">
                   <span className="block">We don't have anything available here currently.</span>

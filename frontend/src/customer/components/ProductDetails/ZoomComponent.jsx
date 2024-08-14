@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 const ZoomComponent = ({ src, imageUrl, handleActiveImageShow }) => {
   const [backgroundPosition, setBackgroundPosition] = useState("0% 0%");
   const [backgroundImage, setBackgroundImage] = useState("");
-  const [scaleFactor, setScaleFactor] = useState(2);  // Adjust this as needed
+  const [scaleFactor, setScaleFactor] = useState(3);  // Adjust this as needed
   const zoomRef = useRef(null);
   const lensRef = useRef(null);
 
@@ -87,7 +87,7 @@ const ZoomComponent = ({ src, imageUrl, handleActiveImageShow }) => {
       </div>
 
       {showLens && <div
-        className="zoom-result absolute z-[100] -top-14 -right-[420px] border border-gray-100 rounded-sm shadow-lg"
+        className="zoom-result absolute z-[100] -top-14 xl:top-0 -right-[420px] border border-gray-100 rounded-sm shadow-lg"
         style={{
           width: "396px",
           height: "600px",

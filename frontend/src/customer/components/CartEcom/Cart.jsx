@@ -68,7 +68,7 @@ const Cart = ({setOpenAuthModal}) => {
         <p className="p-2 font-heading px- text-3xl"  >
         Cart
         </p>
-    </div>
+      </div>
 
       {!cart.loading && !cart.error && <div>
         {isCartEmpty ? (
@@ -155,7 +155,7 @@ const Cart = ({setOpenAuthModal}) => {
                               <p className="text text-gray-700">{offer.code}</p>
                               <p className="text-[11px] text-gray-400">{`GET ${offer.offer}% OFF`}</p>
                             </div>
-                            <div onClick={()=>applyCouponCode(offer._id)} className="flex-2 text-blue-600 text-[15px] cursor-pointer">APPLY</div>
+                            <div onClick={()=>offer=> offer._id != appliedCouponCode?._id && applyCouponCode(offer._id)} className={`${offer._id != appliedCouponCode?._id ? 'text-blue-600 cursor-pointer' : 'text-neutral-600 cursor-not-allowed'} flex-2  text-[15px]`}>APPLY</div>
                         </div>
                       </div>)
                     })}

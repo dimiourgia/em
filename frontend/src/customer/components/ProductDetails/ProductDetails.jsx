@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { RadioGroup } from "@headlessui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,6 +28,7 @@ export default function ProductDetails({setOpenAuthModal}) {
 
   const cart = useSelector(state=>state.cart);
   const {user} = useSelector(state=>state.auth);
+  const pd_ref = useRef(null);
 
   console.log('cart', cart);
 
@@ -67,11 +68,11 @@ export default function ProductDetails({setOpenAuthModal}) {
     }
   }, [product]);
 
-  return (<>
+  return (<div className="min-h-[calc(100vh-80px)">
     {!products.loading && !products.error && <div className="bg-white pt-4">
       <div className="md:flex justify-center">
         {/* Image gallery */}
-        <div className="mx-4 sm:w-[calc(75%+80px)] md:w-[calc(50%+80px)] lg:w-[calc(33%+80px)] xl:w-[calc(25%+80px)]">
+        <div ref={pd_ref} className="mx-4 sm:w-[calc(75%+80px)] md:w-[calc(50%+80px)] lg:w-[calc(33%+80px)] xl:w-[calc(25%+80px)]">
           <div className="">
             {/* <img
               src={activeImage || product?.imageUrl[0]}
@@ -235,9 +236,13 @@ export default function ProductDetails({setOpenAuthModal}) {
 
       {/* description */}
       <hr className="mt-4 text-gray-50 bg-gray-50"/>
-      <div className="m-3 mt-4 p-4 pb-16">
-          <h3 className="font-text flex justify-center text-semibold text-2xl opacity-75 mx-auto p-2">Product Description</h3>
-          <div className="mx-auto text-neutral-600 font-sans tracking-wide text-normal">
+      
+      <div className="w-full flex justify-center">
+        <div
+          style={{width: pd_ref?.current?.offsetWidth*2-80}} 
+          className={`mt-4 py-4 pb-16`}>
+          <h3 className="font-text flex justify-center textt-justify text-semibold text-2xl opacity-75 mx-auto p-2">Product Description</h3>
+          <div className="mx-auto px-4 text-neutral-600 font-sans tracking-wide text-normal">
             <p className="">{product?.description}</p>
             <p className="py-2">{product?.modelAttireDescription}</p>
           </div>
@@ -250,11 +255,13 @@ export default function ProductDetails({setOpenAuthModal}) {
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </div> */}
         </div>
+      </div>
+
     </div>}
 
     {products.loading && <SkeletonProductDetails/>}
 
     {products.error && <ErrorComponent errorMessage={products.error} />}
 
-      </>);
+      </div>);
 }

@@ -8,6 +8,7 @@ import AdressCard from "../AdressCard/AdressCard";
 import { createPayment, updatePayment } from "../../../State/Payment/Action";
 import Button from "../Button/Index";
 import { useNavigate } from "react-router-dom";
+import Loading from "../Loader/Index";
 
 const OrderSummary = () => {
   const location = useLocation();
@@ -35,12 +36,12 @@ const OrderSummary = () => {
 
 
   return ( <>
-    {<div className="space-y-6 p-6 rounded-xl bg-white">
-    <div className="sticky top-[60px] flex justify-center items-center p-4 w-full bg-white ">
-        <p className="p-2 font-heading px- text-3xl"  >
-          Order Summary
-        </p>
-    </div>
+    {!order.loading && <div className="space-y-6 p-6 rounded-xl bg-white">
+      <div className="sticky top-[60px] flex justify-center items-center p-4 w-full bg-white ">
+          <p className="p-2 font-heading px- text-3xl"  >
+            Order Summary
+          </p>
+      </div>
     
       <div className="p-6 rounded-md border bg-white font-text">
       <span className="font-sans text-lg">Shipping Details:</span>
@@ -91,7 +92,10 @@ const OrderSummary = () => {
       </div>
     </div>}
 
-    {}
+    {order.loading && <div className="flex w-full items-center justify-center">
+      <Loading /> 
+    </div>}
+
     </>);
 };
 
