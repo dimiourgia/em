@@ -13,20 +13,17 @@ const token = localStorage.getItem("jwt");
 
 // Register action creators
 const registerRequest = () => ({ type: REGISTER_REQUEST });
-const registerSuccess = (user) => ({ type: REGISTER_SUCCESS, payload: user });
+const registerSuccess = (emailSent) => ({ type: REGISTER_SUCCESS, payload: emailSent });
 const registerFailure = (error) => ({ type: REGISTER_FAILURE, payload: error });
 
 export const register = (userData) => async (dispatch) => {
     dispatch(registerRequest());
     try {
         const response = await axios.post(`${API_BASE_URL}/auth/signup`, userData);
-        const user = response.data;
-        if (user.jwt) {
-            localStorage.setItem("jwt", user.jwt);
-        }
-        dispatch(registerSuccess(user.jwt));
+        const {emailSent} = response.data;
+        dispatch(registerSuccess(emailSent));
     } catch (error) {
-        dispatch(registerFailure(error.response?.data?.error || error.message));
+        dispatch(registerFailure(error.response?.data?.err || error.message));
     }
 }
 

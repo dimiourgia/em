@@ -25,6 +25,7 @@ const initialState = {
     forgotPasswordSuccess: null,
     resetPasswordSuccess: null,
     showAuthModal: false,
+    emailSent: false,
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -33,12 +34,14 @@ export const authReducer = (state = initialState, action) => {
         case LOGIN_REQUEST:
         case GET_USER_REQUEST:
             return { ...state, isLoading: true, error: null }
-        case REGISTER_SUCCESS:
+        case REGISTER_SUCCESS: 
+            return {...state, isLoading:false, error:null, emailSent:action.payload}
         case LOGIN_SUCCESS:
             return { ...state, isLoading: false, error: null, jwt: action.payload }
         case GET_USER_SUCCESS:
             return { ...state, isLoading: false, error: null, user: action.payload }
-        case REGISTER_FAILURE:
+        case REGISTER_FAILURE: 
+        return {...state, isLoading:false, error:action.payload}
         case LOGIN_FAILURE:
         case GET_USER_FAILURE:
             return { ...state, isLoading: false, error: action.payload }

@@ -10,12 +10,13 @@ const register=async(req,res)=>{
 
     try {
         const user=await userService.createUser(req.body);
-        const jwt=jwtProvider.generateToken(user._id);
+        // const jwt=jwtProvider.generateToken(user._id);
 
         await cartService.createCart(user);
         const otp = otpService.generateOtp();
         await userService.saveVerificationOtp(user._id, otp);
-        return res.status(200).send({jwt, message:"register success, email sent to email id"});
+        await emailService.sendAccountConfirmationEmail(user.email, otp);
+        return res.status(200).send({message:"Successful! We have sent you a verification email.", emailSent: true});
 
     } catch (error) {
         return res.status(500).send({error:error.message})
@@ -50,6 +51,8 @@ const login=async(req,res)=>{
         if (!user) {
             return res.status(404).json({ message: 'User not found With Email ', email});
         }
+
+        if(!user.accountVerified) return res.status(403).json({message: 'Please vefiy your account first'});
 
         // if(!user.accountVerified){
         //     return res.status(401).json({message: 'Please verify your email first'});
@@ -92,7 +95,23 @@ const resetPassword = async (req, res) => {
 };
 
 const verifyUser = async (req, res)=>{
+    const { email, otp } = req.query;
+    console.log(req.params, 'params');
+    if(!email || !otp) return res.status(400).json({message: 'Invalid email or otp', error: 'Invalid email or otp'});
+    
+    const user = await userService.getUserByEmail(email);
+    console.log(user, 'user..', email, otp)
+    
+    if(!user) return res.status(404).json({message: 'Email not registered', error: 'Email not registered'});
 
+    //later check expiration date as well
+    if(user.verifyAccountOtp != otp) return res.status(400).json({message: 'Invalid OTP', error: 'Invalid OTP'});
+
+    //everything look okay.. proceed to verify
+    user.accountVerified = true;
+    user.save();
+
+    return res.status(200).json({message: 'Account Verified', error: null});
 }
 
-module.exports={ register, login, forgotPassword, resetPassword };
+module.exports={ register, login, forgotPassword, resetPassword, verifyUser };

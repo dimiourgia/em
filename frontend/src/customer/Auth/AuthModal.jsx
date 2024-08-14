@@ -30,7 +30,7 @@ const AuthModal = ({ handleClose, open, type, setType}) => {
     >
       <Box sx={style}>
         {type == "register" ? (
-          <RegisterForm setType={setType} />
+          <RegisterForm setType={setType} handleClose={handleClose} />
         ) : type == "forgot-password" ? (
           <Forgot setType={setType} />
         ) : (

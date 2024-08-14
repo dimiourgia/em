@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
 
   referrals: [
     {
-      referralCode: { type: String, unique: true },
+      referralCode: { type: String },
       orderId: { type: mongoose.Types.ObjectId },
       referree: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
       referralCount: { type: Number, default: 0 },
@@ -62,7 +62,7 @@ const userSchema = new mongoose.Schema({
       ref: "reviews",
     },
   ],
-  veifyAccountOtp: {
+  verifyAccountOtp: {
     type: String,
     default: null,
   },

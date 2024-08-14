@@ -10,7 +10,7 @@ import { getUser, register } from '../../State/Auth/Action';
 import { useSelector } from 'react-redux';
 import Button from '../components/Button/Index';
 
-export default function RegisterForm({setType}){
+export default function RegisterForm({setType, handleClose}){
     //Input refs
     const firstNameRef = useRef(null)
     const lastNameRef = useRef(null)
@@ -18,6 +18,7 @@ export default function RegisterForm({setType}){
     const emailRef = useRef(null)
     const passwordRef = useRef(null)
     const referralCodeRef = useRef(null)
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
     const jwt = localStorage.getItem("jwt")
@@ -64,8 +65,11 @@ export default function RegisterForm({setType}){
             setError(auth.error);
         }else setError(false);
 
-        if(dispatched && auth.user){
-            setSuccess('Registration Successful');
+        if(dispatched && auth.emailSent){
+            setSuccess('Successful. We have sent a verification email to your email.');
+            setTimeout(()=>{
+                handleClose()
+            },3000)
         }else setSuccess(false);
 
     },[auth]);
@@ -161,7 +165,6 @@ export default function RegisterForm({setType}){
                 </form>      
             </motion.div>
         </div>
-        <div className='spacer layer1'></div>
     </div>
 
     

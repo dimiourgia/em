@@ -1,5 +1,6 @@
 const { EmailClient, KnownEmailSendStatus } = require("@azure/communication-email");
 
+
 const sendResetPasswordEmail = async (email, resetLink) => {
     const message = {
         senderAddress: "DoNotReply@0b92c556-0591-4ff8-bfc5-9fa5358b53c0.azurecomm.net",
@@ -143,7 +144,7 @@ const sendOrderConfirmationEmail = async (order) => {
     }
 }
 
-const sendAccountConfirmationEmail = async (email) => {
+const sendAccountConfirmationEmail = async (email, otp) => {
     try {
         const emailClient = new EmailClient(process.env.Email_Connection_String); 
         const message = {
@@ -160,7 +161,7 @@ const sendAccountConfirmationEmail = async (email) => {
                             <h1 style='font-size: 24px; margin-bottom:20px;' >Please confirm your email address</h1>
                             <p style='font-size: 16px; line-height: 1.5; margin-bottom: 20px;'>Thanks for signing up to Empressa. We're happy to have you.</p>
                             <p style='font-size: 16px; line-height: 1.5; margin-bottom: 20px;'>Please take a second to make sure we have your correct email address.</p>
-                            <a href="#" style='display: inline-block; background-color: #4CAF50; color: #ffffff; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-size: 16px;'>
+                            <a href=${process.env.FRONTEND_URL}/verify/${email}/${otp} style='display: inline-block; background-color: #4CAF50; color: #ffffff; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-size: 16px;'>
                                 Confirm your email address
                             </a>
                             <p style='font-size: 16px; line-height: 1.5; margin-bottom: 20px;'>If you didn't sign up for Empressa,<a href="#">let us know</a>.</p>
@@ -174,7 +175,7 @@ const sendAccountConfirmationEmail = async (email) => {
             recipients: {
                 to: [
                     {
-                        address: 'ajayaxes318@gmail.com',
+                        address: email,
                     },
                 ],
             },
