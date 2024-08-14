@@ -32,6 +32,7 @@ async function createProduct(reqData) {
       sizes: reqData.size,
       category: level._id,
       collections: collectionId,
+      defaultImageIndex: reqData.defaultImageIndex??0,
     });
 
     const savedProduct = await product.save();
