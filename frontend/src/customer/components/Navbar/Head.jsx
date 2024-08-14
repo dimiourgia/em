@@ -86,7 +86,7 @@ export default function Head({ search, setSearch, openAuthModal, setOpenAuthModa
 
   useEffect(()=>{
       let totalQuantity = 0;
-      if(cartContent?.cartItems?.length > 0 ?? false){
+      if((cartContent?.cartItems?.length > 0) ?? false){
           cartContent?.cartItems.forEach(item=>{
             totalQuantity+= item?.quantity;
           });
