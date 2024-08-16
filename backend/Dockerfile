@@ -16,4 +16,4 @@ COPY . .
 EXPOSE 5454
 
 # Run the application
-CMD ["node", "index.js"]
+CMD ["node", "src/server.js"]

@@ -1,5 +1,5 @@
 location: centralindia
-name: travel-server
+name: empressa-backend
 properties:
   configuration:
     activeRevisionsMode: Single
@@ -11,12 +11,12 @@ properties:
   managedEnvironmentId: /subscriptions/0d9f4960-b392-4b50-8be6-8f66ac609882/resourceGroups/expense-book-test/providers/Microsoft.App/managedEnvironments/expense-book-test-environment
   template:
     containers:
-    - image: docker.io/aj204/travel-server:latest
-      name: travel-server
+    - image: docker.io/aj204/empressa-backend:latest
+      name: empressa-backend
       resources:
         cpu: 1
         memory: 2Gi
     scale:
       maxReplicas: 1
-      minReplicas: 1
+      minReplicas: 0
 type: Microsoft.App/containerApps
