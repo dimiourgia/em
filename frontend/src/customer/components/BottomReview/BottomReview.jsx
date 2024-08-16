@@ -31,7 +31,7 @@ const reviews = [
         "reviewHighlight": "Versatile and stylish!",
         "review": "The Minted Resolve Collection has something for every occasion. The designs are chic and the quality is impressive. I’ve received so many compliments already!",
         "user": {
-            "name": "Rahul",
+            "name": "Ravina",
             "location": "Delhi"
         }
     },
