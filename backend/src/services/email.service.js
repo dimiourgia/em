@@ -2,6 +2,8 @@ const { EmailClient, KnownEmailSendStatus } = require("@azure/communication-emai
 
 
 const sendResetPasswordEmail = async (email, resetLink) => {
+    const emailClient = new EmailClient(process.env.Email_Connection_String);
+
     const message = {
         senderAddress: "DoNotReply@0b92c556-0591-4ff8-bfc5-9fa5358b53c0.azurecomm.net",
         content: {
@@ -189,7 +191,7 @@ const sendAccountConfirmationEmail = async (email, otp) => {
         }
 
     } catch (error) {
-        console.error("Error sending order confirmation email:", error);
+        console.error("Error sending account confirmation email:", error);
         //throw new Error("Failed to send order confirmation email");
     }
 }
