@@ -7,10 +7,18 @@ import CarouselComponent from '../Carousel/Index';
 import PlaceholderCard from './CardSkeleton';
 import { useNavigate } from 'react-router-dom';
 import ShallowButton from '../ShallowButton/Index';
+import { useEffect, useState } from 'react';
 
 const TopSellers = () => {
+    const topSellers = ['66bb47413da21f8a8b16100b',
+        '66bb47c53da21f8a8b161014',
+        '66bb4f583da21f8a8b16106e',
+        '66bb4c133da21f8a8b161053',
+        '66bb4fc33da21f8a8b161077']
+    const products = useSelector((state) => state.products).products.filter(p=>topSellers.includes(p._id));
+ 
+    
 
-    const { products } = useSelector((state) => state.products);
     const defaultImageIndex = [2, 6, 1, 0, 3]
     const navigate = useNavigate();
 
@@ -18,7 +26,7 @@ const TopSellers = () => {
     console.log(products, 'products')
 
     return (
-        <div className='mb-24'>
+        <div className='mb-24' id='top-selling-section'>
             <div className="container pb-0 mx-auto px-4">
                 <div className="flex w-full items-start justify-start">
                     <p className="p-2 px-4 group font-roboto tracking-wide text-center text-xl sm:text-2xl md:text-2xl  text-neutral-700"  >

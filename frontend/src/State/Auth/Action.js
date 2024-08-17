@@ -7,6 +7,7 @@ import {
     FORGOT_PASSWORD_FAILURE, FORGOT_PASSWORD_SUCCESS, FORGOT_PASSWORD_REQUEST,
     RESET_PASSWORD_FAILURE, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_REQUEST,
     TOGGLE_AUTH_MODAL,
+    RESET_AUTH_STATE,
 } from "./ActionType";
 
 const token = localStorage.getItem("jwt");
@@ -23,7 +24,7 @@ export const register = (userData) => async (dispatch) => {
         const {emailSent} = response.data;
         dispatch(registerSuccess(emailSent));
     } catch (error) {
-        dispatch(registerFailure(error.response?.data?.err || error.message));
+        dispatch(registerFailure(error.response?.data?.error || error.message));
     }
 }
 
@@ -87,6 +88,7 @@ export const forgotPassword = (email) => async (dispatch) => {
     }
 };
 
+
 // Reset password action creators
 const resetPasswordRequest = () => ({ type: RESET_PASSWORD_REQUEST });
 const resetPasswordSuccess = (message) => ({ type: RESET_PASSWORD_SUCCESS, payload: message });
@@ -102,6 +104,7 @@ export const resetPassword = (data) => async (dispatch) => {
     }
 };
 
+export const resetInitialState = ()=>{{type: RESET_PASSWORD_REQUEST}};
 
 export const setAuthModal = (bool)=>(dispatch)=>{
     dispatch(()=>({type: TOGGLE_AUTH_MODAL, payload: bool}));

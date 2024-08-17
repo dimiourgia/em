@@ -31,7 +31,7 @@ const Collections = () => {
     },[])
 
     return (
-        <div className='mt-20 mb-24 bg-white'>
+        <div className='mt-20 mb-24 bg-white' id='collection-section'>
             
             <div className="container pb-6 mx-auto px-4">
                 <div className="flex w-full items-start justify-start">

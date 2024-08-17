@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 const ZoomComponent = ({ src, imageUrl, handleActiveImageShow }) => {
   const [backgroundPosition, setBackgroundPosition] = useState("0% 0%");
   const [backgroundImage, setBackgroundImage] = useState("");
-  const [scaleFactor, setScaleFactor] = useState(3);  // Adjust this as needed
+  const [scaleFactor, setScaleFactor] = useState(2.2);  // Adjust this as needed
   const zoomRef = useRef(null);
   const lensRef = useRef(null);
 
