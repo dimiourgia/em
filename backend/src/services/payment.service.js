@@ -16,11 +16,11 @@ const createPaymentLink = async (orderId) => {
         email: order.user.email,
       },
       notify: {
-        sms: true,
-        email: true,
+        sms: false,
+        email: false,
       },
       reminder_enable: true,
-      callback_url: `http://localhost:5173/payment/${orderId}`,
+      callback_url: `${process.env.FRONTEND_URL}/payment/${orderId}`,
       callback_method: "get",
     };
 
