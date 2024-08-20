@@ -46,7 +46,7 @@ export default function RegisterForm({setType, handleClose}){
             dispatch(getUser(jwt))
         }
 
-    }, [jwt, auth.jwt])
+    }, [auth.jwt])
     
     useEffect(()=>{
         firstNameRef.current.focus()
@@ -67,7 +67,7 @@ export default function RegisterForm({setType, handleClose}){
         }else setError(false);
 
         if(dispatched && auth.emailSent){
-            setSuccess('Successful. We have sent a verification email to your email.');
+            setSuccess('Successful.');
             setTimeout(()=>{
                 handleClose()
             },3000)
@@ -139,7 +139,6 @@ export default function RegisterForm({setType, handleClose}){
     dispatch(register(userData))
     setDispatched(true);
     console.log("user data", userData);
-
     }
 
     return(
