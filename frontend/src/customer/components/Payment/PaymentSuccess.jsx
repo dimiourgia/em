@@ -73,7 +73,7 @@ const PaymentSuccess = () => {
           sx={{ mb: 2, width: "fit-content" }}
         >
           <AlertTitle>Payment Success</AlertTitle>
-          {`Congratulations, your order has been placed.
+          {`Congratulations, your order has been placed. Our representative will conctact you shortly to assit with your other order.
           You have also earned a refferal code : ${order.order.referralCode}.
           Share this with others and if they use it to signup on our platform,
           you will earn 5% discount for each referral`}
