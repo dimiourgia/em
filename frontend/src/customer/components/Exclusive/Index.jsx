@@ -10,8 +10,7 @@ import ShallowButton from '../ShallowButton/Index';
 
 const Exclusive = () => {
 
-    const { products } = useSelector((state) => state.products);
-    const defaultImageIndex = [2, 6, 1, 0, 3]
+    const products = useSelector((state) => state.products).products.filter(p=>p.isExclusive);
     const navigate = useNavigate();
 
 
@@ -29,7 +28,7 @@ const Exclusive = () => {
                 
                 <div className="w-full mx-auto">
                     {products != undefined && products !=null && products.length >0 && 
-                        <CarouselComponent isDummy={false} key='top_sellers_carousel' items={products.map((product,index)=><Card product={product} defaultImageIndex={defaultImageIndex[index]??0}/>)} />
+                        <CarouselComponent isDummy={false} key='top_sellers_carousel' items={products.map((product,index)=><Card product={product}/>)} />
                     }
 
                     {products === undefined || products ==null || products.length == 0 &&
