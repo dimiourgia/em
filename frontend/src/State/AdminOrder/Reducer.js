@@ -47,10 +47,10 @@ export const adminOrderReducer = (state = initialState, action) => {
         orders: [],
         error: action.payload,
       };
-    case CONFIRMED_ORDER_REQUEST:
-    case PLACED_ORDER_REQUEST:
-    case DELIVERED_ORDER_REQUEST:
-    case CANCELED_ORDER_REQUEST:
+    case CONFIRMED_ORDER_REQUEST: return {...state, loading:true}
+    case PLACED_ORDER_REQUEST: return {...state, loading:true}
+    case DELIVERED_ORDER_REQUEST: return {...state, loading:true}
+    case CANCELED_ORDER_REQUEST: return {...state, loading:true}
       return {
         ...state,
         isLoading: true,

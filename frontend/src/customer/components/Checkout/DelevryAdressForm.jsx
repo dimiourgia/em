@@ -134,7 +134,7 @@ export default function DeliveryAddressForm({ handleNext }) {
     }else setIsNextDisabled(true);
   },[address])
 
-  return (<div className="min-h-[100vh-60px]">
+  return (<div className="min-h-[100vh-60px] w-full flex items-center justify-center">
     {storedAddresses && !storedAddresses_selector.loading && <div>
         {(storedAddresses && storedAddresses.length >0 && !addNewAddres) && <div className="w-full flex flex-col justify-center items-center px-6">
           <p className="text-roboto text-xl sm:text-2xl mt-4 py-4 text-semibold text-gray-600 max-w-[450px] flex justify-start">Select an address to continue</p>
