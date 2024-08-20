@@ -73,7 +73,7 @@ const PaymentSuccess = () => {
           sx={{ mb: 2, width: "fit-content" }}
         >
           <AlertTitle>Payment Success</AlertTitle>
-          {`Congratulations, your order has been placed. Our representative will conctact you shortly to assit with your other order.
+          {`Congratulations, your order has been placed. Our representative will contact you shortly to assit you further with your order.
           You have also earned a refferal code : ${order.order.referralCode}.
           Share this with others and if they use it to signup on our platform,
           you will earn 5% discount for each referral`}
@@ -82,6 +82,10 @@ const PaymentSuccess = () => {
 
       <div className="mx-auto  max-w-[1000px]">
         <Grid container className="space-y-5 py-5 pt-20">
+          <Grid item>
+            <p className='ml-2 mt-6 underline'>Shipping Address:</p>
+            <AddressCard address={order.order?.shippingAddress} />
+          </Grid>
           {order.order?.orderItems.map((item, index) => (
             <Grid
               key={index}
@@ -106,14 +110,8 @@ const PaymentSuccess = () => {
                     <span className="opacity-50 text-md" >Quantity: {item.quantity}</span>
                     </p>
                     <p>₹{item.discountedPrice}</p>
-                    
-
                   </div>
                 </div>
-              </Grid>
-              <Grid item>
-                <p className='ml-2 mt-6 underline'>Shipping Address:</p>
-                <AddressCard address={order.order?.shippingAddress} />
               </Grid>
             </Grid>
           ))}
