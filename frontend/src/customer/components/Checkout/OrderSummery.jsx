@@ -71,7 +71,7 @@ const OrderSummary = () => {
               </div>
               <div className="flex justify-between">
                 <span className="">Discount</span>
-                <span className="text-green-700  ">-₹{discount}</span>
+                <span className="text-green-700  ">-₹{discount.toFixed(2)}</span>
                 {order?.referralDiscountPercentage > 0 && <span className="text-xs font-thin text-green-700">{`(includes referral discount of ${order?.referralDiscountPercentage}%)`}</span>}
               </div>
               <div className="flex justify-between">

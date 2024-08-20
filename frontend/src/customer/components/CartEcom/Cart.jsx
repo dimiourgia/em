@@ -109,7 +109,7 @@ const Cart = ({setOpenAuthModal}) => {
                     <span>Discount</span>
                     {cart.cart?.referralDiscountPercentage > 0 && <span className="text-xs font-thin text-green-700">{`(includes referral discount of ${cart.cart?.referralDiscountPercentage}%)`}</span>}
                   </div>
-                    <span className="text-green-700">-₹{cart.cart?.discounte}</span>
+                    <span className="text-green-700">-₹{cart.cart?.discounte.toFixed(2)}</span>
                   </div>
 
                   <div className="flex justify-between w-full">
@@ -155,11 +155,11 @@ const Cart = ({setOpenAuthModal}) => {
                               <p className="text text-gray-700">{offer.code}</p>
                               <p className="text-[11px] text-gray-400">{`GET ${offer.offer}% OFF`}</p>
                             </div>
-                            <div onClick={()=>offer=> offer._id != appliedCouponCode?._id && applyCouponCode(offer._id)} className={`${offer._id != appliedCouponCode?._id ? 'text-blue-600 cursor-pointer' : 'text-neutral-600 cursor-not-allowed'} flex-2  text-[15px]`}>APPLY</div>
+                            <div onClick={()=>offer._id != appliedCouponCode?._id && applyCouponCode(offer._id)} className={`${offer._id != appliedCouponCode?._id ? 'text-blue-600 cursor-pointer' : 'text-neutral-600 cursor-not-allowed'} flex-2  text-[15px]`}>APPLY</div>
                         </div>
                       </div>)
                     })}
-                  </div>}
+                  </div>} 
 
                   {offers_selector && offers_selector.loading && 
                     <div className="border border-gay-100 min-h-[80px] px-4 py-2 bg-white rounded-sm flex justify-between items-center">
