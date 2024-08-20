@@ -1,3 +1,4 @@
+import { forgotPassword } from "./Action";
 import { 
     GET_USER_FAILURE, 
     GET_USER_REQUEST, 
@@ -23,6 +24,7 @@ const initialState = {
     error: null,
     jwt: null,
     forgotPasswordSuccess: null,
+    forgotPasswordError: null,
     resetPasswordSuccess: null,
     showAuthModal: false,
     emailSent: false,
@@ -53,7 +55,7 @@ export const authReducer = (state = initialState, action) => {
             return { ...state, isLoading: false, error: null, forgotPasswordSuccess: action.payload };
 
         case FORGOT_PASSWORD_FAILURE:
-            return { ...state, isLoading: false, error: action.payload };
+            return { ...state, isLoading: false, forgotPasswordError: action.payload };
 
         case RESET_PASSWORD_REQUEST:
             return { ...state, isLoading: true, error: null, resetPasswordSuccess: null };

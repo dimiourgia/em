@@ -130,11 +130,11 @@ const handleLogin = (e)=>{
                         
                         <Button text='Login' disabled={fetchingFromServer} type='submit' />
                         <div style={{textAlign:'center', marginTop:'10px'}}>
-                            <Link onClick={()=>setType('forgot-password')} className='registerLink'>Forgot Password? </Link>
+                            <Link onClick={()=>{setType('forgot-password')}} className='registerLink'>Forgot Password? </Link>
                         </div> 
                         <br/>
                         <div style={{textAlign:'center'}}>
-                            Don't have an account? <Link onClick={()=>{dispatch(resetInitialState()); setType('register')}} className='registerLink'>Sign Up</Link>
+                            Don't have an account? <Link onClick={()=>{setType('register') }} className='registerLink'>Sign Up</Link>
                         </div> 
                    </form>
             </motion.div>

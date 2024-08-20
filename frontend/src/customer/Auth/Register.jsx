@@ -57,6 +57,7 @@ export default function RegisterForm({setType, handleClose}){
     },[auth])
 
     useEffect(()=>{
+        console.log(dispatched, 'dispatched from register')
         if(dispatched && auth.isLoading){
             setFetchingFromServer(true);
         }else{setFetchingFromServer(false);}
@@ -146,26 +147,24 @@ export default function RegisterForm({setType, handleClose}){
         <div className="">
             <motion.div className="form_container" initial={{transform:'scale(.8)', opacity:.5}} animate={{transform:'scale(1)', opacity:1}} transition={{duration:.2, spring}}>
                 <form onSubmit={handleSubmit}>
-                <div style={{display:'flex', columnGap:'8px', marginBottom:'14px'}}>
-                    <Input placeholder={'First Name'} ref={firstNameRef} type={'text'} error={firstNameError} />
-                    <Input placeholder={'Last Name'} ref={lastNameRef} type={'text'} error={lastNameError} />
-                </div>
-                <Input placeholder={'Email'} ref={emailRef} type={'text'} error={emailError} />
-                <Input placeholder={'Password'} ref={passwordRef} type={'password'} error={passwordError} />
-                <Input placeholder={'Referral Code (Optional)'} ref={referralCodeRef} type='input'/>
-                {error && <FormMessage type='error' message={error}/>}
-                {success && <FormMessage type='success' message={success}/>}
-                {fetchingFromServer && <Loading/>}
-                <Button text='Register' type='submit'  />
-                <br/>
+                    <div style={{display:'flex', columnGap:'8px', marginBottom:'14px'}}>
+                        <Input placeholder={'First Name'} ref={firstNameRef} type={'text'} error={firstNameError} />
+                        <Input placeholder={'Last Name'} ref={lastNameRef} type={'text'} error={lastNameError} />
+                    </div>
+                    <Input placeholder={'Email'} ref={emailRef} type={'text'} error={emailError} />
+                    <Input placeholder={'Password'} ref={passwordRef} type={'password'} error={passwordError} />
+                    <Input placeholder={'Referral Code (Optional)'} ref={referralCodeRef} type='input'/>
+                    {error && <FormMessage type='error' message={error}/>}
+                    {success && <FormMessage type='success' message={success}/>}
+                    {fetchingFromServer && <Loading/>}
+                    <Button text='Register' type='submit'  />
+                    <br/>
 
-                <div style={{textAlign:'center'}}>
-                    Already have an account? <Link onClick={()=>setType('login')} className='registerLink'>Login</Link>
-                </div>
+                    <div style={{textAlign:'center'}}>
+                        Already have an account? <Link onClick={()=>setType('login')} className='registerLink'>Login</Link>
+                    </div>
                 </form>      
             </motion.div>
         </div>
     </div>
-
-    
 )}
