@@ -114,4 +114,38 @@ const verifyUser = async (req, res)=>{
     return res.status(200).json({message: 'Account Verified', error: null});
 }
 
-module.exports={ register, login, forgotPassword, resetPassword, verifyUser };
+const googleCallback = (req, res) => {
+    try {
+        const token = jwtProvider.generateToken(req.user._id);
+        console.log('Generated token:', token);
+        res.redirect(`${process.env.FRONTEND_URL}/?token=${token}`);
+    } catch (error) {
+        console.error('Error in googleCallback:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+
+const loginWithGoogle = async(userData)=>{
+    //usr => {firstName, lastName, email, password, mobile, role},
+    try{
+        //check if the user exists
+        const user_ = await userService.getUserByEmail(email);
+
+        if (user_) {
+            const jwt = jwtProvider.generateToken(user._id);
+            return {success: true, jwt};
+        }
+
+        const user = await userService.createUser(userData);
+        const jwt = jwtProvider.generateToken(user._id);
+        await cartService.createCart(user);
+        return {success:true, jwt};
+
+    }catch(e){
+        console.log(e);
+        return {success: false, jwt:null}
+    }
+}
+
+module.exports={ register, login, forgotPassword, resetPassword, verifyUser, loginWithGoogle, googleCallback };

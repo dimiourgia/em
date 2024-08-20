@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema({
   ],
 
   referralRewards: { type: Number, default: 0 },
-
+  googleId: { type: String },
   mobile: {
     type: String,
   },
