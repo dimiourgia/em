@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./ProductCard.css";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const ProductCard = ({ product, defaultImageIndex=0 }) => {
+const ProductCard = ({ product }) => {
   const navigate = useNavigate();
+  const {user} = useSelector(state=>state.auth);
+  const {balance} = useSelector(state=>state.wallet);
+  console.log(user, 'user from product card...')
+  console.log(product, 'product from product card..')
+ 
+  useEffect(()=>{
+    console.log(product?.isExclusive, (!user || balance < 1000), 'bool')
+  },[user])
+
   return (
     <>
       <div
-        onClick={() => navigate(`/product/${product._id}`)}
-        className="productCard w-[15rem] m-3 transition-all cursor-pointer rounded-md hover:shadow-xl"
+        onClick={() => (!product.isExclusive || balance > 999) && navigate(`/product/${product._id}`)}
+        className="relative productCard w-[15rem] m-3 transition-all cursor-pointer rounded-md hover:shadow-xl"
       >
         <div className="h-[15rem] rounded">
           <img
@@ -16,6 +26,14 @@ const ProductCard = ({ product, defaultImageIndex=0 }) => {
             src={`${product?.imageUrl[product.defaultImageIndex]}@mq`}
             alt="ss"
           />
+          {product?.isExclusive && (!user || balance < 1000) && (
+                <div className="absolute rounded-lg inset-0 bg-black bg-opacity-10 backdrop-blur-lg z-10 flex items-center justify-center">
+                    <div className="flex flex-col items-center justify-center gap-4">
+                        <span className="text-white text-lg font-semibold tracking-wider">EXCLUSIVE</span>
+                        <img src='/images/white_lock.svg' style={{width:'32px', height:'32px'}}/>
+                    </div>
+                </div>
+            )}
         </div>
         <div className="mt-[100px] h-[100px] p-3 rounded-md">
           <div>
