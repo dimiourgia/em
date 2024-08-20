@@ -10,10 +10,10 @@ import ShallowButton from '../ShallowButton/Index';
 import { useEffect, useState } from 'react';
 
 const TopSellers = () => {
-    const topSellers = ['66bb47413da21f8a8b16100b',
+    const topSellers = ['66bb4a193da21f8a8b161038',
         '66bb47c53da21f8a8b161014',
         '66bb4f583da21f8a8b16106e',
-        '66bb4c133da21f8a8b161053',
+        '66bb4ac83da21f8a8b161041',
         '66bb4fc33da21f8a8b161077']
     const products = useSelector((state) => state.products).products.filter(p=>topSellers.includes(p._id));
  
