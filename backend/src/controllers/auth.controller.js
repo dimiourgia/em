@@ -15,8 +15,13 @@ const register=async(req,res)=>{
         await cartService.createCart(user);
         const otp = otpService.generateOtp();
         await userService.saveVerificationOtp(user._id, otp);
-        await emailService.sendAccountConfirmationEmail(user.email, otp);
-        return res.status(200).send({message:"Successful! We have sent you a verification email.", emailSent: true});
+        // await emailService.sendAccountConfirmationEmail(user.email, otp);
+        // return res.status(200).send({message:"Successful! We have sent you a verification email.", emailSent: true});
+
+        //temporary arrangement in absence of email service
+        const jwt=jwtProvider.generateToken(user._id);
+        user.accountVerified = true;
+        return res.status(200).send({jwt, message:"Successful! Registration successful", emailSent: true});
 
     } catch (error) {
         return res.status(500).send({error:error.message})

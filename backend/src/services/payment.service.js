@@ -8,7 +8,7 @@ const createPaymentLink = async (orderId) => {
     const order = await orderService.findOrderById(orderId);
     
     const paymentLinkRequest = {
-      amount: order.totalDiscountedPrice * 100,
+      amount: Math.round(order.totalDiscountedPrice * 100),
       currency: "INR",
       customer: {
         name: order.user.firstName + " " + order.user.lastName,
