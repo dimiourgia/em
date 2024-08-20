@@ -22,6 +22,7 @@ import {
 } from "@mui/material";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import moment from "moment";
+import Loading from "../../customer/components/Loader/Index";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -46,7 +47,7 @@ const OrdersList = () => {
   };
 
   const sortedAndFilteredOrders = () => {
-    let sortableItems = [...adminOrder.orders];
+    let sortableItems = [...adminOrder.orders].filter(order=>order.orderStatus != 'PENDING');
     
     // Apply status filter
     if (statusFilter !== 'ALL') {
@@ -89,10 +90,13 @@ const OrdersList = () => {
       ...prevStatus,
       [orderId]: newStatus,
     }));
-
+    
     newStatus === "Shipped"
       ? dispatch(shipOrder(orderId))
       : dispatch(deliveredOrder(orderId));
+
+    dispatch(getOrders());
+    setStatusFilter('ALL');
   };
 
   // Handle sort request
@@ -104,7 +108,7 @@ const OrdersList = () => {
     setSortConfig({ key, direction });
   };
 
-  return (
+  return (<>
     <TableContainer component={Paper}>
       <Box margin={2} display="flex" justifyContent="space-between" alignItems="center">
         <Typography variant="h6">Order List</Typography>
@@ -322,7 +326,10 @@ const OrdersList = () => {
         </TableBody>
       </Table>
     </TableContainer>
-  );
+    {adminOrder?.loading && <div className="absolute w-[100vw] h-[100vh] bg-black/10 flex items-center justify-center">
+      <Loading/>
+    </div>}
+    </>);
 };
 
 export default OrdersList;
