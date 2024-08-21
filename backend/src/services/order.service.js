@@ -130,8 +130,8 @@ async function placedOrder(orderId) {
       // Send confirmation message and email
       const userPhoneNumber = `+91${order.shippingAddress.mobile}`??'+916397710583'; // This should be dynamically fetched based on the order
       const messageBody = `Your Empressa order worth Rs. ${order.totalDiscountedPrice} has been received. Thank you for shopping with us! Additionally you have earned a coupon code ${order.referralCode}. You can get upto 25% discount by sharing the coupon code with others`;
-      await twilioService.sendMessage(`whatsapp:${userPhoneNumber}`, messageBody);
-      await sendOrderConfirmationEmail(order);
+      //await twilioService.sendMessage(`whatsapp:${userPhoneNumber}`, messageBody);
+      //await sendOrderConfirmationEmail(order);
     }
 
     return order;
