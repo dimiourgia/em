@@ -9,6 +9,7 @@ import {
     GET_ORDER_HISTORY_REQUEST,
     GET_ORDER_HISTORY_SUCCESS,
     GET_ORDER_HISTORY_FAILURE,
+    RESET_ORDER_STATE,
 } from "./ActionType";
 import { api } from "../../config/apiConfig";
 
@@ -89,4 +90,6 @@ export const getOrderHistory = (reqData) => async (dispatch, getState) => {
     }
   };
   
+
+  export const resetOrder = () =>({RESET_ORDER_STATE})
 

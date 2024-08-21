@@ -68,7 +68,7 @@ export default function ProductDetails({setOpenAuthModal}) {
     }
   }, [product]);
 
-  return (<div className="min-h-[calc(100vh-80px)">
+  return (<div className="min-h-[calc(100vh-60px)">
     {!products.loading && !products.error && <div className="bg-white pt-4">
       <div className="md:flex justify-center">
         {/* Image gallery */}

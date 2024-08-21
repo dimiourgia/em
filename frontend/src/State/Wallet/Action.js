@@ -1,7 +1,8 @@
 import {
     GET_USER_WALLET_REQUEST,
     GET_USER_WALLET_SUCCESS,
-    GET_USER_WALLET_FAILURE
+    GET_USER_WALLET_FAILURE,
+    RESET_WALLET_STATE,
 } from './ActionType';
 import { api } from '../../config/apiConfig';
 
@@ -21,3 +22,5 @@ export const getWallet = () => async (dispatch) => {
       dispatch({ type: GET_USER_WALLET_FAILURE, payload: error.message });
     }
   };
+
+  export const resetWallet = ()=>({RESET_WALLET_STATE});

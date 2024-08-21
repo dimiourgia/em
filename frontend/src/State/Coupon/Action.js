@@ -1,7 +1,8 @@
 import {
     GET_USER_COUPONS_REQUEST,
     GET_USER_COUPONS_SUCCESS,
-    GET_USER_COUPONS_FAILURE
+    GET_USER_COUPONS_FAILURE,
+    RESET_COUPON_STATE,
 } from './ActionType';
 import { api } from "../../config/apiConfig"
 
@@ -25,4 +26,6 @@ export const getCoupons = ()=> async (dispatch)=>{
         dispatch({type: GET_USER_COUPONS_FAILURE, payload:e.message})
     }
 }
+
+export const resetCoupon = () => ({RESET_COUPON_STATE});
 

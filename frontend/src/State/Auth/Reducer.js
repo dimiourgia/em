@@ -16,6 +16,7 @@ import {
     RESET_PASSWORD_REQUEST, 
     RESET_PASSWORD_SUCCESS, 
     RESET_PASSWORD_FAILURE, 
+    RESET_AUTH_STATE,
     TOGGLE_AUTH_MODAL, } from "./ActionType";
 
 const initialState = {
@@ -71,6 +72,8 @@ export const authReducer = (state = initialState, action) => {
 
         case TOGGLE_AUTH_MODAL:
             return { ...state, showAuthModal: action.payload};
+        case RESET_AUTH_STATE:
+            return {...initialState}
         default:
             return state;
     }

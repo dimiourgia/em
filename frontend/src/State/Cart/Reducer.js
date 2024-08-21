@@ -16,6 +16,7 @@ import { ADD_ITEM_TO_CART_FAILURE,
     UPDATE_CART_ITEM_FAILURE, 
     UPDATE_CART_ITEM_REQUEST, 
     UPDATE_CART_ITEM_SUCCESS,
+    RESET_CART_STATE,
  } from "./ActionType";
 
 const initialState = {
@@ -97,6 +98,8 @@ export const cartReducer = (state = initialState, action) => {
             return {...state, loading:false, error:null}
         case REMOVE_COUPON_FAILURE:
             return {...state, loading:false, error:action.payload}
+        case RESET_CART_STATE:
+            return {...initialState}
         default:
             return state;
     }

@@ -115,3 +115,5 @@ export const resetInitialState = ()=>{{type: RESET_PASSWORD_REQUEST}};
 export const setAuthModal = (bool)=>(dispatch)=>{
     dispatch(()=>({type: TOGGLE_AUTH_MODAL, payload: bool}));
 }
+
+export const resetAuth = ()=>({type: RESET_AUTH_STATE})

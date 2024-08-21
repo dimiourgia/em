@@ -17,6 +17,7 @@ import {
   PLACED_ORDER_FAILURE,
   PLACED_ORDER_REQUEST,
   PLACED_ORDER_SUCCESS,
+  RESET_ADMIN_ORDER_STATE,
   SHIP_ORDER_FAILURE,
   SHIP_ORDER_REQUEST,
   SHIP_ORDER_SUCCESS,
@@ -115,6 +116,8 @@ export const adminOrderReducer = (state = initialState, action) => {
         isLoading: false,
         error: action.payload,
       };
+    case RESET_ADMIN_ORDER_STATE:
+      return {...initialState}
     default:
       return state;
   }

@@ -17,6 +17,7 @@ import {
   APPLY_COUPON_FAILURE,
   REMOVE_COUPON_REQUEST,
   REMOVE_COUPON_SUCCESS,
+  RESET_CART_STATE,
   REMOVE_COUPON_FAILURE } from "./ActionType"
 
 
@@ -117,3 +118,6 @@ export const getCart = (jwt) => async (dispatch) => {
     }
 
   }
+
+
+  export const resetCart = ()=>({type: RESET_CART_STATE})

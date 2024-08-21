@@ -12,14 +12,16 @@ import { colors } from "../../../constant";
 
 import AuthModal from "../../Auth/AuthModal";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser, logout } from "../../../State/Auth/Action";
+import { getUser, logout, resetAuth } from "../../../State/Auth/Action";
 
 import SearchBar from "./SearchBar";
 import { setAuthModal } from "../../../State/Auth/Action";
-import { getCart } from "../../../State/Cart/Action";
-import { getCoupons } from "../../../State/Coupon/Action";
-import { getWallet } from "../../../State/Wallet/Action";
+import { getCart, resetCart } from "../../../State/Cart/Action";
+import { getCoupons, resetCoupon } from "../../../State/Coupon/Action";
+import { getWallet, resetWallet } from "../../../State/Wallet/Action";
 import debounce from "lodash.debounce";
+import { resetOrder } from "../../../State/Order/Action";
+import { resetAdminOrder } from "../../../State/AdminOrder/Action";
 
 
 function NavList({ search, setSearch, closeNav }) {
@@ -46,7 +48,8 @@ function NavList({ search, setSearch, closeNav }) {
           <SearchBar search={search} setSearch={setSearch} />
         </ListItem>
       </Typography> */}
-      <div className="flex flex-col lg:flex-row lg:divide-x leading-1 lg:divide-gray-300 gap-4 tracking-wide whitespace-nowrap text-normal">
+      
+      <div className="flex flex-col lg:flex-row lg:divide-x leading-1 lg:divide-gray-300 gap-4 tracking-wide whitespace-nowrap text-normal items-center">
         <div  variant="h6" className={`flex justify-center sm:block font-roboto tracking-widest text-[${colors["primary-100"]}] cursor-pointer hover:text-[${colors["primary-200"]}] `}>
           <span onClick={(e)=>handleScrollToSection(e,'collection-section')}>COLLECTIONS</span>
         </div>
@@ -60,6 +63,12 @@ function NavList({ search, setSearch, closeNav }) {
         <div onClick={()=> {closeNav(); navigate("/women-warriors")}}  className={`lg:pl-4 flex justify-center sm:block font-roboto text-[${colors["primary-100"]}]  cursor-pointer hover:text-[${colors["primary-200"]}]`}>
           WOMEN WARRIORS
         </div>
+
+        <button 
+            onClick={()=>{closeNav(); navigate('/products');}} 
+            className="bg-white tracking-wide sm:tracking-widest font-roboto text-xs sm:text-sm hover:bg-heading-bg text-gray-800 py-1 px-2 sm:py-2 sm:px-4 border !border-[#FCAF3C] sm:ml-10">
+            SHOP NOW
+        </button>
       </div>
     </List>
   );
@@ -155,6 +164,12 @@ export default function Head({ search, setSearch, openAuthModal, setOpenAuthModa
     dispatch(logout());
     handleCloseUserMenu();
     setTotalCartItemQuantity(0);
+    dispatch(resetAuth());
+    dispatch(resetCart());
+    dispatch(resetCoupon());
+    dispatch(resetOrder());
+    dispatch(resetWallet());
+    dispatch(resetAdminOrder());
   };
 
   useEffect(()=>{

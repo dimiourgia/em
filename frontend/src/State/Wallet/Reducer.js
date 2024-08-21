@@ -1,7 +1,8 @@
 import {
     GET_USER_WALLET_REQUEST,
     GET_USER_WALLET_SUCCESS,
-    GET_USER_WALLET_FAILURE
+    GET_USER_WALLET_FAILURE,
+    RESET_WALLET_STATE
 } from './ActionType';
 
 const initialState = {
@@ -21,6 +22,9 @@ export function walletReducer(state=initialState, action){
             }
             case GET_USER_WALLET_FAILURE:{
                 return {...state, loading:false, error:action.payload}
+            }
+            case RESET_WALLET_STATE:{
+                return {...initialState}
             }
             default: 
                 return state;
