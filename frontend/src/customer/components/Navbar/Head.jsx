@@ -41,11 +41,11 @@ function NavList({ search, setSearch, closeNav }) {
 
   return (
     <List className={`flex gap-4 text-[${colors["primary-100"]}] items-center lg:flex-row flex-col lg:items-center lg:w-auto w-full rounded-b-lg bg-slate-50`}>
-      <Typography>
+      {/* <Typography>
         <ListItem className="lg:hidden bg-gray-50">
           <SearchBar search={search} setSearch={setSearch} />
         </ListItem>
-      </Typography>
+      </Typography> */}
       <div className="flex flex-col lg:flex-row lg:divide-x leading-1 lg:divide-gray-300 gap-4 tracking-wide whitespace-nowrap text-normal">
         <div  variant="h6" className={`flex justify-center sm:block font-roboto tracking-widest text-[${colors["primary-100"]}] cursor-pointer hover:text-[${colors["primary-200"]}] `}>
           <span onClick={(e)=>handleScrollToSection(e,'collection-section')}>COLLECTIONS</span>
@@ -218,9 +218,11 @@ export default function Head({ search, setSearch, openAuthModal, setOpenAuthModa
         </div>
 
         <div className="flex items-end gap-4 mr-4">
-          <div className="hidden sm:block">
+
+          {/* <div className="hidden sm:block">
             <SearchBar search={search} setSearch={setSearch} />
-          </div>
+          </div> */}
+
           {/* coin balance section begin-- */}
           {auth.user && <div className="flex items-center w-[90px] h-8 rounded-t-sm border border-[1px] border-yellow-200 relative bg-[#fff] px-2 justify-between">
             <img src='/images/coin_0.png' className="w-6 h-6"/>

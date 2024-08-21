@@ -20,7 +20,7 @@ export default function({title, shopTitle, imageSrc, id}){
                 {title}
             </h1>
             <h1 className='text-center font-robot mt-[10px]'>
-                <ShallowButton shopTitle={shopTitle} onClick={() => navigate("/products")}/>
+                <ShallowButton shopTitle={shopTitle} onClick={() => navigate(`/collections/${id}`)}/>
             </h1>
         </div>
     </div>)
