@@ -48,7 +48,7 @@ const MainProduct = () => {
             <div className="container mx-auto">
       
               <div className="flex mt-10">
-                <div className="px-4 pt-5 bg-white">
+                <div className="px-4 pt-5 bg-white hidden sm:block">
                   <div className="grid divide-y divide-neutral-200 max-w-xl mx-auto">
                     <div className="py-5">
                       <details className="group" open>
@@ -96,7 +96,7 @@ const MainProduct = () => {
                   </div>
                 </div>
                 <div className="sm:col-span-10 w-full">
-                  <div className="flex flex-wrap rounded-lg items-start w-auto">
+                  <div className="flex flex-wrap rounded-lg items-center sm:items-start justify-center w-auto">
                     {products.length === 0 ? (
                         <p className="min-h-80 text-center font-heading text-lg sm:text-xl flex p-2 flex-col items-center justify-center">
                         <span className="block">We don't have anything available here.</span>
