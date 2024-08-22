@@ -80,7 +80,7 @@ const login = async (req,res)=>{
 
         const jwt=jwtProvider.generateToken(user._id);
 
-        return res.status(200).send({jwt,message:"login success"});
+        return res.status(200).send({jwt, message:"login success"});
 
     } catch (error) {
         return res.status(500).send({error:error.message})
@@ -112,7 +112,7 @@ const googleCallback = (req, res) => {
     try {
         const token = jwtProvider.generateToken(req.user._id);
         console.log('Generated token:', token);
-        res.redirect(`${process.env.FRONTEND_URL}/?token=${token}`);
+        res.redirect(`${process.env.BACKEND_URL}/?token=${token}`);
     } catch (error) {
         console.error('Error in googleCallback:', error);
         res.status(500).json({ error: 'Internal Server Error' });

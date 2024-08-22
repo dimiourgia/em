@@ -25,7 +25,7 @@ const LoginForm = () => {
 
     const loginWithGoogle = () => {
         window.open(`${api_base_url}/auth/google`) // Redirect to backend OAuth route
-      };
+    };
       
 
     const loginWithFacebook = () => {

@@ -10,10 +10,10 @@ const GoogleCallback = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     console.log("google callback fr",urlParams);
-    const token = urlParams.get('code');
-    console.log("token", token);
-    if (token) {
-      dispatch(loginWithGoogle(token))
+    const jwt = urlParams.get('jwt');
+    console.log("jwt", jwt);
+    if (jwt) {
+      dispatch(loginWithGoogle(jwt))
         .then(() => {
           navigate('/');
         })

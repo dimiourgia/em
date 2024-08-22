@@ -41,9 +41,11 @@ router.get('/google/callback', async (req, res, next) => {
                     role: user.role,
                     mobile: undefined,
                 }
+
+                console.log(userData, 'user data...');
                 const result = await authController.loginWithGoogle(userData);
                 if(result.success){
-                    return res.redirect(`http://localhost:5173/auth/google/callback?token=${result.jwt}`);
+                    return res.redirect(`${process.env.FRONTEND_URL}/auth/google/callback?jwt=${result.jwt}`);
                 }else throw new Error('Failed to generate jwt token')
                 
             });
@@ -53,6 +55,7 @@ router.get('/google/callback', async (req, res, next) => {
         }
     })(req, res, next);
 });
+
 
 
 router.get('/facebook', passport.authenticate('facebook', { scope: ['email'] }));

@@ -112,7 +112,12 @@ const loginWithGoogleFailure = (error) => ({ type: LOGIN_WITH_GOOGLE_FAILURE, pa
 export const loginWithGoogle = (token) => async (dispatch) => {
     dispatch(loginWithGoogleRequest());
     try {
-        const response = await axios.get(`${API_BASE_URL}/auth/google/callback`, { token });
+        const response = await axios.get(`${API_BASE_URL}/auth/google/callback`, {
+            token: token, // or simply 'token' if the variable name matches the key
+          }, {
+            withCredentials: true, // Include cookies in the request
+          });
+          
         const user = response.data;
         if (user.jwt) {
             localStorage.setItem('jwt', user.jwt);

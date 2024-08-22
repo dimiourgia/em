@@ -6,9 +6,9 @@ const User = require('../models/user.model');
 require('dotenv').config();
 
 passport.use(new GoogleStrategy({
-  clientID: '1049856646665-vs06p9p8ltd8d5gi89q403n9b555i7nf.apps.googleusercontent.com',
-  clientSecret: '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',
-  callbackURL: 'http://localhost:5173/auth/google/callback',
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: `${process.env.BACKEND_URL}/auth/google/callback`,
 }, async (accessToken, refreshToken, profile, done) => {
   console.log('Google Profile:', profile);
   try {
