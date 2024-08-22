@@ -22,6 +22,7 @@ import { getWallet, resetWallet } from "../../../State/Wallet/Action";
 import debounce from "lodash.debounce";
 import { resetOrder } from "../../../State/Order/Action";
 import { resetAdminOrder } from "../../../State/AdminOrder/Action";
+import ShallowButton from '../ShallowButton/Index'
 
 
 function NavList({ search, setSearch, closeNav }) {
@@ -65,8 +66,9 @@ function NavList({ search, setSearch, closeNav }) {
         </div>
 
         <button 
-            onClick={()=>{closeNav(); navigate('/products');}} 
-            className="bg-white tracking-wide sm:tracking-widest font-roboto text-xs sm:text-sm hover:bg-heading-bg text-gray-800 py-1 px-2 sm:py-2 sm:px-4 border !border-[#FCAF3C] sm:ml-10">
+            onClick={()=>{closeNav(); navigate('/products');}}
+            style={{border: '1px solid #FCAF3C', borderColor: '#FCAF3C!' }} 
+            className="bg-white tracking-wide sm:tracking-widest font-roboto text-xs sm:text-sm hover:bg-heading-bg hover:border-[#fafafa] text-gray-800 py-1 px-2 sm:py-2 sm:px-4 sm:ml-10">
             SHOP NOW
         </button>
       </div>
