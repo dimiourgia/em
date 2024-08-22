@@ -8,6 +8,7 @@ import ZoomComponent from "./ZoomComponent";
 import SkeletonProductDetails from "./SkeletonProductDetails";
 import ErrorComponent from "../Error/Index";
 import Button from "../Button/Index";
+import ProductCard from "../Product/ProductCard";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -21,6 +22,25 @@ export default function ProductDetails({setOpenAuthModal}) {
   const products = useSelector((state) => state.products);
   const product = products.product;
   const [activeImage, setActiveImage] = useState("");
+  const suggestedProducts = products.products.filter(p=>!p.isExclusive);
+  const [suggestedProductIndices, setSuggestedProductIndices] = useState([]);
+
+  useEffect(()=>{
+    const length = products.products.filter(p=>!p.isExclusive).length;
+    if(length > 0){
+      let randomeInices = [];
+      while(randomeInices.length <6){
+        const i = Math.floor(Math.random()*length);
+        if(!randomeInices.includes(i)){
+          randomeInices.push(i);
+        }
+      }
+
+      console.log(randomeInices)
+      setSuggestedProductIndices(randomeInices);
+    }
+
+  },[products])
 
   const handleActiveImageShow = (imgUrl) => {
     setActiveImage(imgUrl);
@@ -74,38 +94,13 @@ export default function ProductDetails({setOpenAuthModal}) {
         {/* Image gallery */}
         <div ref={pd_ref} className="mx-4 sm:w-[calc(75%+80px)] md:w-[calc(50%+80px)] lg:w-[calc(33%+80px)] xl:w-[calc(25%+80px)]">
           <div className="">
-            {/* <img
-              src={activeImage || product?.imageUrl[0]}
-              alt={product?.title}
-              className="p-1 h-full w-full object-contain"
-            /> */}
             <ZoomComponent handleActiveImageShow={handleActiveImageShow} imageUrl={product?.imageUrl} src={activeImage || product?.imageUrl[0]} />
           </div>
-
-          {/* <div className="flex justify-between px-1">
-            {product?.imageUrl?.map((image, index) => (
-              <div
-                key={index}
-                className="h-24 md:h-26 rounded cursor-pointer"
-                onClick={() => handleActiveImageShow(image)}
-              >
-                <img
-                  src={`${image}@lq`}
-                  className="w-full h-full object-contain"
-                  alt={`Product ${index + 1}`}
-                />
-              </div>
-            ))}
-          </div> */}
         </div>
 
 
         <div className="border border-[1px] border-gray-100 rounded-md mx-4 mx-1 my-2 sm:my-0 px-5 py-2  sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4 bg-white">
           <div className="text-lg lg:text-xl text-neutral-600 font-semibold mb-4">{product?.title}</div>
-          {/* <h1 className="font-roboto text-red-700 opacity-70">
-            {product?.brand}
-          </h1> */}
-
           {/* Options */}
           <div className="">
             <div className="flex space-x-2 items-center pt-6">
@@ -205,19 +200,29 @@ export default function ProductDetails({setOpenAuthModal}) {
               </div>
 
               {/* highlights */}
-              <div className="mt-4 font-roboto">
+              <div className="mt-6 font-roboto">
                 <div className="text-neutral-800 font-semibold mb-2">Key Features</div>
                 <div className="grid grid-cols-2 text-neutral-600">
                   <div className="text-neutral-400">Material</div>
-                  <div className="">{product?.material}</div>
+                  <div className="">{toTitleCase(product?.material)}</div>
                 </div>
                 <div className="grid grid-cols-2 text-neutral-600">
                   <div className="text-neutral-400">Sleeve Style</div>
-                  <div className="">{product?.sleeve_style}</div>
+                  <div className="">{toTitleCase(product?.sleeve_style)}</div>
                 </div>
                 <div className="grid grid-cols-2 text-neutral-600">
                   <div className="text-neutral-400">Neck</div>
-                  <div className="">{product?.neck_type}</div>
+                  <div className="">{toTitleCase(product?.neck_type)}</div>
+                </div>
+              </div>
+
+              {/* description */}
+              <div className="mt-6 w-full max-h-fit">
+                <div className="text-neutral-800 font-semibold mb-2">Product Description</div>
+                <div className="relative max-h-[200px] mx-auto text-neutral-500 font-sans tracking-wide text-normal overflow-y-scroll no-scrollbar pt-1">
+                  <p className="text-justify">{product?.description}</p>
+                  <p className="py-2">{product?.modelAttireDescription}</p>
+                  <div className="sticky bottom-0 w-full h-4 blur bg-white border border-[0px]"></div>
                 </div>
               </div>
 
@@ -237,23 +242,22 @@ export default function ProductDetails({setOpenAuthModal}) {
       {/* description */}
       <hr className="mt-4 text-gray-50 bg-gray-50"/>
       
-      <div className="w-full flex justify-center">
-        <div
+      <div className="w-full flex flex-col justify-center items-center gap-10 mt-10 mb-10">
+        {/* <div
           style={{width: pd_ref?.current?.offsetWidth*2-80}} 
           className={`mt-4 py-4 pb-16`}>
-          <h3 className="font-text flex justify-center textt-justify text-semibold text-2xl opacity-75 mx-auto p-2">Product Description</h3>
+          <h3 className="font-text flex justify-center text-justify text-semibold text-2xl opacity-75 mx-auto p-2">Product Description</h3>
           <div className="mx-auto px-4 text-neutral-600 font-sans tracking-wide text-normal">
             <p className="">{product?.description}</p>
             <p className="py-2">{product?.modelAttireDescription}</p>
           </div>
-          {/* <h3 className="font-text flex justify-center text-semibold text-2xl opacity-75 mx-auto p-2">Shipping and Returns</h3>
-          <div className="mx-auto md:w-1/2 font-serif ">
-            <p className="flex items-center justify-center ">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <h4 className="p-2 text-lg">Eligibilty</h4>
-            <p className="">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <h6 className="p-2 text-lg">Return Process</h6>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div> */}
+        </div> */}
+        
+        <h3 className="flex justify-center text-justify text-semibold text-2xl opacity-75 mx-auto p-2 border-b">Suggested Products</h3>
+        <div className="w-full flex gap-4 justify-center items-center">
+            {suggestedProducts
+            .filter((p,i)=> suggestedProductIndices.includes(i))
+            .map(product=> <ProductCard product={product} />)}
         </div>
       </div>
 
@@ -264,4 +268,13 @@ export default function ProductDetails({setOpenAuthModal}) {
     {products.error && <ErrorComponent errorMessage={products.error} />}
 
       </div>);
+}
+
+
+function toTitleCase(str) {
+  if(!str) return;
+  return str.replace(
+    /\w\S*/g,
+    text => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
+  );
 }
