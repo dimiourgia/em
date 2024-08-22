@@ -253,8 +253,8 @@ export default function ProductDetails({setOpenAuthModal}) {
           </div>
         </div> */}
         
-        <h3 className="flex justify-center text-justify text-semibold text-2xl opacity-75 mx-auto p-2 border-b">Suggested Products</h3>
-        <div className="w-full flex gap-4 justify-center items-center">
+        <h3 className="flex  justify-center text-justify text-semibold text-2xl opacity-75 mx-auto p-2 border-b">Suggested Products</h3>
+        <div className="w-full flex flex-wrap gap-4 justify-center items-center">
             {suggestedProducts
             .filter((p,i)=> suggestedProductIndices.includes(i))
             .map(product=> <ProductCard product={product} />)}
