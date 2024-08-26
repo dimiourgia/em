@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { getUser, register } from '../../State/Auth/Action';
 import { useSelector } from 'react-redux';
 import Button from '../components/Button/Index';
+import { Modal, Popover } from '@mui/material';
 
 export default function RegisterForm({setType, handleClose}){
     //Input refs
@@ -66,11 +67,11 @@ export default function RegisterForm({setType, handleClose}){
             setError(auth.error);
         }else setError(false);
 
-        if(dispatched && auth.emailSent){
-            setSuccess('Successful.');
+        if(dispatched && !auth.isLoading && auth.emailSent){
+            setSuccess(`Successful!. We have sent a verification email on ${emailRef.current.value}`);
             setTimeout(()=>{
                 handleClose()
-            },3000)
+            },5000)
         }else setSuccess(false);
 
     },[auth]);
@@ -143,7 +144,7 @@ export default function RegisterForm({setType, handleClose}){
 
     return(
     <div className='flex items-center justify-center'>
-        <div className="">
+        {<div className="">
             <motion.div className="form_container" initial={{transform:'scale(.8)', opacity:.5}} animate={{transform:'scale(1)', opacity:1}} transition={{duration:.2, spring}}>
                 <form onSubmit={handleSubmit}>
                     <div style={{display:'flex', columnGap:'8px', marginBottom:'14px'}}>
@@ -164,6 +165,6 @@ export default function RegisterForm({setType, handleClose}){
                     </div>
                 </form>      
             </motion.div>
-        </div>
+        </div>}
     </div>
 )}

@@ -32,6 +32,7 @@ export default function DeliveryAddressForm({ handleNext }) {
   });
 
   const [zipError, setZipError] = useState("");
+  const [mobileError, setMobileError] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -54,10 +55,23 @@ export default function DeliveryAddressForm({ handleNext }) {
 
   const handlePhoneNumberChange = (event) => {
     const value = event.target.value;
-    if (/^\d*$/.test(value)) {
+    if(value.length > 10){
+      return;
+    }
+    console.log(value, 'mobile number value...')
+    if (/^\d*$/.test(value) && value.length == 10) {
       setPhoneNumber(value);
+      setMobileError(false);
+    }else{
+      setPhoneNumber(value);
+      setMobileError("10 digit Indian number without country code");
     }
   };
+
+
+  useEffect(()=>{
+    console.log(mobileError, 'mobile number error')
+  },[mobileError])
 
   const handleZipCodeChange = async (event) => {
     const zipCode = event.currentTarget.value.trim();
@@ -105,6 +119,8 @@ export default function DeliveryAddressForm({ handleNext }) {
   },[storedAddresses])
 
   const isValidAddress = (address) => {
+    if(mobileError) return;
+
     const requiredFields = ['firstName', 'lastName', 'streetAddress', 'houseNumber', 'city', 'state', 'zipCode'];
     
     for (let field of requiredFields) {
@@ -246,6 +262,8 @@ export default function DeliveryAddressForm({ handleNext }) {
                       fullWidth
                       autoComplete="tel"
                       value={phoneNumber}
+                      error={!!mobileError} 
+                      helperText={mobileError} 
                       onChange={handlePhoneNumberChange}
                     />
                   </Grid>

@@ -42,7 +42,7 @@ export const authReducer = (state = initialState, action) => {
         case LOGIN_SUCCESS:
             return { ...state, isLoading: false, error: null, jwt: action.payload }
         case GET_USER_SUCCESS:
-            return { ...state, isLoading: false, error: null, user: action.payload }
+            return { ...state, isLoading: false, error: null, emailSent: action.payload }
         case REGISTER_FAILURE: 
         return {...state, isLoading:false, error:action.payload, emailSent:false}
         case LOGIN_FAILURE:
