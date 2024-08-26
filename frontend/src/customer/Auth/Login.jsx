@@ -15,6 +15,12 @@ const env =  'production'
 
 export default function LoginForm({setType}){
 
+const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+const googleCallbackUrl = import.meta.env.VITE_GOOGLE_CALLBACK_URL;
+
+const [scriptLoaded, setScriptLoaded] = useState(false);
+
+console.log(googleClientId, googleCallbackUrl, 'google id')
 
 const emailRef = useRef()
 const passwordRef = useRef()
@@ -70,6 +76,46 @@ useEffect(()=>{
     }else setSuccess(false);
 
 },[auth]);
+
+useEffect(() => {
+    // Wait for the Google API script to load
+    const initializeGoogleSignIn = () => {
+      if (window.google) {
+        window.google.accounts.id.initialize({
+          client_id: googleClientId,  
+          callback: handleCredentialResponse,
+        });
+
+        window.google.accounts.id.renderButton(
+          document.getElementById('googleSignInButton'),
+          { theme: 'outline', size: 'large' } // Customize button style here
+        );
+
+        window.google.accounts.id.prompt(); // Show the Google Sign-In prompt
+      }
+    };
+
+    initializeGoogleSignIn();
+    setScriptLoaded(true);
+  }, []);
+
+  const handleCredentialResponse = (response) => {
+    console.log('Encoded JWT ID token: ' + response.credential);
+    // Send the ID token to your backend server
+    // Replace '/your-backend-api/google-signin' with your actual backend endpoint
+    //axios.post('/backend')
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/auth/google-signin`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ idToken: response.credential }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      const jwtToken = data.token;
+      // Save the JWT token (e.g., in local storage or a cookie)
+    })
+    .catch((error) => console.error('Error:', error));
+  };
 
 const handleLoggin = (e)=>{
     e.preventDefault()
@@ -132,6 +178,10 @@ const handleLogin = (e)=>{
                         <div style={{textAlign:'center', marginTop:'10px'}}>
                             <Link onClick={()=>{setType('forgot-password')}} className='registerLink'>Forgot Password? </Link>
                         </div> 
+
+                        {<div className='my-6 w-full flex items-center justify-center' id="googleSignInButton"></div>}
+                        {!scriptLoaded && <Loading/>}
+
                         <br/>
                         <div style={{textAlign:'center'}}>
                             Don't have an account? <Link onClick={()=>{setType('register') }} className='registerLink'>Sign Up</Link>
