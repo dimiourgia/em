@@ -13,6 +13,7 @@ const Product = ({ search, collectionId}) => {
   const param = useParams();
   const dispatch = useDispatch();
   const  products  = useSelector((state) => state.products).products.filter(product=>product.collections == collectionId);
+  const currentProducts = useSelector((state) => state.products).products.filter(product=>product.collections == collectionId);
   const { collections } = useSelector((state) => state.collections);
   const [collection, setCollection] = useState({});
   const defaultImageIndex = [2, 6, 1, 0, 3]
@@ -63,7 +64,6 @@ const Product = ({ search, collectionId}) => {
         pageSize: 30,
       };
        dispatch(findProducts(data));
-       setCurrentProducts(products);
     }
   },[]);
 
@@ -80,7 +80,6 @@ const Product = ({ search, collectionId}) => {
   const totalPages = Math.ceil(copyProduct.length / productsPerPage);
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const [currentProducts, setCurrentProducts] = useState(products)
   
   useEffect(() => {
     const [minPrice, maxPrice] = priceValue
@@ -100,7 +99,7 @@ const Product = ({ search, collectionId}) => {
     };
   
     dispatch(findProducts(data));
-    setCurrentProducts(products);
+
  
     //  currentProducts = products.slice(indexOfFirstProduct, indexOfFirstProduct);
   }, [

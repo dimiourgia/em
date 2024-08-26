@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { RadioGroup } from "@headlessui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { findProductsById } from "../../../State/Product/Action";
+import { findProducts, findProductsById } from "../../../State/Product/Action";
 import { addItemToCart } from "../../../State/Cart/Action";
 import ZoomComponent from "./ZoomComponent";
 import SkeletonProductDetails from "./SkeletonProductDetails";
@@ -26,21 +26,28 @@ export default function ProductDetails({setOpenAuthModal}) {
   const [suggestedProductIndices, setSuggestedProductIndices] = useState([]);
 
   useEffect(()=>{
-    const length = products.products.filter(p=>!p.isExclusive).filter(p=>p._id != product._id).length;
-    if(length > 0){
-      let randomeInices = [];
-      while(randomeInices.length <6){
-        const i = Math.floor(Math.random()*length);
-        if(!randomeInices.includes(i)){
-          randomeInices.push(i);
-        }
+    if(products.length > 0){
+        const length = products?.products?.filter(p=>!p.isExclusive).filter(p=>p?._id != product?._id)?.length;
+        if(length > 0){
+          let randomeInices = [];
+          while(randomeInices.length <6){
+            const i = Math.floor(Math.random()*length);
+            if(!randomeInices.includes(i)){
+              randomeInices.push(i);
+            }
+          }
+
+        console.log(randomeInices)
+        setSuggestedProductIndices(randomeInices);
       }
-
-      console.log(randomeInices)
-      setSuggestedProductIndices(randomeInices);
     }
-
   },[products])
+
+  useEffect(()=>{
+    if(!products || !products.products || products.products.length == 0){
+      dispatch(findProducts());
+    }
+  },[])
 
   const handleActiveImageShow = (imgUrl) => {
     setActiveImage(imgUrl);
