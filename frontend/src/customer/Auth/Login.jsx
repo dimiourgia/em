@@ -179,8 +179,8 @@ const handleLogin = (e)=>{
                             <Link onClick={()=>{setType('forgot-password')}} className='registerLink'>Forgot Password? </Link>
                         </div> 
 
-                        {<div className='my-6 w-full flex items-center justify-center' id="googleSignInButton"></div>}
-                        {!scriptLoaded && <Loading/>}
+                        {/* {<div className='my-6 w-full flex items-center justify-center' id="googleSignInButton"></div>}
+                        {!scriptLoaded && <Loading/>} */}
 
                         <br/>
                         <div style={{textAlign:'center'}}>
