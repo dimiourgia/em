@@ -26,7 +26,7 @@ export default function ProductDetails({setOpenAuthModal}) {
   const [suggestedProductIndices, setSuggestedProductIndices] = useState([]);
 
   useEffect(()=>{
-    if(products.length > 0){
+    if(products.products.length > 0){
         const length = products?.products?.filter(p=>!p.isExclusive).filter(p=>p?._id != product?._id)?.length;
         if(length > 0){
           let randomeInices = [];
