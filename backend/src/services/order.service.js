@@ -7,8 +7,9 @@ const cartService = require("./cart.service.js");
 const twilioService = require('./twilio.service.js');
 const walletService = require('./wallet.service.js');
 const couponService = require('./coupon.service.js');
+const userService = require('./user.service.js');
 
-const { sendOrderConfirmationEmail } = require("./email.service.js");
+const { sendOrderConfirmationEmail, sendOrderConfirmationEmailToAdmins } = require("./email.service.js");
 const { v4: uuidv4 } = require('uuid');
 
 
@@ -131,7 +132,9 @@ async function placedOrder(orderId) {
       const userPhoneNumber = `+91${order.shippingAddress.mobile}`??'+916397710583'; // This should be dynamically fetched based on the order
       const messageBody = `Your Empressa order worth Rs. ${order.totalDiscountedPrice} has been received. Thank you for shopping with us! Additionally you have earned a coupon code ${order.referralCode}. You can get upto 25% discount by sharing the coupon code with others`;
       //await twilioService.sendMessage(`whatsapp:${userPhoneNumber}`, messageBody);
-      //await sendOrderConfirmationEmail(order);
+      sendOrderConfirmationEmail(order);
+      const admins = await userService.getAdmins();
+      sendOrderConfirmationEmailToAdmins(order, admins);
     }
 
     return order;

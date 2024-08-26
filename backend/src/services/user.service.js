@@ -218,6 +218,16 @@ const updatePassword = async (userId, newPassword) => {
     });
 };
 
+const getAdmins = async()=>{
+  try{
+    const admins = User.find({ role : 'ADMIN' });
+    return admins;
+  }catch(e){
+    console.log(e);
+    throw e;
+  }
+}
+
 
 module.exports={
     createUser,
@@ -227,5 +237,6 @@ module.exports={
     saveOtp,
     saveVerificationOtp,
     updatePassword,
-    getAllUsers
+    getAllUsers,
+    getAdmins
 }

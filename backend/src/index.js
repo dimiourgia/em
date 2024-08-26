@@ -79,10 +79,10 @@ app.use("/api/coupons", couponRouter);
 const walletRouter = require("./routes/wallet.routes.js");
 app.use("/api/wallet", walletRouter);
 
-(async function(){
-    const result = await emailService.sendAccountConfirmationEmail('ajayaxes318@gmail.com', 45898);
-    console.log(result);
-})();
+// (async function(){
+//     const result = await emailService.sendAccountConfirmationEmail('ajayaxes318@gmail.com', 45898);
+//     console.log(result);
+// })();
 
 
 module.exports={app};

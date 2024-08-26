@@ -196,4 +196,52 @@ const sendAccountConfirmationEmail = async (email, otp) => {
     }
 }
 
-module.exports = { sendResetPasswordEmail, sendOrderConfirmationEmail, sendAccountConfirmationEmail};
+
+
+const sendOrderConfirmationEmailToAdmins = async (order, admins) => {
+    try {
+        const recipientEmails = admins.map(admin=> ({address: admin.email}));
+        const emailClient = new EmailClient(process.env.Email_Connection_String);
+        
+        const orderDetails = order.orderItems.map(item => {
+            return `<div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ddd;">
+                        <p style="margin: 0;"><strong>Product:</strong> ${item.product.title}</p>
+                        <p style="margin: 0;"><strong>Size:</strong> ${item.size}</p>
+                        <p style="margin: 0;"><strong>Quantity:</strong> ${item.quantity}</p>
+                        <img src="${item.product.imageUrl[item.product.defaultImageIndex??0]}@mq" alt="${item.product.title}" style="max-width: 200px; margin-top: 10px;"/>
+                    </div>`;
+        }).join('<br>');
+
+        const message = {
+            senderAddress: "DoNotReply@empressafashion.com",
+            content: {
+                subject: `New Orderr Placed by ${order.user.firstName}`,
+                html: `<html>
+                        <body style="font-family: Arial, sans-serif; color: #333; line-height: 1.5;">
+                            <div style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                <p style="font-size: 16px;">Dear Admin,</p>
+                                <p style="font-size: 16px;">A new order has been placed on ${new Date().toLocaleDateString()}.</p>
+                                <p style="font-size: 16px;"><strong>Order Details:</strong></p>
+                                ${orderDetails}
+                                <p style="font-size: 16px;"><strong>Total Price:</strong> ${order.totalDiscountedPrice}</p>
+                            </div>
+                        </body>
+                    </html>`,
+            },
+            recipients: {
+                to: recipientEmails,
+            },
+        };
+
+        const poller = await emailClient.beginSend(message);
+        await poller.pollUntilDone();
+        if (poller.getResult().status !== KnownEmailSendStatus.Succeeded) {
+            throw new Error("Failed to send email");
+        }
+
+    } catch (error) {
+        console.error("Error sending order confirmation email:", error);
+    }
+}
+
+module.exports = { sendResetPasswordEmail, sendOrderConfirmationEmail, sendAccountConfirmationEmail, sendOrderConfirmationEmailToAdmins};

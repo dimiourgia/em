@@ -4,7 +4,11 @@ const bcrypt=require("bcrypt")
 const cartService=require("../services/cart.service.js")
 const otpService=require("../services/otp.service.js")
 const emailService=require("../services/email.service.js")
+const { OAuth2Client } = require('google-auth-library');
 
+const clientId = process.env.GOOGLE_CLIENT_ID;
+
+const client = new OAuth2Client(clientId);
 
 const register=async(req,res)=>{
 
@@ -15,13 +19,14 @@ const register=async(req,res)=>{
         await cartService.createCart(user);
         const otp = otpService.generateOtp();
         await userService.saveVerificationOtp(user._id, otp);
-        // await emailService.sendAccountConfirmationEmail(user.email, otp);
-        // return res.status(200).send({message:"Successful! We have sent you a verification email.", emailSent: true});
+        await emailService.sendAccountConfirmationEmail(user.email, otp);
+        return res.status(200).send({message:"Successful! We have sent you a verification email.", emailSent: true});
 
         //temporary arrangement in absence of email service
-        const jwt=jwtProvider.generateToken(user._id);
-        user.accountVerified = true;
-        return res.status(200).send({jwt, message:"Successful! Registration successful", emailSent: true});
+        // const jwt=jwtProvider.generateToken(user._id);
+        // user.accountVerified = true;
+
+        //return res.status(200).send({jwt, message:"Successful! Registration successful", emailSent: true});
 
     } catch (error) {
         return res.status(500).send({error:error.message})
@@ -153,4 +158,14 @@ const loginWithGoogle = async(userData)=>{
     }
 }
 
-module.exports={ register, login, forgotPassword, resetPassword, verifyUser, loginWithGoogle, googleCallback };
+const verifyGoogleUser = async(req, res)=>{
+    const token = req.body.idToken
+    const ticket = await client.verifyIdToken({
+        idToken: token,
+        audience: clientId,
+    });
+    const payload = ticket.getPayload();
+    return payload;  // This contains the user's information
+}
+
+module.exports={ register, login, forgotPassword, resetPassword, verifyUser, loginWithGoogle, googleCallback, verifyGoogleUser };
