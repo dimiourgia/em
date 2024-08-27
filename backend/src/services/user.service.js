@@ -229,6 +229,38 @@ const getAdmins = async()=>{
 }
 
 
+const getUserByGoogleId = async (googleId)=>{
+    return User.findOne({googleId});
+}
+
+const createGoogleUser = async (userData) => {
+  try {
+ 
+    const { firstName, lastName, email, guid, verifiedEmail } = userData;
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      throw new Error(`This email is already registered. Please login with your credentials.`);
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(guid, 8);
+
+    const user = await User.create({ firstName, lastName, email, password: hashedPassword, role:'CUSTOMER', accountVerified:true, googleId:guid });
+
+    //create user wallet
+    await walletService.creatUserWallet(user._id);
+    console.log("User created:", user);
+
+    return user;
+
+  } catch (error) {
+    console.error("Error creating user:", error.message);
+    throw new Error(error.message);
+  }
+};
+
 module.exports={
     createUser,
     findUserById,
@@ -238,5 +270,8 @@ module.exports={
     saveVerificationOtp,
     updatePassword,
     getAllUsers,
-    getAdmins
+    getAdmins,
+    getUserByGoogleId,
+    createGoogleUser,
+    createGoogleUser,
 }

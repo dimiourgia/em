@@ -5,7 +5,7 @@ import Input from '../components/Input/Index';
 import FormMessage from '../components/FormMessage/Index';
 import Loading from '../components/Loader/Index';
 import {motion} from 'framer-motion'
-import { login, resetInitialState } from '../../State/Auth/Action'
+import { getUser, login, resetInitialState } from '../../State/Auth/Action'
 import Button from '../components/Button/Index';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
@@ -25,6 +25,7 @@ console.log(googleClientId, googleCallbackUrl, 'google id')
 const emailRef = useRef()
 const passwordRef = useRef()
 const [error, setError] = useState(false)
+const [googleSignInError, setGoogleSignInError] = useState(false);
 const [emailError, setEmailError] = useState(false)
 const [passwordError, setPasswordError] = useState(false)
 const [fetchingFromServer, setFetchingFromServer] = useState(false)
@@ -99,23 +100,36 @@ useEffect(() => {
     setScriptLoaded(true);
   }, []);
 
-  const handleCredentialResponse = (response) => {
+  const handleCredentialResponse = async (response) => {
     console.log('Encoded JWT ID token: ' + response.credential);
     // Send the ID token to your backend server
     // Replace '/your-backend-api/google-signin' with your actual backend endpoint
     //axios.post('/backend')
-    fetch(`${import.meta.env.VITE_API_BASE_URL}/auth/google-signin`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ idToken: response.credential }),
-    })
-    .then((response) => response.json())
-    .then((data) => {
-      const jwtToken = data.token;
-      // Save the JWT token (e.g., in local storage or a cookie)
-    })
-    .catch((error) => console.error('Error:', error));
+    try{
+        const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/auth/google-signin`, {idToken: response.credential});
+        console.log(res.data, 'res data..')
+        if(res.data.error){
+            setGoogleSignInError(res.data.error)
+        }else{
+            const {jwt} = res.data;
+            localStorage.setItem('jwt', jwt);
+            console.log(jwt, 'jwt after signin with google')
+            dispatch(getUser(jwt));
+        }
+        
+    }catch(e){
+        console.log(e);
+        if(e.response){
+            setGoogleSignInError(e.response.data.error);
+        }else setGoogleSignInError(e.message);
+    }
+
   };
+
+
+  useEffect(()=>{
+    console.log(googleSignInError, 'googleSign in error')
+  },[googleSignInError])
 
 const handleLoggin = (e)=>{
     e.preventDefault()
@@ -179,8 +193,9 @@ const handleLogin = (e)=>{
                             <Link onClick={()=>{setType('forgot-password')}} className='registerLink'>Forgot Password? </Link>
                         </div> 
 
-                        {/* {<div className='my-6 w-full flex items-center justify-center' id="googleSignInButton"></div>}
-                        {!scriptLoaded && <Loading/>} */}
+                        {<div className='my-6 w-full flex items-center justify-center' id="googleSignInButton"></div>}
+                        {googleSignInError && <FormMessage type='error' message={googleSignInError}/>}
+                        {!scriptLoaded && <Loading/>}
 
                         <br/>
                         <div style={{textAlign:'center'}}>

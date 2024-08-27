@@ -47,7 +47,7 @@ const forgotPassword = async (req, res) => {
         const resetLink = `${process.env.FRONTEND_URL}/reset-password?email=${encodeURIComponent(email)}&otp=${otp}`;
         await emailService.sendResetPasswordEmail(email, resetLink);
 
-        res.status(200).send({ message: "Please check your email; a link to reset your password has been sent." });
+        res.status(200).send({ message: "Please check your email. A link to reset your password has been sent." });
     } catch (error) {
         res.status(500).send({ error: error.message });
     }
@@ -159,13 +159,41 @@ const loginWithGoogle = async(userData)=>{
 }
 
 const verifyGoogleUser = async(req, res)=>{
-    const token = req.body.idToken
-    const ticket = await client.verifyIdToken({
-        idToken: token,
-        audience: clientId,
-    });
-    const payload = ticket.getPayload();
-    return payload;  // This contains the user's information
+    try{
+        const token = req.body.idToken
+        console.log(token, 'token from google signin in request');
+        const ticket = await client.verifyIdToken({
+            idToken: token,
+            audience: clientId,
+        });
+        const payload = ticket.getPayload();
+        console.log(payload, 'payload after processing...');
+        //get user info
+        const email = payload.email;
+        const firstName = payload.given_name;
+        const lastName = payload.family_name;
+        const guid = payload.sub;
+        const verifiedEmail = payload.email_verified;
+
+        const user_ = await userService.getUserByGoogleId(guid);
+
+        if (user_) {
+            const jwt = jwtProvider.generateToken(user_._id);
+            return res.status(200).json({success: true, jwt});
+        }else{
+            //see if email is registered
+            if(await userService.getUserByEmail(email)) return res.status(403).json({success: false, error: 'Email already registered. Please login with your credentials'})
+            //create and return new user
+            const user = await userService.createGoogleUser({email, firstName, lastName, guid, verifiedEmail});
+            await cartService.createCart(user);
+            const jwt = jwtProvider.generateToken(user._id);
+            return res.status(200).json({success: true, jwt});
+        }
+    }catch(e){
+        res.status()
+        console.log(e);
+    }
+
 }
 
 module.exports={ register, login, forgotPassword, resetPassword, verifyUser, loginWithGoogle, googleCallback, verifyGoogleUser };
