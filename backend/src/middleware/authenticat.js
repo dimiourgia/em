@@ -30,9 +30,6 @@ const authenticate = async (req, res, next) => {
 };
 
 
-
-
-
 const isAdmin = (req, res, next) => {
   try {
     if (!req.user || req.user.role !== 'ADMIN') {
