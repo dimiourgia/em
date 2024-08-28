@@ -40,10 +40,11 @@ const Product = ({ search, collectionId}) => {
   const productsPerPage = 15;
 
   const handleSizeFilter = (e) => {
-    setFilterSize((prevFilterSize) => ({
-      ...prevFilterSize,
-      [e.target.name]: !prevFilterSize[e.target.name],
-    }));
+    console.log(e.target.name, e.target.checked, 'size checked')
+    setFilterSize((prevFilterSize) => {
+      if(prevFilterSize.includes(e.target.name)) return prevFilterSize.filter(size=>size != e.target.name)
+      return [...prevFilterSize, e.target.name]
+    });
   };
 
   useEffect(()=>{
@@ -74,6 +75,10 @@ const Product = ({ search, collectionId}) => {
     }
   },[collections])
 
+
+  useEffect(()=>{
+    console.log(filterSize, 'filtered size ... given here');
+  },[filterSize])
 
  
 
@@ -163,7 +168,7 @@ const Product = ({ search, collectionId}) => {
         </div>
 
         <div className="flex mt-14">
-          <div className="px-4 pt-5 bg-white hidden sm:block">
+          <div className="px-4 pt-5 bg-white hidden">
             <div className="grid divide-y divide-neutral-200 max-w-xl mx-auto">
               <div className="py-5">
                 <details className="group" open>

@@ -22,6 +22,7 @@ const initialState = {
 export const customerProductReducer = (state = initialState, action) => {
     switch (action.type) {
         case FIND_PRODUCTS_REQUEST:
+            return {...state, loading: true}
         case FIND_PRODUCT_BY_ID_REQUEST:
         case FILTER_PRODUCTS_REQUEST:
             return { ...state, loading: true, error: null };

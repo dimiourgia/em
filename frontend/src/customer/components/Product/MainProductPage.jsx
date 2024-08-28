@@ -1,18 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductCard from './ProductCard';
 import { useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { findProducts } from './../../../State/Product/Action';
+import Placeholder from './ProductSkeleton';
 
 const MainProduct = () => {
     const param = useParams();
     const dispatch = useDispatch();
-    const { products } = useSelector(state => state.products);
+    const products_selector = useSelector(state => state.products)
+    const products_ = products_selector.products;
+
+    const [products, setProducts] = useState(products_);
+
+    useEffect(()=>{
+      console.log(products_selector, 'products state');
+    },[products_selector])
 
     const location = useLocation();
     const decodedQueryString = decodeURIComponent(location.search);
     const searchParams = new URLSearchParams(decodedQueryString);
-
+    const [filterSize, setFilterSize] = useState([]);
     const colorValue = searchParams.get("color");
     const sizeValue = searchParams.get("size");
     const priceValue = searchParams.get("price");
@@ -39,16 +47,36 @@ const MainProduct = () => {
         dispatch(findProducts(data));
     }, [param.level, colorValue, sizeValue, priceValue, discount, sortValue, pageNumber, stock, dispatch]);
 
-    const handleSizeFilter = ()=>{
+    const handleSizeFilter = (e) => {
+      console.log(e.target.name, e.target.checked, 'size checked')
+      setFilterSize((prevFilterSize) => {
+        if(prevFilterSize.includes(e.target.name)) return prevFilterSize.filter(size=>size != e.target.name)
+        return [...prevFilterSize, e.target.name]
+      });
+    };
 
-    }
+    useEffect(()=>{
+      console.log(products_);
+      setProducts(products_);
+    },[products_])
+
+    useEffect(()=>{
+      console.log(filterSize, 'filtered size ... given here');
+      if(filterSize.length > 0 && products_ && products_.length > 0){
+        const filteredProducts = products_.filter(product=>{
+          return filterSize.every(selectedSize=> product.sizes.find(sz=>sz.name.toLowerCase() == selectedSize.toLowerCase()).quantity > 0)
+        })
+      }else{
+        setProducts(products_);
+      }
+    },[filterSize])
 
     return (<>
-        { products != undefined && <div className="min-h-80 bg- md:min-h-screen pb-16 px-4 sm:px-6 pt-4">
+        { products_selector && !products_selector.loading && <div className="min-h-80 bg- md:min-h-screen pb-16 px-4 sm:px-6 pt-4">
             <div className="container mx-auto">
       
               <div className="flex mt-10">
-                <div className="px-4 pt-5 bg-white hidden sm:block">
+                <div className="px-4 pt-5 bg-white hidden">
                   <div className="grid divide-y divide-neutral-200 max-w-xl mx-auto">
                     <div className="py-5">
                       <details className="group" open>
@@ -115,7 +143,7 @@ const MainProduct = () => {
             {/* {renderPagination()} */}
           </div> }
           
-          {products == undefined && <Placeholder/> }
+          {products_selector.loading && <Placeholder/> }
     </>);
 };
 

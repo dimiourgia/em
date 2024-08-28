@@ -5,9 +5,9 @@ export default function({title, shopTitle, imageSrc, id}){
 
     const navigate = useNavigate();
 
-    return(<div className='relative ml-4 rounded-lg'>
+    return(<div className='relative sm:ml-4 rounded-lg'>
         <Link to={`/collections/${id}`}>
-            <div className="overflow-hidden rounded-lg shadow-lg group">
+            <div className="overflow-hidden rounded-lg sm:shadow-lg group">
                 <img
                     className="transition-transform duration-300 ease-in-out transform group-hover:scale-110"
                     src={imageSrc}

@@ -7,13 +7,7 @@ const ProductCard = ({ product }) => {
   const navigate = useNavigate();
   const {user} = useSelector(state=>state.auth);
   const {balance} = useSelector(state=>state.wallet);
-  console.log(user, 'user from product card...')
-  console.log(product, 'product from product card..')
  
-  useEffect(()=>{
-    console.log(product?.isExclusive, (!user || balance < 1000), 'bool')
-  },[user])
-
   return (
     <>
       <div

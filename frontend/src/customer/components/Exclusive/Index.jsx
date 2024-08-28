@@ -17,7 +17,7 @@ const Exclusive = () => {
     console.log(products, 'products')
 
     return (
-        <div className='mt-12 sm:mt-24 mb-24'>
+        <div className='mt-2 sm:mt-24 mb-24'>
             <div className="container pb-0 mx-auto px-4">
                 <div className="flex w-full items-start justify-start">
                     <p className="p-2 px-4 group font-roboto tracking-wide text-center text-xl sm:text-2xl md:text-2xl  text-neutral-700"  >
