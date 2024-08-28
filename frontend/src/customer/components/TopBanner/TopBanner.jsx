@@ -18,7 +18,7 @@ const TopBanner = () => {
         };
     }, []);
 
-    const imageNames = ['g5.jpg', '1.jpg', '2.jpg'];
+    const imageNames = ['g5.jpg', '2.jpg'];
 
 
     return (
