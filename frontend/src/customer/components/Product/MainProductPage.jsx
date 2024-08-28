@@ -44,7 +44,7 @@ const MainProduct = () => {
     }
 
     return (<>
-        { products != undefined && <div className="min-h-80 bg- md:min-h-screen pb-16 px-6 pt-4">
+        { products != undefined && <div className="min-h-80 bg- md:min-h-screen pb-16 px-4 sm:px-6 pt-4">
             <div className="container mx-auto">
       
               <div className="flex mt-10">
@@ -103,11 +103,11 @@ const MainProduct = () => {
                         <span className="block">Check out our other collections!</span>
                       </p>
                       
-                    ) : (
-                      products.map((product, index) => (
+                    ) : (<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-y-6 gap-x-2">
+                      {products.map((product, index) => (
                         <ProductCard product={product} key={product._id} defaultImageIndex={0} />
-                      ))
-                    )}
+                      ))}
+                    </div>)}
                   </div>
                 </div>
               </div>

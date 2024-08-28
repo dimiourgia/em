@@ -154,15 +154,15 @@ const Product = ({ search, collectionId}) => {
   };
 
   return (<>
-    { collection != undefined && <div className="min-h-80 bg- md:min-h-screen pb-16 px-6">
+    { collection != undefined && <div className="min-h-80 bg- md:min-h-screen pb-16 px-4 sm:px-6">
       <div className="container mx-auto">
         
-        <div className="mt-24 bg-[#fff] rounded-2xl border border-[1px] border-gray-100 py-4 text-neutral-800  px-6 font-sans w-full flex flex-col gap-4 items-center justify-center">
-          <h1 className="text-2xl sm:text-3xl">{collection?.name}</h1>
-          <p className="text-normal sm:text-lg text-neutral-600">{collection?.description}</p>
+        <div className="mt-24 bg-[#fff]  border-b border-b-[1px] border-gray-100 py-4 text-neutral-800  px-4 sm:px-6 font-sans w-full flex flex-col gap-4 items-center justify-center">
+          <h1 className="text-xl sm:text-2xl">{collection?.name}</h1>
+          <p className="text-sm text-justify sm:text-[16px] text-neutral-600">{collection?.description}</p>
         </div>
 
-        <div className="flex mt-10">
+        <div className="flex mt-14">
           <div className="px-4 pt-5 bg-white hidden sm:block">
             <div className="grid divide-y divide-neutral-200 max-w-xl mx-auto">
               <div className="py-5">
@@ -218,11 +218,11 @@ const Product = ({ search, collectionId}) => {
                   <span className="block">Check out our other collections!</span>
                 </p>
                 
-              ) : (
-                currentProducts.map((product, index) => (
+              ) : (<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-y-6 gap-x-2">
+                {currentProducts.map((product, index) => (
                   <ProductCard product={product} key={product._id} defaultImageIndex={defaultImageIndex[index]??0} />
-                ))
-              )}
+                ))}
+                </div>)}
             </div>
           </div>
         </div>

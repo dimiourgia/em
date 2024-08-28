@@ -31,11 +31,11 @@ const Collections = () => {
     },[])
 
     return (
-        <div className='mt-20 mb-24 bg-white' id='collection-section'>
+        <div className='mt-12 sm:mt-24 bg-white' id='collection-section'>
             
             <div className="container pb-6 mx-auto px-4">
                 <div className="flex w-full items-start justify-start">
-                    <p className="p-2 px-4 group font-roboto tracking-wide text-center text-2xl md:text-2xl  text-neutral-700"  >
+                <p className="p-2 px-4 group font-roboto tracking-wide text-center text-xl sm:text-2xl md:text-2xl  text-neutral-700"  >
                         OUR COLLECTIONS
                         {/* <div className="bg-amber-500 h-[2px] w-full transition-all duration-500"></div> */}
                     </p>

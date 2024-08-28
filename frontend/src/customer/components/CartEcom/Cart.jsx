@@ -64,9 +64,10 @@ const Cart = ({setOpenAuthModal}) => {
 
   return (
     <div className="cart-container min-h-screen">
-      <div className="sticky top-[60px] flex justify-center items-center p-4 w-full bg-white z-[10] shadow-sm">
-        <p className="p-2 font-heading px- text-3xl"  >
-        Cart
+      <div className="sticky top-[60px] flex justify-center items-center py-2 sm:py-4 w-full bg-white z-[10] shadow-sm">
+        <img src="/images/cart_black.svg" className="w-[30px] sm:w-[32px]" />
+        <p className="font-heading text-[#5f6368] text-2xl sm:text-3xl"  >
+          Cart
         </p>
       </div>
 
@@ -85,7 +86,7 @@ const Cart = ({setOpenAuthModal}) => {
           </div>
         ) : (
           // Original page layout when the cart is not empty
-          <div className=" lg:grid grid-cols-3 lg:px-16 relative pb-8">
+          <div className=" lg:grid grid-cols-3 lg:px-16 relative pb-8 mt-4">
             <div className="lg:col-span-2 rounded-lg">
               {cart.cartItems.map((item, index) => (
                 <div className="p-2">
@@ -104,13 +105,13 @@ const Cart = ({setOpenAuthModal}) => {
                     <span>₹{cart.cart?.totalPrice}</span>
                   </div>
 
-                  <div className="flex justify-between w-full">
+                  {cart.cart?.discounte >0 && <div className="flex justify-between w-full">
                   <div className="flex flex-col">
                     <span>Discount</span>
                     {cart.cart?.referralDiscountPercentage > 0 && <span className="text-xs font-thin text-green-700">{`(includes referral discount of ${cart.cart?.referralDiscountPercentage}%)`}</span>}
                   </div>
                     <span className="text-green-700">-₹{cart.cart?.discounte.toFixed(2)}</span>
-                  </div>
+                  </div>}
 
                   <div className="flex justify-between w-full">
                     <span>Delivery Charges</span>

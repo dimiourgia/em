@@ -18,11 +18,11 @@ const ProductCard = ({ product }) => {
     <>
       <div
         onClick={() => (!product.isExclusive || balance > 999) && navigate(`/product/${product._id}`)}
-        className="relative productCard w-[15rem] m-3 transition-all cursor-pointer rounded-md hover:shadow-xl"
+        className="relative productCard w-fit transition-all cursor-pointer rounded-md sm:hover:shadow-xl"
       >
-        <div className="h-[15rem] rounded">
+        <div className="h-fit rounded">
           <img
-            className="h-[350px] w-full object-cover mx-auto flex justify-center items-center rounded"
+            className="max-h-[350px] w-fit object-cover mx-auto flex justify-center items-center rounded"
             src={`${product?.imageUrl[product.defaultImageIndex]}@mq`}
             alt="ss"
           />
@@ -35,7 +35,7 @@ const ProductCard = ({ product }) => {
                 </div>
             )}
         </div>
-        <div className="mt-[100px] h-[100px] p-3 rounded-md">
+        <div className="h-[100px] p-3 rounded-md">
           <div>
           {/* <p className="font-text text-red-700 opacity-70 mt-2 text-sm">{product.brand}</p> */}
             <p className="font-sans text-sm text-neutral-700 mt-1">

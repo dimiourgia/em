@@ -36,9 +36,9 @@ const OrderSummary = () => {
 
 
   return ( <>
-    {!order.loading && <div className="space-y-6 p-6 rounded-xl bg-white">
-      <div className="sticky top-[60px] flex justify-center items-center p-4 w-full bg-white ">
-          <p className="p-2 font-heading px- text-3xl"  >
+    {!order.loading && < div className="bg-white px-2 sm:px-4">
+      <div className="flex justify-center items-center p-4 w-full bg-white ">
+          <p className="font-heading text-[#5f6368] px- text-2xl sm:text-3xl">
             Order Summary
           </p>
       </div>
@@ -49,7 +49,7 @@ const OrderSummary = () => {
         <AdressCard address={order.order?.shippingAddress} />
       </div>
       </div>
-      <div className="lg:grid grid-cols-3 relative justify-between">
+      <div className="lg:grid grid-cols-3 relative justify-between pb-12">
         <div className="lg:col-span-2">
           <div className="space-y-3 font-text">
             {order.order?.orderItems.map((item) => (
@@ -59,8 +59,8 @@ const OrderSummary = () => {
             ))}
           </div>
         </div>
-        <div className="sticky top-0 lg:mt-0 lg:ml-5 font-roboto text-neutral-700">
-          <div className="border border-gray-200 mt-2 px-5 py-2 rounded-md bg-white ">
+        <div className="lg:mt-0 lg:ml-5 font-roboto text-neutral-700">
+          <div className="border border-gray-200 mt-2 px-5 py-4 rounded-md bg-white">
             <p className="text-center p-2">Price Details</p>
             <hr className="border-gray-100 p-2" />
 
@@ -69,11 +69,11 @@ const OrderSummary = () => {
                 <span className="">Price ({order.order?.totalItem} item)</span>
                 <span className="">₹{order.order?.totalPrice}</span>
               </div>
-              <div className="flex justify-between">
+              {discount > 0 && <div className="flex justify-between">
                 <span className="">Discount</span>
                 <span className="text-green-700  ">-₹{discount.toFixed(2)}</span>
                 {order?.referralDiscountPercentage > 0 && <span className="text-xs font-thin text-green-700">{`(includes referral discount of ${order?.referralDiscountPercentage}%)`}</span>}
-              </div>
+              </div>}
               <div className="flex justify-between">
                 <span className="" >Delivery Charges</span>
                 <span className="text-green-700 ">Free</span>
