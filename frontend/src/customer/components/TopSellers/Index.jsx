@@ -27,9 +27,9 @@ const TopSellers = () => {
 
     return (
         <div className='sm:mt-24' id='top-selling-section'>
-            <div className="container pb-0 mx-auto px-4">
+             <div className="container mx-auto sm:px-2 px-4">
                 <div className="flex w-full items-start justify-start">
-                    <p className="p-2 px-4 group font-roboto tracking-wide text-center text-xl sm:text-2xl md:text-2xl  text-neutral-700"  >
+                <p className="px-1 py-1 group font-roboto tracking-wide text-center text-xl sm:text-2xl md:text-2xl  text-neutral-700"  >
                         TOP SELLING
                         {/* <div className="bg-amber-500 h-[2px] w-full transition-all duration-500"></div> */}
                     </p>
@@ -46,8 +46,8 @@ const TopSellers = () => {
                 </div>
             </div>
             
-            <h1 className='font-roboto text-center mt-[10px] pb-10'>
-                <ShallowButton shopTitle={'VIEW ALL'} onClick={() => navigate("/products")} />
+            <h1 className='font-roboto text-center pb-10'>
+                <ShallowButton shopTitle={'VIEW ALL PRODUCTS'} onClick={() => navigate("/products")} />
             </h1>
             
         </div>

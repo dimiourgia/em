@@ -175,8 +175,8 @@ const CarouselComponent = ({items, key, isDummy, showControls=true, autoPlay=fal
       responsive={responsive}
       keyboardNavigation={true}
       autoPlay={autoPlay}
-      autoPlayInterval={2000} // Adjust this value for speed, 5000 ms = 5 seconds
-      animationDuration={700}
+      autoPlayInterval={300} 
+      animationDuration={300}
       renderDotsItem={()=>null}
       renderPrevButton={() => {
         return (

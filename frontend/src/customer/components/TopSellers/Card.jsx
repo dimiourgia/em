@@ -6,7 +6,7 @@ export default function({product, defaultImageIndex}){
 
     const navigate = useNavigate();
 
-    return(<div className='relative flex flex-col sm:ml-4' onClick={()=>navigate(`/product/${product._id}`)}>
+    return(<div className='relative flex flex-col ml-1 sm:ml-4' onClick={()=>navigate(`/product/${product._id}`)}>
         <Link className="">
             <div className="overflow-hidden rounded-lg sm:shadow-lg group">
                 <img
