@@ -6,7 +6,7 @@ const detectDeviceType = () =>
     : 'Desktop';
 
 console.log(detectDeviceType(), 'device type...')
-const ZoomComponent = ({ src, imageUrl, handleActiveImageShow }) => {
+const ZoomComponent = ({ src, imageUrl, handleActiveImageShow}) => {
   console.log(src, imageUrl, 'scr + image urla')
   const [backgroundPosition, setBackgroundPosition] = useState("0% 0%");
   const [backgroundImage, setBackgroundImage] = useState("");
@@ -66,8 +66,8 @@ const ZoomComponent = ({ src, imageUrl, handleActiveImageShow }) => {
 
   return (
     <div className="relative flex items-start">
-      <div className="flex flex-col md:flex-row md:flex-row-reverse">
-        <div className="relative zoom px-1 h-full w-full md:w-[calc(100%-80px)] object-contain" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onMouseMove={handleMouseMove} ref={zoomRef}>
+      <div className="flex flex-col lg:flex-row  lg:flex-row-reverse lg:gap-4">
+        <div className="relative zoom px-1 h-full w-full lg:w-[calc(100%-80px)] object-contain" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onMouseMove={handleMouseMove} ref={zoomRef}>
           <img src={src} alt="Zoomable" className="w-full h-auto" />
           {showLens  && <div
             ref={lensRef}
@@ -76,16 +76,16 @@ const ZoomComponent = ({ src, imageUrl, handleActiveImageShow }) => {
           ></div>}
         </div>
 
-        <div className="flex flex-row md:flex-col justify-between px-1 py-2 md:py-0">
+        <div className="flex flex-row lg:flex-col justify-between px-1 py-2 md:py-0 z-[1]">
             {imageUrl?.map((image, index) => (
               <div  
                 key={index}
-                className="h-24 md:h-26 rounded cursor-pointer"
+                className="h-24 lg:h-26 rounded cursor-pointer"
                 onClick={() => handleActiveImageShow(image)}
               >
                 <img
                   src={`${image}@lq`}
-                  className={`w-full h-full object-contain ${src == image && 'ring-4'}`}
+                  className={`w-full h-full object-contain ${src == image && 'ring-1 lg:ring-2 ring-gray-300'}`}
                   alt={`Product ${index + 1}`}
                 />
               </div>

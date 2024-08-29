@@ -74,7 +74,8 @@ const MainProduct = () => {
     return (<>
         { products_selector && !products_selector.loading && <div className="min-h-80 bg- md:min-h-screen pb-16 px-4 sm:px-6 pt-4">
             <div className="container mx-auto">
-      
+              <p className='w-full flex items-center justify-center text-font text-lg'>Products</p>
+
               <div className="flex mt-10">
                 <div className="px-4 pt-5 bg-white hidden">
                   <div className="grid divide-y divide-neutral-200 max-w-xl mx-auto">
