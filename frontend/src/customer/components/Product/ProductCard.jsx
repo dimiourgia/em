@@ -11,7 +11,7 @@ const ProductCard = ({ product }) => {
   return (
     <>
       <div
-        onClick={() => (!product.isExclusive || balance > 999) && navigate(`/product/${product._id}`)}
+        onClick={() => (!product.isExclusive || balance > 999)  && navigate(`/product/${product._id}`)}
         className="relative productCard w-fit transition-all cursor-pointer rounded-md sm:hover:shadow-xl"
       >
         <div className="h-fit rounded">

@@ -1,6 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
 
+const detectDeviceType = () =>
+  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    ? 'Mobile'
+    : 'Desktop';
+
+console.log(detectDeviceType(), 'device type...')
 const ZoomComponent = ({ src, imageUrl, handleActiveImageShow }) => {
+  console.log(src, imageUrl, 'scr + image urla')
   const [backgroundPosition, setBackgroundPosition] = useState("0% 0%");
   const [backgroundImage, setBackgroundImage] = useState("");
   const [scaleFactor, setScaleFactor] = useState(2.2);  // Adjust this as needed
@@ -49,6 +56,7 @@ const ZoomComponent = ({ src, imageUrl, handleActiveImageShow }) => {
   const [showLens, setShowLens] = useState(false);
 
   const handleMouseEnter = () => {
+    if(detectDeviceType() == 'Mobile') return;
     setShowLens(true);
   };
 
@@ -61,7 +69,7 @@ const ZoomComponent = ({ src, imageUrl, handleActiveImageShow }) => {
       <div className="flex flex-col md:flex-row md:flex-row-reverse">
         <div className="relative zoom px-1 h-full w-full md:w-[calc(100%-80px)] object-contain" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onMouseMove={handleMouseMove} ref={zoomRef}>
           <img src={src} alt="Zoomable" className="w-full h-auto" />
-          {showLens && <div
+          {showLens  && <div
             ref={lensRef}
             className="absolute border border-black w-24 h-24"
             style={{ pointerEvents: "none" }}
@@ -77,7 +85,7 @@ const ZoomComponent = ({ src, imageUrl, handleActiveImageShow }) => {
               >
                 <img
                   src={`${image}@lq`}
-                  className="w-full h-full object-contain"
+                  className={`w-full h-full object-contain ${src == image && 'ring-4'}`}
                   alt={`Product ${index + 1}`}
                 />
               </div>

@@ -44,6 +44,11 @@ export default function ProductDetails({setOpenAuthModal}) {
   },[products])
 
   useEffect(()=>{
+    if(product?.imageUrl)
+    setActiveImage(product.imageUrl[0]);
+  },[product])
+
+  useEffect(()=>{
     if(!products || !products.products || products.products.length == 0){
       dispatch(findProducts());
     }
