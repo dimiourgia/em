@@ -242,7 +242,7 @@ export default function Head({ search, setSearch, openAuthModal, setOpenAuthModa
 
           {/* coin balance section begin-- */}
           {auth.user && <div className="flex items-center w-[90px] h-8 rounded-t-sm border border-[1px] border-yellow-200 relative bg-[#fff] px-2 justify-between">
-            <img src='/images/coin_0.png' className="w-6 h-6"/>
+              <img src='/images/coin_0.png' className="w-6 h-6" style={{transform: 'scale(1.6)'}} />
             <span className={`text-[#6a6a6a] font-[cursive] font-semibold text-[16px] mr-1 ${isUpdating ? 'transform scale-110 transition-transform duration-500 ease-out' : ''}`}>{displayBalance}</span>
             {/* <div className="absolute left-4 -translate-x-[50%] -bottom-1 font-semibold rounded-sm text-[9px] bg-gray-500 text-white px-[4px]">500</div> */}
             <div className="absolute -left-[1px] -bottom-[6px] border border-[1px] border-yellow-400 w-[calc(100%+2px)] h-[6px] flex bg-white">
