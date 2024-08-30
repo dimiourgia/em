@@ -13,7 +13,7 @@ const responsive = {
 const reviews = [
     {
         "reviewHighlight": "Absolutely stunning!",
-        "review": "The Sunny Day Smocked Dress is perfect for a sunny day out. The fit is flattering, and the smocked detailing adds a nice touch. It pairs beautifully with sandals or heels.",
+        "review": "The Empowered Aura Dressa is perfect for a sunny day out. The fit is flattering, and the smocked detailing adds a nice touch. It pairs beautifully with sandals or heels.",
         "user": {
             "name": "Priya",
             "location": "Jaipur"
@@ -21,10 +21,10 @@ const reviews = [
     },
     {
         "reviewHighlight": "Perfect summer dress!",
-        "review": "I love the bright color and comfortable fabric of the Sunny Day Smocked Dress. It’s great for casual outings and easy to dress up with accessories.",
+        "review": "I love the bright color and comfortable fabric of the Empowered Aura Dressa. It’s great for casual outings and easy to dress up with accessories.",
         "user": {
             "name": "Kavya",
-            "location": "Mumbai"
+            "location": "Noida"
         }
     },
     {
@@ -40,23 +40,23 @@ const reviews = [
         "review": "I recently purchased a few pieces from the Minted Resolve Collection and I am thrilled with my choices. The fabrics are soft and the colors are vibrant. Highly recommend!",
         "user": {
             "name": "Sanya",
-            "location": "Bangalore"
+            "location": "Gurugram"
         }
     },
     {
         "reviewHighlight": "Chic and comfortable!",
-        "review": "The Citrus Breeze Button-Up Blouse is a must-have. It’s perfect for both work and casual wear. The fit is just right and the material is breathable.",
+        "review": "The Apricot Aura Shirt is a must-have. It’s perfect for both work and casual wear. The fit is just right and the material is breathable.",
         "user": {
             "name": "Anika",
-            "location": "Chennai"
+            "location": "Dehradun"
         }
     },
     {
         "reviewHighlight": "Stylish and elegant!",
-        "review": "I love how the Citrus Breeze Button-Up Blouse fits. The buttons add a nice touch and it pairs well with both jeans and skirts. Perfect addition to my wardrobe!",
+        "review": "I love how the Apricot Aura Shirt fits. The buttons add a nice touch and it pairs well with both jeans and skirts. Perfect addition to my wardrobe!",
         "user": {
             "name": "Saumya",
-            "location": "Hyderabad"
+            "location": "Noida"
         }
     }
 ]

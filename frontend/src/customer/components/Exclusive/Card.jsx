@@ -13,14 +13,14 @@ export default function({product}){
         <Link className="">
             <div className="overflow-hidden rounded-lg sm:shadow-lg group">
                 <img
-                    className="transition-transform duration-300 ease-in-out transform group-hover:scale-110"
+                    className={`${user && balance > 999 && "transition-transform duration-300 ease-in-out transform group-hover:scale-110"}`}
                     src={`${product.imageUrl[product.defaultImageIndex]}@mq`}
                     alt={product?.title}/>
                     {(!user || balance < 1000) && (
                         <div className="absolute rounded-lg inset-0 bg-black bg-opacity-10 backdrop-blur-lg z-10 flex items-center justify-center">
                             <div className="flex flex-col items-center justify-center gap-4">
                                 <span className="text-white text-lg font-semibold tracking-wider">EXCLUSIVE</span>
-                                <img src='/images/white_lock.svg' style={{width:'32px', height:'32px'}}/>
+                                <img className="transition-transform duration-300 ease-in-out transform group-hover:scale-110" src='/images/white_lock.svg' style={{width:'32px', height:'32px'}}/>
                             </div>
                         </div>
                     )}

@@ -29,7 +29,7 @@ const TopSellers = () => {
         <div className='sm:mt-24' id='top-selling-section'>
              <div className="container mx-auto sm:px-2 px-4">
                 <div className="flex w-full items-start justify-start">
-                <p className="px-1 py-1 group font-roboto tracking-wide text-center text-xl sm:text-2xl md:text-2xl  text-neutral-700"  >
+                <p className="px-1 py-1 sm:px-4 group font-roboto tracking-wide text-center text-xl sm:text-2xl md:text-2xl  text-neutral-700"  >
                         TOP SELLING
                         {/* <div className="bg-amber-500 h-[2px] w-full transition-all duration-500"></div> */}
                     </p>
