@@ -25,7 +25,7 @@ const Order = () => {
     <div className="relative min-h-[calc(100vh-80px)] pb-8 justify-center">
     
     <div className="sticky top-[60px] flex justify-center items-center p-4 w-full bg-white">
-        <p className="p-2 font-heading text-3xl bg-white z-[100]"  >
+        <p className="p-2 font-heading text-2xl sm:text-3xl bg-white z-[100]"  >
           Order History
         </p>
     </div>
@@ -42,12 +42,12 @@ const Order = () => {
       </Grid>
     </Box>}
 
-      {!user_selector.loading && <div className="fixed top-[70px] right-[10px] flex flex-col justify-center items-center gap-1 border w-fit px-4 py-2 rounded-md border-blue-100">
-            <p className="text-sm">Rewards</p>
+      {!user_selector.loading && <div className="fixed top-[70px] right-[10px] flex flex-col justify-center items-center gap-1 border w-fit px-2 py-1 sm:px-4 sm:py-2 rounded-md border-blue-100">
+            <p className="text-xs sm:text-sm">Rewards</p>
 
             <div className="flex gap-2 items-center">
-              <img src='images/wallet.svg' />
-              <p>{user?.referralRewards}%</p>
+              <img src='images/wallet.svg' className="w-4 h-4 sm:w-6 sm:h-6" />
+              <p className="text-xs text-sm">{user?.referralRewards}%</p>
             </div>
       </div>}
 

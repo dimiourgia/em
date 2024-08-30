@@ -19,12 +19,12 @@ const OrderItemCard = ({ order }) => {
           <div className="flex cursor-pointer">
             <img
               className="w-[5rem] h-[5rem] object-cover object-top"
-              src={order?.orderItems[0]?.product?.imageUrl[0]}
+              src={`${order?.orderItems[0]?.product?.imageUrl[0]}@lq`}
               alt={order?.orderItems[0]?.title}
             />
             <div className="flex flex-col gap-.5 w-full">
                 {order?.orderItems?.map(item=>(
-                    <div className="ml-5 flex gap-1 w-full justify-start items-center">
+                    <div className="ml-5 flex flex-wrap gap-1 w-full justify-start items-center">
                         <p className="text-sm">{item?.product?.title}</p>
                         <p className="text-neutral-400 text-xs font-semibold space-x-5">
                             <span>({item?.size})</span>

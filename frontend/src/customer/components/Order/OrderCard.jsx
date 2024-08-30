@@ -13,8 +13,8 @@ const OrderCard = ({ item, order }) => {
         <Grid item xs={6}>
           <div className="flex cursor-pointer">
             <img
-              className="w-[5rem] h-[5rem] object-cover object-top"
-              src={item?.product?.imageUrl[0]}
+              className="h-[5rem] object-cover object-top"
+              src={`${item?.product?.imageUrl[item?.product?.defaultImageIndex]}@lq`}
               alt={item?.product?.title}
             />
             <div className="ml-5">

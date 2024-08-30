@@ -144,7 +144,7 @@ const Cart = ({setOpenAuthModal}) => {
 
                 <div className="flex gap-1 mt-4 mb-1">
                   <p>Offers</p>
-                  <p className="text-sm text-gray-400">{`(${offers.length} offers available)`}</p>
+                  {offers_selector && !offers_selector.loading && offers.length > 0  && <p className="text-sm text-gray-400">{`(${offers.length} offers available)`}</p>}
                 </div>
 
                 <div>
@@ -165,6 +165,10 @@ const Cart = ({setOpenAuthModal}) => {
                   {offers_selector && offers_selector.loading && 
                     <div className="border border-gay-100 min-h-[80px] px-4 py-2 bg-white rounded-sm flex justify-between items-center">
                         <Loading/>
+                    </div>}
+
+                  {offers_selector && !offers_selector.loading && offers.length == 0 && <div className="flex w-full items-center justify-center">
+                      No Offers available
                     </div>}
 
                 </div>
