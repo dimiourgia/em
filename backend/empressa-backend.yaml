@@ -14,8 +14,8 @@ properties:
     - image: docker.io/aj204/empressa-backend:latest
       name: empressa-backend
       resources:
-        cpu: 1
-        memory: 2Gi
+        cpu: .5
+        memory: 1Gi
     scale:
       maxReplicas: 1
       minReplicas: 0

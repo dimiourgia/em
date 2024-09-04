@@ -66,7 +66,7 @@ const createUser = async (userData) => {
       const { firstName, lastName, email, password, role, referralCode } = userData;
   
       // Check if user already exists
-      const existingUser = await User.findOne({ email });
+      const existingUser = await User.findOne({ email: email.toLowerCase() });
       if (existingUser) {
         throw new Error(`This email is already registered. Please login with your credentials.`);
       }
@@ -102,7 +102,7 @@ const validateUserData = (data) => {
 // Create new user without referral
 const createNewUser = async (userData, hashedPassword) => {
   const { firstName, lastName, email, role } = userData;
-  return await User.create({ firstName, lastName, email, password: hashedPassword, role });
+  return await User.create({ firstName, lastName, email:email.toLowerCase(), password: hashedPassword, role });
 };
 
 // Handle referral code logic
@@ -127,7 +127,7 @@ const handleReferralCode = async (userData, hashedPassword) => {
   const user = await User.create({
     firstName,
     lastName,
-    email,
+    email:email.toLowerCase(),
     password: hashedPassword,
     role,
     referralRewards: 5,
@@ -159,7 +159,8 @@ const findUserById=async(userId)=>{
 }
 
 const getUserByEmail = async (email) => {
-    return await User.findOne({ email });
+  console.log(email.toLowerCase(), 'lower case email')
+    return await User.findOne({ email:email.toLowerCase() });
 };
 
 const getUserProfileByToken=async(token)=>{
@@ -239,7 +240,7 @@ const createGoogleUser = async (userData) => {
     const { firstName, lastName, email, guid, verifiedEmail } = userData;
 
     // Check if user already exists
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email:email.toLowerCase() });
     if (existingUser) {
       throw new Error(`This email is already registered. Please login with your credentials.`);
     }

@@ -5,7 +5,7 @@ const sendResetPasswordEmail = async (email, resetLink) => {
     const emailClient = new EmailClient(process.env.Email_Connection_String);
 
     const message = {
-        senderAddress: "DoNotReply@0b92c556-0591-4ff8-bfc5-9fa5358b53c0.azurecomm.net",
+        senderAddress: "DoNotReply@empressafashion.com",
         content: {
             subject: "Link to Reset Your Password",
             plainText: `Hi,

@@ -19,7 +19,7 @@ const register=async(req,res)=>{
         await cartService.createCart(user);
         const otp = otpService.generateOtp();
         await userService.saveVerificationOtp(user._id, otp);
-        await emailService.sendAccountConfirmationEmail(user.email, otp);
+        await emailService.sendAccountConfirmationEmail(user.email.toLowerCase(), otp);
         return res.status(200).send({message:"Successful! We have sent you a verification email.", emailSent: true});
 
         //temporary arrangement in absence of email service
@@ -44,8 +44,8 @@ const forgotPassword = async (req, res) => {
         const otp = otpService.generateOtp();
         await userService.saveOtp(user._id, otp);
 
-        const resetLink = `${process.env.FRONTEND_URL}/reset-password?email=${encodeURIComponent(email)}&otp=${otp}`;
-        await emailService.sendResetPasswordEmail(email, resetLink);
+        const resetLink = `${process.env.FRONTEND_URL}/reset-password?email=${encodeURIComponent(email.toLowerCase())}&otp=${otp}`;
+        await emailService.sendResetPasswordEmail(email.toLowerCase(), resetLink);
 
         res.status(200).send({ message: "Please check your email. A link to reset your password has been sent." });
     } catch (error) {
@@ -56,7 +56,7 @@ const forgotPassword = async (req, res) => {
 const login=async(req,res)=>{
     const {password,email}=req.body
     try {
-        const user = await userService.getUserByEmail(email);
+        const user = await userService.getUserByEmail(email.toLowerCase());
 
         if (!user) {
             return res.status(404).json({ message: 'User not found With Email ', email});
