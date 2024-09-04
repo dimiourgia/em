@@ -16,7 +16,7 @@ const ProductCard = ({ product }) => {
       >
         <div className="h-fit rounded-sm overflow-hidden">
           <img
-            className="max-h-[350px] w-fit object-cover mx-auto flex justify-center items-center rounded-sm transition-transform duration-300 ease-in-out transform group-hover:scale-105"
+            className="max-h-[350px] w-fit object-cover mx-auto flex justify-center items-center rounded-sm transition-transform duration-150 ease-in-out transform group-hover:scale-105"
             src={`${product?.imageUrl[product.defaultImageIndex]}@mq`}
             alt="ss"
           />
@@ -24,7 +24,7 @@ const ProductCard = ({ product }) => {
                 <div className="absolute rounded-sm inset-0 bg-black bg-opacity-10 backdrop-blur-lg z-10 flex items-center justify-center group">
                     <div className="flex flex-col items-center justify-center gap-4">
                         <span className="text-white text-lg font-semibold tracking-wider">EXCLUSIVE</span>
-                        <img className="transition-all transition-transform duration-300 ease-in-out transform group-hover:scale-105" src='/images/white_lock.svg' style={{width:'32px', height:'32px'}}/>
+                        <img className="transition-all transition-transform duration-150 ease-in-out transform group-hover:scale-105" src='/images/white_lock.svg' style={{width:'32px', height:'32px'}}/>
                     </div>
                 </div>
             )}

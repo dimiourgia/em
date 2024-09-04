@@ -22,7 +22,7 @@ export default function ProductDetails({setOpenAuthModal}) {
   const products = useSelector((state) => state.products);
   const product = products.product;
   const [activeImage, setActiveImage] = useState("");
-  const suggestedProducts = products.products.filter(p=>!p.isExclusive);
+  const suggestedProducts = products.products.filter(p=>!p.isExclusive && p._id !== product?._id);
   const [suggestedProductIndices, setSuggestedProductIndices] = useState([]);
 
   useEffect(()=>{

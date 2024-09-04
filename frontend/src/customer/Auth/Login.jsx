@@ -140,7 +140,7 @@ const handleLogin = (e)=>{
     if(fetchingFromServer) return
 
     e.preventDefault()
-    const email = emailRef.current.value
+    const email = emailRef.current.value.toLowerCase();
     const password = passwordRef.current.value
 
     setError(false)
