@@ -4,6 +4,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { findProducts } from './../../../State/Product/Action';
 import Placeholder from './ProductSkeleton';
+import Loading from '../Loader/Index';
 
 const MainProduct = () => {
     const param = useParams();
@@ -72,7 +73,7 @@ const MainProduct = () => {
     },[filterSize])
 
     return (<>
-        { products_selector && !products_selector.loading && <div className="min-h-80 bg- md:min-h-screen pb-16 px-4 sm:px-6 pt-4">
+        { products_selector && !products_selector.loading && <div className="min-h-[90vh] bg- md:min-h-screen pb-16 px-4 sm:px-6 pt-4">
             <div className="container mx-auto">
               <p className='w-full flex items-center justify-start text-font text-lg'>All Products</p>
 
@@ -144,7 +145,11 @@ const MainProduct = () => {
             {/* {renderPagination()} */}
           </div> }
           
-          {products_selector.loading && <Placeholder/> }
+          {(products_selector.loading || true) && 
+          <div className="min-h-[90vh] bg- md:min-h-screen pb-16 px-4 sm:px-6 pt-4 flex justify-center">
+            <Loading/> 
+            </div>
+          }
     </>);
 };
 

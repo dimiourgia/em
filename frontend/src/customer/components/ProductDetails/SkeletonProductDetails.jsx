@@ -39,7 +39,7 @@ const SkeletonProductDetails = () => {
           </div>
 
           {/* Highlights skeleton */}
-          <div className="p-3 mt-4 font-roboto opacity-70">
+          <div className="py-3 mt-4 font-roboto opacity-70">
             <Skeleton height={20} width="50%" />
             <div className="grid grid-cols-2 mt-2">
               <Skeleton height={20} width="40%" />
@@ -51,18 +51,16 @@ const SkeletonProductDetails = () => {
             </div>
           </div>
 
+          <div className="my-3 pb-4">
+            <Skeleton height={20} width="30%" />
+            <Skeleton height={10} width="80%" className="mt-2" count={3} />
+          </div>
+
           {/* Button skeleton */}
           <Skeleton height={40} width="100%" className="mt-6" />
         </div>
       </div>
 
-      {/* Description skeleton */}
-      <div className="m-3 p-4 pb-16 bg-gray-50">
-        <Skeleton height={30} width="30%" />
-        <Skeleton height={20} width="80%" className="mt-2" count={3} />
-        <Skeleton height={30} width="30%" className="mt-6" />
-        <Skeleton height={20} width="80%" className="mt-2" count={3} />
-      </div>
     </div>
   );
 };

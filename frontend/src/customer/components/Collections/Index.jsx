@@ -5,6 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { findCollections} from '../../../State/Collection/Action';
 import CarouselComponent from '../Carousel/Index';
 import PlaceholderCard from './CardSkeleton';
+import React from 'react';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 
 const order = ['Stripes of Strength', 'Empowered Ember', 'Minted Resolve', 'Eclipsed Ascendancy', 'Radiant Rebellion'];
@@ -55,8 +58,17 @@ const Collections = () => {
                     }
 
                     {(collections == null || collections == undefined || collections.length == 0) &&
-                        <CarouselComponent isDummy={true} key="collections_carousel" items={[<PlaceholderCard/>, <PlaceholderCard/>, <PlaceholderCard/>, <PlaceholderCard/>, <PlaceholderCard/>] } 
-                            />}
+                        // <div>
+                        //     <div className='flex gap-1 sm:hidden w-[100%]'>
+                        //         <Skeleton style={{width:'50%', height:'100%'}}/>
+                        //         <Skeleton style={{width:'50%', height:'100%'}} />
+                        //     </div>
+                        //     <div className='hidden sm:flex'>
+
+                        //     </div>
+                        // </div>
+                        <CarouselComponent isDummy={true} key="collections_carousel" items={[<PlaceholderCard/>, <PlaceholderCard/>, <PlaceholderCard/>, <PlaceholderCard/>, <PlaceholderCard/>] } />
+                        }
                 </div>
             </div>
             

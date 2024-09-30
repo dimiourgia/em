@@ -21,8 +21,18 @@ import 'react-loading-skeleton/dist/skeleton.css';
 
 const PlaceholderCard = () => {
   return (
-    <div className="relative ml-4 bg-gray-50 rounded-lg overflow-hidden w-[394px] h-[592px]">
-      <Skeleton height={592} width={394} />
+    // <div className="relative ml-4 bg-gray-50 rounded-lg overflow-hidden w-[394px] h-[592px]">
+    //   <Skeleton height={592} width={394} />
+    // </div>
+    <div className='relative ml-1 sm:ml-4 rounded-lg'>
+            <div className="overflow-hidden rounded-lg sm:shadow-lg group">
+              <div className='sm:hidden'>
+                <Skeleton height={262} width={1365} />
+              </div>
+              <div className='hidden md:block'>
+                <Skeleton height={352} width={1365} />
+              </div>
+            </div> 
     </div>
   );
 };
