@@ -12,6 +12,7 @@ export default function Checkout() {
   const dispatch = useDispatch();
   const searchParams = new URLSearchParams(location.search);
   const [step, setStep] = useState(searchParams.get('step'));
+  const [addNewAddres, setAddNewAddress] = useState();
 
   useEffect(()=>{
     setStep(searchParams.get('step'));
@@ -27,6 +28,7 @@ export default function Checkout() {
 
   const handleNext = useCallback(() => {
     if (step === '0') {
+      setAddNewAddress(false);
       navigate('/checkout?step=1');
     }
   },[])
@@ -50,10 +52,10 @@ export default function Checkout() {
           >
             Back
           </button> */}
-          <p className={`${step === '-1'? 'text-gray-400 border-gray-100 cursor-not-allowed' : 'text-blue-800 border-blue-500 hover:bg-blue-100 hover:text-white cursor-pointer'} mt-10  px-4 py-2 border border-sm`} onClick={handleBack}>Back</p>
+        {!addNewAddres && <p className={`${step === -1? 'text-gray-400 border-gray-100 cursor-not-allowed' : 'text-blue-800 border-blue-500 hover:bg-blue-100 hover:text-white cursor-pointer'} mt-10  px-4 py-2 border border-sm`} onClick={handleBack}>Back</p>}
         </Box>
         <div className="my-5">
-          {step === '0' && <DelevryAdressForm handleNext={handleNext} />}
+          {step === '0' && <DelevryAdressForm handleNext={handleNext} addNewAddres={addNewAddres} setAddNewAddress={setAddNewAddress} />}
           {step === '1' && <OrderSummery />}
         </div>
       </Box>

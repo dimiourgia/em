@@ -9,13 +9,12 @@ import AddressCard from "../AdressCard/AdressCard";
 import Button from "../Button/Index";
 import Loading from "../Loader/Index";
 
-export default function DeliveryAddressForm({ handleNext }) {
+export default function DeliveryAddressForm({ handleNext, addNewAddres, setAddNewAddress }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
   const [phoneNumber, setPhoneNumber] = useState("");
   const {user} = useSelector(state=>state.auth);
-  const [addNewAddres, setAddNewAddress] = useState();
   const storedAddresses_selector = useSelector(state=>state.address);
   const storedAddresses = storedAddresses_selector.addresses;
   const [isNextDisabled, setIsNextDisabled] = useState(true);
@@ -166,7 +165,7 @@ export default function DeliveryAddressForm({ handleNext }) {
         {(addNewAddres) && <Grid container spacing={8} className="flex items-center justify-center px-6">
           <Grid item xs={12} lg={10}>
             <Box className="border bg-white rounded-md shadow-md p-5">
-              <form onSubmit={handleSubmit}>
+              <form className="relative" onSubmit={handleSubmit}>
                 <Grid container spacing={3}>
                   <Grid item xs={12} sm={6}>
                     <Typography sx={{fontSize:"15px", ml:"4px"}}>First Name</Typography>
@@ -271,6 +270,7 @@ export default function DeliveryAddressForm({ handleNext }) {
                     <Button text='Deliver Here' type="submit"/>
                   </Grid>
                 </Grid>
+                <div className="absolute -right-[10px] top-[2px] font-[cursive] text-[#d90909] text-2xl cursor-pointer" onClick={()=>setAddNewAddress(false)}>x</div>
               </form>
             </Box>
           </Grid>
