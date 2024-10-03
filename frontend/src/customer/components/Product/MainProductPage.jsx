@@ -145,7 +145,7 @@ const MainProduct = () => {
             {/* {renderPagination()} */}
           </div> }
           
-          {(products_selector.loading || true) && 
+          {(products_selector.loading) && 
           <div className="min-h-[90vh] bg- md:min-h-screen pb-16 px-4 sm:px-6 pt-4 flex justify-center">
             <Loading/> 
             </div>
