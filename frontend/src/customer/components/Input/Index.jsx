@@ -41,6 +41,7 @@ export default forwardRef(function Input(props, ref) {
                     onFocus={handleFocus}
                     onBlur={handleBlur}
                     onChange={handleChange}
+                    style={{'backgroundColor': 'white'}}
                     className={focused ? (error ? 'input_box input_box_focused_error' : 'input_box input_box_focused') : (error ? 'input_box input_box_error' : 'input_box')}
                     type={type} />
                 <div
