@@ -101,7 +101,7 @@ export default function ProductDetails({setOpenAuthModal}) {
   }, [product]);
 
   return (<div className="min-h-[calc(100vh-10px)">
-    {!products.loading  && false && !products.error && <div className="bg-white pt-4">
+    {!products.loading && !products.error && <div className="bg-white pt-4">
       <div className="md:flex justify-center">
         {/* Image gallery */}
         <div ref={pd_ref} className="mx-4 sm:w-[calc(75%+80px)] md:w-[calc(50%+80px)] lg:w-[calc(33%+80px)] xl:w-[calc(25%+80px)]">
@@ -277,7 +277,7 @@ export default function ProductDetails({setOpenAuthModal}) {
 
     </div>}
 
-    {(products.loading || true) && <SkeletonProductDetails/>}
+    {(products.loading) && <SkeletonProductDetails/>}
 
     {products.error && <ErrorComponent errorMessage={products.error} />}
 

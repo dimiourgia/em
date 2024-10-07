@@ -119,7 +119,7 @@ const Cart = ({setOpenAuthModal}) => {
                   </div>
 
                   {appliedCouponCode && cart.cart?.couponDiscount > 0 && <div className="flex justify-between mt-6">
-                    <div className="border border-gay-100 px-4 py-2 bg-white rounded-sm flex justify-between items-center font-roboto bg-[#f0f8ff] gap-4">
+                    <div className="border border-dashed border-gay-100 px-4 py-2 bg-white rounded-sm flex justify-between items-center font-roboto bg-[#f0f8ff] gap-4">
                         <img src='/images/sell_tag.svg' />
                         <div className="flex flex-col justify-center items-start">
                           <p className="text text-gray-700">{appliedCouponCode?.code}</p>
@@ -151,7 +151,7 @@ const Cart = ({setOpenAuthModal}) => {
                   {offers_selector && !offers_selector.loading && <div className="border border-gray-200 p-5 bg-white rounded-sm min-h-[50px] max-h-[200px] overflow-y-scroll flex flex-col gap-2">
                     {offers?.length >0 && offers.map((offer)=>{
                       return(<div key={offer.code}> 
-                        <div className="border border-gay-100 px-4 py-2 bg-white rounded-sm flex justify-between items-center font-roboto bg-[#f0f8ff]">
+                        <div className="border border-dashed border-gay-100 px-4 py-2 bg-white rounded-sm flex justify-between items-center font-roboto bg-[#f0f8ff]">
                             <div className="flex flex-col justify-center items-start">
                               <p className="text text-gray-700">{offer.code}</p>
                               <p className="text-[11px] text-gray-400">{`GET ${offer.offer}% OFF`}</p>
