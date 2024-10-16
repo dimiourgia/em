@@ -270,7 +270,8 @@ export default function DeliveryAddressForm({ handleNext, addNewAddres, setAddNe
                     <Button text='Deliver Here' type="submit"/>
                   </Grid>
                 </Grid>
-                <div className="absolute -right-[10px] top-[2px] font-[cursive] text-[#d90909] text-2xl cursor-pointer" onClick={()=>setAddNewAddress(false)}>x</div>
+                <img src={'images/close.svg'} className="absolute -right-[34px] -top-[11px] rounded-full bg-gray-200 p-[2px] cursor-pointer hover:bg-gray-300" onClick={()=>setAddNewAddress(false)}  />
+                {/* <div className="absolute -right-[10px] top-[2px] font-[cursive] text-[#d90909] text-2xl cursor-pointer" onClick={()=>setAddNewAddress(false)}>x</div> */}
               </form>
             </Box>
           </Grid>
