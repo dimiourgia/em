@@ -10,6 +10,7 @@ const authenticate = async (req, res, next) => {
     }
 
     const userId = jwtProvider.getUserIdFromToken(token);
+    console.log('user id from token', userId);
 
     if (!userId) {
       return res.status(401).json({ error: "Unauthorized", message: "Invalid token" });

@@ -12,6 +12,9 @@ import { getCoupons } from "../../../State/Coupon/Action";
 const Cart = ({setOpenAuthModal}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state)=>state.auth).user;
+  console.log(user, 'user from cart');
+
   const jwt = localStorage.getItem("jwt");
   const cart = useSelector((state) => state.cart);
 
@@ -21,7 +24,7 @@ const Cart = ({setOpenAuthModal}) => {
   console.log("cart ", cart);
 
   useEffect(() => {
-    if (jwt) {
+    if (jwt && user) {
       dispatch(getCart(jwt));
     } else {
       setOpenAuthModal(true);
@@ -62,7 +65,7 @@ const Cart = ({setOpenAuthModal}) => {
 
   
 
-  return (
+  return (<>
     <div className="cart-container min-h-screen">
       <div className="sticky top-[60px] flex justify-center items-center py-2 sm:py-4 w-full bg-white z-[10] shadow-sm">
         <img src="/images/cart_black.svg" className="w-[30px] sm:w-[32px]" />
@@ -189,7 +192,8 @@ const Cart = ({setOpenAuthModal}) => {
         </div>}
 
     </div>
-  );
+  </>
+    );
 };
 
 export default Cart;
