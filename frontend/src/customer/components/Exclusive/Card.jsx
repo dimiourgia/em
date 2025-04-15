@@ -9,14 +9,14 @@ export default function({product}){
     const {balance} = useSelector(state=>state.wallet);
     const {user} = useSelector(state=>state.auth);
     
-    return(<div className='relative flex flex-col ml-1 sm:ml-4' onClick={()=> user && balance > 999 &&  navigate(`/product/${product._id}`)}>
+    return(<div className='relative flex flex-col ml-1 sm:ml-4' onClick={()=> navigate(`/product/${product._id}`)}>
         <Link className="">
             <div className="overflow-hidden rounded-lg sm:shadow-lg group">
                 <img
                     className={`${user && balance > 999 && "transition-transform duration-300 ease-in-out transform group-hover:scale-110"}`}
                     src={`${product.imageUrl[product.defaultImageIndex]}@mq`}
                     alt={product?.title}/>
-                    {(!user || balance < 1000) && (
+                    {((!user || balance < 1000) && false) && (
                         <div className="absolute rounded-lg inset-0 bg-black bg-opacity-10 backdrop-blur-lg z-10 flex items-center justify-center">
                             <div className="flex flex-col items-center justify-center gap-4">
                                 <span className="text-white text-lg font-semibold tracking-wider">EXCLUSIVE</span>
@@ -39,7 +39,7 @@ export default function({product}){
                     <p className="font-roboto line-through opacity-70 text-sm text-gray-500">
                         {"₹" + product.price}
                     </p>
-                    <p className="text-green-500 text-xs font-text">
+                    <p className="text-blue-600 text-normal font-text">
                         {((1 - product.discountedPrice / product.price) * 100).toFixed(0) + "% off"}
                     </p>
                 </div>}

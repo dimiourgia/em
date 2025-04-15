@@ -12,7 +12,7 @@ export default function({title, shopTitle, imageSrc, id}){
                     className="transition-transform duration-300 ease-in-out transform group-hover:scale-110"
                     src={imageSrc}
                     alt={title}/> 
-                <div class="absolute rounded-lg inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+                <div className="absolute rounded-lg inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
             </div> 
         </Link>
         <div className='absolute bg-gray-100/60 pb-4 bottom-0 w-full'>

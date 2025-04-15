@@ -29,13 +29,13 @@ export default function({product, defaultImageIndex}){
                     <p className="font-roboto line-through opacity-70 text-sm text-gray-500">
                         {"₹" + product.price}
                     </p>
-                    <p className="text-green-500 text-xs font-text">
+                    <p className="text-blue-600 text-md font-text">
                         {((1 - product.discountedPrice / product.price) * 100).toFixed(0) + "% off"}
                     </p>
                 </div>}
             </div>
             <div className="flex gap-4 text-xs text-neutral-500 mt-2">
-                {product.sizes.map(size=><p className={`${size.quantity == 0 && 'line-through'}`}>{size.name}</p>)}
+                {product.sizes.map((size,i)=><p key={i} className={`${size.quantity == 0 && 'line-through'}`}>{size.name}</p>)}
             </div>
             </div>
         </div>

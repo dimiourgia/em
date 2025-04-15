@@ -11,8 +11,8 @@ const ProductCard = ({ product }) => {
   return (
     <>
       <div
-        onClick={() => (!product.isExclusive || balance > 999)  && navigate(`/product/${product._id}`)}
-        className={`relative productCard w-fit transition-all cursor-pointer rounded-sm ${(!product.isExclusive || balance > 999) && 'sm:hover:shadow-md group' }`}
+        onClick={() => navigate(`/product/${product._id}`)}
+        className={`relative productCard w-fit transition-all cursor-pointer rounded-sm`}
       >
         <div className="h-fit rounded-sm overflow-hidden">
           <img
@@ -20,7 +20,7 @@ const ProductCard = ({ product }) => {
             src={`${product?.imageUrl[product.defaultImageIndex]}@mq`}
             alt="ss"
           />
-          {product?.isExclusive && (!user || balance < 1000) && (
+          {product?.isExclusive && false && (!user || balance < 1000) && (
                 <div className="absolute rounded-sm inset-0 bg-black bg-opacity-10 backdrop-blur-lg z-10 flex items-center justify-center group">
                     <div className="flex flex-col items-center justify-center gap-4">
                         <span className="text-white text-lg font-semibold tracking-wider">EXCLUSIVE</span>

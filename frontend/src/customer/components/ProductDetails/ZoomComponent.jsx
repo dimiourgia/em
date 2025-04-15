@@ -7,7 +7,6 @@ const detectDeviceType = () =>
 
 console.log(detectDeviceType(), 'device type...')
 const ZoomComponent = ({ src, imageUrl, handleActiveImageShow}) => {
-  console.log(src, imageUrl, 'scr + image urla')
   const [backgroundPosition, setBackgroundPosition] = useState("0% 0%");
   const [backgroundImage, setBackgroundImage] = useState("");
   const [scaleFactor, setScaleFactor] = useState(2.2);  // Adjust this as needed

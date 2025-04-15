@@ -23,11 +23,16 @@ const OrderSummary = () => {
     dispatch(getOrderById(orderId))
   }, [orderId])
 
-  const handleCreatePayment = async () => {
+  // const handleCreatePayment = async () => {
+  //   const data = { orderId: order.order?._id, jwt }
+  //   dispatch(createPayment(data))
+  //   //await dispatch(updatePayment({}))
+  //   navigate(`/payment/${order.order?._id}`)
+  // }
+
+  const handleCreatePayment = () => {
     const data = { orderId: order.order?._id, jwt }
     dispatch(createPayment(data))
-    //await dispatch(updatePayment({}))
-    navigate(`/payment/${order.order?._id}`)
   }
 
   const discount = order.order

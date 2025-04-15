@@ -22,24 +22,29 @@ export default function ProductDetails({setOpenAuthModal}) {
   const products = useSelector((state) => state.products);
   const product = products.product;
   const [activeImage, setActiveImage] = useState("");
-  const suggestedProducts = products.products.filter(p=>!p.isExclusive && p._id !== product?._id);
+  const  [suggestedProducts, setSuggestedProducts] = useState([]);
   const [suggestedProductIndices, setSuggestedProductIndices] = useState([]);
+  const [isScrolledUp, setIsScrolledUp] = useState(false);
+
+
+  useEffect(()=>{
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const threshold = 460; // adjust this value based on when you want the button to switch
+  
+      // Only apply this on small screens
+      if (window.innerWidth < 650) {
+        setIsScrolledUp(scrollY > threshold);
+      }
+    };
+  
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  },[])
 
   useEffect(()=>{
     if(products.products.length > 0){
-        const length = products?.products?.filter(p=>!p.isExclusive).filter(p=>p?._id != product?._id)?.length;
-        if(length > 0){
-          let randomeInices = [];
-          while(randomeInices.length <6){
-            const i = Math.floor(Math.random()*length);
-            if(!randomeInices.includes(i)){
-              randomeInices.push(i);
-            }
-          }
-
-        console.log(randomeInices)
-        setSuggestedProductIndices(randomeInices);
-      }
+     setSuggestedProducts(products.products.filter(p=>p?.outfitType == product?.outfitType &&  p?._id !== product?._id));
     }
   },[products])
 
@@ -240,7 +245,7 @@ export default function ProductDetails({setOpenAuthModal}) {
 
               <div className="w-full mt-10">
               <Button
-                classname='w-full'
+                classname={`w-full z-50 transition-all duration-300 ${isScrolledUp ? 'relative' : 'fixed bottom-0 left-0'} sm:relative`}
                 text='Add to Cart'
                 imageSrc='/images/cart_white.svg'
                 onClick={handelAddToCart} 
@@ -269,8 +274,7 @@ export default function ProductDetails({setOpenAuthModal}) {
         <div className="w-full flex flex-wrap gap-4 justify-center items-center px-4">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-y-6 gap-x-2">
             {suggestedProducts
-            .filter((p,i)=> suggestedProductIndices.includes(i))
-            .map(product=> <ProductCard product={product} />)}
+            ?.map(product=> <ProductCard product={product} />)}
           </div>
         </div>
       </div>

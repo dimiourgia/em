@@ -14,7 +14,8 @@ const TopSellers = () => {
         '66bb47c53da21f8a8b161014',
         '66bb4f583da21f8a8b16106e',
         '676a49b9541de92a5cf9db77',                                       //'66bb4ac83da21f8a8b161041',
-        '66bb4fc33da21f8a8b161077']
+        '66bb4fc33da21f8a8b161077',
+        '66bb4ac83da21f8a8b161041']
     const products = useSelector((state) => state.products).products.filter(p=>topSellers.includes(p._id));
  
     

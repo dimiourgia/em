@@ -24,9 +24,9 @@ import {
       };
   
       const { data } = await axios.post(`${API_BASE_URL}/api/payments/${reqData.orderId}`,reqData, config);
-  console.log("datta payment",data)
+  console.log("datta",data)
   if(data.payment_link_url){
-    //window.location.href=data.payment_link_url;
+    window.location.href=data.payment_link_url;
   }
       dispatch({
         type: CREATE_PAYMENT_SUCCESS,
@@ -66,25 +66,25 @@ import {
     };
   };
 
-export const updatePaymentRequest = () => {
-  return {
-    type: UPDATE_PAYMENT_REQUEST,
+  export const updatePaymentRequest = () => {
+    return {
+      type: UPDATE_PAYMENT_REQUEST,
+    };
   };
-};
 
-export const updatePaymentSuccess = (payment) => {
-  return {
-    type: UPDATE_PAYMENT_SUCCESS,
-    payload: payment,
+  export const updatePaymentSuccess = (payment) => {
+    return {
+      type: UPDATE_PAYMENT_SUCCESS,
+      payload: payment,
+    };
   };
-};
 
-export const updatePaymentFailure = (error) => {
-  return {
-    type: UPDATE_PAYMENT_FAILURE,
-    payload: error,
+  export const updatePaymentFailure = (error) => {
+    return {
+      type: UPDATE_PAYMENT_FAILURE,
+      payload: error,
+    };
   };
-};
 
  
   

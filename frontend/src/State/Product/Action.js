@@ -20,17 +20,17 @@ import { API_BASE_URL } from "../../config/apiConfig";
 
 export const findProducts = (reqData) => async (dispatch) => {
   dispatch({ type: FIND_PRODUCTS_REQUEST });
-  const {
-    colors,
-    sizes,
-    minPrice,
-    maxPrice,
-    minDiscount,
-    category,
-    sort,
-    pageNumber,
-    pageSize,
-  } = reqData;
+  // const {
+  //   colors,
+  //   sizes,
+  //   minPrice,
+  //   maxPrice,
+  //   minDiscount,
+  //   category,
+  //   sort,
+  //   pageNumber,
+  //   pageSize,
+  // } = reqData;
   try {
     //`${API_BASE_URL}/api/products?color=${colors}&size=${sizes}&minPrice=${minPrice}&maxPrice=${maxPrice}&minDiscount=${minDiscount}&category=${category}&sort=${sort}&pageNumber=${pageNumber}&pageSize=${pageSize}`
     const { data } = await api.get(

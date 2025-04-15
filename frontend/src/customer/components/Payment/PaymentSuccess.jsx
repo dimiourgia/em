@@ -48,20 +48,16 @@ const PaymentSuccess = () => {
   useEffect(() => {
     console.log("orderId", orderId);
     const urlParams = new URLSearchParams(window.location.search);
-    setPaymentId(urlParams.get("razorpay_payment_id"));
+    const paymentId = urlParams.get("razorpay_payment_id");
+    const paymentStatus = urlParams.get("razorpay_payment_link_status")
     setReferenceId(urlParams.get("razorpay_payment_link_reference_id"));
-    setPaymentStatus(urlParams.get("razorpay_payment_link_status"));
-  }, []);
 
-  useEffect(() => {
-    // if (paymentId && paymentStatus === "paid") {
-    //   const data = { orderId, paymentId, jwt };
-    //   dispatch(updatePayment(data));
-    //   dispatch(getOrderById(orderId));
-    // }
+    if (paymentId && paymentStatus === "paid") {
+      const data = { orderId, paymentId, jwt };
+      dispatch(updatePayment(data));
+      dispatch(getOrderById(orderId));
+    }
 
-    const data = { orderId, paymentId, jwt };
-    dispatch(updatePayment(data));
   }, []);
 
   return (<div className="min-h-[calc(100vh-322px)] md:min-h-[calc(100vh-310px)] items-center flex w-full justify-center">
@@ -119,12 +115,24 @@ const PaymentSuccess = () => {
       </div>
       
     </div>}
+    { !payment.loading && !payment.error && !payment.success &&
+        <div className="flex flex-col justify-center items-center max-w-[1000px]">
+        <Alert
+          variant="filled"
+          severity="failure"
+          sx={{ mb: 2, width: "fit-content" }}
+        >
+          <AlertTitle>Order Placed</AlertTitle>
+          {`Transaction Failed`}
+        </Alert>
+      </div>
+    }
     {payment.loading && !payment.error &&
       <div className="w-full flex justify-center">
         <Loading />
       </div>}
     {!payment.loading && payment.error && <div className="h-[100%] w-full flex items-center justify-center">
-        <ErrorComponent errorMessage={'Something went wrong while the placing the order'} />
+        <ErrorComponent errorMessage={'Something went wrong. Pleae try again later'} />
       </div>}
   </div>);
 };

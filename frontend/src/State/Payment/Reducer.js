@@ -43,6 +43,7 @@ import { CREATE_PAYMENT_FAILURE, CREATE_PAYMENT_REQUEST, CREATE_PAYMENT_SUCCESS,
         ...state,
         loading: false,
         payment: action.payload,
+        success: action.payload.status,
         error: null,
       };
     case UPDATE_PAYMENT_FAILURE:
