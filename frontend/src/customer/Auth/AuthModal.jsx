@@ -1,8 +1,8 @@
 import { Box, Modal } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import RegisterForm from "./Register";
 import LoginForm from "./Login";
-import LoginWithPhone from "./LoginWithPhone";
+// import LoginWithPhone from "./LoginWithPhone";
 import Forgot from "./Forgot";
 import { useLocation } from "react-router-dom";
 
@@ -18,6 +18,7 @@ const style = {
   borderRadius: "10px",
   padding: "25px",
 };
+
 
 const AuthModal = ({ handleClose, open, type, setType}) => {
   const location = useLocation();
@@ -35,7 +36,7 @@ const AuthModal = ({ handleClose, open, type, setType}) => {
         ) : type == "forgot-password" ? (
           <Forgot setType={setType} />
         ) : (
-          <LoginWithPhone setType={setType} />
+          <LoginForm setType={setType} />
         )}
       </Box>
     </Modal>
