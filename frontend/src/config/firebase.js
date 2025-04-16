@@ -1,15 +1,23 @@
 // firebase.js
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+const apiKey = import.meta.env.VITE_API_KEY;
+const authDomain = import.meta.env.VITE_AUTH_DOMAIN;
+const projectId = import.meta.env.VITE_PROJECT_ID;
+const storageBucket = import.meta.env.VITE_STORAGE_BUCKET;
+const messagingSenderId = import.meta.env.VITE_MESSAGING_SENDER_ID;
+const appId = import.meta.env.VITE_APP_ID;
+const measurementId = import.meta.env.VITE_MEASUREMENT_ID;
+
 
 const firebaseConfig = {
-    apiKey: "AIzaSyD2rMt9kmAuisrZz0PO3hvIeY2Eld_tk38",
-    authDomain: "empressa-fashion.firebaseapp.com",
-    projectId: "empressa-fashion",
-    storageBucket: "empressa-fashion.firebasestorage.app",
-    messagingSenderId: "1090527073065",
-    appId: "1:1090527073065:web:2fb339dd4eec51934c9d38",
-    measurementId: "G-S38GT8HQXG"
+    apiKey: apiKey,
+    authDomain: authDomain,
+    projectId: projectId,
+    storageBucket: storageBucket,
+    messagingSenderId: messagingSenderId,
+    appId: appId,
+    measurementId: measurementId
 };
 
 const app = initializeApp(firebaseConfig);
