@@ -16,8 +16,8 @@ const createPaymentLink = async (orderId) => {
         email: order.user.email,
       },
       notify: {
-        sms: false,
-        email: false,
+        sms: true,
+        email: true,
       },
       reminder_enable: true,
       callback_url: `${process.env.FRONTEND_URL}/payment/${orderId}`,
@@ -42,39 +42,67 @@ const createPaymentLink = async (orderId) => {
   }
 };
 
+// const updatePaymentInformation = async (reqData) => {
+//   const paymentId = reqData.payment_id??'COD';
+//   const orderId = reqData.order_id;
+
+//   try {
+//     const order = await orderService.findOrderById(orderId);
+
+//     const payment = {status:'captured'}//await razorpay.payments.fetch(paymentId);
+
+//     if (payment.status === "captured" || true) { {/* just for now */}
+//       // Clear the user's cart after successful payment
+//       await cartService.clearCart(order.user._id);
+
+//       // Update order status and payment details
+//       for (const item of order.orderItems) {
+//         const product = await Product.findById(item.product._id);
+//         const productSize = product.sizes.find(size => size.name === item.size);
+
+//         if (productSize) {
+//           productSize.quantity -= item.quantity;
+//           if (productSize.quantity < 0) {
+//             productSize.quantity = 0;
+//           }
+//         }
+//         await product.save();
+//       }
+
+//       await orderService.placedOrder(orderId);
+//       // order.paymentDetails.paymentId = paymentId;
+//       // order.paymentDetails.status = "COMPLETED";
+//       // order.orderStatus = "PLACED";
+//       // await order.save();
+
+//     }
+
+//     const resData = { message: "Your order is placed", success: true };
+//     return resData;
+//   } catch (error) {
+//     console.error("Error processing payment:", error);
+//     throw new Error(error.message);
+//   }
+// };
+
+
 const updatePaymentInformation = async (reqData) => {
-  const paymentId = reqData.payment_id??'COD';
+  const paymentId = reqData.payment_id;
   const orderId = reqData.order_id;
 
   try {
     const order = await orderService.findOrderById(orderId);
+    if(order.orderStatus == "PLACED"){
+      return {message: 'Order already placed', success: false}; 
+    }
 
-    const payment = {status:'captured'}//await razorpay.payments.fetch(paymentId);
-
-    if (payment.status === "captured" || true) { {/* just for now */}
+    const payment = await razorpay.payments.fetch(paymentId);
+    
+    if (payment.status === "captured") { 
       // Clear the user's cart after successful payment
       await cartService.clearCart(order.user._id);
-
       // Update order status and payment details
-      for (const item of order.orderItems) {
-        const product = await Product.findById(item.product._id);
-        const productSize = product.sizes.find(size => size.name === item.size);
-
-        if (productSize) {
-          productSize.quantity -= item.quantity;
-          if (productSize.quantity < 0) {
-            productSize.quantity = 0;
-          }
-        }
-        await product.save();
-      }
-
-      await orderService.placedOrder(orderId);
-      // order.paymentDetails.paymentId = paymentId;
-      // order.paymentDetails.status = "COMPLETED";
-      // order.orderStatus = "PLACED";
-      // await order.save();
-
+      await orderService.placedOrder(orderId, paymentId);
     }
 
     const resData = { message: "Your order is placed", success: true };

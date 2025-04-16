@@ -4,26 +4,33 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
-    required: true,
+    required: false,
   },
   lastName: {
     type: String,
-    required: true,
+    required: false,
   },
   password: {
     type: String,
-    required: true,
+    required: false,
   },
   email: {
     type: String,
-    required: true,
+    required: false,
+  },
+  phoneNumber: {
+    type: String,
+    required: false,
   },
   role: {
     type: String,
     required: true,
     default: "CUSTOMER"
   },
-
+  guid: {
+    type: String,
+    required: false,
+  },
   referrals: [
     {
       referralCode: { type: String },

@@ -30,6 +30,22 @@ export const register = (userData) => async (dispatch) => {
     }
 }
 
+
+export const loginWithOtp = (userData) => async(dispatch) => {
+    dispatch(loginRequest());
+    try{
+        const response = await axios.post(`${API_BASE_URL}/auth/otp-login`, userData); //userData = {phoneNumber, otp}
+        const user = response.data;
+        if (user.jwt) {
+            localStorage.setItem("jwt", user.jwt);
+        }
+        dispatch(loginSuccess(user.jwt));
+    }catch(e){
+        console.log(e, 'error from login with otp')
+        dispatch(loginFailure(e.response?.data?.error || e.message));
+    }
+}
+
 // Login action creators
 const loginRequest = () => ({ type: LOGIN_REQUEST });
 const loginSuccess = (user) => ({ type: LOGIN_SUCCESS, payload: user });

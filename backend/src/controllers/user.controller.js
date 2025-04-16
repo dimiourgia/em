@@ -11,7 +11,6 @@ const getUserProfile=async (req,res)=>{
 
         return res.status(200).send(user)
 
-    
     } catch (error) {
         console.log("error from controller - ",error)
         return res.status(500).send({error:error.message})

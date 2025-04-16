@@ -29,8 +29,8 @@ export default function({product, defaultImageIndex}){
                     <p className="font-roboto line-through opacity-70 text-sm text-gray-500">
                         {"₹" + product.price}
                     </p>
-                    <p className="text-blue-600 text-md font-text">
-                        {((1 - product.discountedPrice / product.price) * 100).toFixed(0) + "% off"}
+                    <p className="text-blue-600 text-xs sm:text-md font-text">
+                        {((1 - product.discountedPrice / product.price) * 100).toFixed(0) + "%"}
                     </p>
                 </div>}
             </div>

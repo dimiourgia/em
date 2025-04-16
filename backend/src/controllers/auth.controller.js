@@ -151,10 +151,31 @@ const loginWithGoogle = async(userData)=>{
         const jwt = jwtProvider.generateToken(user._id);
         await cartService.createCart(user);
         return {success:true, jwt};
-
     }catch(e){
         console.log(e);
         return {success: false, jwt:null}
+    }
+}
+
+const verifyWithPhoneOtp = async (req, res) => {
+    try{
+        console.log(req.body, 'body from phone otp verification');
+        const {phoneNumber, guid} = req.body;
+        if(!phoneNumber || !guid) return {success: false, jwt:null}
+        //check if the user exists
+        const user_ = await userService.getUserByPhoneNumber(phoneNumber);
+        if (user_) {
+            const jwt = jwtProvider.generateToken(user_._id);
+            return res.status(200).json({success: true, jwt});
+        }
+        const user = await userService.createUserByPhoneNumber({phoneNumber, guid});
+        const jwt = jwtProvider.generateToken(user._id);
+        await cartService.createCart(user);
+        return res.status(201).json({success:true, jwt});
+
+    }catch(e){
+        console.log(e);
+        return res.status(500).json({success: false, jwt:null});
     }
 }
 
@@ -196,4 +217,4 @@ const verifyGoogleUser = async(req, res)=>{
 
 }
 
-module.exports={ register, login, forgotPassword, resetPassword, verifyUser, loginWithGoogle, googleCallback, verifyGoogleUser };
+module.exports={ register, login, forgotPassword, resetPassword, verifyUser, loginWithGoogle, googleCallback, verifyGoogleUser, verifyWithPhoneOtp} ;

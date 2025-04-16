@@ -59,6 +59,10 @@ export default function ProductDetails({setOpenAuthModal}) {
     }
   },[])
 
+  useEffect(()=>{
+    //update height of the product details page when the window is resized
+  }, [])
+
   const handleActiveImageShow = (imgUrl) => {
     setActiveImage(imgUrl);
   };
@@ -110,7 +114,7 @@ export default function ProductDetails({setOpenAuthModal}) {
       <div className="md:flex justify-center">
         {/* Image gallery */}
         <div ref={pd_ref} className="mx-4 sm:w-[calc(75%+80px)] md:w-[calc(50%+80px)] lg:w-[calc(33%+80px)] xl:w-[calc(25%+80px)]">
-          <div className="">
+          <div className="h-full">
             <ZoomComponent handleActiveImageShow={handleActiveImageShow} imageUrl={product?.imageUrl} src={activeImage || product?.imageUrl[0]} />
           </div>
         </div>
@@ -243,14 +247,24 @@ export default function ProductDetails({setOpenAuthModal}) {
                 </div>
               </div>
 
-              <div className="w-full mt-10">
-              <Button
-                classname={`w-full z-50 transition-all duration-300 ${isScrolledUp ? 'relative' : 'fixed bottom-0 left-0'} sm:relative`}
-                text='Add to Cart'
-                imageSrc='/images/cart_white.svg'
-                onClick={handelAddToCart} 
-                disabled={selectedSize === "" || selectedSize === "Out of stock"} />
+              <div className={`w-full sm:border-ite mt-10 flex flex-col bg-white z-50 justify-between ${isScrolledUp ? 'relative' : 'fixed bottom-0 left-0 sm:relative'}`}>
+
+                <Button
+                  classname={`w-full z-50 transition-all duration-300  sm:relative`}
+                  text='Add to Cart'
+                  imageSrc='/images/cart_white.svg'
+                  onClick={handelAddToCart} 
+                  disabled={selectedSize === "" || selectedSize === "Out of stock"} />
+
+                <Button
+                    classname={`w-full z-50 transition-all duration-300  sm:relative`}
+                    text='Buy Now'
+                    imageSrc='/images/cart_white.svg'
+                    onClick={handelAddToCart} 
+                    disabled={selectedSize === "" || selectedSize === "Out of stock"} />
+
               </div>
+
             </form>
           </div>
         </div>

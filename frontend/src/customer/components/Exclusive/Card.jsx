@@ -39,8 +39,8 @@ export default function({product}){
                     <p className="font-roboto line-through opacity-70 text-sm text-gray-500">
                         {"₹" + product.price}
                     </p>
-                    <p className="text-blue-600 text-normal font-text">
-                        {((1 - product.discountedPrice / product.price) * 100).toFixed(0) + "% off"}
+                    <p className="text-blue-600 text-xs sm:text-normal font-text">
+                        {((1 - product.discountedPrice / product.price) * 100).toFixed(0) + "%"}
                     </p>
                 </div>}
             </div>

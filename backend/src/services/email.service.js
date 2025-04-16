@@ -197,7 +197,6 @@ const sendAccountConfirmationEmail = async (email, otp) => {
 }
 
 
-
 const sendOrderConfirmationEmailToAdmins = async (order, admins) => {
     try {
         const recipientEmails = admins.map(admin=> ({address: admin.email}));

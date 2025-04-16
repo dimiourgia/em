@@ -21,9 +21,6 @@ const CompanyMiddleImage = () => {
                     />
 
                 </div>
-
-
-
             </div >
 
             <div className='flex justify-center items-center mt-[100px]'>

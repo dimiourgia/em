@@ -36,13 +36,13 @@ const ProductCard = ({ product }) => {
               {product.title}
             </p>
           </div>
-          <div className="flex items-center mt-1 space-x-2">
+          <div className="flex items-center mt-1 space-x-1 sm:space-x-2">
             <p className="text-md font-text text-neutral-600">{"₹ " + product.discountedPrice}</p>
-            {product.price != product.discountedPrice && <div className="flex space-x-2">
+            {product.price != product.discountedPrice && <div className="flex space-x-1 sm:space-x-2">
               <p className="font-text line-through opacity-70 text-xs text-gray-500">
-                {"₹ " + product.price}
+                {"₹" + product.price}
               </p>
-              <p className="text-blue-500 text-sm font-text">
+              <p className="text-blue-500 text-xs font-text">
                 {((1 - product.discountedPrice / product.price) * 100).toFixed(0) + "% off"}
               </p>
             </div>}

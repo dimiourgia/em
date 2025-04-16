@@ -30,6 +30,7 @@ import MainProduct from "../components/Product/MainProductPage";
 import { getWallet } from "../../State/Wallet/Action";
 import { getCoupons } from "../../State/Coupon/Action";
 import VerifyUserPage from "../pages/VerifyUserPage";
+import LoginWithPhone from "../Auth/LoginWithPhone";
 
 const CustomerRouters = () => {
   const [search, setSearch] = useState("");
@@ -102,6 +103,7 @@ const CustomerRouters = () => {
           <Route path="/women-warriors" element={<WomenWarriors />} />
           <Route path="/collections/:id" element={<CollectionProducts />} />
           <Route path='/verify/:email/:otp' element={<VerifyUserPage setOpenAuthModal={setOpenAuthModal}/>} />
+          <Route path='/auth-otp' element ={<LoginWithPhone />} />
         </Routes>
       </div>
       

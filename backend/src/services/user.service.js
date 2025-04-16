@@ -262,6 +262,40 @@ const createGoogleUser = async (userData) => {
   }
 };
 
+const createUserByPhoneNumber = async (userData) => {
+  try{
+    const {guid, phoneNumber} = userData;
+    const user = await User.create({firstName:'', lastName:'', phoneNumber, guid, role:'CUSTOMER', accountVerified:true});
+    await walletService.creatUserWallet(user._id);
+    console.log("User created:", user);
+    return user;
+  } catch(e){
+    console.log(e, 'error in creating user by phone number');
+    throw new Error(e.message);
+  }
+}
+
+const updateUserDetails = async (userId, userData) => {
+  try {
+    const { firstName, lastName, email} = userData;
+    const updatedUser = await User.findByIdAndUpdate(userId, {
+      firstName,
+      lastName,
+      email:email.toLowerCase(),
+      phoneNumber,
+    }, { new: true });
+
+    return updatedUser;
+  } catch (error) {
+    console.error("Error updating user details:", error.message);
+    throw new Error(error.message);
+  }
+}
+
+const getUserByPhoneNumber = async (phoneNumber) => {
+  return User.findOne({ phoneNumber });
+}
+
 module.exports={
     createUser,
     findUserById,
@@ -275,4 +309,6 @@ module.exports={
     getUserByGoogleId,
     createGoogleUser,
     createGoogleUser,
+    createUserByPhoneNumber,
+    getUserByPhoneNumber,
 }

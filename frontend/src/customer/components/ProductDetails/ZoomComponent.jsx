@@ -64,8 +64,8 @@ const ZoomComponent = ({ src, imageUrl, handleActiveImageShow}) => {
   };
 
   return (
-    <div className="relative flex items-start">
-      <div className="flex flex-col lg:flex-row  lg:flex-row-reverse lg:gap-4">
+    <div className="relative flex items-start h-full md:h-fit">
+      <div className="flex flex-col lg:flex-row  lg:flex-row-reverse lg:gap-4 h-full md:h-fit">
         <div className="relative zoom px-1 h-full w-full lg:w-[calc(100%-80px)] object-contain" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onMouseMove={handleMouseMove} ref={zoomRef}>
           <img src={src} alt="Zoomable" className="w-full h-auto" />
           {showLens  && <div

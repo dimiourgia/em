@@ -263,7 +263,7 @@ export default function Head({ search, setSearch, openAuthModal, setOpenAuthModa
                   aria-haspopup="true"
                   aria-expanded={openUserMenu ? "true" : undefined}
                 >
-                  {auth.user?.firstName[0].toUpperCase()}
+                  {auth.user?.length > 0 ? auth.user?.firstName[0].toUpperCase() : "M"}
                 </div>
 
                 <Menu

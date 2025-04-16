@@ -91,6 +91,9 @@ const productSchema = new mongoose.Schema({
     required:  true,
     default: false,
   },
+  outfitType:{
+    type: String,
+  },
   defaultImageIndex:{
     type: Number,
     required: true,

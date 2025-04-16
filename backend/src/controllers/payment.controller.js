@@ -12,14 +12,21 @@ const createPaymentLink = async (req, res) => {
 
 const updatePaymentInformation = async (req, res) => {
   try {
-    await paymentService.updatePaymentInformation(req.query);
-    return res
+    const result = await paymentService.updatePaymentInformation(req.query);
+
+    if(result.success){
+      return res
       .status(200)
       .send({ message: "payment information updated", status: true });
-  } catch (error) {
+    }else if(!result.success){
+      return res
+      .status(500)
+      .send({ error: "Something went wrong. Please try again later", message: "Something went wrong. Please try again later", status: false });
+    }
+    
+  } catch (error) { 
     return res.status(500).send({error: error.message, message: error.message});
   }
 };
 
 module.exports = { createPaymentLink, updatePaymentInformation };
-

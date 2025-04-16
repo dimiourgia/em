@@ -87,16 +87,36 @@ async function createOrder(user, shippingAddress, couponId) {
   }
 }
 
-async function placedOrder(orderId) {
+async function placedOrder(orderId, paymentId) {
   try {
     const order = await findOrderById(orderId);
     
     if (!order) throw new Error(`Order not found with id: ${orderId}`);
     console.log('placing order for order id:', orderId, ' with current status: ', order.orderStatus);
     if(order.orderStatus != "PLACED"){
+
+      await cartService.clearCart(order.user._id);
+
+      // Update order status and payment details
+      for (const item of order.orderItems) {
+        const product = await Product.findById(item.product._id);
+        const productSize = product.sizes.find(size => size.name === item.size);
+
+        if (productSize) {
+          productSize.quantity -= item.quantity;
+          if (productSize.quantity < 0) {
+            productSize.quantity = 0;
+          }
+        }
+        await product.save();
+      }
+
+
+
       // Update order status
       order.orderStatus = "PLACED";
-      order.paymentDetails.status = "COMPLETED";   
+      order.paymentDetails.status = "COMPLETED";
+      order.paymentDetails.paymentId = paymentId;   
 
       //check if referral discount is available and not yet availed
       const user = await User.findById(order.user._id);
@@ -132,9 +152,9 @@ async function placedOrder(orderId) {
       const userPhoneNumber = `+91${order.shippingAddress.mobile}`??'+916397710583'; // This should be dynamically fetched based on the order
       const messageBody = `Your Empressa order worth Rs. ${order.totalDiscountedPrice} has been received. Thank you for shopping with us! Additionally you have earned a coupon code ${order.referralCode}. You can get upto 25% discount by sharing the coupon code with others`;
       //await twilioService.sendMessage(`whatsapp:${userPhoneNumber}`, messageBody);
-      sendOrderConfirmationEmail(order);
+      sendOrderConfirmationEmail(order); //[uncomment before pushing]
       const admins = await userService.getAdmins();
-      sendOrderConfirmationEmailToAdmins(order, admins);
+      sendOrderConfirmationEmailToAdmins(order, admins); //[uncomment before pushing]
     }
 
     return order;

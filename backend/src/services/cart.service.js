@@ -43,9 +43,14 @@ async function findUserCart(userId) {
     totalDiscountedPrice = totalDiscountedPrice - referralDiscount;
 
     //update discounted price if coupon code is applied
+    if(cart?.couponId && cart.cartItems.length>0){
+      const couponDiscount = cart.totalDiscountedPrice*(cart.couponOffer/100);
+      cart.couponDiscount = parseInt(couponDiscount).toFixed(2);
+    }
+    
     if(cart.cartItems.length > 0){
       if(cart?.couponId){
-        totalDiscountedPrice = totalDiscountedPrice - (cart.totalPrice*(cart.couponOffer/100)).toFixed(2)
+        totalDiscountedPrice = totalDiscountedPrice - (cart.totalDiscountedPrice*(cart.couponOffer/100)).toFixed(2)
       }
     }else {
       cart.couponId = null;
@@ -61,10 +66,7 @@ async function findUserCart(userId) {
     cart.referralDiscountPercentage = referralDiscountPercentage;
     cart.totalDiscountedPrice = totalDiscountedPrice;
     cart.discounte = totalPrice - totalDiscountedPrice;
-    if(cart?.couponId && cart.cartItems.length>0){
-      const couponDiscount = cart.totalPrice*(cart.couponOffer/100);
-      cart.couponDiscount = parseInt(couponDiscount).toFixed(2);
-    }
+    
  
     await cart.save();
 
@@ -156,7 +158,9 @@ async function applyCoupon(userId, couponId){
     
     // set coupon Id
     cart.couponId = couponId;
-    const couponDiscount = (cart.totalPrice*(coupon.offer/100)).toFixed(2);
+    console.log(cart.totalDiscountedPrice, 'total discounted price')
+    const couponDiscount = (cart.totalDiscountedPrice*(coupon.offer/100)).toFixed(2);
+    console.log(couponDiscount, 'coupon discount');
     cart.couponDiscount = couponDiscount;
     cart.couponOffer = coupon.offer;
 
